@@ -328,6 +328,7 @@ Velocity = NodePath("../../VelocityComponent")
 script = ExtResource("8_3v2ag")
 hitboxComponent = NodePath("../../HitboxComponent")
 velocityComponent = NodePath("../../VelocityComponent")
+rollCooldown = 2.0
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1660121276]

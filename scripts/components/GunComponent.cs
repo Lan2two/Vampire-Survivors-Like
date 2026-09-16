@@ -13,6 +13,7 @@ public partial class GunComponent : Area2D
     Array<Node2D> enemiesInRange;
     PackedScene BULLET;
 
+
     public override void _Ready()
     {
         timer = GetNode<Timer>("Timer");
@@ -26,10 +27,20 @@ public partial class GunComponent : Area2D
     public override void _PhysicsProcess(double delta)
     {
         enemiesInRange = GetOverlappingBodies();
-        if (enemiesInRange.Count > 0)
+        Node2D closestEnemy = null;
+        float closestDistSq = float.MaxValue;
+        foreach (Node2D enemy in enemiesInRange)
         {
-            Node2D targetEnemy = enemiesInRange.First();
-            LookAt(targetEnemy.GlobalPosition);
+            float distSq = GlobalPosition.DistanceSquaredTo(enemy.GlobalPosition);
+            if (distSq < closestDistSq)
+            {
+                closestDistSq = distSq;
+                closestEnemy = enemy;
+            }
+        }
+        if (closestEnemy != null)
+        {
+            LookAt(closestEnemy.GlobalPosition);
         }
     }
 
