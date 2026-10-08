@@ -11,9 +11,7 @@
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="10_wxxh2"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_58ggi"]
 [ext_resource type="Script" uid="uid://dxtpj8xqemmqm" path="res://scripts/components/DeathComponent.cs" id="14_3u1ju"]
-[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="15_ok0uq"]
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="17_vhkpf"]
-[ext_resource type="PackedScene" uid="uid://bip5ogwimo5xy" path="res://scenes/floating_numbers.tscn" id="18_xm0a8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -149,9 +147,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 7.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s1ycm"]
-radius = 7.0
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1010643694]
 collision_layer = 3
 script = ExtResource("1_y6uod")
@@ -167,18 +162,14 @@ animation = &"die"
 [node name="StateMachine" parent="." unique_id=1879212461 node_paths=PackedStringArray("startingState") instance=ExtResource("3_44gnr")]
 startingState = NodePath("Spawn")
 
-[node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "detectionComponent", "pathfindComponent")]
+[node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy")]
 script = ExtResource("4_mhotx")
 enemy = NodePath("../..")
-detectionComponent = NodePath("")
-pathfindComponent = NodePath("")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=1595408084 node_paths=PackedStringArray("enemy", "detectionComponent", "wanderComponent")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1595408084 node_paths=PackedStringArray("enemy")]
 script = ExtResource("5_yjp7f")
 enemy = NodePath("../..")
-detectionComponent = NodePath("")
-wanderComponent = NodePath("")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="Spawn" type="Node" parent="StateMachine" unique_id=2088072294 node_paths=PackedStringArray("enemy")]
@@ -213,25 +204,15 @@ script = ExtResource("13_58ggi")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 
-[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "healthComponent", "velocityComponent", "Sprite")]
+[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "hitboxComponent", "healthComponent", "velocityComponent", "Sprite")]
 script = ExtResource("14_3u1ju")
 characterBody = NodePath("..")
+hitboxComponent = NodePath("../HitboxComponent")
 healthComponent = NodePath("../HealthComponent")
 velocityComponent = NodePath("../VelocityComponent")
 Sprite = NodePath("../AnimatedSprite2D")
 
-[node name="DamageComponent" type="Area2D" parent="." unique_id=1858224252]
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("15_ok0uq")
-SingleHit = false
-metadata/_custom_type_script = "uid://be1ra4a5fewk7"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent" unique_id=1330584947]
-shape = SubResource("CircleShape2D_s1ycm")
-
 [node name="FctComponent" type="Node2D" parent="." unique_id=401156257 node_paths=PackedStringArray("healthComponent")]
 script = ExtResource("17_vhkpf")
 healthComponent = NodePath("../HealthComponent")
-damageLabelScene = ExtResource("18_xm0a8")
 metadata/_custom_type_script = "uid://cdw8gc8lrtxck"

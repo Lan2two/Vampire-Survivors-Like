@@ -5,13 +5,18 @@ using System.IO;
 public partial class EnemySpawner : Path2D
 {
     [Export] public PackedScene EnemyScene;
-    [Export] public double spawnInterval = 2.0;
+    [Export] public double spawnInterval = 0.5;
     private PathFollow2D pathFollow;
     private double spawnTimer;
 
     public override void _Ready()
     {
         pathFollow = GetNodeOrNull<PathFollow2D>("PathFollow2D");
+        if (EnemyScene == null)
+        {
+            GD.PrintErr("EnemyScene is not assigned in EnemySpawner.");
+            return;
+        }
         if (pathFollow == null)
         {
             GD.PrintErr("PathFollow2D node not found as a child of EnemySpawner.");
