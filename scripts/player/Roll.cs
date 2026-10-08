@@ -22,14 +22,14 @@ public partial class Roll : States
         }
         animationplaying = true;
         this.GetPlayer().anim.Play("roll");
-        hitboxComponent.SetDeferred("monitorable", false);
+        hitboxComponent.IsInvincible = true;
         // direction = Input.GetVector("left", "right", "up", "down");
     }
 
     public override void Exit()
     {
         this.GetPlayer().anim.AnimationFinished -= OnAnimationFinished;
-        hitboxComponent.SetDeferred("monitorable", true);
+        hitboxComponent.IsInvincible = false;
     }
 
     public override void PhysicsUpdate(double delta)
