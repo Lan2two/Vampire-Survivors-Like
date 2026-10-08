@@ -7,7 +7,7 @@ public partial class Death : Interrupt
     [Export] HitboxComponent hitboxComponent;
     [Export] HealthComponent healthComponent;
     [Export] VelocityComponent velocityComponent;
-    [Export] DamageComponent damageComponent;
+    [Export] AttackComponent attackComponent;
     [Export] AnimatedSprite2D Sprite;
     public override void _Ready()
     {
@@ -37,7 +37,7 @@ public partial class Death : Interrupt
     public override void Enter()
     {
         hitboxComponent.IsInvincible = true;
-        damageComponent?.SetDeferred("collision_mask", 0);
+        attackComponent?.SetDeferred("collision_mask", 0);
         characterBody?.SetDeferred("collision_layer", 0);
         Sprite.Play("die");
     }
