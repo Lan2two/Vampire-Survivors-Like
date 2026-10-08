@@ -3,12 +3,13 @@ using System;
 
 public partial class Roll : States
 {
+    //highkey a redundant state as it used to overwite player movement, but now just added speed and i frames
     [Export] HitboxComponent hitboxComponent;
     [Export] VelocityComponent velocityComponent;
     [Export] double rollCooldown = 3f;
     [Export] float rollSpeed = 1.5f;
     private bool animationplaying;
-    private double timer = 0;
+    private double timer = 0; //internal timer for roll cooldown
     Vector2 direction;
 
     public override void Enter()
