@@ -6,6 +6,7 @@ public partial class Roll : States
     [Export] HitboxComponent hitboxComponent;
     [Export] VelocityComponent velocityComponent;
     [Export] double rollCooldown = 3f;
+    [Export] float rollSpeed = 1.5f;
     private bool animationplaying;
     private double timer = 0;
     Vector2 direction;
@@ -21,7 +22,7 @@ public partial class Roll : States
         animationplaying = true;
         this.GetPlayer().anim.Play("roll");
         hitboxComponent.SetDeferred("monitorable", false);
-        direction = Input.GetVector("left", "right", "up", "down");
+        // direction = Input.GetVector("left", "right", "up", "down");
     }
 
     public override void Exit()
@@ -38,6 +39,7 @@ public partial class Roll : States
         }
         if (animationplaying)
         {
+            Vector2 direction = Input.GetVector("left", "right", "up", "down") * rollSpeed;
             velocityComponent.AccelerateToDirection(direction);
             velocityComponent.Move(direction);
         }
