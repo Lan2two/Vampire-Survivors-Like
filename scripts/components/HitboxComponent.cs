@@ -9,13 +9,15 @@ public partial class HitboxComponent : Area2D
 
     public void TakeDamage(Attack attackData)
     {
-        if (healthComponent != null)
+        if (healthComponent == null)
         {
-            if (IsInvincible)
-            {
-                return;
-            }
-            healthComponent.TakeDamage(attackData);
+            return;
         }
+
+        if (IsInvincible)
+        {
+            return;
+        }
+        healthComponent.TakeDamage(attackData);
     }
 }
