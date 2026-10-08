@@ -9,15 +9,15 @@ public partial class EnemyChase : States
 
     public override void Enter()
     {
-        enemy.anim.Play("chase");
+        enemy.anim.Play("idle");
     }
     public override void PhysicsUpdate(double delta)
     {
-        if (!detectionComponent.IsPlayerInRange())
+        if (detectionComponent?.IsPlayerInRange() == true)
         {
-            ChangeState("idle");
+            enemy.anim.Play("chase");
         }
-        pathfindComponent.PathfindToPlayer();
+        pathfindComponent?.PathfindToPlayer();
     }
 
 }
