@@ -37,8 +37,8 @@ public partial class Death : Interrupt
     public override void Enter()
     {
         hitboxComponent.IsInvincible = true;
-        damageComponent.SetDeferred("collision_mask", 0);
-        characterBody.SetDeferred("collision_layer", 0);
+        damageComponent?.SetDeferred("collision_mask", 0);
+        characterBody?.SetDeferred("collision_layer", 0);
         Sprite.Play("die");
     }
 
