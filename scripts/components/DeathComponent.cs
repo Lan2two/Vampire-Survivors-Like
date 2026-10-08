@@ -5,6 +5,7 @@ using System;
 public partial class DeathComponent : Node
 {
     [Export] CharacterBody2D characterBody;
+    [Export] HitboxComponent hitboxComponent;
     [Export] HealthComponent healthComponent;
     [Export] VelocityComponent velocityComponent;
     [Export] DamageComponent damageComponent;
@@ -25,10 +26,12 @@ public partial class DeathComponent : Node
     {
         if (healthComponent.currentHealth <= 0)
             Die();
+        GD.Print("Die");
     }
 
     private async void Die()
     {
+        hitboxComponent.IsInvincible = true;
         damageComponent?.SetDeferred("collision_mask", 0);
         velocityComponent?.Stop();
         characterBody?.SetDeferred("collision_layer", 0);
