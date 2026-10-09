@@ -235,7 +235,7 @@ ItemName = "Coin"
 ItemIcon = ExtResource("7_tipki")
 metadata/_custom_type_script = "uid://dywixrbgtp314"
 
-[node name="Main" type="Node2D" unique_id=2069482560]
+[node name="Game" type="Node2D" unique_id=2069482560]
 y_sort_enabled = true
 
 [node name="Node2D" type="Node2D" parent="." unique_id=293186727]
