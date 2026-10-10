@@ -3,7 +3,7 @@
 Here be a vampire survivors like
 Some weapons you can pickup and drop others you can't
 In the demo the only interactable weapon is the coin at spawn
-
+    -ps you have godmode in demo
 # Controls
     Movement
         -Walking: WASD

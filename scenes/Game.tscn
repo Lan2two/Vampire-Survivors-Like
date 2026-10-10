@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cddh2vixop3f6"]
 
+[ext_resource type="Script" uid="uid://vgh43gq4ar7a" path="res://scripts/GUI/Game.cs" id="1_2rd6h"]
 [ext_resource type="Texture2D" uid="uid://cix7uidjx4tpk" path="res://assets/sprites/grass.png" id="1_mcffj"]
 [ext_resource type="PackedScene" uid="uid://ch5qbeiukyfd0" path="res://scenes/player.tscn" id="2_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="3_7ua8r"]
@@ -9,9 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="7_kyk2p"]
 [ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="8_45i86"]
 [ext_resource type="Script" uid="uid://dywixrbgtp314" path="res://resources/MeleeWeaponBase.cs" id="9_sv1m6"]
-[ext_resource type="PackedScene" uid="uid://f7c0v7jmqee1" path="res://scenes/still.tscn" id="10_a8wo8"]
-[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="11_attvq"]
-[ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="12_bneo8"]
+[ext_resource type="PackedScene" uid="uid://bqjqkebgwfpcu" path="res://scenes/GUI.tscn" id="12_mcffj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2rd6h"]
 texture = ExtResource("1_mcffj")
@@ -547,6 +546,7 @@ metadata/_custom_type_script = "uid://dywixrbgtp314"
 
 [node name="Game" type="Node2D" unique_id=2069482560]
 y_sort_enabled = true
+script = ExtResource("1_2rd6h")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=293186727]
 z_index = -1
@@ -578,18 +578,4 @@ EnemyScene = ExtResource("5_y5y3l")
 position = Vector2(-190, -19)
 ItemData = SubResource("Resource_choun")
 
-[node name="Enemy" parent="." unique_id=1010643694 instance=ExtResource("10_a8wo8")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1051653456]
-
-[node name="KillsCounter" type="Label" parent="CanvasLayer" unique_id=1827946337]
-offset_left = 22.0
-offset_top = 19.0
-offset_right = 243.0
-offset_bottom = 117.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("11_attvq")
-theme_override_font_sizes/font_size = 50
-text = "0"
-script = ExtResource("12_bneo8")
+[node name="GUI" parent="." unique_id=1447957346 instance=ExtResource("12_mcffj")]

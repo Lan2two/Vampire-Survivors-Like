@@ -19,9 +19,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -170.5
-offset_top = -72.5
+offset_top = 60.5
 offset_right = 170.5
-offset_bottom = 72.5
+offset_bottom = 227.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 13
@@ -38,3 +38,22 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Exit"
+
+[node name="Label" type="Label" parent="." unique_id=1957911604]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -296.5
+offset_right = 560.0
+offset_bottom = -87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Vampire Survivors Game demo
+Your goal is to kill 20 things"
+horizontal_alignment = 1
+vertical_alignment = 1

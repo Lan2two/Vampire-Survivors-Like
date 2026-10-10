@@ -12,7 +12,6 @@ public static class NodeExtensions
         }
         else
         {
-            GD.PrintErr("Player node not found in 'player' group.");
             return null;
         }
     }
