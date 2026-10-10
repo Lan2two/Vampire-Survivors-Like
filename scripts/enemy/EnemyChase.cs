@@ -13,10 +13,6 @@ public partial class EnemyChase : States
     }
     public override void PhysicsUpdate(double delta)
     {
-        if (detectionComponent?.IsPlayerInRange() == true)
-        {
-            enemy.anim.Play("chase");
-        }
         pathfindComponent?.PathfindToPlayer();
     }
 
