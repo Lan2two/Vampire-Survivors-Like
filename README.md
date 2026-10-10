@@ -9,10 +9,11 @@ Some weapons you can pickup and drop others you can't
 - Roll: Spacebar <br>
 ### Attack
 - Melee: Hold Left Click <br>
+The gun fires automatically hence no input needed <br>
 ### Items
 - Interact: F
 - Drop: G <br>
-The gun fires automatically hence no input needed
+
 
 # Playing The Demo
 A prebuilt Windows demo is in the builds folder or in https://github.com/Lan2two/Vampire-Survivors-Like/releases <br>
