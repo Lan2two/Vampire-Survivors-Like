@@ -19,7 +19,7 @@ The gun fires automatically hence no input needed <br>
 A prebuilt Windows demo is in the builds folder or in https://github.com/Lan2two/Vampire-Survivors-Like/releases <br>
 Requirements
 Windows, 64-bit (x86_64). This is the only platform included in demo 1 <br>
-**To Run** <br>
+### To Run
 Unzip the files inside the same folder and run the executable <br>
 Yea that's about it, the project is in compatibility mode so you can run it with a potato (only reason it's not in web is because godot 4 hates me and doesn't have web exports for C#)
 
