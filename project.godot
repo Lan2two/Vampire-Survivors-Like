@@ -15,6 +15,10 @@ run/main_scene="uid://cddh2vixop3f6"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+BetterTerrain="*uid://ccuirxchp11nc"
+
 [display]
 
 window/size/viewport_width=1280
@@ -27,7 +31,7 @@ project/assembly_name="Survivors"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
 
 [global_group]
 
