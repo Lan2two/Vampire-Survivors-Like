@@ -28,12 +28,12 @@ public partial class Game : Node2D
         if (_isChangingScene || !IsInstanceValid(this)) return;
         GetTree().Paused = true;
         gameOverLabel.Visible = true;
-        Enemy.EnemiesKilled = 0;
         GetTree().CreateTimer(3).Timeout += ReturnToMenu;
     }
 
     private void ReturnToMenu()
     {
+        Enemy.EnemiesKilled = 0;
         GetTree().Paused = false;
         CallDeferred(nameof(DeferredChangeScene));
     }
