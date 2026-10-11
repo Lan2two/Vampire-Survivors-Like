@@ -1,23 +1,33 @@
-using Godot;
-using System;
-
-[GlobalClass]
-public partial class HitboxComponent : Area2D
+namespace SurvivorsGame
 {
-    [Export] public HealthComponent healthComponent;
-    public bool IsInvincible { get; set; } = false;
+    using Godot;
+    using System;
 
-    public void TakeDamage(Attack attackData)
+    [GlobalClass]
+    public partial class HitboxComponent : Area2D
     {
-        if (healthComponent == null)
-        {
-            return;
-        }
+        [Export] public HealthComponent healthComponent;
+        public bool IsInvincible { get; set; } = false;
 
-        if (IsInvincible)
+        public void TakeDamage(Attack attackData)
         {
-            return;
+            if (healthComponent == null || IsInvincible)
+            {
+                return;
+            }
+
+            HealthComponent targetHealth = healthComponent;
+            Callable.From(() =>
+            {
+                if (!GodotObject.IsInstanceValid(this)
+                    || !GodotObject.IsInstanceValid(targetHealth)
+                    || IsInvincible)
+                {
+                    return;
+                }
+
+                targetHealth.TakeDamage(attackData);
+            }).CallDeferred();
         }
-        healthComponent.TakeDamage(attackData);
     }
 }

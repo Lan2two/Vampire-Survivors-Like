@@ -1,53 +1,76 @@
-using Godot;
-using System;
-using System.IO;
-
-public partial class EnemySpawner : Path2D
+namespace SurvivorsGame
 {
-    [Export] public PackedScene EnemyScene;
-    [Export] public double spawnInterval = 0.5;
-    private PathFollow2D pathFollow;
-    private double spawnTimer;
+    using Godot;
 
-    public override void _Ready()
+    public partial class EnemySpawner : Path2D
     {
-        pathFollow = GetNodeOrNull<PathFollow2D>("PathFollow2D");
-        if (EnemyScene == null)
-        {
-            GD.PrintErr("EnemyScene is not assigned in EnemySpawner.");
-            return;
-        }
-        if (pathFollow == null)
-        {
-            GD.PrintErr("PathFollow2D node not found as a child of EnemySpawner.");
-            return;
-        }
-        if (EnemyScene == null)
-        {
-            GD.PrintErr("EnemyScene is not assigned in EnemySpawner.");
-            return;
-        }
-        pathFollow.Loop = true;
-    }
+        [Export] public PackedScene EnemyScene;
+        [Export] public double spawnInterval = 0.5;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        spawnTimer -= delta;
-        if (spawnTimer <= 0)
+        private PathFollow2D pathFollow;
+        private double spawnTimer;
+
+        public override void _Ready()
         {
-            SpawnEnemy();
+            pathFollow = GetNodeOrNull<PathFollow2D>("PathFollow2D");
+            if (EnemyScene == null)
+            {
+                GD.PrintErr("EnemyScene is not assigned in EnemySpawner.");
+                SetPhysicsProcess(false);
+                return;
+            }
+
+            if (pathFollow == null)
+            {
+                GD.PrintErr("PathFollow2D node not found as a child of EnemySpawner.");
+                SetPhysicsProcess(false);
+                return;
+            }
+
+            if (spawnInterval <= 0)
+            {
+                GD.PrintErr("EnemySpawner requires a positive spawn interval.");
+                SetPhysicsProcess(false);
+                return;
+            }
+
+            pathFollow.Loop = true;
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            spawnTimer -= delta;
+            if (spawnTimer > 0)
+            {
+                return;
+            }
+
             spawnTimer = spawnInterval;
+            SpawnEnemy();
         }
 
+        private void SpawnEnemy()
+        {
+            float randomRatio = (float)GD.RandRange(0.0, 1.0);
+            pathFollow.ProgressRatio = randomRatio;
+
+            Node2D enemyInstance = EnemyScene.Instantiate<Node2D>();
+            if (enemyInstance == null)
+            {
+                GD.PrintErr("EnemySpawner could not instantiate a Node2D enemy.");
+                return;
+            }
+
+            Node currentScene = GetTree().CurrentScene;
+            if (currentScene == null)
+            {
+                enemyInstance.Free();
+                GD.PrintErr("EnemySpawner cannot spawn because there is no current scene.");
+                return;
+            }
+
+            currentScene.AddChild(enemyInstance);
+            enemyInstance.GlobalPosition = pathFollow.GlobalPosition;
+        }
     }
-
-    private void SpawnEnemy()
-    {
-        pathFollow.ProgressRatio = GD.Randf() * 1.0f; // Random progress along the path
-        Node2D enemyInstance = EnemyScene.Instantiate() as Node2D;
-        GetTree().CurrentScene.AddChild(enemyInstance);
-        enemyInstance.GlobalPosition = pathFollow.GlobalPosition;
-    }
-
-
 }

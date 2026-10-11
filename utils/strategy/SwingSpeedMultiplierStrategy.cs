@@ -1,14 +1,17 @@
-using Godot;
-
-[GlobalClass]
-public partial class SwingSpeedMultiplierStrategy : Strategy, IStrategy
+namespace SurvivorsGame
 {
-    [Export] float UpgradeSwingSpeed { get; set; } = 5f;
-    public void ApplyUpgrade(Resource config)
+    using Godot;
+
+    [GlobalClass]
+    public partial class SwingSpeedMultiplierStrategy : Strategy, IStrategy
     {
-        if (config is MeleeWeaponBase swingSpeedMultiplier)
+        [Export] float UpgradeSwingSpeed { get; set; } = 5f;
+        public void ApplyUpgrade(Resource config)
         {
-            swingSpeedMultiplier.SwingSpeedMultiplier += UpgradeSwingSpeed;
+            if (config is MeleeWeaponBase swingSpeedMultiplier)
+            {
+                swingSpeedMultiplier.SwingSpeedMultiplier += UpgradeSwingSpeed;
+            }
         }
     }
 }

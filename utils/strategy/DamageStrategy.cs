@@ -1,14 +1,17 @@
-using Godot;
-
-[GlobalClass]
-public partial class DamageStrategy : Strategy, IStrategy
+namespace SurvivorsGame
 {
-    [Export] float UpgradeDamage { get; set; } = 5f;
-    public void ApplyUpgrade(Resource config)
+    using Godot;
+
+    [GlobalClass]
+    public partial class DamageStrategy : Strategy, IStrategy
     {
-        if (config is IDamageDealing damageable)
+        [Export] float UpgradeDamage { get; set; } = 5f;
+        public void ApplyUpgrade(Resource config)
         {
-            damageable.Damage += UpgradeDamage;
+            if (config is IDamageDealing damageable)
+            {
+                damageable.Damage += UpgradeDamage;
+            }
         }
     }
 }

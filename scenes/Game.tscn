@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cddh2vixop3f6"]
 
-[ext_resource type="Script" uid="uid://vgh43gq4ar7a" path="res://scripts/GUI/Game.cs" id="1_2rd6h"]
+[ext_resource type="Script" uid="uid://dgb5nkbopkd8s" path="res://scripts/GUI/GameScene.cs" id="1_2rd6h"]
 [ext_resource type="Texture2D" uid="uid://cix7uidjx4tpk" path="res://assets/sprites/grass.png" id="1_mcffj"]
 [ext_resource type="PackedScene" uid="uid://ch5qbeiukyfd0" path="res://scenes/player.tscn" id="2_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="3_7ua8r"]

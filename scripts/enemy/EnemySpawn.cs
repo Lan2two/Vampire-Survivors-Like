@@ -1,24 +1,27 @@
-using Godot;
-using System;
-
-public partial class EnemySpawn : States
+namespace SurvivorsGame
 {
-    [Export] Enemy enemy;
-    public override void Enter()
-    {
-        enemy.anim.Play("spawn");
-        enemy.anim.AnimationFinished += OnAnimationFinished;
-        enemy.collisionbox.SetDeferred("disabled", true);
+    using Godot;
+    using System;
 
-    }
-    public override void Exit()
+    public partial class EnemySpawn : States
     {
-        enemy.anim.AnimationFinished -= OnAnimationFinished;
-        enemy.collisionbox.SetDeferred("disabled", false);
-    }
+        [Export] Enemy enemy;
+        public override void Enter()
+        {
+            enemy.anim.Play("spawn");
+            enemy.anim.AnimationFinished += OnAnimationFinished;
+            enemy.collisionbox.SetDeferred("disabled", true);
 
-    private void OnAnimationFinished()
-    {
-        ChangeState("Chase");
+        }
+        public override void Exit()
+        {
+            enemy.anim.AnimationFinished -= OnAnimationFinished;
+            enemy.collisionbox.SetDeferred("disabled", false);
+        }
+
+        private void OnAnimationFinished()
+        {
+            ChangeState("Chase");
+        }
     }
 }

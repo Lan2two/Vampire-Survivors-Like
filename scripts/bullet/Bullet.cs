@@ -1,53 +1,56 @@
-using Godot;
-using System;
-
-public partial class Bullet : Area2D, IWeapon
+namespace SurvivorsGame
 {
-    [Export] public BulletData config;
-    private float traveledDistance = 0;
-    private int hitCount = 0;
-    public override void _Ready()
-    {
-        AreaEntered += OnAreaEntered;
-    }
+    using Godot;
+    using System;
 
-    public void Use(UpgradeManager upgradeManager)
+    public partial class Bullet : Area2D, IWeapon
     {
-        config = config != null ? (BulletData)config.Duplicate() : new BulletData();
-        upgradeManager.ApplyUpgrades(config, UpgradeType.Bullet);
-    }
-
-    public override void _ExitTree()
-    {
-        AreaEntered -= OnAreaEntered;
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        Vector2 direction = Vector2.Left.Rotated(Rotation).Normalized();
-        Position += direction * config.Speed * (float)delta;
-        traveledDistance += config.Speed * (float)delta;
-
-        if (config.MaxTravelDistance < traveledDistance || hitCount > config.PierceCount)
+        [Export] public BulletData config;
+        private float traveledDistance = 0;
+        private int hitCount = 0;
+        public override void _Ready()
         {
-            QueueFree();
+            AreaEntered += OnAreaEntered;
         }
-    }
 
-    private void OnAreaEntered(Area2D area)
-    {
-        if (area is HitboxComponent hitbox)
+        public void Use(UpgradeManager upgradeManager)
         {
-            if (hitCount <= config.PierceCount)
+            config = config != null ? (BulletData)config.Duplicate() : new BulletData();
+            upgradeManager.ApplyUpgrades(config, UpgradeType.Bullet);
+        }
+
+        public override void _ExitTree()
+        {
+            AreaEntered -= OnAreaEntered;
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            Vector2 direction = Vector2.Left.Rotated(Rotation).Normalized();
+            Position += direction * config.Speed * (float)delta;
+            traveledDistance += config.Speed * (float)delta;
+
+            if (config.MaxTravelDistance < traveledDistance || hitCount > config.PierceCount)
             {
-                Attack attack = new Attack
+                QueueFree();
+            }
+        }
+
+        private void OnAreaEntered(Area2D area)
+        {
+            if (area is HitboxComponent hitbox)
+            {
+                if (hitCount <= config.PierceCount)
                 {
-                    Damage = config.Damage,
-                    GlobalPosition = GlobalPosition,
-                    KnockbackForce = config.Knockback
-                };
-                hitbox.TakeDamage(attack);
-                hitCount += 1;
+                    Attack attack = new Attack
+                    {
+                        Damage = config.Damage,
+                        GlobalPosition = GlobalPosition,
+                        KnockbackForce = config.Knockback
+                    };
+                    hitbox.TakeDamage(attack);
+                    hitCount += 1;
+                }
             }
         }
     }

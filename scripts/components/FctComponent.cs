@@ -1,48 +1,62 @@
-using Godot;
-
-[GlobalClass]
-public partial class FctComponent : Node2D
+namespace SurvivorsGame
 {
-    [Export] HealthComponent healthComponent;
-    private PackedScene damageLabelScene;
-    [Export] private double targetDuration = 0.7;
-    [Export] private double fadeDuration = 0.6;
-    private Tween _fadeTween;
-    public override void _Ready()
+    using Godot;
+
+    [GlobalClass]
+    public partial class FctComponent : Node2D
     {
-        if (healthComponent == null)
-        {
-            GD.PrintErr("HealthComponent not assigned in FctComponent.");
-            return;
-        }
-        healthComponent.Damage += DisplayDamage;
-        damageLabelScene = GD.Load<PackedScene>("uid://bip5ogwimo5xy");
-        if (damageLabelScene == null)
-        {
-            GD.PrintErr("Damage label scene not assigned in FctComponent.");
-            return;
-        }
-    }
+        [Export] private HealthComponent healthComponent;
 
-    public override void _ExitTree()
-    {
-        if (healthComponent != null)
-        {
-            healthComponent.Damage -= DisplayDamage;
-        }
-    }
+        private PackedScene damageLabelScene;
+        [Export] private double targetDuration = 0.7;
+        [Export] private double fadeDuration = 0.6;
 
-
-    private void DisplayDamage(Attack attackData)
-    {
-        if (damageLabelScene == null || GetTree().CurrentScene == null)
+        public override void _Ready()
         {
-            return;
+            if (healthComponent == null)
+            {
+                GD.PrintErr("HealthComponent not assigned in FctComponent.");
+                return;
+            }
+
+            damageLabelScene = GD.Load<PackedScene>("res://scenes/floating_numbers.tscn");
+            if (damageLabelScene == null)
+            {
+                GD.PrintErr("Could not load res://scenes/floating_numbers.tscn.");
+                return;
+            }
+
+            healthComponent.Damage += DisplayDamage;
         }
 
-        FloatingNumbers damageInstance = damageLabelScene.Instantiate<FloatingNumbers>();
-        damageInstance.GlobalPosition = GlobalPosition;
-        GetTree().CurrentScene.AddChild(damageInstance);
-        damageInstance.DisplayDamage(attackData, targetDuration, fadeDuration);
+        public override void _ExitTree()
+        {
+            if (healthComponent != null)
+            {
+                healthComponent.Damage -= DisplayDamage;
+            }
+        }
+
+        private void DisplayDamage(Attack attackData)
+        {
+            if (!GodotObject.IsInstanceValid(this)
+                || damageLabelScene == null
+                || GetTree().CurrentScene == null)
+            {
+                return;
+            }
+
+            Node instance = damageLabelScene.Instantiate();
+            if (instance is not FloatingNumbers damageNumber)
+            {
+                GD.PrintErr("Floating number scene root does not use the FloatingNumbers script.");
+                instance.QueueFree();
+                return;
+            }
+
+            GetTree().CurrentScene.AddChild(damageNumber);
+            damageNumber.GlobalPosition = GlobalPosition;
+            damageNumber.DisplayDamage(attackData, targetDuration, fadeDuration);
+        }
     }
 }

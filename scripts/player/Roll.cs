@@ -1,62 +1,65 @@
-using Godot;
-using System;
-
-public partial class Roll : States
+namespace SurvivorsGame
 {
-    //highkey a redundant state as it used to overwite player movement, but now just added speed and i frames
-    [Export] HitboxComponent hitboxComponent;
-    [Export] VelocityComponent velocityComponent;
-    [Export] double rollCooldown = 3f;
-    [Export] float rollSpeed = 1.5f;
-    private bool animationplaying;
-    private double timer = 0; //internal timer for roll cooldown
-    Vector2 direction;
+    using Godot;
+    using System;
 
-    public override void Enter()
+    public partial class Roll : States
     {
-        this.GetPlayer().anim.AnimationFinished += OnAnimationFinished;
-        if (timer > 0)
+        //highkey a redundant state as it used to overwite player movement, but now just added speed and i frames
+        [Export] HitboxComponent hitboxComponent;
+        [Export] VelocityComponent velocityComponent;
+        [Export] double rollCooldown = 3f;
+        [Export] float rollSpeed = 1.5f;
+        private bool animationplaying;
+        private double timer = 0; //internal timer for roll cooldown
+        Vector2 direction;
+
+        public override void Enter()
         {
-            ChangeState("Move");
-            return;
+            this.GetPlayer().anim.AnimationFinished += OnAnimationFinished;
+            if (timer > 0)
+            {
+                ChangeState("Move");
+                return;
+            }
+            animationplaying = true;
+            this.GetPlayer().anim.Play("roll");
+            hitboxComponent.IsInvincible = true;
+            // direction = Input.GetVector("left", "right", "up", "down");
         }
-        animationplaying = true;
-        this.GetPlayer().anim.Play("roll");
-        hitboxComponent.IsInvincible = true;
-        // direction = Input.GetVector("left", "right", "up", "down");
-    }
 
-    public override void Exit()
-    {
-        this.GetPlayer().anim.AnimationFinished -= OnAnimationFinished;
-        hitboxComponent.IsInvincible = false;
-    }
-
-    public override void PhysicsUpdate(double delta)
-    {
-        if (timer > 0)
+        public override void Exit()
         {
-            return;
+            this.GetPlayer().anim.AnimationFinished -= OnAnimationFinished;
+            hitboxComponent.IsInvincible = false;
         }
-        if (animationplaying)
+
+        public override void PhysicsUpdate(double delta)
         {
-            Vector2 direction = Input.GetVector("left", "right", "up", "down") * rollSpeed;
-            velocityComponent.AccelerateToDirection(direction);
-            velocityComponent.Move(direction);
+            if (timer > 0)
+            {
+                return;
+            }
+            if (animationplaying)
+            {
+                Vector2 direction = Input.GetVector("left", "right", "up", "down") * rollSpeed;
+                velocityComponent.AccelerateToDirection(direction);
+                velocityComponent.Move(direction);
+            }
         }
+
+
+        private void OnAnimationFinished()
+        {
+            timer = rollCooldown;
+            animationplaying = false;
+            ChangeState("Idle");
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            timer -= delta;
+        }
+
     }
-
-
-    private void OnAnimationFinished()
-    {
-        timer = rollCooldown;
-        animationplaying = false;
-        ChangeState("Idle");
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        timer -= delta;
-    }
-
 }

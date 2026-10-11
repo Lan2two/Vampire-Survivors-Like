@@ -1,122 +1,140 @@
-using Godot;
-using Godot.Collections;
-using System;
-using System.Collections.Generic;
-
-[GlobalClass]
-public partial class AttackComponent : Area2D
+namespace SurvivorsGame
 {
-    [Export] public float damage = 10f;
-    [Export] public float knockback = 100f;
-    [Export] public float DamageInterval = .7f;
-    [Export] public bool SingleHit = true;
+    using Godot;
+    using Godot.Collections;
+    using System;
+    using System.Collections.Generic;
 
-    private double damageTimer;
-    private readonly HashSet<Area2D> hitboxes = new();
-    private readonly HashSet<Area2D> damagedHitboxes = new();
-    public int UniqueHitboxesEntered;
-
-    public override void _Ready()
+    [GlobalClass]
+    public partial class AttackComponent : Area2D
     {
-        AreaEntered += OnAreaEntered;
-        AreaExited += OnAreaExited;
-    }
+        [Export] public float damage = 10f;
+        [Export] public float knockback = 100f;
+        [Export] public float DamageInterval = .7f;
+        [Export] public bool SingleHit = true;
 
-    public override void _ExitTree()
-    {
-        AreaEntered -= OnAreaEntered;
-        AreaExited -= OnAreaExited;
-    }
+        private double damageTimer;
+        private readonly HashSet<Area2D> hitboxes = new();
+        private readonly HashSet<Area2D> damagedHitboxes = new();
+        public int UniqueHitboxesEntered;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if (!Monitoring || SingleHit)
+        public override void _Ready()
         {
-            return;
+            AreaEntered += OnAreaEntered;
+            AreaExited += OnAreaExited;
         }
 
-        damageTimer -= delta;
-        if (damageTimer > 0)
+        public void SetAttackMonitoring(bool enabled)
         {
-            return;
+            Monitoring = enabled;
         }
 
-        damageTimer = DamageInterval;
-        foreach (Area2D area in new List<Area2D>(hitboxes))
+        public override void _ExitTree()
         {
-            ApplyDamage(area);
-        }
-    }
-
-
-
-    private void ApplyDamage(Area2D area)
-    {
-        if (area is not HitboxComponent hitbox)
-        {
-            return;
+            AreaEntered -= OnAreaEntered;
+            AreaExited -= OnAreaExited;
         }
 
-        if (SingleHit && damagedHitboxes.Contains(area))
+        public override void _PhysicsProcess(double delta)
         {
-            return;
+            if (!Monitoring)
+            {
+                return;
+            }
+
+            if (SingleHit)
+            {
+                Array<Area2D> overlappingAreas = GetOverlappingAreas();
+                foreach (Area2D area in overlappingAreas)
+                {
+                    ApplyDamage(area);
+                }
+                return;
+            }
+
+            damageTimer -= delta;
+            if (damageTimer > 0)
+            {
+                return;
+            }
+
+            damageTimer = DamageInterval;
+            foreach (Area2D area in new List<Area2D>(hitboxes))
+            {
+                ApplyDamage(area);
+            }
         }
 
-        Attack attack = new Attack
+
+
+        private void ApplyDamage(Area2D area)
         {
-            Damage = damage,
-            GlobalPosition = GlobalPosition,
-            KnockbackForce = knockback
-        };
+            if (area is not HitboxComponent hitbox)
+            {
+                return;
+            }
 
-        hitbox.TakeDamage(attack);
+            if (SingleHit && damagedHitboxes.Contains(area))
+            {
+                return;
+            }
 
-        if (SingleHit)
-        {
-            damagedHitboxes.Add(area);
-        }
-    }
+            Attack attack = new Attack
+            {
+                Damage = damage,
+                GlobalPosition = GlobalPosition,
+                KnockbackForce = knockback
+            };
 
-    public void ClearHash()
-    {
-        hitboxes.Clear();
-        damagedHitboxes.Clear();
-        UniqueHitboxesEntered = hitboxes.Count;
-    }
+            if (SingleHit)
+            {
+                damagedHitboxes.Add(area);
+            }
 
-    private void OnAreaEntered(Area2D area)
-    {
-        if (area is not HitboxComponent)
-        {
-            return;
-        }
-
-        if (SingleHit)
-        {
-            ApplyDamage(area);
-            return;
+            hitbox.TakeDamage(attack);
         }
 
-        bool isNewHitbox = hitboxes.Add(area);
-        if (isNewHitbox)
+        public void ClearHash()
         {
+            hitboxes.Clear();
+            damagedHitboxes.Clear();
             UniqueHitboxesEntered = hitboxes.Count;
         }
-    }
 
-    private void OnAreaExited(Area2D area)
-    {
-        if (SingleHit)
+        private void OnAreaEntered(Area2D area)
         {
-            return;
-        }
-        if (area is not HitboxComponent)
-        {
-            return;
+            if (area is not HitboxComponent)
+            {
+                return;
+            }
+
+            if (SingleHit)
+            {
+                ApplyDamage(area);
+                return;
+            }
+
+            bool isNewHitbox = hitboxes.Add(area);
+            if (isNewHitbox)
+            {
+                UniqueHitboxesEntered = hitboxes.Count;
+            }
         }
 
-        hitboxes.Remove(area);
-        damagedHitboxes.Remove(area);
-        UniqueHitboxesEntered = hitboxes.Count;
+        private void OnAreaExited(Area2D area)
+        {
+            if (SingleHit)
+            {
+                return;
+            }
+            if (area is not HitboxComponent)
+            {
+                return;
+            }
+
+            hitboxes.Remove(area);
+            damagedHitboxes.Remove(area);
+            UniqueHitboxesEntered = hitboxes.Count;
+        }
     }
 }

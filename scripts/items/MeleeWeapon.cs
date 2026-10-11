@@ -1,123 +1,125 @@
-using Godot;
-using System;
-
-
-public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
+namespace SurvivorsGame
 {
-    public MeleeWeaponBase Baseconfig;
-    [Export] AttackComponent attackComponent;
-    [Export] bool SwingVariant;
-    AnimationPlayer animationPlayer;
-    public MeleeWeaponBase config;
-    private double timer = 0;
-    private bool swingForward = true;
+    using Godot;
+    using System;
 
 
-
-    public override void _Ready()
+    public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
     {
-        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        animationPlayer.AnimationFinished += OnAnimationFinished;
-        animationPlayer.AnimationStarted += OnAnimationStarted;
-        SetDamageNodeEnabled(false);
-    }
+        public MeleeWeaponBase Baseconfig;
+        [Export] AttackComponent attackComponent;
+        [Export] bool SwingVariant;
+        AnimationPlayer animationPlayer;
+        public MeleeWeaponBase config;
+        private double timer = 0;
+        private bool swingForward = true;
 
-    public override void _ExitTree()
-    {
-        animationPlayer.AnimationFinished -= OnAnimationFinished;
-        animationPlayer.AnimationStarted -= OnAnimationStarted;
-    }
-    public void Use(UpgradeManager upgradeManager)
-    {
-        if (timer > 0)
+
+
+        public override void _Ready()
         {
-            return;
+            animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+            animationPlayer.AnimationFinished += OnAnimationFinished;
+            animationPlayer.AnimationStarted += OnAnimationStarted;
+            SetDamageNodeEnabled(false);
         }
 
-        config = (MeleeWeaponBase)Baseconfig.Duplicate();
-        upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
-        UpdateDamage();
-
-        Swing();
-    }
-
-    public void Configure(WeaponBase weaponData)
-    {
-        if (weaponData is not MeleeWeaponBase meleeWeaponData)
+        public override void _ExitTree()
         {
-            throw new ArgumentException("MeleeWeapon requires MeleeWeaponBase data.", nameof(weaponData));
+            animationPlayer.AnimationFinished -= OnAnimationFinished;
+            animationPlayer.AnimationStarted -= OnAnimationStarted;
         }
-
-        Baseconfig = meleeWeaponData;
-    }
-    public override void _PhysicsProcess(double delta)
-    {
-        timer -= delta;
-    }
-
-    public void UpdateDamage()
-    {
-        attackComponent.damage = config.BaseDamage;
-        attackComponent.knockback = config.BaseKnockback;
-    }
-    private void Swing()
-    {
-        if (timer > 0)
+        public void Use(UpgradeManager upgradeManager)
         {
-            return;
-        }
-        float speedMultiplier = config.SwingSpeedMultiplier;
-        timer = config.swingCooldown / speedMultiplier;
-        animationPlayer.SpeedScale = speedMultiplier;
-        //GD.Print($"Swinging weapon with speed multiplier: {speedMultiplier}, cooldown: {config.swingCooldown}, timer set to: {timer}");
-
-        if (SwingVariant)
-        {
-            if (swingForward)
+            if (timer > 0)
             {
-                animationPlayer.Play("swing");
+                return;
+            }
+
+            config = (MeleeWeaponBase)Baseconfig.Duplicate();
+            upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
+            UpdateDamage();
+
+            Swing();
+        }
+
+        public void Configure(WeaponBase weaponData)
+        {
+            if (weaponData is not MeleeWeaponBase meleeWeaponData)
+            {
+                throw new ArgumentException("MeleeWeapon requires MeleeWeaponBase data.", nameof(weaponData));
+            }
+
+            Baseconfig = meleeWeaponData;
+        }
+        public override void _PhysicsProcess(double delta)
+        {
+            timer -= delta;
+        }
+
+        public void UpdateDamage()
+        {
+            attackComponent.damage = config.BaseDamage;
+            attackComponent.knockback = config.BaseKnockback;
+        }
+        private void Swing()
+        {
+            if (timer > 0)
+            {
+                return;
+            }
+            float speedMultiplier = config.SwingSpeedMultiplier;
+            timer = config.swingCooldown / speedMultiplier;
+            animationPlayer.SpeedScale = speedMultiplier;
+            //GD.Print($"Swinging weapon with speed multiplier: {speedMultiplier}, cooldown: {config.swingCooldown}, timer set to: {timer}");
+
+            if (SwingVariant)
+            {
+                if (swingForward)
+                {
+                    animationPlayer.Play("swing");
+                }
+                else
+                {
+                    animationPlayer.PlayBackwards("swing");
+                }
             }
             else
             {
-                animationPlayer.PlayBackwards("swing");
+                animationPlayer.Play("swing");
             }
+
+            swingForward = !swingForward;
+            SetDamageNodeEnabled(true);
         }
-        else
+        private void OnAnimationFinished(StringName animName)
         {
-            animationPlayer.Play("swing");
-        }
+            if (animName != "swing")
+            {
+                return;
+            }
 
-        swingForward = !swingForward;
-        SetDamageNodeEnabled(true);
-    }
-    private void OnAnimationFinished(StringName animName)
-    {
-        if (animName != "swing")
+            SetDamageNodeEnabled(false);
+            attackComponent.ClearHash();
+        }
+        private void OnAnimationStarted(StringName animName)
         {
-            return;
+            if (animName != "swing")
+            {
+                return;
+            }
+
+            SetDamageNodeEnabled(true);
         }
 
-        SetDamageNodeEnabled(false);
-        attackComponent.ClearHash();
-    }
-    private void OnAnimationStarted(StringName animName)
-    {
-        if (animName != "swing")
+        private void SetDamageNodeEnabled(bool enabled)
         {
-            return;
+            if (attackComponent == null)
+            {
+                return;
+            }
+
+            attackComponent.CallDeferred(nameof(AttackComponent.SetAttackMonitoring), enabled);
         }
-
-        SetDamageNodeEnabled(true);
-    }
-
-    private void SetDamageNodeEnabled(bool enabled)
-    {
-        if (attackComponent == null)
-        {
-            return;
-        }
-
-        attackComponent.SetDeferred("monitoring", enabled);
-        attackComponent.SetPhysicsProcess(enabled);
     }
 }

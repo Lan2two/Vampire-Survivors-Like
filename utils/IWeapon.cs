@@ -1,11 +1,14 @@
-using Godot;
-
-public interface IWeapon
+namespace SurvivorsGame
 {
-    void Use(UpgradeManager upgradeManager);
-}
+    using Godot;
 
-public interface IWeaponConfigurable
-{
-    void Configure(WeaponBase weaponData);
+    public interface IWeapon
+    {
+        void Use(UpgradeManager upgradeManager);
+    }
+
+    public interface IWeaponConfigurable
+    {
+        void Configure(WeaponBase weaponData);
+    }
 }

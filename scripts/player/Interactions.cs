@@ -1,60 +1,63 @@
-using Godot;
-using System;
-using Godot.Collections;
-using System.Linq;
-
-public partial class Interactions : Area2D
+namespace SurvivorsGame
 {
-    InteractableComponent currentIntractable;
-    Label interactLabel;
-    bool CanInteract = true;
+    using Godot;
+    using System;
+    using Godot.Collections;
+    using System.Linq;
 
-    public override void _Ready()
+    public partial class Interactions : Area2D
     {
-        interactLabel = GetNode<Label>("Label");
-    }
+        InteractableComponent currentIntractable;
+        Label interactLabel;
+        bool CanInteract = true;
 
-    public override void _Process(double delta)
-    {
-        Array<Area2D> interactablesInRange = GetOverlappingAreas();
-
-        if (interactablesInRange.Count > 0 && CanInteract)
+        public override void _Ready()
         {
-            currentIntractable = interactablesInRange
-                .OrderBy(area => GlobalPosition.DistanceTo(area.GlobalPosition))
-                .FirstOrDefault() as InteractableComponent;
+            interactLabel = GetNode<Label>("Label");
+        }
 
-            if (currentIntractable != null && currentIntractable.isInteractable)
+        public override void _Process(double delta)
+        {
+            Array<Area2D> interactablesInRange = GetOverlappingAreas();
+
+            if (interactablesInRange.Count > 0 && CanInteract)
             {
-                interactLabel.Text = currentIntractable.interactName;
-                interactLabel.Show();
-                //GD.Print("Current Interactable: " + currentIntractable.interactName);
+                currentIntractable = interactablesInRange
+                    .OrderBy(area => GlobalPosition.DistanceTo(area.GlobalPosition))
+                    .FirstOrDefault() as InteractableComponent;
+
+                if (currentIntractable != null && currentIntractable.isInteractable)
+                {
+                    interactLabel.Text = currentIntractable.interactName;
+                    interactLabel.Show();
+                    //GD.Print("Current Interactable: " + currentIntractable.interactName);
+                }
+                else
+                {
+                    interactLabel.Hide();
+                }
             }
             else
             {
+                currentIntractable = null;
                 interactLabel.Hide();
             }
         }
-        else
+
+        public override void _Input(InputEvent @event)
         {
-            currentIntractable = null;
+            if (Input.IsActionJustPressed("interact") && IsInstanceValid(currentIntractable))
+            {
+                currentIntractable.EmitSignal(InteractableComponent.SignalName.Interact);
+            }
+        }
+
+        private async void OnInteract()
+        {
+            CanInteract = false;
             interactLabel.Hide();
+            await ToSignal(currentIntractable, InteractableComponent.SignalName.Interact);
+            CanInteract = true;
         }
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        if (Input.IsActionJustPressed("interact") && IsInstanceValid(currentIntractable))
-        {
-            currentIntractable.EmitSignal(InteractableComponent.SignalName.Interact);
-        }
-    }
-
-    private async void OnInteract()
-    {
-        CanInteract = false;
-        interactLabel.Hide();
-        await ToSignal(currentIntractable, InteractableComponent.SignalName.Interact);
-        CanInteract = true;
     }
 }

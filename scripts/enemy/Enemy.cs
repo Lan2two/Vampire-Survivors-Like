@@ -1,27 +1,30 @@
-using Godot;
-using System;
-
-public partial class Enemy : CharacterBody2D
+namespace SurvivorsGame
 {
-    public AnimatedSprite2D anim;
-    public CollisionShape2D collisionbox;
-    public static event Action<Enemy> EnemyDied;
-    public static int _enemiesKilled = 0;
-    public static int EnemiesKilled
+    using Godot;
+    using System;
+
+    public partial class Enemy : RigidBody2D
     {
-        get => _enemiesKilled;
-        set
+        public AnimatedSprite2D anim;
+        public CollisionShape2D collisionbox;
+        public static event Action<Enemy> EnemyDied;
+        public static int _enemiesKilled = 0;
+        public static int EnemiesKilled
         {
-            if (_enemiesKilled != value)
+            get => _enemiesKilled;
+            set
             {
-                _enemiesKilled = value;
-                EnemyDied?.Invoke(null);
+                if (_enemiesKilled != value)
+                {
+                    _enemiesKilled = value;
+                    EnemyDied?.Invoke(null);
+                }
             }
         }
-    }
-    public override void _Ready()
-    {
-        anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        collisionbox = GetNode<CollisionShape2D>("CollisionShape2D");
+        public override void _Ready()
+        {
+            anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+            collisionbox = GetNode<CollisionShape2D>("CollisionShape2D");
+        }
     }
 }

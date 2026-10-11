@@ -1,32 +1,35 @@
-using Godot;
-using System;
-using System.Numerics;
-
-[GlobalClass]
-public partial class DetectionComponent : Area2D
+namespace SurvivorsGame
 {
-    private bool playerInRange = false;
+    using Godot;
+    using System;
+    using System.Numerics;
 
-    public override void _Ready()
+    [GlobalClass]
+    public partial class DetectionComponent : Area2D
     {
-        Connect(Area2D.SignalName.BodyEntered, new Callable(this, nameof(OnBodyEntered)));
-        Connect(Area2D.SignalName.BodyExited, new Callable(this, nameof(OnBodyExit)));
-    }
+        private bool playerInRange = false;
 
-    public bool IsPlayerInRange()
-    {
-        return playerInRange;
-    }
+        public override void _Ready()
+        {
+            Connect(Area2D.SignalName.BodyEntered, new Callable(this, nameof(OnBodyEntered)));
+            Connect(Area2D.SignalName.BodyExited, new Callable(this, nameof(OnBodyExit)));
+        }
 
-    private void OnBodyEntered(Node body)
-    {
-        if (body is Player)
-            playerInRange = true;
-    }
+        public bool IsPlayerInRange()
+        {
+            return playerInRange;
+        }
 
-    private void OnBodyExit(Node body)
-    {
-        if (body is Player)
-            playerInRange = false;
+        private void OnBodyEntered(Node body)
+        {
+            if (body is Player)
+                playerInRange = true;
+        }
+
+        private void OnBodyExit(Node body)
+        {
+            if (body is Player)
+                playerInRange = false;
+        }
     }
 }

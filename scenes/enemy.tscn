@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="15_g0wcc"]
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="16_s1ycm"]
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="17_shcg2"]
+[ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="18_physics"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -156,8 +157,12 @@ radius = 57.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1ycm"]
 radius = 7.0
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1010643694]
-collision_layer = 3
+[node name="Enemy" type="RigidBody2D" unique_id=1010643694]
+collision_layer = 2
+collision_mask = 5
+physics_material_override = ExtResource("18_physics")
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_nenq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532282420]
@@ -214,9 +219,9 @@ script = ExtResource("9_wtq4b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=774907234]
 shape = SubResource("CircleShape2D_md484")
 
-[node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("characterBody", "animatedSprite2D")]
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
 script = ExtResource("11_w8i8w")
-characterBody = NodePath("..")
+rigidBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
 maxSpeed = 30.0
 acceleration = 10.0

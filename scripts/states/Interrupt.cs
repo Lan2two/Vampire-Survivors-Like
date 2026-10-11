@@ -1,14 +1,17 @@
-using Godot;
-using System;
-
-[GlobalClass]
-
-public partial class Interrupt : States
+namespace SurvivorsGame
 {
-    public event Action<Interrupt, string> Interrupted;
+    using Godot;
+    using System;
 
-    protected void FireInterrupt()
+    [GlobalClass]
+
+    public partial class Interrupt : States
     {
-        Interrupted?.Invoke(this, Name);
+        public event Action<Interrupt, string> Interrupted;
+
+        protected void FireInterrupt()
+        {
+            Interrupted?.Invoke(this, Name);
+        }
     }
 }

@@ -1,22 +1,25 @@
-using Godot;
-using System;
-
-public partial class EnemyIdle : States
+namespace SurvivorsGame
 {
-    [Export] Enemy enemy;
-    [Export] DetectionComponent detectionComponent;
-    [Export] WanderComponent wanderComponent;
-    public override void Enter()
-    {
-        enemy.anim.Play("idle");
-    }
+    using Godot;
+    using System;
 
-    public override void PhysicsUpdate(double delta)
+    public partial class EnemyIdle : States
     {
-        if (detectionComponent?.IsPlayerInRange() == true)
+        [Export] Enemy enemy;
+        [Export] DetectionComponent detectionComponent;
+        [Export] WanderComponent wanderComponent;
+        public override void Enter()
         {
-            ChangeState("Chase");
+            enemy.anim.Play("idle");
         }
-        wanderComponent?.Wander();
+
+        public override void PhysicsUpdate(double delta)
+        {
+            if (detectionComponent?.IsPlayerInRange() == true)
+            {
+                ChangeState("Chase");
+            }
+            wanderComponent?.Wander();
+        }
     }
 }

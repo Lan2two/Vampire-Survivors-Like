@@ -1,19 +1,22 @@
-using Godot;
-using System;
-
-[GlobalClass]
-public partial class States : Node
+namespace SurvivorsGame
 {
-    //Big signal action
-    public event Action<States, string> stateChanged;
-    //functions for states
-    public virtual void Enter() { }
-    public virtual void Exit() { }
-    public virtual void Update(double delta) { }
-    public virtual void PhysicsUpdate(double delta) { }
+    using Godot;
+    using System;
 
-    protected void ChangeState(string newStateName)
+    [GlobalClass]
+    public partial class States : Node
     {
-        stateChanged?.Invoke(this, newStateName);
+        //Big signal action
+        public event Action<States, string> stateChanged;
+        //functions for states
+        public virtual void Enter() { }
+        public virtual void Exit() { }
+        public virtual void Update(double delta) { }
+        public virtual void PhysicsUpdate(double delta) { }
+
+        protected void ChangeState(string newStateName)
+        {
+            stateChanged?.Invoke(this, newStateName);
+        }
     }
 }

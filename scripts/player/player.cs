@@ -1,8 +1,10 @@
-using Godot;
-using System;
-
-public partial class Player : CharacterBody2D
+namespace SurvivorsGame
 {
+    using Godot;
+    using System;
+
+    public partial class Player : RigidBody2D
+    {
 
 	public AnimatedSprite2D anim;
 	public InventoryManager inventoryManager;
@@ -19,4 +21,5 @@ public partial class Player : CharacterBody2D
 			GD.PrintErr("InventoryManager node not found in Player");
 		}
 	}
+    }
 }

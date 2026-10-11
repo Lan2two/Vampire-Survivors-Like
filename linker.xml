@@ -1,0 +1,16 @@
+<linker>
+  <!-- Protects your game's compiled assembly code -->
+  <assembly fullname="Survivors">
+    <type fullname="SurvivorsGame.GameScene" preserve="all" />
+    <type fullname="SurvivorsGame.StartMenu" preserve="all" />
+    <type fullname="SurvivorsGame.*" preserve="all" />
+  </assembly>
+
+  <!-- CRITICAL: Protects Godot's core bridge APIs from being trimmed -->
+  <assembly fullname="GodotSharp">
+    <type fullname="Godot.GD" preserve="all" />
+    <type fullname="Godot.PackedScene" preserve="all" />
+    <type fullname="Godot.Node" preserve="all" />
+    <type fullname="Godot.SceneTree" preserve="all" />
+  </assembly>
+</linker>

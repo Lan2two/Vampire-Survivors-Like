@@ -1,61 +1,64 @@
-using Godot;
-using System;
-
-[GlobalClass]
-public partial class PathfindComponent : Node
+namespace SurvivorsGame
 {
-    [Export] CharacterBody2D characterBody;
-    [Export] VelocityComponent velocityComponent;
-    private float distanceToTarget;
-    private bool targetReached = false;
-    private float threshold = 3.0f;
+    using Godot;
+    using System;
 
-    public void PathfindToPlayer()
+    [GlobalClass]
+    public partial class PathfindComponent : Node
     {
-        if (characterBody == null || velocityComponent == null)
-            return;
+        [Export] RigidBody2D characterBody;
+        [Export] VelocityComponent velocityComponent;
+        private float distanceToTarget;
+        private bool targetReached = false;
+        private float threshold = 3.0f;
 
-        Player player = this.GetPlayer();
-        if (player == null)
-            return;
-
-        Vector2 target = characterBody.GlobalPosition.DirectionTo(player.GlobalPosition).Normalized();
-        distanceToTarget = characterBody.GlobalPosition.DistanceTo(player.GlobalPosition);
-        targetReached = distanceToTarget <= threshold;
-
-        if (!targetReached)
+        public void PathfindToPlayer()
         {
-            velocityComponent.AccelerateToDirection(target);
-            velocityComponent.Move(target);
-            return;
+            if (characterBody == null || velocityComponent == null)
+                return;
+
+            Player player = this.GetPlayer();
+            if (player == null)
+                return;
+
+            Vector2 target = characterBody.GlobalPosition.DirectionTo(player.GlobalPosition).Normalized();
+            distanceToTarget = characterBody.GlobalPosition.DistanceTo(player.GlobalPosition);
+            targetReached = distanceToTarget <= threshold;
+
+            if (!targetReached)
+            {
+                velocityComponent.AccelerateToDirection(target);
+                velocityComponent.Move(target);
+                return;
+            }
+
+            velocityComponent.Stop();
         }
 
-        velocityComponent.Stop();
-    }
-
-    public void PathfindToPoint(Vector2 target)
-    {
-        targetReached = false;
-        Vector2 direction = characterBody.GlobalPosition.DirectionTo(target).Normalized();
-        distanceToTarget = characterBody.GlobalPosition.DistanceTo(target);
-        if (distanceToTarget >= threshold)
+        public void PathfindToPoint(Vector2 target)
         {
-            velocityComponent.AccelerateToDirection(direction);
-            velocityComponent.Move(direction);
+            targetReached = false;
+            Vector2 direction = characterBody.GlobalPosition.DirectionTo(target).Normalized();
+            distanceToTarget = characterBody.GlobalPosition.DistanceTo(target);
+            if (distanceToTarget >= threshold)
+            {
+                velocityComponent.AccelerateToDirection(direction);
+                velocityComponent.Move(direction);
+            }
+            else
+            {
+                targetReached = true;
+            }
         }
-        else
+
+        public float DistanceFromTarget()
         {
-            targetReached = true;
+            return distanceToTarget;
         }
-    }
 
-    public float DistanceFromTarget()
-    {
-        return distanceToTarget;
-    }
-
-    public bool TargetReached()
-    {
-        return targetReached;
+        public bool TargetReached()
+        {
+            return targetReached;
+        }
     }
 }
