@@ -8,12 +8,13 @@
 [ext_resource type="Script" uid="uid://dueqcebmrlxsg" path="res://scripts/enemy/Death.cs" id="7_ile5s"]
 [ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/components/HealthComponent.cs" id="7_w8i8w"]
 [ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/components/HitboxComponent.cs" id="8_otmr2"]
-[ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="9_wtq4b"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="12_wtq4b"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_wtq4b"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="15_g0wcc"]
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="16_s1ycm"]
+[ext_resource type="Script" uid="uid://c4u65le22r3fl" path="res://scripts/components/LootComponent.cs" id="16_shcg2"]
+[ext_resource type="PackedScene" uid="uid://cu1txkretppd7" path="res://scenes/xp_orb.tscn" id="17_ile5s"]
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="17_shcg2"]
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="18_physics"]
 
@@ -151,9 +152,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 7.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_md484"]
-radius = 57.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1ycm"]
 radius = 7.0
 
@@ -178,10 +176,9 @@ frame_progress = 1.0
 [node name="StateMachine" parent="." unique_id=1879212461 node_paths=PackedStringArray("startingState") instance=ExtResource("3_j0cyh")]
 startingState = NodePath("Spawn")
 
-[node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "detectionComponent", "pathfindComponent")]
+[node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "pathfindComponent")]
 script = ExtResource("6_otmr2")
 enemy = NodePath("../..")
-detectionComponent = NodePath("../../DetectionComponent")
 pathfindComponent = NodePath("../../PathfindComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
@@ -212,12 +209,6 @@ metadata/_custom_type_script = "uid://0ucn25ndx6bw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=96188564]
 shape = SubResource("CircleShape2D_md0e3")
-
-[node name="DetectionComponent" type="Area2D" parent="." unique_id=1909743119]
-script = ExtResource("9_wtq4b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=774907234]
-shape = SubResource("CircleShape2D_md484")
 
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
 script = ExtResource("11_w8i8w")
@@ -257,3 +248,9 @@ characterBody = NodePath("..")
 script = ExtResource("17_shcg2")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cdw8gc8lrtxck"
+
+[node name="LootComponent" type="Node" parent="." unique_id=1869586982 node_paths=PackedStringArray("enemy", "deathState")]
+script = ExtResource("16_shcg2")
+enemy = NodePath("..")
+deathState = NodePath("../StateMachine/Death")
+XpOrbScene = ExtResource("17_ile5s")

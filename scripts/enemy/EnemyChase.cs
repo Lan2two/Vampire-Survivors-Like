@@ -6,7 +6,6 @@ namespace SurvivorsGame
     public partial class EnemyChase : States
     {
         [Export] Enemy enemy;
-        [Export] DetectionComponent detectionComponent;
         [Export] PathfindComponent pathfindComponent;
 
         public override void Enter()

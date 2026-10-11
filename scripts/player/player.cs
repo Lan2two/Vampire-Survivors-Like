@@ -1,25 +1,26 @@
 namespace SurvivorsGame
 {
-    using Godot;
-    using System;
+	using Godot;
+	using System;
 
-    public partial class Player : RigidBody2D
-    {
-
-	public AnimatedSprite2D anim;
-	public InventoryManager inventoryManager;
-	public override void _Ready()
+	public partial class Player : RigidBody2D
 	{
-		anim = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
-		inventoryManager = GetNodeOrNull<InventoryManager>("InventoryManager");
-		if (anim == null)
+		public AnimatedSprite2D anim;
+		public InventoryManager inventoryManager;
+
+		public static float playerXP = 0.0f;
+		public override void _Ready()
 		{
-			GD.PrintErr("AnimatedSprite2D node not found in Player");
-		}
-		if (inventoryManager == null)
-		{
-			GD.PrintErr("InventoryManager node not found in Player");
+			anim = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+			inventoryManager = GetNodeOrNull<InventoryManager>("InventoryManager");
+			if (anim == null)
+			{
+				GD.PrintErr("AnimatedSprite2D node not found in Player");
+			}
+			if (inventoryManager == null)
+			{
+				GD.PrintErr("InventoryManager node not found in Player");
+			}
 		}
 	}
-    }
 }
