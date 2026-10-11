@@ -12,5 +12,19 @@
     <type fullname="Godot.PackedScene" preserve="all" />
     <type fullname="Godot.Node" preserve="all" />
     <type fullname="Godot.SceneTree" preserve="all" />
+    <!-- FORCE GODOT MARSHALLING LAYER TO STAY -->
+    <type fullname="Godot.Bridge.*" preserve="all" />
+    <type fullname="Godot.Variant" preserve="all" />
+  </assembly>
+
+  <!-- NEW CRITICAL PIECE: Protects the foundational .NET types and float/string formatters -->
+  <assembly fullname="System.Private.CoreLib">
+    <type fullname="System.Number" preserve="all" />
+    <type fullname="System.Single" preserve="all" /> <!-- Forces float tracking to stay -->
+    <type fullname="System.Double" preserve="all" /> <!-- Forces double tracking to stay -->
+    <type fullname="System.Int32" preserve="all" />  <!-- Forces int tracking to stay -->
+    <type fullname="System.String" preserve="all" /> <!-- Forces basic string layouts to stay -->
+    <type fullname="System.Text.StringBuilder" preserve="all" />
+    <type fullname="System.Runtime.CompilerServices.DefaultInterpolatedStringHandler" preserve="all" /> <!-- For $"string" interpolation -->
   </assembly>
 </linker>
