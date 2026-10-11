@@ -1,24 +1,25 @@
 # Vampire-Survivors-Like
 
 A top-down survivors-like built in Godot 4.6 with C#(.NET 8). Fight off waves of enemies with automatic firing weapons and less automatic ones. Kill loot and stack upgrades so you can kill even more.<br>
-Some weapons you can pickup and drop others you can't
+Some weapons you can pickup and drop others you can't. <br>
 ```Demo Note: the player has god mode, the only interactable weapon is the coin at spawn. The run ends after 20 kills. Demo is still underbaked so you don't have upgrades and enemies don't drop loot```
 # Controls
-**Movement**
+### Movement
 - Walking: WASD
-- Roll: Spacebar
-**Attack**
-- Melee: Hold Left Click
-**Items**
+- Roll: Spacebar <br>
+### Attack
+- Melee: Hold Left Click <br>
+The gun fires automatically hence no input needed <br>
+### Items
 - Interact: F
-- Drop: G
-The gun fires automatically hence no input needed
+- Drop: G <br>
+
 
 # Playing The Demo
 A prebuilt Windows demo is in the builds folder or in https://github.com/Lan2two/Vampire-Survivors-Like/releases <br>
-Requirements
-- Windows, 64-bit (x86_64). This is the only platform included in demo 1 <br>
-**To Run** <br>
+### Requirements
+Windows, 64-bit (x86_64). This is the only platform included in demo 1 <br>
+### To Run
 Unzip the files inside the same folder and run the executable <br>
 Yea that's about it, the project is in compatibility mode so you can run it with a potato (only reason it's not in web is because godot 4 hates me and doesn't have web exports for C#)
 
