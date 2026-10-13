@@ -6,14 +6,14 @@ namespace SurvivorsGame
     public partial class LootComponent : Node
     {
         [Export] Enemy enemy;
-        [Export] Death deathState;
+        [Export] EnemyDeath deathState;
         [Export] PackedScene XpOrbScene;
 
         public override void _Ready()
         {
             if (deathState == null)
             {
-                GD.PrintErr("Death unassigned in LootComponent.");
+                GD.PrintErr("EnemyDeath unassigned in LootComponent.");
                 return;
             }
             if (enemy == null)

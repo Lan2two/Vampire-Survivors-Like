@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
     using System;
 
-    public partial class Death : Interrupt
+    public partial class EnemyDeath : Interrupt
     {
         [Export] RigidBody2D characterBody;
         [Export] HitboxComponent hitboxComponent;

@@ -11,6 +11,22 @@ namespace SurvivorsGame
         [Export] private float threshold = 3.0f;
         private float distanceToTarget;
         private bool targetReached = false;
+        private Player player;
+
+        public override void _Ready()
+        {
+            player = this.GetPlayer();
+            if (characterBody == null)
+            {
+                GD.Print("RigidBody2D unassigned in PathfindComponent");
+                return;
+            }
+            if (velocityComponent == null)
+            {
+                GD.Print("VelocityComponent unassigned in PathfindComponent");
+                return;
+            }
+        }
 
 
         public void PathfindToPlayer()
@@ -18,7 +34,6 @@ namespace SurvivorsGame
             if (characterBody == null || velocityComponent == null)
                 return;
 
-            Player player = this.GetPlayer();
             if (player == null)
                 return;
 
