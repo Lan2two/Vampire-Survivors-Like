@@ -41,7 +41,6 @@ namespace SurvivorsGame
 
         public void SetXPAmount(float amount)
         {
-            GD.Print("Set xp");
             XPAmount = amount;
         }
 

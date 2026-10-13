@@ -18,12 +18,12 @@ namespace SurvivorsGame
             player = this.GetPlayer();
             if (characterBody == null)
             {
-                GD.Print("RigidBody2D unassigned in PathfindComponent");
+                GD.PrintErr("RigidBody2D unassigned in PathfindComponent");
                 return;
             }
             if (velocityComponent == null)
             {
-                GD.Print("VelocityComponent unassigned in PathfindComponent");
+                GD.PrintErr("VelocityComponent unassigned in PathfindComponent");
                 return;
             }
         }

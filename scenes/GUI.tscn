@@ -2,9 +2,13 @@
 
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="1_5j4t3"]
 [ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="2_womn8"]
+[ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.32156864)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
+bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1447957346]
 
@@ -38,3 +42,36 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_5j4t3")
 text = "You Win!!!
 Thanks for playing!"
 horizontal_alignment = 1
+
+[node name="XpBar" type="ProgressBar" parent="." unique_id=585847015]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -257.0
+offset_top = 66.0
+offset_right = 257.0
+offset_bottom = 104.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/fill = SubResource("StyleBoxFlat_womn8")
+max_value = 20.0
+value = 1.0
+allow_greater = true
+script = ExtResource("3_womn8")
+
+[node name="XpLabel" type="Label" parent="XpBar" unique_id=297221265]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = -50.0
+offset_right = 68.0
+offset_bottom = 1.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 42
+text = "Level: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
