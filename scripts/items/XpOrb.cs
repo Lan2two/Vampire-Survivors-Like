@@ -27,7 +27,6 @@ namespace SurvivorsGame
             if (body is Player)
             {
                 SawPlayer = true;
-                GD.Print("Saw Player");
             }
         }
 
@@ -35,7 +34,6 @@ namespace SurvivorsGame
         {
             if (SawPlayer)
             {
-                GD.Print("pathfinding");
                 pathfindComponent.PathfindToPlayer();
             }
         }
@@ -50,15 +48,10 @@ namespace SurvivorsGame
 
         private void OnBodyEntered(Node body)
         {
-            GD.Print("On Body Entered");
             if (body is Player)
             {
-                GD.Print("check if body is player");
                 Player player = (Player)body;
-                GD.Print("set body to player");
                 player.playerXP += XPAmount;
-                GD.Print($"Player collected {(int)XPAmount} XP. Total XP: {(int)player.playerXP}");
-                GD.Print("Freeing queue");
                 CallDeferred(MethodName.QueueFree);
             }
         }
