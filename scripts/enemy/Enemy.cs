@@ -8,7 +8,7 @@ namespace SurvivorsGame
         public float XpAmount = 1f;
         public AnimatedSprite2D anim;
         public CollisionShape2D collisionbox;
-        public static event Action<Enemy> EnemyDied;
+        public static event Action EnemyDied;
         public static int _enemiesKilled = 0;
         public static int EnemiesKilled
         {
@@ -18,7 +18,7 @@ namespace SurvivorsGame
                 if (_enemiesKilled != value)
                 {
                     _enemiesKilled = value;
-                    EnemyDied?.Invoke(null);
+                    EnemyDied?.Invoke();
                 }
             }
         }

@@ -8,37 +8,41 @@ namespace SurvivorsGame
     {
         Label gameOverLabel;
         CanvasLayer GUI;
-
+        Player player;
         private bool _isChangingScene = false;
 
         public override void _Ready()
         {
-            // Subscribe safely
-            Enemy.EnemyDied += CheckforGameOver;
-
             GUI = GetNodeOrNull<CanvasLayer>("GUI");
             if (GUI != null)
             {
                 gameOverLabel = GUI.GetNodeOrNull<Label>("GameOver");
             }
+            player = this.GetPlayer();
+            Enemy.EnemyDied += CheckForWin;
+            player.PlayerDead += PlayerDeath;
         }
-
-        // Clean up static event subscriptions to avoid infinite memory loops
         public override void _ExitTree()
         {
-            Enemy.EnemyDied -= CheckforGameOver;
+            Enemy.EnemyDied -= CheckForWin;
+            player.PlayerDead += PlayerDeath;
         }
 
-        private void CheckforGameOver(Enemy enemy)
+        private void PlayerDeath()
+        {
+            GameOver("You died :(");
+        }
+        private void CheckForWin()
         {
             if (_isChangingScene || !IsInstanceValid(this)) return;
-            if (Enemy.EnemiesKilled >= 20)
+            if (Enemy.EnemiesKilled < 20)
             {
-                GameOver();
+                return;
             }
+            GameOver("You Win!!!\nThanks for playing!");
         }
 
-        private void GameOver()
+        private void GameOver(string message)
         {
             if (_isChangingScene || !IsInstanceValid(this)) return;
             _isChangingScene = true;
@@ -46,6 +50,7 @@ namespace SurvivorsGame
             GetTree().Paused = true;
             if (gameOverLabel != null)
             {
+                gameOverLabel.Text = message;
                 gameOverLabel.Visible = true;
             }
 
@@ -63,19 +68,7 @@ namespace SurvivorsGame
         {
             if (IsInstanceValid(this) && IsInsideTree())
             {
-                // Explicitly load the start menu scene to pass NativeAOT restrictions
-                var menuScene = GD.Load<PackedScene>("res://scenes/start_menu.tscn");
-                if (menuScene != null)
-                {
-                    var menuInstance = menuScene.Instantiate();
-                    GetTree().Root.AddChild(menuInstance);
-                    GetTree().CurrentScene = menuInstance;
-                    QueueFree(); // Free the current game scene safely
-                }
-                else
-                {
-                    GD.PrintErr("CRITICAL: Failed to load start_menu.tscn. Check file casing!");
-                }
+                GetTree().ChangeSceneToFile("res://scenes/start_menu.tscn");
             }
         }
     }
