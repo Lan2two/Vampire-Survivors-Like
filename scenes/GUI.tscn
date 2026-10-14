@@ -5,7 +5,10 @@
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
-bg_color = Color(0, 0, 0, 0.32156864)
+bg_color = Color(0, 0, 0, 0.39215687)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shsct"]
+bg_color = Color(0, 0, 0, 0.39215687)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
@@ -26,6 +29,7 @@ script = ExtResource("2_womn8")
 
 [node name="GameOver" type="Label" parent="." unique_id=1051878861]
 visible = false
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -54,9 +58,9 @@ offset_bottom = 104.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/background = SubResource("StyleBoxFlat_shsct")
 theme_override_styles/fill = SubResource("StyleBoxFlat_womn8")
-max_value = 20.0
-value = 1.0
+max_value = 3.0
 allow_greater = true
 script = ExtResource("3_womn8")
 
@@ -75,3 +79,40 @@ theme_override_font_sizes/font_size = 42
 text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=991177710]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -122.0
+offset_right = 230.0
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=1828415791]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="HBoxContainer" unique_id=923443406]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button3" type="Button" parent="HBoxContainer" unique_id=947369443]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Dim" type="ColorRect" parent="." unique_id=1674504300]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.11764706)

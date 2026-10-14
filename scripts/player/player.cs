@@ -9,6 +9,7 @@ namespace SurvivorsGame
 		public AnimatedSprite2D anim;
 		public InventoryManager inventoryManager;
 		public HealthComponent healthComponent;
+		public float totalXP;
 
 		public event Action PlayerDead;
 		public override void _Ready()

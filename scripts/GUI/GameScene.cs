@@ -9,6 +9,7 @@ namespace SurvivorsGame
         Label gameOverLabel;
         CanvasLayer GUI;
         Player player;
+        ColorRect Dim;
         private bool _isChangingScene = false;
 
         public override void _Ready()
@@ -17,14 +18,28 @@ namespace SurvivorsGame
             if (GUI != null)
             {
                 gameOverLabel = GUI.GetNodeOrNull<Label>("GameOver");
+                Dim = GUI.GetNodeOrNull<ColorRect>("Dim");
+            }
+            if (GUI == null)
+            {
+                GD.PrintErr("GUI not found in GameScene");
+                return;
+            }
+            if (gameOverLabel == null)
+            {
+                GD.PrintErr("gameOverLabel not found in GUI");
+                return;
+            }
+            if (Dim == null)
+            {
+                GD.PrintErr("Dim not found in GUI");
+                return;
             }
             player = this.GetPlayer();
-            Enemy.EnemyDied += CheckForWin;
             player.PlayerDead += PlayerDeath;
         }
         public override void _ExitTree()
         {
-            Enemy.EnemyDied -= CheckForWin;
             player.PlayerDead += PlayerDeath;
         }
 
@@ -32,24 +47,15 @@ namespace SurvivorsGame
         {
             GameOver("You died :(");
         }
-        private void CheckForWin()
-        {
-            if (_isChangingScene || !IsInstanceValid(this)) return;
-            if (Enemy.EnemiesKilled < 20)
-            {
-                return;
-            }
-            GameOver("You Win!!!\nThanks for playing!");
-        }
 
         private void GameOver(string message)
         {
             if (_isChangingScene || !IsInstanceValid(this)) return;
             _isChangingScene = true;
-
             GetTree().Paused = true;
             if (gameOverLabel != null)
             {
+                Dim.Visible = true;
                 gameOverLabel.Text = message;
                 gameOverLabel.Visible = true;
             }
