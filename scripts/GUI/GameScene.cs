@@ -3,6 +3,7 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using Godot.Collections;
     using System;
     public partial class GameScene : Node2D
     {
@@ -11,6 +12,7 @@ namespace SurvivorsGame
         Player player;
         ColorRect Dim;
         private bool _isChangingScene = false;
+        private int _currentInterval = 1;
 
         public override void _Ready()
         {
@@ -42,6 +44,20 @@ namespace SurvivorsGame
         {
             player.PlayerDead += PlayerDeath;
         }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            if (Enemy.EnemiesKilled == 50 * _currentInterval)
+            {
+                _currentInterval++;
+                Array<Node> GlobalXpOrbs = GetTree().GetNodesInGroup("XpOrbs");
+                foreach (XpOrb orbs in GlobalXpOrbs)
+                {
+                    orbs.SawPlayer = true;
+                }
+            }
+        }
+
 
         private void PlayerDeath()
         {
