@@ -1,19 +1,22 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using Godot.Collections;
     using System;
 
     public partial class XpBar : ProgressBar
     {
         [Export] private double LevelIncrement = 3;
+        [Export] private int AborbAllXpLevelInterval = 10;
         public Label XpLabel;
-        private int CurrentLevel = 0;
-        private Player player;
+        private int _currentLevel = 0;
+        private Player _player;
+        private int _currentInterval = 1;
 
         public event Action LevelUpEvent;
         public override void _Ready()
         {
-            player = this.GetPlayer();
+            _player = this.GetPlayer();
             XpLabel = GetNodeOrNull<Label>("XpLabel");
             if (XpLabel == null)
             {
@@ -25,7 +28,7 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            Value = player.playerXP;
+            Value = _player.playerXP;
             if (Value >= MaxValue)
             {
                 LevelUp();
@@ -34,12 +37,22 @@ namespace SurvivorsGame
 
         private void LevelUp()
         {
-            player.playerXP -= (float)MaxValue;
+            _player.playerXP -= (float)MaxValue;
+            Value = _player.playerXP;
             MaxValue += LevelIncrement;
-            CurrentLevel++;
-            XpLabel.Text = $"Level: {CurrentLevel}";
-            GD.Print($"Value: {(int)Value}, MaxValue: {(int)MaxValue}, Level: {CurrentLevel}");
+            _currentLevel++;
+            XpLabel.Text = $"Level: {_currentLevel}";
+            GD.Print($"Value: {(int)Value}, MaxValue: {(int)MaxValue}, Level: {_currentLevel}");
             LevelUpEvent?.Invoke();
+            if (_currentLevel == _currentInterval * AborbAllXpLevelInterval)
+            {
+                _currentInterval++;
+                Array<Node> GlobalXpOrbs = GetTree().GetNodesInGroup("XpOrbs");
+                foreach (XpOrb orbs in GlobalXpOrbs)
+                {
+                    orbs.SawPlayer = true;
+                }
+            }
         }
 
     }

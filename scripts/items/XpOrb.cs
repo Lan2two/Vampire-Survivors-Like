@@ -8,7 +8,7 @@ namespace SurvivorsGame
         private DetectionComponent detectionComponent;
         private PathfindComponent pathfindComponent;
         public float XPAmount = 1.0f;
-        private bool SawPlayer = false;
+        public bool SawPlayer = false;
         public override void _Ready()
         {
             detectionComponent = GetNodeOrNull<DetectionComponent>("DetectionComponent");
@@ -43,7 +43,6 @@ namespace SurvivorsGame
         {
             XPAmount = amount;
         }
-
 
         private void OnBodyEntered(Node body)
         {
