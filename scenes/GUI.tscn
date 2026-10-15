@@ -5,14 +5,8 @@
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
 [ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
-[ext_resource type="Texture2D" uid="uid://bijshq8x3pr5y" path="res://assets/sprites/slime_green.png" id="6_u3xxf"]
-[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/DamageStrategy.cs" id="7_cekc3"]
-[ext_resource type="Script" uid="uid://c3leaqfncc7tu" path="res://utils/strategy/SwingSpeedMultiplierStrategy.cs" id="8_1i4pd"]
-[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="8_tyhcs"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="6_dcyui"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
-[ext_resource type="Script" uid="uid://ddu5sx4am1lol" path="res://utils/strategy/KnockbackStrategy.cs" id="9_y0luo"]
-[ext_resource type="Texture2D" uid="uid://lecvx5cxppu6" path="res://builds/web/index.png" id="10_dcyui"]
-[ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="12_dcyui"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -23,51 +17,10 @@ bg_color = Color(0, 0, 0, 0.39215687)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1i4pd"]
-atlas = ExtResource("6_u3xxf")
-region = Rect2(4.156418, 9.192756, 16.823708, 16.568802)
-
-[sub_resource type="Resource" id="Resource_y0luo"]
-script = ExtResource("7_cekc3")
-ItemName = "Bullet Damage"
-ItemDescription = "Increases bullet damage by 5"
-ItemIcon = SubResource("AtlasTexture_1i4pd")
-metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
-
-[sub_resource type="Resource" id="Resource_tyhcs"]
-script = ExtResource("8_1i4pd")
-UpgradeSwingSpeed = 1.0
-upgradeType = 1
-ItemName = "Swing Speed"
-ItemDescription = "Hit faster with melee weapons"
-ItemIcon = ExtResource("8_tyhcs")
-metadata/_custom_type_script = "uid://c3leaqfncc7tu"
-
-[sub_resource type="Resource" id="Resource_dcyui"]
-script = ExtResource("9_y0luo")
-ItemName = "Bullet Knockback"
-ItemDescription = "Make bullets knock enemies harder"
-ItemIcon = ExtResource("10_dcyui")
-metadata/_custom_type_script = "uid://ddu5sx4am1lol"
-
-[sub_resource type="Resource" id="Resource_1i4pd"]
-script = ExtResource("9_y0luo")
-upgradeType = 1
-ItemName = "Melee Knockback"
-ItemDescription = "Make melee knock enemies harder"
-ItemIcon = ExtResource("10_dcyui")
-metadata/_custom_type_script = "uid://ddu5sx4am1lol"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8inel"]
-atlas = ExtResource("12_dcyui")
-region = Rect2(0, 0, 16.494774, 16)
-
-[sub_resource type="Resource" id="Resource_vjrnn"]
-script = ExtResource("7_cekc3")
-upgradeType = 1
-ItemName = "Melee Damage"
-ItemDescription = "Increases melee damage by 5"
-ItemIcon = SubResource("AtlasTexture_8inel")
+[sub_resource type="Resource" id="Resource_cws7i"]
+script = ExtResource("6_dcyui")
+ItemName = "Idwfegr"
+ItemDescription = "dwfa"
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
@@ -151,7 +104,6 @@ vertical_alignment = 1
 
 [node name="UpgradeMenu" type="HBoxContainer" parent="." unique_id=991177710 node_paths=PackedStringArray("xpBar")]
 process_mode = 3
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -165,7 +117,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 script = ExtResource("4_shsct")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_y0luo"), SubResource("Resource_tyhcs"), SubResource("Resource_dcyui"), SubResource("Resource_1i4pd"), SubResource("Resource_vjrnn")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i")])
 xpBar = NodePath("../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=1828415791]
