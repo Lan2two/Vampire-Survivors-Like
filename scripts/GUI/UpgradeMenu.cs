@@ -18,7 +18,6 @@ namespace SurvivorsGame
                 if (child is UpgradeButton button)
                 {
                     string buttonName = button.Name.ToString();
-                    GD.Print(buttonName);
                     _UpgradeButtons.Add(buttonName, button);
                     button.UpgradeButtonPressed += ButtonPressed;
                 }
