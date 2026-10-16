@@ -4,7 +4,7 @@ namespace SurvivorsGame
     using System;
 
     [GlobalClass]
-    public partial class HitboxComponent : Area2D
+    public partial class HurtboxComponent : Area2D
     {
         [Export] public HealthComponent healthComponent;
 
