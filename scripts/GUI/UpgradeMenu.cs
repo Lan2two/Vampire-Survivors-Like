@@ -65,6 +65,11 @@ namespace SurvivorsGame
         }
         private void DisplayUpgrades()
         {
+            if (Strategies is [])
+            {
+                GD.Print("No more upgrades");
+                return;
+            }
             RandUpgrade();
             Visible = true;
             GetTree().Paused = true;
@@ -76,14 +81,11 @@ namespace SurvivorsGame
             {
                 int randIndex = GD.RandRange(0, Strategies.Count - 1);
                 Strategy randStrategy = Strategies[randIndex];
-                randStrategy.UpgradePool--;
+
                 _RandUpgrades.Add(randStrategy);
                 button.Icon = randStrategy.ItemIcon;
                 button.Text = $"{randStrategy.ItemName}\n{randStrategy.ItemDescription}";
-                if (randStrategy.UpgradePool <= 0)
-                {
-                    Strategies.Remove(randStrategy);
-                }
+
             }
 
         }
@@ -94,9 +96,16 @@ namespace SurvivorsGame
                 GD.PrintErr($"Upgrade index {i} is out of range");
                 return;
             }
-
-            inventory.AddItem(_RandUpgrades[i]);
+            Strategy chosenUpgrade = _RandUpgrades[i];
+            inventory.AddItem(chosenUpgrade);
             GD.Print(_RandUpgrades[i].ItemName);
+            chosenUpgrade.UpgradePool--;
+            if (chosenUpgrade.UpgradePool <= 0)
+            {
+                Strategies.Remove(chosenUpgrade);
+                GD.Print($"{chosenUpgrade.ItemName} has been removed from upgrade pool");
+            }
+
         }
     }
 }
