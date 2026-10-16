@@ -12,7 +12,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class Strategy : ItemData
     {
-        public virtual UpgradeType upgradeType { get; set; }
-
+        [Export] public int UpgradePool { get; set; } = 3;
+        public UpgradeType upgradeType;
     }
 }
