@@ -10,10 +10,22 @@ height = 15.556351
 
 [sub_resource type="Animation" id="Animation_26aoe"]
 length = 0.6333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.70875007]
+}
 
 [sub_resource type="Animation" id="Animation_t7crx"]
 resource_name = "swing"
-length = 0.8
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -21,7 +33,7 @@ tracks/0/path = NodePath("Sprite2D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.35, 0.45, 0.55, 0.6, 0.65),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(8, -12), Vector2(12, -10), Vector2(15, 0), Vector2(12, 10), Vector2(8, 12), Vector2(12, 10), Vector2(15, 0), Vector2(12, -10), Vector2(8, -12)]
@@ -33,10 +45,10 @@ tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.001, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.001, 0.35, 0.55, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-0.7853982, 0.7853982, -0.7853982]
+"values": [-0.7853982, 0.7853982, 0.0, -0.7853982]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_26aoe"]
@@ -51,7 +63,7 @@ attackComponent = NodePath("Sprite2D/AttackComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=434499713]
 position = Vector2(8, -12)
-rotation = -0.7853982
+rotation = 0.70875007
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("2_io1w2")
 hframes = 12

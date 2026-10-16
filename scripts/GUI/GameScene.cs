@@ -47,7 +47,7 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            if (Enemy.EnemiesKilled == 100 * _currentInterval)
+            if (Enemy.EnemiesKilled >= 100 * _currentInterval)
             {
                 _currentInterval++;
                 Array<Node> GlobalXpOrbs = GetTree().GetNodesInGroup("XpOrbs");
@@ -55,6 +55,7 @@ namespace SurvivorsGame
                 {
                     orbs.SawPlayer = true;
                 }
+                GD.Print("Mass absorb xp");
             }
         }
 
