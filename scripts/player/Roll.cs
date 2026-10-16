@@ -6,7 +6,7 @@ namespace SurvivorsGame
     public partial class Roll : States
     {
         //highkey a redundant state as it used to overwite player movement, but now just added speed and i frames
-        [Export] HitboxComponent hitboxComponent;
+        [Export] CollisionShape2D _hurtboxShape;
         [Export] VelocityComponent velocityComponent;
         [Export] double rollCooldown = 3f;
         [Export] float rollSpeed = 1.5f;
@@ -24,14 +24,13 @@ namespace SurvivorsGame
             }
             animationplaying = true;
             this.GetPlayer().anim.Play("roll");
-            hitboxComponent.IsInvincible = true;
-            // direction = Input.GetVector("left", "right", "up", "down");
+            _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
         }
 
         public override void Exit()
         {
             this.GetPlayer().anim.AnimationFinished -= OnAnimationFinished;
-            hitboxComponent.IsInvincible = false;
+            _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
         }
 
         public override void PhysicsUpdate(double delta)
