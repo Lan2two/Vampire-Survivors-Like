@@ -53,7 +53,6 @@ offset_bottom = -87.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 75
-text = "Vampire Survivors Game demo
-Your goal is to kill 20 things"
+text = "Vampire Survivors Game demo"
 horizontal_alignment = 1
 vertical_alignment = 1
