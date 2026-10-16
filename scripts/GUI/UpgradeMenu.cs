@@ -34,7 +34,7 @@ namespace SurvivorsGame
             }
             inventory = this.GetPlayer().inventoryManager;
             xpBar.LevelUpEvent += DisplayUpgrades;
-            RandUpgrade();
+            DisplayUpgrades();
         }
 
         public override void _ExitTree()
