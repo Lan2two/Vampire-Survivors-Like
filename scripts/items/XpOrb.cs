@@ -18,9 +18,24 @@ namespace SurvivorsGame
                 GD.PrintErr("DetectionComponent node not found in XpOrb");
                 return;
             }
+            if (pathfindComponent == null)
+            {
+                GD.PrintErr("PathfindComponent not found in XpOrb");
+                return;
+            }
             BodyEntered += OnBodyEntered;
             detectionComponent.BodyEntered += OnDetectionBodyEntered;
         }
+
+        public override void _ExitTree()
+        {
+            BodyEntered -= OnBodyEntered;
+            if (detectionComponent != null)
+            {
+                detectionComponent.BodyEntered += OnDetectionBodyEntered;
+            }
+        }
+
 
         private void OnDetectionBodyEntered(Node body)
         {
