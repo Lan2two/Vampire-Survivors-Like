@@ -1,55 +1,57 @@
-using Godot;
-using System;
-
-public partial class StartMenu : Control
+namespace SurvivorsGame
 {
-    private VBoxContainer _menuContainer;
-    private Button _startButton;
-    private Button _exitButton;
+    using Godot;
 
-    public override void _Ready()
+    public partial class StartMenu : Control
     {
-        _menuContainer = GetNodeOrNull<VBoxContainer>("MenuContainer");
-        _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
-        _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
-        if (_menuContainer == null)
-        {
-            GD.PrintErr("MenuContainer not found in StartMenu");
-            return;
-        }
-        if (_startButton == null)
-        {
-            GD.PrintErr("StartButton not found in StartMenu");
-            return;
-        }
-        if (_exitButton == null)
-        {
-            GD.PrintErr("ExitButton not found in StartMenu");
-            return;
-        }
-        _startButton.Pressed += StartButton;
-        _exitButton.Pressed += ExitButton;
-    }
+        private VBoxContainer _menuContainer;
+        private Button _startButton;
+        private Button _exitButton;
 
-    public override void _ExitTree()
-    {
-        if (_startButton != null)
+        public override void _Ready()
         {
-            _startButton.Pressed -= StartButton;
+            _menuContainer = GetNodeOrNull<VBoxContainer>("MenuContainer");
+            _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
+            _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
+            if (_menuContainer == null)
+            {
+                GD.PrintErr("MenuContainer not found in StartMenu");
+                return;
+            }
+            if (_startButton == null)
+            {
+                GD.PrintErr("StartButton not found in StartMenu");
+                return;
+            }
+            if (_exitButton == null)
+            {
+                GD.PrintErr("ExitButton not found in StartMenu");
+                return;
+            }
+            _startButton.Pressed += StartButton;
+            _exitButton.Pressed += ExitButton;
         }
-        if (_exitButton != null)
+
+        public override void _ExitTree()
         {
-            _exitButton.Pressed -= ExitButton;
+            if (_startButton != null)
+            {
+                _startButton.Pressed -= StartButton;
+            }
+            if (_exitButton != null)
+            {
+                _exitButton.Pressed -= ExitButton;
+            }
         }
-    }
 
-    private void StartButton()
-    {
-        GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
-    }
+        private void StartButton()
+        {
+            GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
+        }
 
-    private void ExitButton()
-    {
-        GetTree().Quit();
+        private void ExitButton()
+        {
+            GetTree().Quit();
+        }
     }
 }

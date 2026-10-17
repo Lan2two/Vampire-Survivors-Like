@@ -1,8 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-
-
     public partial class XpOrb : RigidBody2D
     {
         private DetectionComponent detectionComponent;

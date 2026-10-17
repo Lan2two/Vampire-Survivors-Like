@@ -1,8 +1,6 @@
 namespace SurvivorsGame
 {
-    using System;
     using Godot;
-
 
     public enum UpgradeType
     {

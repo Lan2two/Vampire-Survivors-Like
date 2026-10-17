@@ -4,7 +4,6 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
-    using System;
     public partial class GameScene : Node2D
     {
         [Export] private int _absorbXpInterval = 100;

@@ -1,7 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
     using Godot.Collections;
     using System.Linq;
 

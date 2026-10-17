@@ -1,6 +1,5 @@
 namespace SurvivorsGame
 {
-    using System;
     using Godot;
 
     [GlobalClass]

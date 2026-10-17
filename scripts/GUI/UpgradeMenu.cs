@@ -2,7 +2,6 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
-    using System;
     public partial class UpgradeMenu : HBoxContainer
     {
         [Export] public Array<Strategy> Strategies = new();

@@ -1,8 +1,6 @@
 <linker>
   <!-- Protects your game's compiled assembly code -->
   <assembly fullname="Survivors">
-    <type fullname="SurvivorsGame.GameScene" preserve="all" />
-    <type fullname="SurvivorsGame.StartMenu" preserve="all" />
     <type fullname="SurvivorsGame.*" preserve="all" />
   </assembly>
 
