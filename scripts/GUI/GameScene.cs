@@ -42,7 +42,7 @@ namespace SurvivorsGame
         }
         public override void _ExitTree()
         {
-            player.PlayerDead += PlayerDeath;
+            player.PlayerDead -= PlayerDeath;
         }
 
         public override void _PhysicsProcess(double delta)

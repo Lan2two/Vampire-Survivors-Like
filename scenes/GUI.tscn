@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bp8ndd1bodxe" path="res://utils/strategy/MeleeDamageStrategy.cs" id="12_gm6g3"]
 [ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="13_fire_rate"]
 [ext_resource type="Script" uid="uid://1mmaum2i8n02" path="res://scripts/GUI/HealthBar.cs" id="15_vjrnn"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -202,15 +203,6 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
-[node name="Dim" type="ColorRect" parent="." unique_id=1674504300]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.11764706)
-
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]
 offset_left = 23.0
 offset_top = 46.0
@@ -237,3 +229,23 @@ theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 38
 text = "Health Bar"
 vertical_alignment = 1
+
+[node name="Dim" type="ColorRect" parent="." unique_id=1674504300]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.11764706)
+
+[node name="RollDisplay" type="TextureProgressBar" parent="." unique_id=937364242]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+value = 10.0
+fill_mode = 4
+texture_progress = ExtResource("16_8fbvn")
