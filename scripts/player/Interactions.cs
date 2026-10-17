@@ -30,7 +30,6 @@ namespace SurvivorsGame
                 {
                     interactLabel.Text = currentIntractable.interactName;
                     interactLabel.Show();
-                    //GD.Print("Current Interactable: " + currentIntractable.interactName);
                 }
                 else
                 {
