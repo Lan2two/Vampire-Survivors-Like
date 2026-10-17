@@ -574,6 +574,7 @@ position_smoothing_speed = 10.0
 
 [node name="Node2D" parent="Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
 EnemyScene = ExtResource("5_y5y3l")
+_maxEnemies = 50
 
 [node name="WorldItem" parent="." unique_id=579653615 instance=ExtResource("6_vjgi4")]
 position = Vector2(-190, -19)
