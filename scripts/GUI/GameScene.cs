@@ -7,10 +7,11 @@ namespace SurvivorsGame
     using System;
     public partial class GameScene : Node2D
     {
-        Label gameOverLabel;
-        CanvasLayer GUI;
-        Player player;
-        ColorRect Dim;
+        [Export] private int _absorbXpInterval = 100;
+        private Label gameOverLabel;
+        private CanvasLayer GUI;
+        private Player player;
+        private ColorRect Dim;
         private bool _isChangingScene = false;
         private int _currentInterval = 1;
 
@@ -55,7 +56,7 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            if (Enemy.EnemiesKilled >= 100 * _currentInterval)
+            if (Enemy.EnemiesKilled >= _absorbXpInterval * _currentInterval)
             {
                 _currentInterval++;
                 Array<Node> GlobalXpOrbs = GetTree().GetNodesInGroup("XpOrbs");
