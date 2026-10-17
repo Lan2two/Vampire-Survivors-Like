@@ -38,11 +38,19 @@ namespace SurvivorsGame
                 return;
             }
             player = this.GetPlayer();
+            if (player == null)
+            {
+                GD.PrintErr("Player not found in GameScene");
+                return;
+            }
             player.PlayerDead += PlayerDeath;
         }
         public override void _ExitTree()
         {
-            player.PlayerDead -= PlayerDeath;
+            if (player != null)
+            {
+                player.PlayerDead -= PlayerDeath;
+            }
         }
 
         public override void _PhysicsProcess(double delta)

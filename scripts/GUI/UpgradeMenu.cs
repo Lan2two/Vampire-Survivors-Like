@@ -13,6 +13,7 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
+            inventory = this.GetPlayer().inventoryManager;
             foreach (Node child in GetChildren())
             {
                 if (child is UpgradeButton button)
@@ -32,14 +33,20 @@ namespace SurvivorsGame
                 GD.PrintErr("No upgrades assigned in UpgradesMenu");
                 return;
             }
-            inventory = this.GetPlayer().inventoryManager;
+            if (inventory == null)
+            {
+                GD.Print("Inventory from player not found in UpgradeMenu");
+            }
             xpBar.LevelUpEvent += DisplayUpgrades;
             DisplayUpgrades();
         }
 
         public override void _ExitTree()
         {
-            xpBar.LevelUpEvent -= DisplayUpgrades;
+            if (xpBar != null)
+            {
+                xpBar.LevelUpEvent -= DisplayUpgrades;
+            }
             foreach (UpgradeButton button in _UpgradeButtons.Values)
             {
                 button.UpgradeButtonPressed -= ButtonPressed;

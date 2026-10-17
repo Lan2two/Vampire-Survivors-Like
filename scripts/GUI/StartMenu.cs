@@ -3,24 +3,44 @@ using System;
 
 public partial class StartMenu : Control
 {
-    VBoxContainer _menuContainer;
-    Button _startButton;
-    Button _exitButton;
+    private VBoxContainer _menuContainer;
+    private Button _startButton;
+    private Button _exitButton;
 
     public override void _Ready()
     {
         _menuContainer = GetNodeOrNull<VBoxContainer>("MenuContainer");
         _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
         _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
-
+        if (_menuContainer == null)
+        {
+            GD.PrintErr("MenuContainer not found in StartMenu");
+            return;
+        }
+        if (_startButton == null)
+        {
+            GD.PrintErr("StartButton not found in StartMenu");
+            return;
+        }
+        if (_exitButton == null)
+        {
+            GD.PrintErr("ExitButton not found in StartMenu");
+            return;
+        }
         _startButton.Pressed += StartButton;
         _exitButton.Pressed += ExitButton;
     }
 
     public override void _ExitTree()
     {
-        _startButton.Pressed -= StartButton;
-        _exitButton.Pressed -= ExitButton;
+        if (_startButton != null)
+        {
+            _startButton.Pressed -= StartButton;
+        }
+        if (_exitButton != null)
+        {
+            _exitButton.Pressed -= ExitButton;
+        }
     }
 
     private void StartButton()

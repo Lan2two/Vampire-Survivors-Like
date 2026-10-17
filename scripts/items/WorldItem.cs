@@ -13,19 +13,29 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             if (Engine.IsEditorHint()) return;
-            interactableComponent = GetNode<InteractableComponent>("InteractableComponent");
-            sprite2D = GetNode<Sprite2D>("Sprite2D");
-            interactableComponent.Interact += OnInteract;
-            if (ItemData != null)
+            interactableComponent = GetNodeOrNull<InteractableComponent>("InteractableComponent");
+            sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
+            if (interactableComponent == null)
             {
-                sprite2D.Texture = ItemData.ItemIcon;
-                interactableComponent.interactName = $"Pick up {ItemData.ItemName} [F]";
+                GD.PrintErr("InteractableComponent not found in WorldItem");
+                return;
             }
+            if (sprite2D == null)
+            {
+                GD.PrintErr("Sprite2D not found in WorldItem");
+            }
+            interactableComponent.Interact += OnInteract;
+            sprite2D.Texture = ItemData.ItemIcon;
+            interactableComponent.interactName = $"Pick up {ItemData.ItemName} [F]";
+
         }
 
         public override void _ExitTree()
         {
-            interactableComponent.Interact -= OnInteract;
+            if (interactableComponent != null)
+            {
+                interactableComponent.Interact -= OnInteract;
+            }
         }
 
 

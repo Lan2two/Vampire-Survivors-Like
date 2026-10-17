@@ -31,7 +31,10 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            deathState.OnDeath -= _OnDeath;
+            if (deathState != null)
+            {
+                deathState.OnDeath -= _OnDeath;
+            }
         }
 
         private void _OnDeath()

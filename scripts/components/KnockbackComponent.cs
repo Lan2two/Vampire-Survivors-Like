@@ -14,12 +14,16 @@ namespace SurvivorsGame
             if (velocityComponent == null)
             {
                 GD.PrintErr("VelocityComponent unset in Knockback");
+                return;
             }
             healthComponent.Damage += TakeKnockback;
         }
         public override void _ExitTree()
         {
-            healthComponent.Damage -= TakeKnockback;
+            if (healthComponent != null)
+            {
+                healthComponent.Damage -= TakeKnockback;
+            }
         }
 
         private void TakeKnockback(Attack attackData)
