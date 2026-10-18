@@ -21,11 +21,7 @@ namespace SurvivorsGame
 
         public bool AddItem(ItemData itemData)
         {
-            if (Slots.Count >= MaxSlots)
-            {
-                GD.Print("Inventory full, cannot pick up: " + itemData.ItemName);
-                return false;
-            }
+
             if (itemData == null)
             {
                 return false;
@@ -41,6 +37,11 @@ namespace SurvivorsGame
             {
                 Upgrades.Add(strategy);
                 return true;
+            }
+            if (Slots.Count >= MaxSlots)
+            {
+                GD.Print("Inventory full, cannot pick up: " + itemData.ItemName);
+                return false;
             }
             Slots.Add(itemData);
             return true;
