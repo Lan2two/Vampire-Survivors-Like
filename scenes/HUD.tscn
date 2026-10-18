@@ -95,19 +95,16 @@ vertical_alignment = 1
 script = ExtResource("2_womn8")
 
 [node name="GameOverNode" type="Control" parent="." unique_id=1945052996]
+process_mode = 2
+visible = false
 z_index = 1
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_wi42t")
 
 [node name="GameOverLabel" type="Label" parent="GameOverNode" unique_id=1051878861]
@@ -117,9 +114,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -229.0
+offset_left = -320.0
 offset_top = -174.5
-offset_right = 229.0
+offset_right = 320.0
 offset_bottom = -33.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -137,21 +134,23 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -170.5
-offset_top = -3.5
+offset_top = -11.5
 offset_right = 170.5
-offset_bottom = 163.5
+offset_bottom = 155.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 13
 alignment = 1
 
 [node name="RetryButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=491936703]
+custom_minimum_size = Vector2(340, 80)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Retry"
 
 [node name="MainMenuButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=1576929851]
+custom_minimum_size = Vector2(340, 80)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
@@ -191,7 +190,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UpgradeMenu" type="HBoxContainer" parent="." unique_id=991177710 node_paths=PackedStringArray("xpBar")]
-process_mode = 3
+process_mode = 2
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -289,6 +288,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.11764706)
 
 [node name="RollDisplay" type="TextureProgressBar" parent="." unique_id=937364242]

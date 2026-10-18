@@ -91,8 +91,12 @@ namespace SurvivorsGame
             {
                 Dim.Visible = true;
                 gameOverLabel.Text = message;
+            }
+            if (gameOverNode != null)
+            {
                 gameOverNode.Visible = true;
             }
+            GD.Print("GameOver");
             GetTree().CreateTimer(.1).Timeout += PauseGame;
         }
 
