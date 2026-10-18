@@ -14,7 +14,9 @@ namespace SurvivorsGame
         {
             ResourceLocalToScene = true;
         }
-        [Export] public int UpgradePool { get; set; } = 3;
+        [Export]
+        public int UpgradePool { get; set; } = 3;
+        public int Count { get; set; }
         public UpgradeType upgradeType;
     }
 }
