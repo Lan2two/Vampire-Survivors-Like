@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="2_womn8"]
 [ext_resource type="Script" uid="uid://buj4yudf04fqf" path="res://scripts/GUI/GameOverNode.cs" id="3_wi42t"]
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
-[ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
+[ext_resource type="Script" uid="uid://ct7frsulq8spk" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="6_dcyui"]
+[ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeButtonContainer.cs" id="6_u5cq1"]
 [ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="7_8inel"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
 [ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="8_vjrnn"]
@@ -34,11 +35,11 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_8inel"]
 script = ExtResource("13_fire_rate")
+UpgradePool = 5
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="Resource" id="Resource_vjrnn"]
 script = ExtResource("7_8inel")
-UpgradePool = 2
 metadata/_custom_type_script = "uid://b62e4twpi050i"
 
 [sub_resource type="Resource" id="Resource_8fbvn"]
@@ -55,7 +56,6 @@ metadata/_custom_type_script = "uid://bp8ndd1bodxe"
 
 [sub_resource type="Resource" id="Resource_gm6g3"]
 script = ExtResource("10_ajyu1")
-UpgradePool = 2
 metadata/_custom_type_script = "uid://db4vbufj1pkwa"
 
 [sub_resource type="Resource" id="Resource_adr5q"]
@@ -191,28 +191,38 @@ text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpgradeMenu" type="HBoxContainer" parent="." unique_id=991177710 node_paths=PackedStringArray("xpBar")]
+[node name="UpgradeMenu" type="Control" parent="." unique_id=2142592123]
 process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_shsct")
+
+[node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710 node_paths=PackedStringArray("xpBar")]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -238.0
-offset_top = -122.5
-offset_right = 238.0
-offset_bottom = 122.5
+offset_left = -313.0
+offset_top = -150.0
+offset_right = 313.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
-script = ExtResource("4_shsct")
+script = ExtResource("6_u5cq1")
 Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q")])
-xpBar = NodePath("../XpBar")
+xpBar = NodePath("../../XpBar")
 
-[node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=499441132]
+[node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -228,7 +238,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
-[node name="Upgrade2" type="Button" parent="UpgradeMenu" unique_id=1355302840]
+[node name="Upgrade2" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=1355302840]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -244,7 +254,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
-[node name="Upgrade3" type="Button" parent="UpgradeMenu" unique_id=212005698]
+[node name="Upgrade3" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=212005698]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -259,6 +269,35 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
+
+[node name="UpgradeMenuContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=1587918076]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 181.5
+offset_right = 125.0
+offset_bottom = 234.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+
+[node name="RerollButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=595764150]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Reroll"
+
+[node name="SkipButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=237283211]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Skip"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]
 offset_left = 23.0

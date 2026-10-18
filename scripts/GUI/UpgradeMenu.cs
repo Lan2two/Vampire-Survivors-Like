@@ -1,117 +1,60 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using Godot.Collections;
-    public partial class UpgradeMenu : HBoxContainer
+    using System;
+
+    public partial class UpgradeMenu : Control
     {
-        [Export] public Array<Strategy> Strategies = new();
-        [Export] private XpBar xpBar;
-        private Dictionary<string, Button> _UpgradeButtons = new();
-        private Array<Strategy> _RandUpgrades = new();
-        private InventoryManager inventory;
+        private UpgradeButtonContainer _upgradeButtonsContainer;
+        private Button _rerollButton;
+        private Button _skipButton;
 
         public override void _Ready()
         {
-            inventory = this.GetPlayer().inventoryManager;
-            foreach (Node child in GetChildren())
+            _upgradeButtonsContainer = GetNodeOrNull<UpgradeButtonContainer>("UpgradeButtonContainer");
+            _rerollButton = GetNodeOrNull<Button>("UpgradeMenuContainer/RerollButton");
+            _skipButton = GetNodeOrNull<Button>("UpgradeMenuContainer/SkipButton");
+            if (_upgradeButtonsContainer == null)
             {
-                if (child is UpgradeButton button)
-                {
-                    string buttonName = button.Name.ToString();
-                    _UpgradeButtons.Add(buttonName, button);
-                    button.UpgradeButtonPressed += ButtonPressed;
-                }
-            }
-            if (xpBar == null)
-            {
-                GD.PrintErr("XpBar unassigned in UpgradeMenu");
+                GD.PrintErr("UpgradeButtonContainer not found in UpgradeMenu");
                 return;
             }
-            if (Strategies.Count == 0)
+            if (_rerollButton == null)
             {
-                GD.PrintErr("No upgrades assigned in UpgradesMenu");
+                GD.PrintErr("RerollButton not found in UpgradeMenu");
                 return;
             }
-            if (inventory == null)
+            if (_skipButton == null)
             {
-                GD.Print("Inventory from player not found in UpgradeMenu");
+                GD.PrintErr("RerollButton not found in UpgradeMenu");
+                return;
             }
-            xpBar.LevelUpEvent += DisplayUpgrades;
-            DisplayUpgrades();
+            _rerollButton.Pressed += RerollButton;
+            _skipButton.Pressed += SkipButton;
         }
 
         public override void _ExitTree()
         {
-            if (xpBar != null)
+            if (_rerollButton != null)
             {
-                xpBar.LevelUpEvent -= DisplayUpgrades;
+                _rerollButton.Pressed -= RerollButton;
             }
-            foreach (UpgradeButton button in _UpgradeButtons.Values)
+            if (_skipButton != null)
             {
-                button.UpgradeButtonPressed -= ButtonPressed;
+                _skipButton.Pressed -= SkipButton;
             }
         }
 
-        private void ButtonPressed(UpgradeButton button)
+        private void RerollButton()
         {
-            string buttonName = button.Name.ToString();
-            var keysList = new System.Collections.Generic.List<string>(_UpgradeButtons.Keys);
-            int buttonIndex = keysList.IndexOf(buttonName);
-
-            if (buttonIndex >= 0 && buttonIndex < _RandUpgrades.Count)
-            {
-                AddUpgrade(buttonIndex);
-                Visible = false;
-                GetTree().Paused = false;
-            }
-            else
-            {
-                GD.PrintErr($"No upgrade is assigned to button '{buttonName}'");
-            }
+            _upgradeButtonsContainer.RandUpgrade();
         }
-        private void DisplayUpgrades()
+
+        private void SkipButton()
         {
-            if (Strategies is [])
-            {
-                GD.Print("No more upgrades");
-                return;
-            }
-            RandUpgrade();
-            Visible = true;
-            GetTree().Paused = true;
+            Visible = false;
+            GetTree().Paused = false;
         }
-        private void RandUpgrade()
-        {
-            _RandUpgrades.Clear();
-            foreach (UpgradeButton button in _UpgradeButtons.Values)
-            {
-                int randIndex = GD.RandRange(0, Strategies.Count - 1);
-                Strategy randStrategy = Strategies[randIndex];
 
-                _RandUpgrades.Add(randStrategy);
-                button.Icon = randStrategy.ItemIcon;
-                button.Text = $"{randStrategy.ItemName}\n{randStrategy.ItemDescription}\n{randStrategy.Count}/{randStrategy.UpgradePool}";
-
-            }
-
-        }
-        private void AddUpgrade(int i)
-        {
-            if (i < 0 || i >= _RandUpgrades.Count)
-            {
-                GD.PrintErr($"Upgrade index {i} is out of range");
-                return;
-            }
-            Strategy chosenUpgrade = _RandUpgrades[i];
-            inventory.AddItem(chosenUpgrade);
-            GD.Print(_RandUpgrades[i].ItemName);
-            chosenUpgrade.Count++;
-            if (chosenUpgrade.Count >= chosenUpgrade.UpgradePool)
-            {
-                Strategies.Remove(chosenUpgrade);
-                GD.Print($"{chosenUpgrade.ItemName} has been removed from upgrade pool");
-            }
-
-        }
     }
 }
