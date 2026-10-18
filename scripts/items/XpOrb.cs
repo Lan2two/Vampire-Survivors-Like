@@ -30,7 +30,7 @@ namespace SurvivorsGame
             BodyEntered -= OnBodyEntered;
             if (detectionComponent != null)
             {
-                detectionComponent.BodyEntered += OnDetectionBodyEntered;
+                detectionComponent.BodyEntered -= OnDetectionBodyEntered;
             }
         }
 
