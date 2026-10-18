@@ -260,6 +260,68 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="Animation" id="Animation_4r5pv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_60mlk"]
+resource_name = "roll"
+length = 0.5831
+step = 0.0833
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"roll"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833, 0.1666, 0.24990001, 0.3332, 0.4165, 0.49980003),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.05, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i4ail"]
+_data = {
+&"RESET": SubResource("Animation_4r5pv"),
+&"roll": SubResource("Animation_60mlk")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dvvg"]
 radius = 38.8691
 
@@ -281,8 +343,9 @@ script = ExtResource("1_ur7pv")
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"roll"
-frame = 6
-frame_progress = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=515667168]
+libraries/ = SubResource("AnimationLibrary_i4ail")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
 scale = Vector2(0.15436426, 0.15436426)
@@ -298,10 +361,8 @@ script = ExtResource("3_qhqgy")
 script = ExtResource("4_qlg0r")
 Velocity = NodePath("../../VelocityComponent")
 
-[node name="roll" type="Node" parent="StateMachine" unique_id=2059469671 node_paths=PackedStringArray("hurtboxComponent", "_hurtboxShape", "velocityComponent")]
+[node name="roll" type="Node" parent="StateMachine" unique_id=2059469671 node_paths=PackedStringArray("velocityComponent")]
 script = ExtResource("8_3v2ag")
-hurtboxComponent = NodePath("../../HurtboxComponent")
-_hurtboxShape = NodePath("../../HurtboxComponent/CollisionShape2D")
 velocityComponent = NodePath("../../VelocityComponent")
 rollCooldown = 2.0
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
@@ -316,6 +377,7 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=144013464]
 shape = SubResource("CircleShape2D_ur7pv")
+disabled = true
 
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=1509356134 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
 script = ExtResource("10_y4r1p")

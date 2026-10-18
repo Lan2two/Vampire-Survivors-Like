@@ -6,7 +6,7 @@ namespace SurvivorsGame
     {
         public override void Enter()
         {
-            this.GetPlayer().anim.Play("idle");
+            this.GetPlayer().animatedSprite.Play("idle");
         }
         public override void PhysicsUpdate(double delta)
         {

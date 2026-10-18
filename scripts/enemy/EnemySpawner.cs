@@ -47,7 +47,7 @@ namespace SurvivorsGame
             }
             if (Enemy.Alive >= _maxEnemies)
             {
-                GD.Print("Cap Reached");
+                //GD.Print("Cap Reached");
                 return;
             }
             spawnTimer = spawnInterval;

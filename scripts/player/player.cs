@@ -6,7 +6,8 @@ namespace SurvivorsGame
 	public partial class Player : RigidBody2D
 	{
 		[Export] public float playerXP = 0.0f;
-		public AnimatedSprite2D anim;
+		public AnimatedSprite2D animatedSprite;
+		public AnimationPlayer animationPlayer;
 		public InventoryManager inventoryManager;
 		public HealthComponent healthComponent;
 		public Roll rollState;
@@ -14,13 +15,19 @@ namespace SurvivorsGame
 		public event Action PlayerDead;
 		public override void _Ready()
 		{
-			anim = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+			animatedSprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+			animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
 			inventoryManager = GetNodeOrNull<InventoryManager>("InventoryManager");
 			healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
 			rollState = GetNodeOrNull<Roll>("StateMachine/roll");
-			if (anim == null)
+			if (animatedSprite == null)
 			{
 				GD.PrintErr("AnimatedSprite2D node not found in Player");
+				return;
+			}
+			if (animationPlayer == null)
+			{
+				GD.PrintErr("AnimationPlayer node not found in Player");
 				return;
 			}
 			if (inventoryManager == null)

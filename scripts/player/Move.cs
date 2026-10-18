@@ -7,7 +7,7 @@ namespace SurvivorsGame
         [Export] public VelocityComponent Velocity;
         public override void Enter()
         {
-            this.GetPlayer().anim.Play("move");
+            this.GetPlayer().animatedSprite.Play("move");
         }
         public override void PhysicsUpdate(double delta)
         {

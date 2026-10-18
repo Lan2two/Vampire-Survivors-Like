@@ -7,14 +7,14 @@ namespace SurvivorsGame
         [Export] Enemy enemy;
         public override void Enter()
         {
-            enemy.anim.Play("spawn");
-            enemy.anim.AnimationFinished += OnAnimationFinished;
+            enemy.animatedSprite.Play("spawn");
+            enemy.animatedSprite.AnimationFinished += OnAnimationFinished;
             enemy.collisionbox.SetDeferred("disabled", true);
 
         }
         public override void Exit()
         {
-            enemy.anim.AnimationFinished -= OnAnimationFinished;
+            enemy.animatedSprite.AnimationFinished -= OnAnimationFinished;
             enemy.collisionbox.SetDeferred("disabled", false);
         }
 

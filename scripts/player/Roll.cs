@@ -5,7 +5,6 @@ namespace SurvivorsGame
     public partial class Roll : States
     {
         //highkey a redundant state as it used to overwite player movement, but now just added speed and i frames
-        [Export] private CollisionShape2D _hurtboxShape;
         [Export] private VelocityComponent velocityComponent;
         [Export] public double rollCooldown = 3f;
         [Export] public float rollSpeed = 1.5f;
@@ -14,21 +13,19 @@ namespace SurvivorsGame
 
         public override void Enter()
         {
-            this.GetPlayer().anim.AnimationFinished += OnAnimationFinished;
+            this.GetPlayer().animationPlayer.AnimationFinished += OnAnimationFinished;
             if (timer > 0)
             {
                 ChangeState("Move");
                 return;
             }
             animationplaying = true;
-            this.GetPlayer().anim.Play("roll");
-            _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+            this.GetPlayer().animationPlayer.Play("roll");
         }
 
         public override void Exit()
         {
-            this.GetPlayer().anim.AnimationFinished -= OnAnimationFinished;
-            _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+            this.GetPlayer().animationPlayer.AnimationFinished -= OnAnimationFinished;
         }
 
         public override void PhysicsUpdate(double delta)
@@ -46,7 +43,7 @@ namespace SurvivorsGame
         }
 
 
-        private void OnAnimationFinished()
+        private void OnAnimationFinished(StringName animName)
         {
             timer = rollCooldown;
             animationplaying = false;

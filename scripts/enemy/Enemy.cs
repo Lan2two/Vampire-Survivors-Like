@@ -6,7 +6,7 @@ namespace SurvivorsGame
     public partial class Enemy : RigidBody2D
     {
         public float XpAmount = 1f;
-        public AnimatedSprite2D anim;
+        public AnimatedSprite2D animatedSprite;
         public CollisionShape2D collisionbox;
         public static event Action EnemyDied;
         public static int _enemiesKilled = 0;
@@ -25,7 +25,7 @@ namespace SurvivorsGame
         public static int Alive = 0;
         public override void _Ready()
         {
-            anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+            animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             collisionbox = GetNode<CollisionShape2D>("CollisionShape2D");
             Alive++;
         }
