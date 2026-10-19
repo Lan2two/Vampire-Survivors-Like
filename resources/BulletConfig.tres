@@ -4,6 +4,3 @@
 
 [resource]
 script = ExtResource("1")
-Damage = 1.0
-Knockback = 0.0
-GunCooldown = 0.0

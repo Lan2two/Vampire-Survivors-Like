@@ -2,6 +2,8 @@
 
 namespace SurvivorsGame
 {
+    using System;
+
     using Godot;
     using Godot.Collections;
     public partial class GameScene : Node2D
@@ -14,6 +16,8 @@ namespace SurvivorsGame
         private ColorRect Dim;
         private bool _isChangingScene = false;
         private int _currentInterval = 1;
+
+        public static event Action GameOverEvent;
 
         public override void _Ready()
         {
@@ -80,7 +84,8 @@ namespace SurvivorsGame
 
         private void PlayerDeath()
         {
-            CallDeferred(MethodName.GameOver, $"You Died\nEnemies Killed: {Enemy.EnemiesKilled}");
+            GameOverEvent?.Invoke();
+            CallDeferred(MethodName.GameOver, $"Game Over");
         }
 
         private void GameOver(string message)

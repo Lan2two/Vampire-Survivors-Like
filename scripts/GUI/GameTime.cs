@@ -6,7 +6,7 @@ namespace SurvivorsGame
     {
         private Label _timeLabel;
         private Timer _gameTimer;
-        private int _totalSeconds;
+        public static int _totalSeconds;
 
         public override void _Ready()
         {
@@ -25,6 +25,15 @@ namespace SurvivorsGame
             _gameTimer.Timeout += OnTimeOut;
             UpdateLabel();
         }
+
+        public override void _ExitTree()
+        {
+            if (_gameTimer != null)
+            {
+                _gameTimer.Timeout -= OnTimeOut;
+            }
+        }
+
 
         private void OnTimeOut()
         {
