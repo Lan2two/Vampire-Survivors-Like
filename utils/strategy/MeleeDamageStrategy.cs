@@ -3,9 +3,11 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class MeleeDamageStrategy : Strategy, IStrategy
+    public partial class MeleeDamageStrategy : Strategy, IStrategy, IStatUpgrade
     {
         [Export] float UpgradeDamage { get; set; } = 5f;
+        public float Amount => UpgradeDamage;
+
         public MeleeDamageStrategy()
         {
             upgradeType = UpgradeType.Melee;
@@ -14,9 +16,14 @@ namespace SurvivorsGame
         }
         public void ApplyUpgrade(Resource config)
         {
+            ApplyUpgrade(config, UpgradeDamage);
+        }
+
+        public void ApplyUpgrade(Resource config, float totalAmount)
+        {
             if (config is IDamageDealing damageable)
             {
-                damageable.Damage += UpgradeDamage;
+                damageable.Damage += totalAmount;
             }
         }
     }

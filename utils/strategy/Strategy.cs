@@ -7,6 +7,13 @@ namespace SurvivorsGame
         Bullet,
         Melee
     }
+
+    public interface IStatUpgrade
+    {
+        float Amount { get; }
+        void ApplyUpgrade(Resource config, float totalAmount);
+    }
+
     [GlobalClass]
     public partial class Strategy : ItemData
     {
