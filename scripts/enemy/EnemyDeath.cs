@@ -45,7 +45,7 @@ namespace SurvivorsGame
 
         public override void Enter()
         {
-            Enemy.EnemiesKilled++;
+            Stats.data.EnemiesKilled++;
             _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
             attackComponent?.SetDeferred("collision_mask", 0);
             characterBody?.SetDeferred("collision_layer", 0);

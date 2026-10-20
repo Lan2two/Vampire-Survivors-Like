@@ -4,20 +4,10 @@ namespace SurvivorsGame
 
     public partial class KillsCounter : Label
     {
-        public override void _Ready()
-        {
-            Text = $"Kills: {Enemy.EnemiesKilled}";
-            Enemy.EnemyDied += UpdateCounter;
-        }
 
-        public override void _ExitTree()
+        public override void _PhysicsProcess(double delta)
         {
-            Enemy.EnemyDied -= UpdateCounter;
-        }
-
-        private void UpdateCounter()
-        {
-            Text = $"Kills: {Enemy.EnemiesKilled}";
+            Text = $"Kills: {Stats.data.EnemiesKilled}";
         }
 
 

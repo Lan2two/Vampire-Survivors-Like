@@ -10,6 +10,7 @@ namespace SurvivorsGame
 		public AnimationPlayer animationPlayer;
 		public InventoryManager inventoryManager;
 		public HealthComponent healthComponent;
+		public VelocityComponent velocityComponent;
 		public Roll rollState;
 		public float totalXP;
 		public event Action PlayerDead;
@@ -19,6 +20,7 @@ namespace SurvivorsGame
 			animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
 			inventoryManager = GetNodeOrNull<InventoryManager>("InventoryManager");
 			healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
+			velocityComponent = GetNodeOrNull<VelocityComponent>("VelocityComponent");
 			rollState = GetNodeOrNull<Roll>("StateMachine/roll");
 			if (animatedSprite == null)
 			{
@@ -40,16 +42,22 @@ namespace SurvivorsGame
 				GD.PrintErr("HealthComponent node not found in Player");
 				return;
 			}
+			if (velocityComponent == null)
+			{
+				GD.PrintErr("VelocityComponent node not found in Player");
+				return;
+			}
 			if (rollState == null)
 			{
 				GD.PrintErr("Roll State node not found in Player");
 				return;
 			}
-			healthComponent.Damage += CheckDeath;
+			healthComponent.Damage += TrackDamage;
 		}
 
-		private void CheckDeath(Attack attack)
+		private void TrackDamage(Attack attack)
 		{
+			Stats.data.DamageTaken += attack.Damage;
 			if (healthComponent.currentHealth <= 0)
 			{
 				PlayerDead?.Invoke();

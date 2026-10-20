@@ -53,7 +53,7 @@ namespace SurvivorsGame
 
         private void Reset()
         {
-            Enemy.EnemiesKilled = 0;
+            Stats.ResetValues();
             Enemy.Alive = 0;
             GetTree().Paused = false;
         }

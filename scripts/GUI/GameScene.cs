@@ -69,7 +69,7 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            if (Enemy.EnemiesKilled >= _absorbXpInterval * _currentInterval)
+            if (Stats.data.EnemiesKilled >= _absorbXpInterval * _currentInterval)
             {
                 _currentInterval++;
                 Array<Node> GlobalXpOrbs = GetTree().GetNodesInGroup("XpOrbs");
