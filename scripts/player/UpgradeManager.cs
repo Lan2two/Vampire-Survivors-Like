@@ -6,6 +6,7 @@ namespace SurvivorsGame
     public partial class UpgradeManager : Node
     {
         private const int CompositeDepth = 4;
+        private static readonly UpgradeCalculationMode[] ApplyOrder = { UpgradeCalculationMode.Additive, UpgradeCalculationMode.Percentage };
         [Export] InventoryManager inventoryManager;
 
         public void ApplyUpgrades(Resource config, UpgradeType targetType)
@@ -16,9 +17,15 @@ namespace SurvivorsGame
                 ApplyStrategy(strategy, config, targetType, 0, statUpgrades);
             }
 
-            foreach (StatUpgradeTotal total in statUpgrades)
+            foreach (UpgradeCalculationMode mode in ApplyOrder)
             {
-                total.Upgrade.ApplyUpgrade(config, total.Amount);
+                foreach (StatUpgradeTotal total in statUpgrades)
+                {
+                    if (total.Upgrade.CalculationMode == mode)
+                    {
+                        total.Upgrade.ApplyUpgrade(config, total.Amount);
+                    }
+                }
             }
         }
 

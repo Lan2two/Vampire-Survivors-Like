@@ -41,27 +41,18 @@ namespace SurvivorsGame
 
         private void RetryButton()
         {
-            Reset();
             GetTree().ReloadCurrentScene();
         }
 
         private void MainMenuButton()
         {
-            Reset();
             CallDeferred(nameof(DeferredChangeScene));
         }
-
-        private void Reset()
-        {
-            Stats.ResetValues();
-            Enemy.Alive = 0;
-            GetTree().Paused = false;
-        }
-
         private void DeferredChangeScene()
         {
             if (IsInstanceValid(this) && IsInsideTree())
             {
+                GetTree().Paused = false;
                 GetTree().ChangeSceneToFile("res://scenes/start_menu.tscn");
             }
         }

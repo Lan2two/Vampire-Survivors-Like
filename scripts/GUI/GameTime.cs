@@ -6,7 +6,6 @@ namespace SurvivorsGame
     {
         private Label _timeLabel;
         private Timer _gameTimer;
-        public static int _totalSeconds;
 
         public override void _Ready()
         {
@@ -37,14 +36,14 @@ namespace SurvivorsGame
 
         private void OnTimeOut()
         {
-            _totalSeconds++;
+            Stats.data.TotalSeconds++;
             UpdateLabel();
         }
 
         private void UpdateLabel()
         {
-            int _minutes = _totalSeconds / 60;
-            int _seconds = _totalSeconds % 60;
+            int _minutes = Stats.data.TotalSeconds / 60;
+            int _seconds = Stats.data.TotalSeconds % 60;
 
             _timeLabel.Text = $"{_minutes:D2}:{_seconds:D2}";
         }
