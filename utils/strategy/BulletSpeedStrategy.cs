@@ -6,6 +6,7 @@ namespace SurvivorsGame
     public partial class BulletSpeedStrategy : Strategy, IStrategy, IStatUpgrade
     {
         [Export] float UpgradeSpeed { get; set; } = 25f;
+        [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
         public float Amount => UpgradeSpeed;
 
         public BulletSpeedStrategy()
@@ -23,7 +24,10 @@ namespace SurvivorsGame
         {
             if (config is BulletData damageable)
             {
-                damageable.Speed += totalAmount;
+                damageable.Speed = CalculateStatUpgrade(
+                    damageable.Speed,
+                    totalAmount,
+                    CalculationMode);
             }
         }
     }
