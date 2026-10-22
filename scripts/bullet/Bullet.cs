@@ -43,9 +43,11 @@ namespace SurvivorsGame
                 {
                     Attack attack = new Attack
                     {
-                        Damage = config.Damage,
+                        BaseDamage = config.Damage,
                         GlobalPosition = GlobalPosition,
-                        KnockbackForce = config.Knockback
+                        KnockbackForce = config.Knockback,
+                        CritRate = config.CritRate,
+                        CritDamageMultiplier = config.CritDamageMultiplier
                     };
                     hurtbox.TakeDamage(attack);
                     hitCount += 1;

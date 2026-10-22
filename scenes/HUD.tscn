@@ -68,16 +68,18 @@ metadata/_custom_type_script = "uid://chck2eeaeerer"
 [sub_resource type="Resource" id="Resource_5eteg"]
 script = ExtResource("6_dcyui")
 UpgradeDamage = 10.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_pn61u"]
 script = ExtResource("13_fire_rate")
 UpgradeCooldown = -0.5
+CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="Resource" id="Resource_rvumk"]
 script = ExtResource("7_8inel")
-UpgradeKnockback = 100.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://b62e4twpi050i"
 
 [sub_resource type="Resource" id="Resource_t8u3o"]
@@ -90,21 +92,26 @@ metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="Resource" id="Resource_ll5b4"]
 script = ExtResource("6_dcyui")
-UpgradeDamage = -8.0
+UpgradeDamage = -20.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_3k6xw"]
 script = ExtResource("9_8fbvn")
+UpgradeSpeed = 10.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
 
 [sub_resource type="Resource" id="Resource_dkerm"]
 script = ExtResource("13_fire_rate")
-UpgradeCooldown = 0.4
+UpgradeCooldown = 25.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="Resource" id="Resource_db6u7"]
 script = ExtResource("7_8inel")
-UpgradeKnockback = -50.0
+UpgradeKnockback = -25.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://b62e4twpi050i"
 
 [sub_resource type="Resource" id="Resource_72onm"]
@@ -122,17 +129,20 @@ metadata/_custom_type_script = "uid://cbifaria4lqs3"
 
 [sub_resource type="Resource" id="Resource_7mxsn"]
 script = ExtResource("9_8fbvn")
-UpgradeSpeed = 150.0
+UpgradeSpeed = 50.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
 
 [sub_resource type="Resource" id="Resource_vlu7s"]
 script = ExtResource("6_dcyui")
 UpgradeDamage = 50.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_igqi4"]
 script = ExtResource("13_fire_rate")
-UpgradeCooldown = -2.0
+UpgradeCooldown = -20.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="Resource" id="Resource_jath5"]

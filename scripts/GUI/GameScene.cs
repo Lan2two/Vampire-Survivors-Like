@@ -91,7 +91,6 @@ namespace SurvivorsGame
 
         private void PlayerDeath()
         {
-            GameOverEvent?.Invoke();
             CallDeferred(MethodName.GameOver, $"Game Over");
         }
 
@@ -111,6 +110,7 @@ namespace SurvivorsGame
             }
             GD.Print("GameOver");
             GetTree().CreateTimer(.1).Timeout += PauseGame;
+            GameOverEvent?.Invoke();
         }
 
         private void PauseGame()

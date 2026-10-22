@@ -18,7 +18,15 @@ namespace SurvivorsGame
 
         public void TakeDamage(Attack attackData)
         {
-            currentHealth -= attackData.Damage;
+            int Randint = GD.RandRange(0, 100);
+            attackData.FinalDamage = attackData.BaseDamage;
+            if (Randint < attackData.CritRate)
+            {
+                GD.Print("Crit");
+                attackData.Crit = true;
+                attackData.FinalDamage *= attackData.CritDamageMultiplier;
+            }
+            currentHealth -= attackData.FinalDamage;
             Damage?.Invoke(attackData);
         }
 

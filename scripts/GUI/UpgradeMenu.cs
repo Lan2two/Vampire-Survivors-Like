@@ -31,6 +31,7 @@ namespace SurvivorsGame
             }
             _rerollButton.Pressed += RerollButton;
             _skipButton.Pressed += SkipButton;
+            GameScene.GameOverEvent += Hide;
         }
 
         public override void _ExitTree()
@@ -43,6 +44,7 @@ namespace SurvivorsGame
             {
                 _skipButton.Pressed -= SkipButton;
             }
+            GameScene.GameOverEvent -= Hide;
         }
 
         private void RerollButton()

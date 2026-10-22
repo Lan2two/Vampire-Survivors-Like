@@ -58,7 +58,7 @@ namespace SurvivorsGame
 
 		private void TrackDamage(Attack attack)
 		{
-			Stats.data.DamageTaken += attack.Damage;
+			Stats.data.DamageTaken += attack.FinalDamage;
 			if (healthComponent.currentHealth <= 0)
 			{
 				if (!DeathGuard)
