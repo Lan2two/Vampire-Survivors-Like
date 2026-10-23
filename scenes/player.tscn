@@ -348,7 +348,8 @@ animation = &"roll"
 libraries/ = SubResource("AnimationLibrary_i4ail")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
-scale = Vector2(0.15436426, 0.15436426)
+position = Vector2(0, -0.1)
+scale = Vector2(0.145, 0.145)
 shape = SubResource("CircleShape2D_4dvvg")
 
 [node name="StateMachine" parent="." unique_id=1879212461 node_paths=PackedStringArray("startingState") instance=ExtResource("4_d2wvv")]
