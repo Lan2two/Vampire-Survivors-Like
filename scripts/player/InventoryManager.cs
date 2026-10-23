@@ -2,18 +2,18 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
+    using System;
 
     public partial class InventoryManager : Node
     {
         [Export] public Array<Strategy> Upgrades = new();
         [Export] public WeaponController weaponController;
         [Export] public PackedScene WorldItemScene;
-
-        public Node weaponInstance;
-        public WeaponBase currentWeapon;
-
         [Export] public Array<ItemData> Slots = new();
         [Export] public int MaxSlots = 8;
+        public Node weaponInstance;
+        public WeaponBase currentWeapon;
+        public event Action UpgradeAdded;
 
         public override void _Ready()
         {
@@ -36,6 +36,7 @@ namespace SurvivorsGame
             if (itemData is Strategy strategy)
             {
                 Upgrades.Add(strategy);
+                UpgradeAdded?.Invoke();
                 return true;
             }
             if (Slots.Count >= MaxSlots)
