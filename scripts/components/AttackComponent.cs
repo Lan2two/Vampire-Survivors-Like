@@ -9,10 +9,9 @@ namespace SurvivorsGame
     {
         [Export] public float damage = 10f;
         [Export] public float knockback = 100f;
-        [Export] public float critRate = 0;
-        [Export] public float critDamageMultiplier = 1.2f;
         [Export] public float DamageInterval = .7f;
         [Export] public bool SingleHit = true;
+        public bool crit;
 
         private double damageTimer;
         private readonly HashSet<Area2D> hurtboxes = new();
@@ -81,21 +80,12 @@ namespace SurvivorsGame
                 return;
             }
 
-            int Randint = GD.RandRange(0, 100);
-            bool Crit = false;
-            float FinalDamage = damage;
-            if (Randint < critRate)
-            {
-                Crit = true;
-                FinalDamage *= critDamageMultiplier;
-            }
-
             Attack attack = new Attack
             {
-                Damage = FinalDamage,
+                Damage = damage,
                 GlobalPosition = GlobalPosition,
                 KnockbackForce = knockback,
-                Crit = Crit,
+                Crit = crit
             };
 
             if (SingleHit)

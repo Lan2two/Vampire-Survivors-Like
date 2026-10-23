@@ -10,7 +10,7 @@ namespace SurvivorsGame
         private float _speed = 300f;
         private int _pierceCount = 0;
         private float _gunCooldown = 1f;
-        private float _critRate = 0;
+        private float _critRate = 5;
         private float _critDamageMultiplier = 1.2f;
         [Export]
         public float Damage
