@@ -1098,7 +1098,6 @@ region = Rect2(0, 0, 16.60905, 16)
 script = ExtResource("9_sv1m6")
 SwingSpeedMultiplier = 1.2
 WeaponVisualScene = ExtResource("8_45i86")
-CritRate = 100.0
 ItemName = "Coin"
 ItemIcon = SubResource("AtlasTexture_mcffj")
 metadata/_custom_type_script = "uid://dywixrbgtp314"

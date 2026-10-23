@@ -22,7 +22,11 @@
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="16_5eteg"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
 [ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
+[ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/BulletCritRateStrategy.cs" id="20_72onm"]
+[ext_resource type="Script" uid="uid://bsi06qlqgp2au" path="res://utils/strategy/BulletCritDamageStrategy.cs" id="21_db6u7"]
 [ext_resource type="Script" uid="uid://di31h4p0cxet7" path="res://scripts/GUI/GameTime.cs" id="21_t8u3o"]
+[ext_resource type="Script" uid="uid://c1jxa2l0e5qpd" path="res://utils/strategy/MeleeCritRateStrategy.cs" id="22_yy3iv"]
+[ext_resource type="Script" uid="uid://d27j145v6nms" path="res://utils/strategy/MeleeCritDamageStrategy.cs" id="23_7mxsn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -151,6 +155,38 @@ Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy3iv"), SubReso
 UpgradePool = 2
 ItemName = "Sniper Rounds"
 ItemDescription = "Upgrades piercing, damage, and bullet speed, longer cooldown"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_fuvlu"]
+script = ExtResource("20_72onm")
+metadata/_custom_type_script = "uid://welqlf4pw7cn"
+
+[sub_resource type="Resource" id="Resource_3xtru"]
+script = ExtResource("21_db6u7")
+UpgradeCritDamage = 0.2
+metadata/_custom_type_script = "uid://bsi06qlqgp2au"
+
+[sub_resource type="Resource" id="Resource_n7bdd"]
+script = ExtResource("16_5eteg")
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_fuvlu"), SubResource("Resource_3xtru")])
+ItemName = "Lucky Shot"
+ItemDescription = "Crits for gun"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_yy1yx"]
+script = ExtResource("22_yy3iv")
+metadata/_custom_type_script = "uid://c1jxa2l0e5qpd"
+
+[sub_resource type="Resource" id="Resource_qxvih"]
+script = ExtResource("23_7mxsn")
+UpgradeCritDamage = 0.2
+metadata/_custom_type_script = "uid://d27j145v6nms"
+
+[sub_resource type="Resource" id="Resource_h5tib"]
+script = ExtResource("16_5eteg")
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy1yx"), SubResource("Resource_qxvih")])
+ItemName = "Lucky Strike"
+ItemDescription = "Crits for melee"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
@@ -434,7 +470,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib")])
 xpBar = NodePath("../../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]
