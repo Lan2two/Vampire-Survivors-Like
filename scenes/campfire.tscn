@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cemr5n7iygx3r"]
+
+[ext_resource type="Script" uid="uid://yqp04a743l0o" path="res://scripts/components/InteractableComponent.cs" id="1_54scn"]
+[ext_resource type="Script" uid="uid://bwewa73y6r483" path="res://scripts/world/Campfire.cs" id="1_yfrnb"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_yfrnb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8pk5p"]
+radius = 11.045361
+
+[sub_resource type="Gradient" id="Gradient_mcffj"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.22836539, 0.8004808)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yfrnb"]
+gradient = SubResource("Gradient_mcffj")
+width = 40
+height = 30
+fill = 1
+fill_from = Vector2(0.5017361, 0.4982639)
+
+[node name="Campfire" type="Node2D" unique_id=436587811]
+script = ExtResource("1_yfrnb")
+
+[node name="InteractableComponent" type="Area2D" parent="." unique_id=33965412]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_54scn")
+interactName = "Campfire"
+metadata/_custom_type_script = "uid://yqp04a743l0o"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=484671731]
+shape = SubResource("CircleShape2D_8pk5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=919938622]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_yfrnb")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=110549552]
+visible = false
+position = Vector2(-1.0000057, 1.9999962)
+scale = Vector2(5.732422, 6.0349936)
+color = Color(0.7254902, 0.30980393, 0.078431375, 1)
+energy = 1.5
+texture = SubResource("GradientTexture2D_yfrnb")
