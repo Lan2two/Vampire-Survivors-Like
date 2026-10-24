@@ -31,7 +31,10 @@
 [ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="25_yy3iv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
-bg_color = Color(0, 0, 0, 0.39215687)
+bg_color = Color(0, 0, 0, 0.6627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mxsn"]
+bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shsct"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -75,7 +78,6 @@ metadata/_custom_type_script = "uid://b62e4twpi050i"
 [sub_resource type="Resource" id="Resource_t8u3o"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_5eteg"), SubResource("Resource_pn61u"), SubResource("Resource_rvumk")])
-UpgradePool = 2
 ItemName = "Heavy Rounds"
 ItemDescription = "Bullets deal more damage and knockback but take longer to fire"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -107,7 +109,6 @@ metadata/_custom_type_script = "uid://b62e4twpi050i"
 [sub_resource type="Resource" id="Resource_72onm"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_ll5b4"), SubResource("Resource_3k6xw"), SubResource("Resource_dkerm"), SubResource("Resource_db6u7")])
-UpgradePool = 2
 ItemName = "Light Rounds"
 ItemDescription = "Faster firing and bullets for less damage"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -138,7 +139,6 @@ metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 [sub_resource type="Resource" id="Resource_jath5"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy3iv"), SubResource("Resource_7mxsn"), SubResource("Resource_vlu7s"), SubResource("Resource_igqi4")])
-UpgradePool = 2
 ItemName = "Sniper Rounds"
 ItemDescription = "Upgrades piercing, damage, and bullet speed, longer cooldown"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -194,13 +194,16 @@ metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 20.0
-bg_color = Color(0, 0, 0, 0.39215687)
+bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cekc3"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 50.0
 bg_color = Color(0, 0, 0, 0.2509804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy3iv"]
+bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8inel"]
 bg_color = Color(0.67754686, 0, 0, 1)
@@ -276,6 +279,9 @@ custom_minimum_size = Vector2(340, 80)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_7mxsn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7mxsn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7mxsn")
 text = "Retry"
 
 [node name="MainMenuButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=1576929851]
@@ -283,6 +289,9 @@ custom_minimum_size = Vector2(340, 80)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_7mxsn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7mxsn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7mxsn")
 text = "Main Menu"
 
 [node name="UpgradesDisplay" type="ColorRect" parent="GameOverNode" unique_id=208435874]
@@ -298,7 +307,7 @@ offset_right = -348.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.39215687)
+color = Color(0, 0, 0, 0.6627451)
 script = ExtResource("4_pn61u")
 
 [node name="GridContainer" type="GridContainer" parent="GameOverNode/UpgradesDisplay" unique_id=616568119]
@@ -377,7 +386,7 @@ offset_right = 605.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.39215687)
+color = Color(0, 0, 0, 0.6627451)
 script = ExtResource("6_rvumk")
 
 [node name="Label" type="Label" parent="GameOverNode/StatsDisplay" unique_id=1041667383]
@@ -545,6 +554,9 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_yy3iv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yy3iv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yy3iv")
 text = "Reroll 2/2"
 
 [node name="SkipButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=237283211]
@@ -553,6 +565,9 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_yy3iv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yy3iv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yy3iv")
 text = "Skip"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]

@@ -1104,6 +1104,18 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3xj3m")
 
+[sub_resource type="Gradient" id="Gradient_mcffj"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.85336536)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2rd6h"]
+gradient = SubResource("Gradient_mcffj")
+width = 20
+height = 20
+fill = 1
+fill_from = Vector2(0.5017361, 0.4982639)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcffj"]
 atlas = ExtResource("7_kyk2p")
 region = Rect2(0, 0, 16.60905, 16)
@@ -1118,8 +1130,10 @@ metadata/_custom_type_script = "uid://dywixrbgtp314"
 
 [sub_resource type="Gradient" id="Gradient_7ua8r"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.34633029, 0.6995413, 1)
-colors = PackedColorArray(0.325156, 0.21844116, 0.24501383, 1, 0.3432186, 0.23972574, 0.26455933, 1, 0.6488329, 0.59898674, 0.5968372, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.1904762, 0.35, 0.5, 0.65, 0.8, 1)
+colors = PackedColorArray(0.325156, 0.21844116, 0.24501383, 1, 0.34509805, 0.23921569, 0.2627451, 1, 0.64705884, 0.6, 0.59607846, 1, 1, 1, 1, 1, 0.64705884, 0.6, 0.59607846, 1, 0.34509805, 0.23921569, 0.2627451, 1, 0.3254902, 0.21960784, 0.24313726, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
 [node name="Game" type="Node2D" unique_id=2069482560]
 y_sort_enabled = true
@@ -1158,6 +1172,12 @@ position_smoothing_speed = 10.0
 EnemyScene = ExtResource("5_y5y3l")
 _maxEnemies = 50
 
+[node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=1815498478]
+position = Vector2(-1.0000057, 1.9999962)
+scale = Vector2(5.732422, 6.0349936)
+color = Color(0.87775594, 0.94410115, 0.76046246, 1)
+texture = SubResource("GradientTexture2D_2rd6h")
+
 [node name="WorldItem" parent="." unique_id=579653615 instance=ExtResource("6_vjgi4")]
 position = Vector2(-190, -19)
 ItemData = SubResource("Resource_choun")
@@ -1168,4 +1188,4 @@ ItemData = SubResource("Resource_choun")
 color = Color(0.16424277, 0.10368731, 0.11744278, 1)
 script = ExtResource("12_2rd6h")
 TimeGradient = SubResource("Gradient_7ua8r")
-CycleTimeSeconds = 10.0
+CycleTimeSeconds = 120.0
