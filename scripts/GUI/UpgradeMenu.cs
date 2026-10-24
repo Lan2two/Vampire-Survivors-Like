@@ -35,8 +35,7 @@ namespace SurvivorsGame
             _skipButton.Pressed += SkipButton;
             GameScene.GameOverEvent += Hide;
             VisibilityChanged += SetReroll;
-            _rerollCount = Rerolls;
-            _rerollButton.Text = $"Reroll\n{_rerollCount}/{Rerolls}";
+            SetReroll();
         }
 
         public override void _ExitTree()
@@ -54,6 +53,7 @@ namespace SurvivorsGame
         private void SetReroll()
         {
             _rerollCount = Rerolls;
+            _rerollButton.Text = $"Reroll {_rerollCount}/{Rerolls}";
         }
 
         private void RerollButton()
@@ -64,7 +64,7 @@ namespace SurvivorsGame
             }
             _upgradeButtonsContainer.RandUpgrade();
             _rerollCount--;
-            _rerollButton.Text = $"Reroll\n{_rerollCount}/{Rerolls}";
+            _rerollButton.Text = $"Reroll {_rerollCount}/{Rerolls}";
 
         }
 
