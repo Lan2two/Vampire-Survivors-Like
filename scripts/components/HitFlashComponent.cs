@@ -36,6 +36,10 @@ namespace SurvivorsGame
 
         private void Flash(Attack attackData)
         {
+            if (attackData.Damage <= 0)
+            {
+                return;
+            }
             if (Sprite == null)
             {
                 return;

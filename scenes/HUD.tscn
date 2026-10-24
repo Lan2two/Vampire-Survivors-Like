@@ -37,7 +37,7 @@ bg_color = Color(0, 0, 0, 0.6627451)
 bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shsct"]
-bg_color = Color(0, 0, 0, 0.39215687)
+bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)

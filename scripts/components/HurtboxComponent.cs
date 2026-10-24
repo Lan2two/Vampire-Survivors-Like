@@ -35,6 +35,10 @@ namespace SurvivorsGame
             if (healthComponent != null)
             {
                 healthComponent.TakeDamage(attackData);
+                if (attackData.Damage <= 0)
+                {
+                    return;
+                }
                 SetiFrames(true);
                 _iFramesTimer = iFrames;
             }

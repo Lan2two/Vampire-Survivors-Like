@@ -46,7 +46,9 @@ namespace SurvivorsGame
         {
             if (Input.IsActionJustPressed("interact") && IsInstanceValid(currentIntractable))
             {
+                OnInteract();
                 currentIntractable.EmitSignal(InteractableComponent.SignalName.Interact);
+
             }
         }
 
