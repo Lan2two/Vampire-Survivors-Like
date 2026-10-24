@@ -80,7 +80,7 @@ namespace SurvivorsGame
                 TextureRect textureRect = _textureRect.Duplicate() as TextureRect;
                 textureRect.Texture = strategy.ItemIcon;
                 Label label = textureRect.GetChild<Label>(0);
-                label.Text = $"{strategy.ItemName}\n{duplicateCount}/{strategy.UpgradePool}";
+                label.Text = $"{strategy.ItemName}\n{duplicateCount}/{strategy.MaxStackSize}";
                 textureRect.Visible = true;
                 _gridContainer.AddChild(textureRect);
             }

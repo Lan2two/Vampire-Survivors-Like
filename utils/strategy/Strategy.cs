@@ -28,9 +28,8 @@ namespace SurvivorsGame
         public Strategy()
         {
             ResourceLocalToScene = true;
+            MaxStackSize = 3;
         }
-        [Export]
-        public int UpgradePool { get; set; } = 3;
         public int Count { get; set; }
         public UpgradeType upgradeType;
 
