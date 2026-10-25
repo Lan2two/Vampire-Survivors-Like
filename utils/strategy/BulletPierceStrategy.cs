@@ -10,7 +10,7 @@ namespace SurvivorsGame
         public BulletPierceStrategy()
         {
             upgradeType = UpgradeType.Bullet;
-            ItemName = "Bullet Pierce";
+            ItemName = "Piercing Rounds";
             ItemDescription = "Bullet pierces";
         }
 

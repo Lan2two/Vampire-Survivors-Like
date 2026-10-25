@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public MeleeDamageStrategy()
         {
             upgradeType = UpgradeType.Melee;
-            ItemName = "Melee Damage";
+            ItemName = "Biceps";
             ItemDescription = "Melee deals more damage";
         }
         public void ApplyUpgrade(Resource config)

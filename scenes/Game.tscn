@@ -1191,7 +1191,7 @@ ItemData = SubResource("Resource_choun")
 color = Color(0.16424277, 0.10368731, 0.11744278, 1)
 script = ExtResource("12_2rd6h")
 TimeGradient = SubResource("Gradient_7ua8r")
-CycleTimeSeconds = 240.0
+CycleTimeSeconds = 300.0
 
 [node name="Campfire" parent="." unique_id=436587811 instance=ExtResource("13_2rd6h")]
 position = Vector2(-229, -62)

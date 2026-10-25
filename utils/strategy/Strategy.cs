@@ -28,7 +28,7 @@ namespace SurvivorsGame
         public Strategy()
         {
             ResourceLocalToScene = true;
-            MaxStackSize = 3;
+            MaxStackSize = 5;
         }
         public int Count { get; set; }
         public UpgradeType upgradeType;

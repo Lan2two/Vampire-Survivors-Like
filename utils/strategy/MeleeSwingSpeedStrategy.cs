@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public MeleeSwingSpeedStrategy()
         {
             upgradeType = UpgradeType.Melee;
-            ItemName = "Melee Swing Speed";
+            ItemName = "Fast Attacks";
             ItemDescription = "Melee swings faster";
         }
         public void ApplyUpgrade(Resource config)

@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public BulletSpeedStrategy()
         {
             upgradeType = UpgradeType.Bullet;
-            ItemName = "Bullet Speed";
+            ItemName = "Fast Shot";
             ItemDescription = "Bullet travels faster";
         }
         public void ApplyUpgrade(Resource config)

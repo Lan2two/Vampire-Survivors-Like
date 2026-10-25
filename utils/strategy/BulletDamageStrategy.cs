@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public BulletDamageStrategy()
         {
             upgradeType = UpgradeType.Bullet;
-            ItemName = "Bullet Damage";
+            ItemName = "Better bullets";
             ItemDescription = "Bullet deals more damage";
         }
         public void ApplyUpgrade(Resource config)
