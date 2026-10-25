@@ -59,9 +59,9 @@ namespace SurvivorsGame
             _durationTimer.Timeout += OnDurationTimeout;
         }
 
-        public override void _Process(double delta)
+        public override void _PhysicsProcess(double delta)
         {
-            label.Text = $"{_durationTimer.TimeLeft}";
+            label.Text = $"{(int)_durationTimer.TimeLeft}";
         }
 
 
@@ -83,6 +83,7 @@ namespace SurvivorsGame
 
         private void SetCampfire(bool set)
         {
+            label.Visible = set;
             pointLight2D.Visible = set;
             attackComponent.SetAttackMonitoring(set);
             if (set)
