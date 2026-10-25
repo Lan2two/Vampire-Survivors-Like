@@ -84,7 +84,7 @@ namespace SurvivorsGame
                 {
                     orbs.SawPlayer = true;
                 }
-                GD.Print("Mass absorb xp");
+                //GD.Print("Mass absorb xp");
             }
         }
 

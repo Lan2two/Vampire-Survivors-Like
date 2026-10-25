@@ -162,6 +162,7 @@ physics_material_override = ExtResource("18_physics")
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_nenq2")
+XpAmount = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532282420]
 shape = SubResource("CircleShape2D_8qclf")
@@ -199,6 +200,7 @@ metadata/_custom_type_script = "uid://1pglkcxd7gg8"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1925952333]
 script = ExtResource("7_w8i8w")
+maxHealth = 50.0
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
@@ -214,7 +216,7 @@ shape = SubResource("CircleShape2D_md0e3")
 script = ExtResource("11_w8i8w")
 rigidBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
-maxSpeed = 30.0
+maxSpeed = 25.0
 acceleration = 10.0
 SpeedVariation = true
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
@@ -233,6 +235,7 @@ healthComponent = NodePath("../HealthComponent")
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("15_g0wcc")
+damage = 5.0
 SingleHit = false
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 

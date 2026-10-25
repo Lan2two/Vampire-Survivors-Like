@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://x47ntiqsehf0" path="res://scenes/enemy_spawner.tscn" id="4_r7sob"]
 [ext_resource type="PackedScene" uid="uid://rou1io4c6lci" path="res://scenes/enemy.tscn" id="5_y5y3l"]
 [ext_resource type="PackedScene" uid="uid://d1t24gaxw444e" path="res://scenes/item.tscn" id="6_vjgi4"]
+[ext_resource type="PackedScene" uid="uid://5ho2ql8ej7bi" path="res://scenes/enemy2.tscn" id="7_7ua8r"]
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="7_kyk2p"]
 [ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="8_45i86"]
+[ext_resource type="PackedScene" uid="uid://dkaw0ojl2dej6" path="res://scenes/enemy3.tscn" id="8_r7sob"]
 [ext_resource type="Script" uid="uid://dywixrbgtp314" path="res://resources/MeleeWeaponBase.cs" id="9_sv1m6"]
 [ext_resource type="Script" uid="uid://bjelyacmd4fh2" path="res://scripts/world/Cycle.cs" id="12_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://bqjqkebgwfpcu" path="res://scenes/HUD.tscn" id="12_mcffj"]
@@ -1170,8 +1172,8 @@ position_smoothing_speed = 10.0
 [node name="GunComponent" parent="Player" unique_id=1673118753 instance=ExtResource("3_7ua8r")]
 
 [node name="Node2D" parent="Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
-EnemyScene = ExtResource("5_y5y3l")
-_maxEnemies = 50
+EnemySceneArray = Array[PackedScene]([ExtResource("5_y5y3l"), ExtResource("7_7ua8r"), ExtResource("8_r7sob")])
+_maxEnemies = 75
 
 [node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)
