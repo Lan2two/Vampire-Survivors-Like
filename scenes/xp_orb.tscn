@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dsqdebiaedyd1" path="res://scripts/items/XpOrb.cs" id="1_me6n8"]
 [ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="1_pkphv"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="2_me6n8"]
-[ext_resource type="Texture2D" uid="uid://0y4pcug51h6r" path="res://assets/sprites/fruit.png" id="3_hluwh"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="6_x08h0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hluwh"]
@@ -13,9 +12,18 @@ radius = 2.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_me6n8"]
 radius = 42.047592
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7dfxl"]
-atlas = ExtResource("3_hluwh")
-region = Rect2(31.693398, 47.284496, 16.963913, 16.963902)
+[sub_resource type="Gradient" id="Gradient_g3b8j"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.30048078)
+colors = PackedColorArray(0, 0.8784314, 0, 1, 0.44705883, 0.91764706, 0.41960785, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x08h0"]
+gradient = SubResource("Gradient_g3b8j")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5225694, 0.4878472)
 
 [node name="XpOrb" type="RigidBody2D" unique_id=740080798 groups=["XpOrbs"]]
 collision_layer = 0
@@ -38,7 +46,7 @@ shape = SubResource("CircleShape2D_me6n8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2011534936]
 position = Vector2(0, -1)
-texture = SubResource("AtlasTexture_7dfxl")
+texture = SubResource("GradientTexture2D_x08h0")
 
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=403826576 node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("2_me6n8")
