@@ -15,8 +15,8 @@ radius = 42.047592
 [sub_resource type="Gradient" id="Gradient_g3b8j"]
 interpolation_mode = 2
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.30048078)
-colors = PackedColorArray(0, 0.8784314, 0, 1, 0.44705883, 0.91764706, 0.41960785, 0)
+offsets = PackedFloat32Array(0, 0.12740384, 0.30048078)
+colors = PackedColorArray(0, 1, 0, 1, 0.2784314, 0.89411765, 0.25490198, 1, 0.44705883, 0.91764706, 0.41960785, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_x08h0"]
 gradient = SubResource("Gradient_g3b8j")
@@ -24,6 +24,17 @@ width = 16
 height = 16
 fill = 1
 fill_from = Vector2(0.5225694, 0.4878472)
+
+[sub_resource type="Gradient" id="Gradient_x08h0"]
+offsets = PackedFloat32Array(0, 0.34855768)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d33pk"]
+gradient = SubResource("Gradient_x08h0")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5017361, 0.4982639)
 
 [node name="XpOrb" type="RigidBody2D" unique_id=740080798 groups=["XpOrbs"]]
 collision_layer = 0
@@ -45,7 +56,6 @@ metadata/_custom_type_script = "uid://d1r007g1n2ewk"
 shape = SubResource("CircleShape2D_me6n8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2011534936]
-position = Vector2(0, -1)
 texture = SubResource("GradientTexture2D_x08h0")
 
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=403826576 node_paths=PackedStringArray("rigidBody")]
@@ -61,3 +71,6 @@ characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
 threshold = 1.0
 metadata/_custom_type_script = "uid://bbw06doqvj4pd"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=828657392]
+texture = SubResource("GradientTexture2D_d33pk")
