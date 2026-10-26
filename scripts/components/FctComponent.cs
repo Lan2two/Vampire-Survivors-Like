@@ -39,7 +39,7 @@ namespace SurvivorsGame
 
         private void DisplayDamage(Attack attackData)
         {
-            if (!GodotObject.IsInstanceValid(this)
+            if (!IsInstanceValid(this)
                 || damageLabelScene == null
                 || GetTree().CurrentScene == null)
             {

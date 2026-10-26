@@ -1,12 +1,12 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using System;
 
     [GlobalClass]
     public partial class DetectionComponent : Area2D
     {
         private bool playerInRange = false;
-
         public override void _Ready()
         {
             BodyEntered += OnBodyEntered;
@@ -27,13 +27,17 @@ namespace SurvivorsGame
         private void OnBodyEntered(Node body)
         {
             if (body is Player)
+            {
                 playerInRange = true;
+            }
         }
 
         private void OnBodyExit(Node body)
         {
             if (body is Player)
+            {
                 playerInRange = false;
+            }
         }
     }
 }

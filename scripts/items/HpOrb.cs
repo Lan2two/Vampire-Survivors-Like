@@ -6,7 +6,6 @@ namespace SurvivorsGame
         private DetectionComponent detectionComponent;
         private PathfindComponent pathfindComponent;
         public float HPAmount = 10f;
-        public bool SawPlayer = false;
         public override void _Ready()
         {
             detectionComponent = GetNodeOrNull<DetectionComponent>("DetectionComponent");
@@ -22,30 +21,16 @@ namespace SurvivorsGame
                 return;
             }
             BodyEntered += OnBodyEntered;
-            detectionComponent.BodyEntered += OnDetectionBodyEntered;
         }
 
         public override void _ExitTree()
         {
             BodyEntered -= OnBodyEntered;
-            if (detectionComponent != null)
-            {
-                detectionComponent.BodyEntered -= OnDetectionBodyEntered;
-            }
-        }
-
-
-        private void OnDetectionBodyEntered(Node body)
-        {
-            if (body is Player)
-            {
-                SawPlayer = true;
-            }
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            if (SawPlayer)
+            if (detectionComponent.IsPlayerInRange())
             {
                 pathfindComponent.PathfindToPlayer();
             }
