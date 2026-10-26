@@ -58,7 +58,7 @@ namespace SurvivorsGame
                 return;
             }
             player.PlayerDead += PlayerDeath;
-
+            Preloads();
         }
 
         public override void _EnterTree()
@@ -88,6 +88,9 @@ namespace SurvivorsGame
             }
         }
 
+        private void Preloads()
+        {
+        }
 
         private void PlayerDeath()
         {

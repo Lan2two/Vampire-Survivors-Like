@@ -10,8 +10,8 @@ namespace SurvivorsGame
         Timer timer;
         Marker2D ShootPoint;
         Array<Node2D> enemiesInRange;
-        PackedScene BULLET;
         [Export] BulletData bulletConfig;
+        [Export] PackedScene BULLET;
 
 
         public override void _Ready()
@@ -19,11 +19,15 @@ namespace SurvivorsGame
             timer = GetNode<Timer>("Timer");
             ShootPoint = GetNode<Marker2D>("%ShootPoint");
             upgradeManager = GetParent().GetNode<UpgradeManager>("UpgradeManager");
-            BULLET = GD.Load<PackedScene>("uid://d1ufo1hep2ntf");
 
             if (bulletConfig == null)
             {
-                GD.PushError("GunComponent requires a BulletData resource.");
+                GD.PrintErr("GunComponent requires a BulletData resource.");
+                return;
+            }
+            if (BULLET == null)
+            {
+                GD.PrintErr("GunComponent requires a Bullet Scene.");
                 return;
             }
 
