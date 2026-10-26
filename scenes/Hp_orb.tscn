@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://b2hdv4s8cdj6u"]
+
+[ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="1_x1kkc"]
+[ext_resource type="Script" uid="uid://dsqdebiaedyd1" path="res://scripts/items/XpOrb.cs" id="2_wapkl"]
+[ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="3_jae0q"]
+[ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="4_homb0"]
+[ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="5_gcww1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hluwh"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_me6n8"]
+radius = 42.047592
+
+[sub_resource type="Gradient" id="Gradient_g3b8j"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.12740384, 0.30048078)
+colors = PackedColorArray(1, 0, 0, 1, 0.89, 0.2581, 0.2581, 1, 0.92, 0.42319998, 0.42319998, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x08h0"]
+gradient = SubResource("Gradient_g3b8j")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5225694, 0.4878472)
+
+[sub_resource type="Gradient" id="Gradient_x08h0"]
+offsets = PackedFloat32Array(0, 0.34855768)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d33pk"]
+gradient = SubResource("Gradient_x08h0")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5017361, 0.4982639)
+
+[node name="HpOrb" type="RigidBody2D" unique_id=740080798 groups=["XpOrbs"]]
+y_sort_enabled = true
+collision_layer = 0
+physics_material_override = ExtResource("1_x1kkc")
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 20
+script = ExtResource("2_wapkl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599445404]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_hluwh")
+
+[node name="DetectionComponent" type="Area2D" parent="." unique_id=1291011737]
+script = ExtResource("3_jae0q")
+metadata/_custom_type_script = "uid://d1r007g1n2ewk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=1415189767]
+shape = SubResource("CircleShape2D_me6n8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2011534936]
+texture = SubResource("GradientTexture2D_x08h0")
+
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=403826576 node_paths=PackedStringArray("rigidBody")]
+script = ExtResource("4_homb0")
+rigidBody = NodePath("..")
+maxSpeed = 200.0
+acceleration = 50.0
+metadata/_custom_type_script = "uid://bi226kkohh0fe"
+
+[node name="PathfindComponent" type="Node" parent="." unique_id=1346423230 node_paths=PackedStringArray("characterBody", "velocityComponent")]
+script = ExtResource("5_gcww1")
+characterBody = NodePath("..")
+velocityComponent = NodePath("../VelocityComponent")
+threshold = 1.0
+metadata/_custom_type_script = "uid://bbw06doqvj4pd"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=828657392]
+texture = SubResource("GradientTexture2D_d33pk")
+texture_scale = 0.5
