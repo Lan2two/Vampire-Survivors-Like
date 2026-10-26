@@ -1,26 +1,11 @@
 namespace SurvivorsGame
 {
     using Godot;
-    public partial class HpOrb : RigidBody2D
+    public partial class HpOrb : Absorbable
     {
-        private DetectionComponent detectionComponent;
-        private PathfindComponent pathfindComponent;
-        public float HPAmount = 10f;
-        public bool SawPlayer;
+        [Export] public float HPAmount = 10f;
         public override void _Ready()
         {
-            detectionComponent = GetNodeOrNull<DetectionComponent>("DetectionComponent");
-            pathfindComponent = GetNodeOrNull<PathfindComponent>("PathfindComponent");
-            if (detectionComponent == null)
-            {
-                GD.PrintErr("DetectionComponent node not found in XpOrb");
-                return;
-            }
-            if (pathfindComponent == null)
-            {
-                GD.PrintErr("PathfindComponent not found in XpOrb");
-                return;
-            }
             BodyEntered += OnBodyEntered;
         }
 
@@ -29,21 +14,13 @@ namespace SurvivorsGame
             BodyEntered -= OnBodyEntered;
         }
 
-        public override void _PhysicsProcess(double delta)
-        {
-            if (detectionComponent.IsPlayerInRange() || SawPlayer)
-            {
-                pathfindComponent.PathfindToPlayer();
-            }
-        }
-
         private void OnBodyEntered(Node body)
         {
             if (body is Player)
             {
                 Player player = (Player)body;
                 player.healthComponent.currentHealth += HPAmount;
-                CallDeferred(Node.MethodName.QueueFree);
+                Stats.data.HealthHealed += HPAmount;
             }
         }
     }
