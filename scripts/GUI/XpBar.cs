@@ -32,12 +32,18 @@ namespace SurvivorsGame
             }
         }
 
+        public int GetLevel()
+        {
+            return _currentLevel;
+        }
+
         private void LevelUp()
         {
             _player.playerXP -= (float)MaxValue;
             Value = _player.playerXP;
             MaxValue += LevelIncrement;
             _currentLevel++;
+            Stats.data.Level++;
             XpLabel.Text = $"Level: {_currentLevel}";
             LevelUpEvent?.Invoke();
         }

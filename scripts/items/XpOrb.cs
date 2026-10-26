@@ -6,6 +6,7 @@ namespace SurvivorsGame
         private DetectionComponent detectionComponent;
         private PathfindComponent pathfindComponent;
         public float XPAmount = 1.0f;
+        public bool SawPlayer;
         public override void _Ready()
         {
             detectionComponent = GetNodeOrNull<DetectionComponent>("DetectionComponent");
@@ -30,7 +31,7 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            if (detectionComponent.IsPlayerInRange())
+            if (detectionComponent.IsPlayerInRange() || SawPlayer)
             {
                 pathfindComponent.PathfindToPlayer();
             }
@@ -48,7 +49,7 @@ namespace SurvivorsGame
             {
                 Player player = (Player)body;
                 player.playerXP += XPAmount;
-                player.totalXP += XPAmount;
+                Stats.data.totalXP += XPAmount;
                 CallDeferred(Node.MethodName.QueueFree);
             }
         }
