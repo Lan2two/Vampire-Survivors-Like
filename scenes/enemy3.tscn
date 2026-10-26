@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="15_50wpm"]
 [ext_resource type="Script" uid="uid://c4u65le22r3fl" path="res://scripts/components/LootComponent.cs" id="16_iglgl"]
 [ext_resource type="PackedScene" uid="uid://cu1txkretppd7" path="res://scenes/xp_orb.tscn" id="17_dslev"]
+[ext_resource type="PackedScene" uid="uid://b2hdv4s8cdj6u" path="res://scenes/Hp_orb.tscn" id="18_na8y0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -259,3 +260,4 @@ script = ExtResource("16_iglgl")
 enemy = NodePath("..")
 deathState = NodePath("../StateMachine/Death")
 XpOrbScene = ExtResource("17_dslev")
+HpOrbScene = ExtResource("18_na8y0")

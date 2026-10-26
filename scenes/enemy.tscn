@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://c4u65le22r3fl" path="res://scripts/components/LootComponent.cs" id="16_shcg2"]
 [ext_resource type="PackedScene" uid="uid://cu1txkretppd7" path="res://scenes/xp_orb.tscn" id="17_ile5s"]
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="17_shcg2"]
+[ext_resource type="PackedScene" uid="uid://b2hdv4s8cdj6u" path="res://scenes/Hp_orb.tscn" id="18_ile5s"]
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="18_physics"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
@@ -258,3 +259,4 @@ script = ExtResource("16_shcg2")
 enemy = NodePath("..")
 deathState = NodePath("../StateMachine/Death")
 XpOrbScene = ExtResource("17_ile5s")
+HpOrbScene = ExtResource("18_ile5s")
