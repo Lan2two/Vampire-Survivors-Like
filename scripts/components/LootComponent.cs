@@ -63,7 +63,7 @@ namespace SurvivorsGame
                     return;
                 }
                 currentScene.AddChild(HpInstance);
-                HpInstance.GlobalPosition = enemy.GlobalPosition;
+                HpInstance.GlobalPosition = enemy.GlobalPosition + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
             }
         }
 
@@ -83,7 +83,7 @@ namespace SurvivorsGame
             }
             currentScene.AddChild(XpInstance);
             XpInstance.SetXPAmount(enemy.XpAmount);
-            XpInstance.GlobalPosition = enemy.GlobalPosition;
+            XpInstance.GlobalPosition = enemy.GlobalPosition + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
         }
     }
 }
