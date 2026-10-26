@@ -25,6 +25,7 @@ namespace SurvivorsGame
                 }
             }
             public int TotalSeconds;
+            public int CampfiresLit;
         }
         public static Data data = new Data();
 
