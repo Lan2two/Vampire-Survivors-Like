@@ -4,9 +4,10 @@ namespace SurvivorsGame
     using Godot.Collections;
     public partial class UpgradeButtonContainer : HBoxContainer
     {
+        private const int MaxUpgradeButtons = 5;
         [Export] public Array<Strategy> Strategies = new();
         [Export] private XpBar xpBar;
-        [Export] int UpgradeButtons = 3;
+        [Export(PropertyHint.Range, "0,5,1")] private int StartingButtons { get; set; } = 3;
         [Export] Button button;
         private Dictionary<string, Button> _UpgradeButtons = new();
         private Array<Strategy> _RandUpgrades = new();
@@ -32,12 +33,12 @@ namespace SurvivorsGame
             {
                 GD.Print("Inventory from player not found in UpgradeButtonContainer");
             }
-            xpBar.LevelUpEvent += DisplayUpgrades;
-            for (int i = 0; i < UpgradeButtons; i++)
+            for (int i = 0; i < StartingButtons; i++)
             {
                 AddButton();
             }
             DisplayUpgrades();
+            xpBar.LevelUpEvent += DisplayUpgrades;
         }
 
         public override void _ExitTree()
@@ -54,6 +55,11 @@ namespace SurvivorsGame
 
         public void AddButton()
         {
+            if (count >= MaxUpgradeButtons)
+            {
+                GD.Print("Max Buttons");
+                return;
+            }
             count++;
             Button buttonInstance = button.Duplicate() as Button;
             buttonInstance.Visible = true;
