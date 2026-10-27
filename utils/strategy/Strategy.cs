@@ -6,7 +6,8 @@ namespace SurvivorsGame
     {
         Bullet,
         Melee,
-        Player
+        Player,
+        Event
     }
 
     public enum UpgradeCalculationMode
@@ -47,5 +48,8 @@ namespace SurvivorsGame
         {
             return ItemDescription;
         }
+
+        public virtual void ApplyUpgrade()
+        { }
     }
 }

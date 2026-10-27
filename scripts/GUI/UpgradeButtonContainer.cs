@@ -39,6 +39,7 @@ namespace SurvivorsGame
             }
             DisplayUpgrades();
             xpBar.LevelUpEvent += DisplayUpgrades;
+            EventBus.AddButton += AddButton;
         }
 
         public override void _ExitTree()
