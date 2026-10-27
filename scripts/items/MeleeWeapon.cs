@@ -4,10 +4,9 @@ namespace SurvivorsGame
     using System;
 
 
-    public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
+    public partial class MeleeWeapon : Weapon, IWeapon, IWeaponConfigurable
     {
         public MeleeWeaponBase Baseconfig;
-        [Export] AttackComponent attackComponent;
         [Export] bool SwingVariant;
         AnimationPlayer animationPlayer;
         public MeleeWeaponBase config;
@@ -46,7 +45,7 @@ namespace SurvivorsGame
 
             config = (MeleeWeaponBase)Baseconfig.Duplicate();
             upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
-            UpdateDamage();
+            UpdateDamage(config, attackComponent);
 
             Swing();
         }
@@ -63,21 +62,6 @@ namespace SurvivorsGame
         public override void _PhysicsProcess(double delta)
         {
             timer -= delta;
-        }
-
-        public void UpdateDamage()
-        {
-            int Randint = GD.RandRange(0, 100);
-            bool Crit = false;
-            float FinalDamage = config.Damage;
-            if (Randint < config.CritRate)
-            {
-                Crit = true;
-                FinalDamage *= config.CritDamageMultiplier;
-            }
-            attackComponent.damage = FinalDamage;
-            attackComponent.knockback = config.Knockback;
-            attackComponent.crit = Crit;
         }
         private void Swing()
         {
