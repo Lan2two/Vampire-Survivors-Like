@@ -16,7 +16,7 @@ namespace SurvivorsGame
         private double damageTimer;
         private readonly HashSet<Area2D> hurtboxes = new();
         private readonly HashSet<Area2D> damagedHurtboxes = new();
-        public int UniqueHurtboxesEntered;
+        private int UniqueHurtboxesEntered;
 
         public override void _Ready()
         {
@@ -66,7 +66,10 @@ namespace SurvivorsGame
             }
         }
 
-
+        public int GetDamagedHurtBoxes()
+        {
+            return damagedHurtboxes.Count;
+        }
 
         private void ApplyDamage(Area2D area)
         {

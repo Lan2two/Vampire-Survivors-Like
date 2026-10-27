@@ -49,7 +49,6 @@ namespace SurvivorsGame
             {
                 return;
             }
-
             if (strategy is IStatUpgrade statUpgrade)
             {
                 AccumulateStatUpgrade(statUpgrade, statUpgrades);
@@ -103,7 +102,6 @@ namespace SurvivorsGame
                 Upgrade = upgrade;
                 Amount = amount;
             }
-
             public IStatUpgrade Upgrade { get; }
             public float Amount { get; set; }
         }
