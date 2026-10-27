@@ -43,6 +43,18 @@ bg_color = Color(0, 0, 0, 0.6627451)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 20.0
+bg_color = Color(0, 0, 0, 0.6627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cekc3"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 50.0
+bg_color = Color(0, 0, 0, 0.2509804)
+
 [sub_resource type="Resource" id="Resource_8fbvn"]
 script = ExtResource("8_vjrnn")
 metadata/_custom_type_script = "uid://cbifaria4lqs3"
@@ -190,18 +202,6 @@ metadata/_custom_type_script = "uid://1h87b88g3qhp"
 [sub_resource type="Resource" id="Resource_7tmnl"]
 script = ExtResource("25_yy3iv")
 metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 20.0
-bg_color = Color(0, 0, 0, 0.6627451)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cekc3"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 50.0
-bg_color = Color(0, 0, 0, 0.2509804)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy3iv"]
 bg_color = Color(0, 0, 0, 0.6627451)
@@ -462,7 +462,29 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
 
-[node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710 node_paths=PackedStringArray("xpBar")]
+[node name="Upgrade" type="Button" parent="UpgradeMenu" unique_id=499441132]
+visible = false
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 0
+offset_left = 540.0
+offset_top = 210.0
+offset_right = 740.0
+offset_bottom = 510.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/icon_max_width = 150
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+autowrap_mode = 3
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("8_u3xxf")
+
+[node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710 node_paths=PackedStringArray("xpBar", "button")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -482,57 +504,7 @@ alignment = 1
 script = ExtResource("6_u5cq1")
 Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
 xpBar = NodePath("../../XpBar")
-
-[node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]
-custom_minimum_size = Vector2(200, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/icon_max_width = 150
-theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
-autowrap_mode = 3
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-script = ExtResource("8_u3xxf")
-
-[node name="Upgrade2" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=1355302840]
-custom_minimum_size = Vector2(200, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/icon_max_width = 150
-theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
-autowrap_mode = 3
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-script = ExtResource("8_u3xxf")
-
-[node name="Upgrade3" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=212005698]
-custom_minimum_size = Vector2(200, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/icon_max_width = 150
-theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
-autowrap_mode = 3
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-script = ExtResource("8_u3xxf")
+button = NodePath("../Upgrade")
 
 [node name="UpgradeMenuContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=1587918076]
 layout_mode = 1

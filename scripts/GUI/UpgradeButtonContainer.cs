@@ -6,24 +6,18 @@ namespace SurvivorsGame
     {
         [Export] public Array<Strategy> Strategies = new();
         [Export] private XpBar xpBar;
+        [Export] int UpgradeButtons = 3;
+        [Export] Button button;
         private Dictionary<string, Button> _UpgradeButtons = new();
         private Array<Strategy> _RandUpgrades = new();
         private InventoryManager inventory;
         private Control _parent;
+        private int count;
 
         public override void _Ready()
         {
             _parent = GetParent() as Control;
             inventory = this.GetPlayer().inventoryManager;
-            foreach (Node child in GetChildren())
-            {
-                if (child is UpgradeButton button)
-                {
-                    string buttonName = button.Name.ToString();
-                    _UpgradeButtons.Add(buttonName, button);
-                    button.UpgradeButtonPressed += ButtonPressed;
-                }
-            }
             if (xpBar == null)
             {
                 GD.PrintErr("XpBar unassigned in UpgradeButtonContainer");
@@ -39,6 +33,10 @@ namespace SurvivorsGame
                 GD.Print("Inventory from player not found in UpgradeButtonContainer");
             }
             xpBar.LevelUpEvent += DisplayUpgrades;
+            for (int i = 0; i < UpgradeButtons; i++)
+            {
+                AddButton();
+            }
             DisplayUpgrades();
         }
 
@@ -51,6 +49,28 @@ namespace SurvivorsGame
             foreach (UpgradeButton button in _UpgradeButtons.Values)
             {
                 button.UpgradeButtonPressed -= ButtonPressed;
+            }
+        }
+
+        public void AddButton()
+        {
+            count++;
+            Button buttonInstance = button.Duplicate() as Button;
+            buttonInstance.Visible = true;
+            buttonInstance.Name = $"{buttonInstance.Name}{count}";
+            AddChild(buttonInstance);
+            foreach (Node child in GetChildren())
+            {
+                if (child is UpgradeButton button)
+                {
+                    string buttonName = button.Name.ToString();
+                    if (_UpgradeButtons.ContainsKey(buttonName))
+                    {
+                        continue;
+                    }
+                    _UpgradeButtons.Add(buttonName, button);
+                    button.UpgradeButtonPressed += ButtonPressed;
+                }
             }
         }
 
