@@ -79,7 +79,7 @@ namespace SurvivorsGame
 				MaxHealth = _baseMaxHealth,
 				MoveSpeed = _baseMoveSpeed
 			};
-			upgradeManager.ApplyUpgrades(stats, UpgradeType.Player);
+			upgradeManager.ApplyUpgrades(this, stats, UpgradeType.Player);
 			float previousMaxhealth = healthComponent.maxHealth;
 			healthComponent.maxHealth = stats.MaxHealth;
 			GD.Print($"MaxHp: {(int)stats.MaxHealth} Speed: {(int)stats.MoveSpeed}");

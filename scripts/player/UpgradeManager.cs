@@ -9,7 +9,7 @@ namespace SurvivorsGame
         private static readonly UpgradeCalculationMode[] ApplyOrder = { UpgradeCalculationMode.Additive, UpgradeCalculationMode.Percentage };
         [Export] InventoryManager inventoryManager;
 
-        public void ApplyUpgrades(Resource config, UpgradeType targetType)
+        public void ApplyUpgrades(Node node, Resource config, UpgradeType targetType)
         {
             List<StatUpgradeTotal> statUpgrades = new();
             foreach (Strategy strategy in inventoryManager.Upgrades)
@@ -23,8 +23,17 @@ namespace SurvivorsGame
                 {
                     if (total.Upgrade.CalculationMode == mode)
                     {
-                        total.Upgrade.ApplyUpgrade(config, total.Amount);
+                        total.Upgrade.ApplyStat(config, total.Amount);
                     }
+                }
+            }
+
+            foreach (Strategy strat in inventoryManager.NodeQueue)
+            {
+                if (strat is IAttachment attachment)
+                {
+                    attachment.ApplyNode(node);
+                    inventoryManager.NodeQueue.Remove(strat);
                 }
             }
         }
@@ -43,6 +52,10 @@ namespace SurvivorsGame
             if (strategy is CompositeStrategy composite)
             {
                 ApplyComposite(composite, config, targetType, depth, statUpgrades);
+                return;
+            }
+            if (strategy is IAttachment)
+            {
                 return;
             }
             if (strategy.upgradeType != targetType)

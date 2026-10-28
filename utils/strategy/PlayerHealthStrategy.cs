@@ -17,10 +17,10 @@ namespace SurvivorsGame
         }
         public void ApplyUpgrade(Resource config)
         {
-            ApplyUpgrade(config, UpgradeHealth);
+            ApplyStat(config, UpgradeHealth);
         }
 
-        public void ApplyUpgrade(Resource config, float totalAmount)
+        public void ApplyStat(Resource config, float totalAmount)
         {
             if (config is PlayerStatsData stats)
             {

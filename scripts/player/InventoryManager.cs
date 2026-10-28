@@ -11,6 +11,7 @@ namespace SurvivorsGame
         [Export] public PackedScene WorldItemScene;
         [Export] public Array<ItemData> Slots = new();
         [Export] public int MaxSlots = 8;
+        public Array<Strategy> NodeQueue = new();
         public Node weaponInstance;
         public WeaponBase currentWeapon;
 
@@ -34,6 +35,10 @@ namespace SurvivorsGame
             if (itemData is Strategy strategy)
             {
                 Upgrades.Add(strategy);
+                if (strategy is IAttachment)
+                {
+                    NodeQueue.Add(strategy);
+                }
                 if (strategy.upgradeType == UpgradeType.Event)
                 {
                     strategy.ApplyUpgrade();

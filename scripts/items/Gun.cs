@@ -93,7 +93,7 @@ namespace SurvivorsGame
         private BulletData GetFiringConfig()
         {
             BulletData firingConfig = (BulletData)startingConfig.Duplicate();
-            upgradeManager.ApplyUpgrades(firingConfig, UpgradeType.Bullet);
+            upgradeManager.ApplyUpgrades(this, firingConfig, UpgradeType.Bullet);
             return firingConfig;
         }
     }
