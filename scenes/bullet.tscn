@@ -2,9 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://iyr5qtuxsa2s" path="res://scripts/bullet/Bullet.cs" id="1_y25gk"]
-[ext_resource type="Resource" uid="uid://1467mnywj4s3" path="res://resources/BulletConfig.tres" id="2_bullet_config"]
+[ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/BulletData.cs" id="2_qncy5"]
 [ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="4_eoqba"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="5_qncy5"]
+
+[sub_resource type="Resource" id="Resource_tamys"]
+script = ExtResource("2_qncy5")
+metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 4.0
@@ -13,7 +17,7 @@ radius = 4.0
 top_level = true
 y_sort_enabled = true
 script = ExtResource("1_y25gk")
-config = ExtResource("2_bullet_config")
+config = SubResource("Resource_tamys")
 attackComponent = NodePath("AttackComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028173980]

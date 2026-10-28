@@ -4,7 +4,7 @@ namespace SurvivorsGame
 {
     public interface IWeapon
     {
-        void Use(UpgradeManager upgradeManager);
+        void Use();
     }
 
     public interface IWeaponConfigurable

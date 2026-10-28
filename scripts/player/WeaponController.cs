@@ -33,7 +33,7 @@ namespace SurvivorsGame
             {
                 return;
             }
-            weapon.Use(upgradeManager);
+            weapon.Use();
         }
 
         private void AimRotationCursor()

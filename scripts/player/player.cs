@@ -58,7 +58,7 @@ namespace SurvivorsGame
 			_baseMaxHealth = healthComponent.maxHealth;
 			_baseMoveSpeed = velocityComponent.maxSpeed;
 			healthComponent.Damage += TrackDamage;
-			inventoryManager.UpgradeAdded += CalculateStats;
+			EventBus.PlayerUpgrade += CalculateStats;
 		}
 
 		public override void _ExitTree()
@@ -69,7 +69,7 @@ namespace SurvivorsGame
 			}
 			if (inventoryManager != null)
 			{
-				inventoryManager.UpgradeAdded -= CalculateStats;
+				EventBus.PlayerUpgrade -= CalculateStats;
 			}
 		}
 		private void CalculateStats()

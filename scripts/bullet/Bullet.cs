@@ -10,8 +10,13 @@ namespace SurvivorsGame
         private bool Crit;
         private float FinalDamage;
 
-        public void Use(UpgradeManager upgradeManager)
+        public void Use()
         {
+            if (config == null || attackComponent == null)
+            {
+                GD.PrintErr($"Cannot Use Bullet: config or attackComponent is null on {Name}!");
+                return;
+            }
             CallDeferred(Weapon.MethodName.UpdateDamage, config, attackComponent);
         }
 

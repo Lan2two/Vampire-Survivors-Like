@@ -2,8 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_4ctwc"]
 [ext_resource type="Script" uid="uid://b76tv0e0dtjl8" path="res://scripts/components/GunComponent.cs" id="1_eb11s"]
-[ext_resource type="Resource" uid="uid://1467mnywj4s3" path="res://resources/BulletConfig.tres" id="2_bullet_config"]
+[ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/BulletData.cs" id="2_nnmho"]
 [ext_resource type="PackedScene" uid="uid://d1ufo1hep2ntf" path="res://scenes/bullet.tscn" id="3_nnmho"]
+
+[sub_resource type="Resource" id="Resource_eqrin"]
+script = ExtResource("2_nnmho")
+metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb11s"]
 radius = 150.0
@@ -13,7 +17,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("1_eb11s")
-bulletConfig = ExtResource("2_bullet_config")
+startingConfig = SubResource("Resource_eqrin")
 BULLET = ExtResource("3_nnmho")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2095139427]

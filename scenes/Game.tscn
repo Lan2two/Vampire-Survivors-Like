@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dgb5nkbopkd8s" path="res://scripts/GUI/GameScene.cs" id="1_2rd6h"]
 [ext_resource type="Texture2D" uid="uid://cix7uidjx4tpk" path="res://assets/sprites/grass.png" id="1_mcffj"]
 [ext_resource type="PackedScene" uid="uid://ch5qbeiukyfd0" path="res://scenes/player.tscn" id="2_2rd6h"]
-[ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="3_7ua8r"]
 [ext_resource type="PackedScene" uid="uid://x47ntiqsehf0" path="res://scenes/enemy_spawner.tscn" id="4_r7sob"]
 [ext_resource type="PackedScene" uid="uid://rou1io4c6lci" path="res://scenes/enemy.tscn" id="5_y5y3l"]
 [ext_resource type="PackedScene" uid="uid://d1t24gaxw444e" path="res://scenes/item.tscn" id="6_vjgi4"]
@@ -1168,8 +1167,6 @@ position = Vector2(-86, -17)
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-
-[node name="GunComponent" parent="Player" unique_id=1673118753 instance=ExtResource("3_7ua8r")]
 
 [node name="Node2D" parent="Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
 EnemySceneArray = Array[PackedScene]([ExtResource("5_y5y3l"), ExtResource("7_7ua8r"), ExtResource("8_r7sob")])

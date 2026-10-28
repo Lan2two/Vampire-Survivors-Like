@@ -6,21 +6,20 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class GunComponent : Area2D
     {
-        UpgradeManager upgradeManager;
+        [Export] private UpgradeManager upgradeManager;
         Timer timer;
         Marker2D ShootPoint;
         Array<Node2D> enemiesInRange;
-        [Export] BulletData bulletConfig;
+        [Export] BulletData startingConfig;
         [Export] PackedScene BULLET;
-
+        private BulletData currentConfig;
 
         public override void _Ready()
         {
             timer = GetNode<Timer>("Timer");
             ShootPoint = GetNode<Marker2D>("%ShootPoint");
-            upgradeManager = GetParent().GetNode<UpgradeManager>("UpgradeManager");
 
-            if (bulletConfig == null)
+            if (startingConfig == null)
             {
                 GD.PrintErr("GunComponent requires a BulletData resource.");
                 return;
@@ -30,12 +29,27 @@ namespace SurvivorsGame
                 GD.PrintErr("GunComponent requires a Bullet Scene.");
                 return;
             }
-
+            if (upgradeManager == null)
+            {
+                GD.PrintErr("GunComponent requires UpgradeManager.");
+                return;
+            }
+            OnUpgrade();
             timer.Stop();
-            timer.WaitTime = GetFiringConfig().GunCooldown;
-            timer.Timeout += Shoot;
             timer.Start();
+            timer.Timeout += Shoot;
+            EventBus.BulletUpgrade += OnUpgrade;
         }
+
+        public override void _ExitTree()
+        {
+            if (timer != null)
+            {
+                timer.Timeout -= Shoot;
+            }
+            EventBus.BulletUpgrade -= OnUpgrade;
+        }
+
 
         public override void _PhysicsProcess(double delta)
         {
@@ -59,23 +73,26 @@ namespace SurvivorsGame
 
         private void Shoot()
         {
-            BulletData currentData = GetFiringConfig();
-            timer.WaitTime = currentData.GunCooldown;
-
             if (enemiesInRange.Count > 0)
             {
                 Bullet newBullet = BULLET.Instantiate<Bullet>();
-                newBullet.config = currentData;
-                newBullet.Use(upgradeManager);
+                newBullet.config = currentConfig;
+                newBullet.Use();
                 newBullet.GlobalPosition = ShootPoint.GlobalPosition;
                 newBullet.GlobalRotation = ShootPoint.GlobalRotation;
                 ShootPoint.AddChild(newBullet);
             }
         }
 
+        private void OnUpgrade()
+        {
+            currentConfig = GetFiringConfig();
+            timer.WaitTime = currentConfig.GunCooldown;
+        }
+
         private BulletData GetFiringConfig()
         {
-            BulletData firingConfig = (BulletData)bulletConfig.Duplicate();
+            BulletData firingConfig = (BulletData)startingConfig.Duplicate();
             upgradeManager.ApplyUpgrades(firingConfig, UpgradeType.Bullet);
             return firingConfig;
         }
