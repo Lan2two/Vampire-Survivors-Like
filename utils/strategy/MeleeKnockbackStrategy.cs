@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class MeleeKnockbackStrategy : Strategy, IStrategy, IStatUpgrade
+    public partial class MeleeKnockbackStrategy : Strategy, IStatStrategy, IStatUpgrade
     {
         [Export] float UpgradeKnockback { get; set; } = 10f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;

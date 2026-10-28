@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletFireRateStrategy : Strategy, IStrategy, IStatUpgrade
+    public partial class BulletFireRateStrategy : Strategy, IStatStrategy, IStatUpgrade
     {
         [Export] float UpgradeCooldown { get; set; } = 0.15f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;

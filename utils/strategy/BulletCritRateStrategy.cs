@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletCritRateStrategy : Strategy, IStrategy
+    public partial class BulletCritRateStrategy : Strategy, IStatStrategy
     {
         [Export] float UpgradeCritRate { get; set; } = .2f;
 

@@ -32,7 +32,7 @@ namespace SurvivorsGame
             {
                 if (strat is IAttachment attachment)
                 {
-                    attachment.ApplyNode(node);
+                    attachment.ApplyUpgrade(node);
                     inventoryManager.NodeQueue.Remove(strat);
                 }
             }
@@ -66,7 +66,7 @@ namespace SurvivorsGame
             {
                 AccumulateStatUpgrade(statUpgrade, statUpgrades);
             }
-            else if (strategy is IStrategy upgrade)
+            else if (strategy is IStatStrategy upgrade)
             {
                 upgrade.ApplyUpgrade(config);
             }
