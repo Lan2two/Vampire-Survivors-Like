@@ -15,6 +15,6 @@ namespace SurvivorsGame
     }
     public interface IAttachment
     {
-        void ApplyUpgrade(Node node);
+        void ApplyUpgrade(Node2D node);
     }
 }

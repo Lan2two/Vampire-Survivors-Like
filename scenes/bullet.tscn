@@ -25,6 +25,9 @@ scale = Vector2(0.057799753, 0.057799753)
 texture = ExtResource("1_mkf8s")
 
 [node name="Line2D" parent="Sprite2D" unique_id=400137548 instance=ExtResource("4_eoqba")]
+width = 2.0
+Fade = true
+TrailPoints = 20
 
 [node name="AttackComponent" type="Area2D" parent="." unique_id=1293582519]
 scale = Vector2(0.057799753, 0.057799753)
