@@ -2,7 +2,7 @@ namespace SurvivorsGame
 {
     using Godot;
     [GlobalClass]
-    public partial class MoreUpgradeStrategy : Strategy
+    public partial class MoreUpgradeStrategy : Strategy, IEventUpgrade
     {
         public MoreUpgradeStrategy()
         {
@@ -11,7 +11,7 @@ namespace SurvivorsGame
             ItemDescription = "Adds another upgrade button";
             MaxStackSize = 2;
         }
-        public override void ApplyUpgrade()
+        public void ApplyUpgrade()
         {
             EventBus.InvokeAddButton();
         }

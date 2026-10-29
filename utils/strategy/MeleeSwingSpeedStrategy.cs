@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class MeleeSwingSpeedStrategy : Strategy, IStatStrategy, IStatUpgrade
+    public partial class MeleeSwingSpeedStrategy : Strategy, IStatUpgrade
     {
         [Export] float UpgradeSwingSpeed { get; set; } = 1f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
@@ -15,14 +15,10 @@ namespace SurvivorsGame
             ItemName = "Fast Attacks";
             ItemDescription = "Melee swings faster";
         }
-        public void ApplyUpgrade(Resource config)
-        {
-            ApplyStat(config, UpgradeSwingSpeed);
-        }
 
-        public void ApplyStat(Resource config, float totalAmount)
+        public void ApplyStat(IUpgradable upgradable, float totalAmount)
         {
-            if (config is MeleeWeaponBase swingSpeedMultiplier)
+            if (upgradable is MeleeWeaponBase swingSpeedMultiplier)
             {
                 swingSpeedMultiplier.SwingSpeedMultiplier = CalculateStatUpgrade(
                     swingSpeedMultiplier.SwingSpeedMultiplier,

@@ -9,12 +9,12 @@ namespace SurvivorsGame
         private static readonly UpgradeCalculationMode[] ApplyOrder = { UpgradeCalculationMode.Additive, UpgradeCalculationMode.Percentage };
         [Export] InventoryManager inventoryManager;
 
-        public void ApplyUpgrades(Node2D node, Resource config, UpgradeType targetType)
+        public void ApplyUpgrades(IUpgradable upgradable, UpgradeType targetType)
         {
             List<StatUpgradeTotal> statUpgrades = new();
             foreach (Strategy strategy in inventoryManager.Upgrades)
             {
-                ApplyStrategy(strategy, config, targetType, 0, statUpgrades);
+                ApplyStrategy(strategy, upgradable, targetType, 0, statUpgrades);
             }
             foreach (UpgradeCalculationMode mode in ApplyOrder)
             {
@@ -22,31 +22,15 @@ namespace SurvivorsGame
                 {
                     if (total.Upgrade.CalculationMode == mode)
                     {
-                        total.Upgrade.ApplyStat(config, total.Amount);
+                        total.Upgrade.ApplyStat(upgradable, total.Amount);
                     }
-                }
-            }
-            foreach (Strategy strat in inventoryManager.NodeQueue)
-            {
-                if (strat == null)
-                {
-                    return;
-                }
-                if (strat.upgradeType != targetType)
-                {
-                    return;
-                }
-                if (strat is IAttachment attachment)
-                {
-                    attachment.ApplyUpgrade(node);
-                    inventoryManager.NodeQueue.Remove(strat);
                 }
             }
         }
 
         private void ApplyStrategy(
             Strategy strategy,
-            Resource config,
+            IUpgradable upgradable,
             UpgradeType targetType,
             int depth,
             List<StatUpgradeTotal> statUpgrades)
@@ -57,11 +41,7 @@ namespace SurvivorsGame
             }
             if (strategy is CompositeStrategy composite)
             {
-                if (strategy is IAttachment)
-                {
-                    inventoryManager.NodeQueue.Add(strategy);
-                }
-                ApplyComposite(composite, config, targetType, depth, statUpgrades);
+                ApplyComposite(composite, upgradable, targetType, depth, statUpgrades);
                 return;
             }
             if (strategy.upgradeType != targetType)
@@ -72,15 +52,15 @@ namespace SurvivorsGame
             {
                 AccumulateStatUpgrade(statUpgrade, statUpgrades);
             }
-            else if (strategy is IStatStrategy upgrade)
+            else
             {
-                upgrade.ApplyUpgrade(config);
+                strategy.ApplyUpgrade(upgradable);
             }
         }
 
         private void ApplyComposite(
             CompositeStrategy composite,
-            Resource config,
+            IUpgradable upgradable,
             UpgradeType targetType,
             int depth,
             List<StatUpgradeTotal> statUpgrades)
@@ -93,7 +73,7 @@ namespace SurvivorsGame
 
             foreach (Strategy child in composite.Children)
             {
-                ApplyStrategy(child, config, targetType, depth + 1, statUpgrades);
+                ApplyStrategy(child, upgradable, targetType, depth + 1, statUpgrades);
             }
         }
 

@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletPierceStrategy : Strategy, IStatStrategy
+    public partial class BulletPierceStrategy : Strategy
     {
         [Export] int UpgradePierce { get; set; } = 1;
 
@@ -14,8 +14,9 @@ namespace SurvivorsGame
             ItemDescription = "Bullet pierces";
         }
 
-        public void ApplyUpgrade(Resource config)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
+            Resource config = upgradable.currentConfig;
             if (config is BulletData damageable)
             {
                 damageable.PierceCount += UpgradePierce;

@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletFireRateStrategy : Strategy, IStatStrategy, IStatUpgrade
+    public partial class BulletFireRateStrategy : Strategy, IStatUpgrade
     {
         [Export] float UpgradeCooldown { get; set; } = 0.15f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
@@ -16,13 +16,9 @@ namespace SurvivorsGame
             ItemDescription = "The gun fires more often";
         }
 
-        public void ApplyUpgrade(Resource config)
+        public void ApplyStat(IUpgradable upgradable, float totalAmount)
         {
-            ApplyStat(config, UpgradeCooldown);
-        }
-
-        public void ApplyStat(Resource config, float totalAmount)
-        {
+            Resource config = upgradable.currentConfig;
             if (config is BulletData bulletData)
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)

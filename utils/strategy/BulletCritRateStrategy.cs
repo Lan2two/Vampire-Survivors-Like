@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletCritRateStrategy : Strategy, IStatStrategy
+    public partial class BulletCritRateStrategy : Strategy
     {
         [Export] float UpgradeCritRate { get; set; } = .2f;
 
@@ -14,8 +14,9 @@ namespace SurvivorsGame
             ItemDescription = "Increase Bullet Crit Rate";
         }
 
-        public void ApplyUpgrade(Resource config)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
+            Resource config = upgradable.currentConfig;
             if (config is BulletData damageable)
             {
                 damageable.CritRate += UpgradeCritRate;

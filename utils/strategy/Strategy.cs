@@ -42,7 +42,7 @@ namespace SurvivorsGame
             return ItemDescription;
         }
 
-        public virtual void ApplyUpgrade()
+        public virtual void ApplyUpgrade(IUpgradable upgradable)
         { }
     }
 }
