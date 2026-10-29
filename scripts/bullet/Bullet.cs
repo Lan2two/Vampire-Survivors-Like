@@ -2,7 +2,7 @@ namespace SurvivorsGame
 {
     using Godot;
 
-    public partial class Bullet : Weapon, IWeapon
+    public partial class Bullet : Weapon
     {
         [Export] public BulletData config;
         private float traveledDistance = 0;
@@ -10,7 +10,7 @@ namespace SurvivorsGame
         private bool Crit;
         private float FinalDamage;
 
-        public void Use()
+        public void Fire()
         {
             if (config == null || attackComponent == null)
             {
