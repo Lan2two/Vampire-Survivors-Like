@@ -11,18 +11,33 @@ namespace SurvivorsGame
         [Export] float TrailDuration = .5f;
         [Export] int TrailPoints = 20;
         private float _StartingModulateA;
-        private Node2D bullet;
+        private Node2D parent;
+        private SceneTree tree;
         public override void _Ready()
         {
-            bullet = GetParent() as Node2D;
-            bullet.CallDeferred(Node.MethodName.RemoveChild, this);
-            GetTree().CurrentScene.CallDeferred(Node.MethodName.AddChild, this);
+            parent = GetParent() as Node2D;
+            tree = GetTree();
+            TopLevel = true;
             _StartingModulateA = SelfModulate.A;
+            parent.TreeExiting += OnParentExiting;
+        }
+
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+        }
+
+        private void OnParentExiting()
+        {
+            parent?.RemoveChild(this);
+            tree.CurrentScene.CallDeferred(Node.MethodName.AddChild, this);
+            Fade = true;
         }
 
         public override void _Process(double delta)
         {
-            if (Fade)
+
+            if (Fade || !IsInstanceValid(parent))
             {
                 Color currentModulate = SelfModulate;
                 currentModulate.A = Mathf.Max(0, currentModulate.A - (float)(_StartingModulateA / TrailDuration * delta));
@@ -32,16 +47,14 @@ namespace SurvivorsGame
                     QueueFree();
                 }
             }
-            if (IsInstanceValid(bullet))
+            if (IsInstanceValid(parent))
             {
-                AddPoint(bullet.GlobalPosition);
+                AddPoint(parent.GlobalPosition);
                 if (Points.Count() > TrailPoints)
                 {
                     RemovePoint(0);
                 }
             }
-
         }
-
     }
 }

@@ -6,8 +6,7 @@ namespace SurvivorsGame
     {
         Bullet,
         Melee,
-        Player,
-        Event
+        Player
     }
 
     public enum UpgradeCalculationMode
@@ -25,7 +24,7 @@ namespace SurvivorsGame
             MaxStackSize = 5;
         }
         public int Count { get; set; }
-        public UpgradeType upgradeType;
+        public virtual UpgradeType upgradeType { get; set; }
 
         protected static float CalculateStatUpgrade(
             float currentValue,

@@ -6,7 +6,6 @@ namespace SurvivorsGame
     {
         public MoreUpgradeStrategy()
         {
-            upgradeType = UpgradeType.Event;
             ItemName = "More Buttons";
             ItemDescription = "Adds another upgrade button";
             MaxStackSize = 2;
