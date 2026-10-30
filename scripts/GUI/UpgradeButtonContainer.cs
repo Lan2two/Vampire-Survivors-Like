@@ -8,7 +8,7 @@ namespace SurvivorsGame
         [Export] public Array<Strategy> Strategies = new();
         [Export] private XpBar xpBar;
         [Export(PropertyHint.Range, "0,5,1")] private int StartingButtons { get; set; } = 3;
-        [Export] Button button;
+        [Export] PackedScene button;
         private Dictionary<string, Button> _UpgradeButtons = new();
         private Array<Strategy> _RandUpgrades = new();
         private InventoryManager inventory;
@@ -62,7 +62,7 @@ namespace SurvivorsGame
                 return;
             }
             count++;
-            Button buttonInstance = button.Duplicate() as Button;
+            Button buttonInstance = button.Instantiate<Button>();
             buttonInstance.Visible = true;
             buttonInstance.Name = $"{buttonInstance.Name}{count}";
             AddChild(buttonInstance);

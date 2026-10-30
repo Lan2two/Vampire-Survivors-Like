@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://bagnvtmnb34fr" path="res://scripts/GUI/StatsDisplay.cs" id="6_rvumk"]
 [ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeButtonContainer.cs" id="6_u5cq1"]
 [ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="7_8inel"]
-[ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
 [ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="8_vjrnn"]
 [ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/BulletSpeedStrategy.cs" id="9_8fbvn"]
 [ext_resource type="Script" uid="uid://db4vbufj1pkwa" path="res://utils/strategy/MeleeKnockbackStrategy.cs" id="10_ajyu1"]
@@ -31,6 +30,7 @@
 [ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="25_yy3iv"]
 [ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/MoreUpgradeStrategy.cs" id="27_vlu7s"]
 [ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="28_jath5"]
+[ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
 [ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="29_jath5"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 
@@ -45,18 +45,6 @@ bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 20.0
-bg_color = Color(0, 0, 0, 0.6627451)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cekc3"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 50.0
-bg_color = Color(0, 0, 0, 0.2509804)
 
 [sub_resource type="Resource" id="Resource_8fbvn"]
 script = ExtResource("8_vjrnn")
@@ -488,29 +476,7 @@ grow_vertical = 2
 script = ExtResource("4_shsct")
 Rerolls = 100
 
-[node name="Upgrade" type="Button" parent="UpgradeMenu" unique_id=499441132]
-visible = false
-custom_minimum_size = Vector2(200, 300)
-layout_mode = 0
-offset_left = 540.0
-offset_top = 210.0
-offset_right = 740.0
-offset_bottom = 510.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/icon_max_width = 150
-theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
-autowrap_mode = 3
-icon_alignment = 1
-vertical_icon_alignment = 0
-expand_icon = true
-script = ExtResource("8_u3xxf")
-
-[node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710 node_paths=PackedStringArray("xpBar", "button")]
+[node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710 node_paths=PackedStringArray("xpBar")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -530,7 +496,7 @@ alignment = 1
 script = ExtResource("6_u5cq1")
 Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u")])
 xpBar = NodePath("../../XpBar")
-button = NodePath("../Upgrade")
+button = ExtResource("29_fuvlu")
 
 [node name="UpgradeMenuContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=1587918076]
 layout_mode = 1

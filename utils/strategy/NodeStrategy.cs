@@ -65,7 +65,6 @@ namespace SurvivorsGame
                 sceneInstance.Set(propName, _subsceneData[propName]);
             }
             node.AddChild(sceneInstance);
-            GD.Print(sceneInstance);
         }
 
 

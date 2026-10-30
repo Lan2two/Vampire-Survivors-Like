@@ -33,7 +33,17 @@ namespace SurvivorsGame
                 {
                     eventUpgrade.ApplyUpgrade();
                 }
-                EventBus.InvokeUpgrades(strategy);
+                if (strategy is CompositeStrategy composite)
+                {
+                    foreach (Strategy child in composite.Children)
+                    {
+                        EventBus.InvokeUpgrades(child);
+                    }
+                }
+                else
+                {
+                    EventBus.InvokeUpgrades(strategy);
+                }
                 return true;
             }
             if (Slots.Count >= MaxSlots)
