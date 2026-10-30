@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="28_jath5"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
 [ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="29_jath5"]
+[ext_resource type="Script" uid="uid://dqow2p6kmk3sg" path="res://utils/strategy/BulletBounceStrategy.cs" id="30_3xtru"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
@@ -83,6 +84,7 @@ metadata/_custom_type_script = "uid://b62e4twpi050i"
 [sub_resource type="Resource" id="Resource_t8u3o"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_5eteg"), SubResource("Resource_pn61u"), SubResource("Resource_rvumk")])
+MaxStackSize = 5
 ItemName = "Heavy Rounds"
 ItemDescription = "Bullets deal more damage and knockback but take longer to fire"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -114,6 +116,7 @@ metadata/_custom_type_script = "uid://b62e4twpi050i"
 [sub_resource type="Resource" id="Resource_72onm"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_ll5b4"), SubResource("Resource_3k6xw"), SubResource("Resource_dkerm"), SubResource("Resource_db6u7")])
+MaxStackSize = 5
 ItemName = "Light Rounds"
 ItemDescription = "Faster firing and bullets for less damage"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -144,6 +147,7 @@ metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 [sub_resource type="Resource" id="Resource_jath5"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy3iv"), SubResource("Resource_7mxsn"), SubResource("Resource_vlu7s"), SubResource("Resource_igqi4")])
+MaxStackSize = 5
 ItemName = "Sniper Rounds"
 ItemDescription = "Upgrades piercing, damage, and bullet speed, longer cooldown"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -160,6 +164,7 @@ metadata/_custom_type_script = "uid://bsi06qlqgp2au"
 [sub_resource type="Resource" id="Resource_n7bdd"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_fuvlu"), SubResource("Resource_3xtru")])
+MaxStackSize = 5
 ItemName = "Lucky Shot"
 ItemDescription = "Crits for gun"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -176,6 +181,7 @@ metadata/_custom_type_script = "uid://d27j145v6nms"
 [sub_resource type="Resource" id="Resource_h5tib"]
 script = ExtResource("16_5eteg")
 Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy1yx"), SubResource("Resource_qxvih")])
+MaxStackSize = 5
 ItemName = "Lucky Strike"
 ItemDescription = "Crits for melee"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -209,13 +215,28 @@ _subsceneData = {
 "TrailPoints": 50
 }
 PackedScene = ExtResource("28_jath5")
-upgradeType = 1
+upgradeType = 2
 "Subscene Configuration/Fade" = false
 "Subscene Configuration/TrailDuration" = 0.5
 "Subscene Configuration/TrailPoints" = 50
 ItemName = "Trail"
 ItemDescription = "Adds a trail to player when holding weapon"
 metadata/_custom_type_script = "uid://dletf55xvu8sn"
+
+[sub_resource type="Resource" id="Resource_nvp4l"]
+script = ExtResource("30_3xtru")
+metadata/_custom_type_script = "uid://dqow2p6kmk3sg"
+
+[sub_resource type="Resource" id="Resource_7p3oe"]
+script = ExtResource("8_vjrnn")
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[sub_resource type="Resource" id="Resource_on3ir"]
+script = ExtResource("16_5eteg")
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe")])
+ItemName = "Bouncy Rounds"
+ItemDescription = "Bullets bounce between nearby enemies"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy3iv"]
 bg_color = Color(0, 0, 0, 0.6627451)
@@ -446,6 +467,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
+Rerolls = 100
 
 [node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710 node_paths=PackedStringArray("xpBar")]
 layout_mode = 1
@@ -465,7 +487,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u"), SubResource("Resource_on3ir")])
 xpBar = NodePath("../../XpBar")
 button = ExtResource("29_fuvlu")
 

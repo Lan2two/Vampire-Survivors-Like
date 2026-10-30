@@ -55,5 +55,7 @@ namespace SurvivorsGame
             get => _critDamageMultiplier;
             set => _critDamageMultiplier = value;
         }
+        [Export]
+        public bool BouncingBullets { get; set; } = false;
     }
 }
