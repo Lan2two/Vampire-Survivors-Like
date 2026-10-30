@@ -5,20 +5,19 @@ namespace SurvivorsGame
 
     public partial class UpgradesDisplay : ColorRect
     {
+        [Export] private PackedScene _textureRect;
         private GridContainer _gridContainer;
-        private TextureRect _textureRect;
         private Control _parent;
         private Player _player;
 
         public override void _Ready()
         {
             _gridContainer = GetNodeOrNull<GridContainer>("GridContainer");
-            _textureRect = GetNodeOrNull<TextureRect>("TextureRect");
             _parent = GetParent() as Control;
             _player = this.GetPlayer();
             if (_gridContainer == null)
             {
-                GD.PrintErr("GridContainer not found in UpgradesDisplay");
+                GD.PrintErr("GridContainer not set in UpgradesDisplay");
                 return;
             }
             if (_textureRect == null)
@@ -77,7 +76,7 @@ namespace SurvivorsGame
                     }
                 }
 
-                TextureRect textureRect = _textureRect.Duplicate() as TextureRect;
+                TextureRect textureRect = _textureRect.Instantiate<TextureRect>();
                 textureRect.Texture = strategy.ItemIcon;
                 Label label = textureRect.GetChild<Label>(0);
                 label.Text = $"{strategy.ItemName}\n{duplicateCount}/{strategy.MaxStackSize}";

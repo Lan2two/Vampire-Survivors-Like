@@ -16,7 +16,6 @@ content_margin_bottom = 50.0
 bg_color = Color(0, 0, 0, 0.2509804)
 
 [node name="Upgrade" type="Button" unique_id=767900202]
-visible = false
 custom_minimum_size = Vector2(200, 300)
 offset_left = 540.0
 offset_top = 210.0
