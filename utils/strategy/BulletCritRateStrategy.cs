@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletCritRateStrategy : Strategy
     {
-        [Export] float UpgradeCritRate { get; set; } = .2f;
+        [Export] float UpgradeCritRate { get; set; } = 5;
 
         public BulletCritRateStrategy()
         {

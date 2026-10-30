@@ -279,7 +279,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_60mlk"]
 resource_name = "roll"
-length = 0.5831
+length = 0.6
 step = 0.0833
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -312,7 +312,7 @@ tracks/2/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.02, 0.55),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -381,6 +381,7 @@ script = ExtResource("8_ur7pv")
 collision_layer = 4
 script = ExtResource("9_y4r1p")
 healthComponent = NodePath("../HealthComponent")
+iFrames = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=144013464]
 shape = SubResource("CircleShape2D_ur7pv")

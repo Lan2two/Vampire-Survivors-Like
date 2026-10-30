@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class MeleeDamageStrategy : Strategy, IStatUpgrade
     {
-        [Export] float UpgradeDamage { get; set; } = 5f;
+        [Export] float UpgradeDamage { get; set; } = .2f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
         public float Amount => UpgradeDamage;
 

@@ -36,7 +36,7 @@ height = 8
 fill = 1
 fill_from = Vector2(0.5017361, 0.4982639)
 
-[node name="HpOrb" type="RigidBody2D" unique_id=740080798 node_paths=PackedStringArray("detectionComponent", "pathfindComponent") groups=["XpOrbs"]]
+[node name="HpOrb" type="RigidBody2D" unique_id=740080798 node_paths=PackedStringArray("detectionComponent", "pathfindComponent")]
 y_sort_enabled = true
 collision_layer = 0
 physics_material_override = ExtResource("1_x1kkc")
