@@ -2,7 +2,6 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
-    using System;
 
     public partial class MenuContainer : Control
     {
@@ -29,7 +28,7 @@ namespace SurvivorsGame
         private void OnHover(CustomButton button)
         {
             Tween Hovertween = CreateTween();
-            Hovertween.TweenProperty(button, "scale", new Vector2(1.2f, 1.2f), .05f);
+            Hovertween.TweenProperty(button, "scale", new Vector2(1.25f, 1.25f), .085f);
             foreach (Button child in buttons.Values)
             {
                 if (child == button)
@@ -38,7 +37,7 @@ namespace SurvivorsGame
                 }
                 child.PivotOffset = child.Size / 2;
                 Tween tween = CreateTween();
-                tween.TweenProperty(child, "scale", new Vector2(.8f, .8f), .05f);
+                tween.TweenProperty(child, "scale", new Vector2(.75f, .75f), .085f);
             }
         }
 
@@ -47,7 +46,7 @@ namespace SurvivorsGame
             foreach (Button child in buttons.Values)
             {
                 Tween Hovertween = CreateTween();
-                Hovertween.TweenProperty(child, "scale", new Vector2(1f, 1f), .05f);
+                Hovertween.TweenProperty(child, "scale", new Vector2(1f, 1f), .085f);
             }
         }
 
