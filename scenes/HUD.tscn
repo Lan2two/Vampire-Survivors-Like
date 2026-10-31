@@ -6,11 +6,13 @@
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
 [ext_resource type="Script" uid="uid://baai0rxjneanb" path="res://scripts/GUI/UpgradesDisplay.cs" id="4_pn61u"]
 [ext_resource type="Script" uid="uid://ct7frsulq8spk" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
+[ext_resource type="StyleBox" uid="uid://dj2n76ooq0fsw" path="res://resources/On_Hover.tres" id="5_3xtru"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
 [ext_resource type="PackedScene" uid="uid://byx3jd4wok6sx" path="res://scenes/UpgradeRect.tscn" id="5_fuvlu"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="6_dcyui"]
 [ext_resource type="Script" uid="uid://bagnvtmnb34fr" path="res://scripts/GUI/StatsDisplay.cs" id="6_rvumk"]
 [ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="7_8inel"]
+[ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="7_fuvlu"]
 [ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="8_vjrnn"]
 [ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/BulletSpeedStrategy.cs" id="9_8fbvn"]
 [ext_resource type="Script" uid="uid://db4vbufj1pkwa" path="res://utils/strategy/MeleeKnockbackStrategy.cs" id="10_ajyu1"]
@@ -33,15 +35,6 @@
 [ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="29_jath5"]
 [ext_resource type="Script" uid="uid://dqow2p6kmk3sg" path="res://utils/strategy/BulletBounceStrategy.cs" id="30_3xtru"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
-bg_color = Color(0, 0, 0, 0.6627451)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mxsn"]
-bg_color = Color(0, 0, 0, 0.6627451)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shsct"]
-bg_color = Color(0, 0, 0, 0.6627451)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
@@ -262,9 +255,6 @@ ItemName = "Four Leaf Clover"
 ItemDescription = "Increases luck"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy3iv"]
-bg_color = Color(0, 0, 0, 0.6627451)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8inel"]
 bg_color = Color(0.67754686, 0, 0, 1)
 
@@ -313,7 +303,7 @@ offset_bottom = -33.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_5j4t3")
+theme_override_styles/normal = ExtResource("7_fuvlu")
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -339,9 +329,9 @@ custom_minimum_size = Vector2(340, 80)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_7mxsn")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_7mxsn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7mxsn")
+theme_override_styles/normal = ExtResource("7_fuvlu")
+theme_override_styles/pressed = ExtResource("7_fuvlu")
+theme_override_styles/hover = ExtResource("5_3xtru")
 text = "Retry"
 
 [node name="MainMenuButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=1576929851]
@@ -349,9 +339,9 @@ custom_minimum_size = Vector2(340, 80)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_7mxsn")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_7mxsn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7mxsn")
+theme_override_styles/normal = ExtResource("7_fuvlu")
+theme_override_styles/pressed = ExtResource("7_fuvlu")
+theme_override_styles/hover = ExtResource("5_3xtru")
 text = "Main Menu"
 
 [node name="UpgradesDisplay" type="ColorRect" parent="GameOverNode" unique_id=208435874]
@@ -367,7 +357,7 @@ offset_right = -348.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.6627451)
+color = Color(0, 0, 0, 1)
 script = ExtResource("4_pn61u")
 _textureRect = ExtResource("5_fuvlu")
 
@@ -417,7 +407,7 @@ offset_right = 605.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.6627451)
+color = Color(0, 0, 0, 1)
 script = ExtResource("6_rvumk")
 
 [node name="Label" type="Label" parent="GameOverNode/StatsDisplay" unique_id=1041667383]
@@ -459,7 +449,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/background = SubResource("StyleBoxFlat_shsct")
+theme_override_styles/background = ExtResource("7_fuvlu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_womn8")
 max_value = 3.0
 step = 0.001
@@ -535,9 +525,9 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_yy3iv")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_yy3iv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yy3iv")
+theme_override_styles/normal = ExtResource("7_fuvlu")
+theme_override_styles/pressed = ExtResource("7_fuvlu")
+theme_override_styles/hover = ExtResource("5_3xtru")
 text = "Reroll 2/2"
 
 [node name="SkipButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=237283211]
@@ -546,9 +536,9 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_yy3iv")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_yy3iv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yy3iv")
+theme_override_styles/normal = ExtResource("7_fuvlu")
+theme_override_styles/pressed = ExtResource("7_fuvlu")
+theme_override_styles/hover = ExtResource("5_3xtru")
 text = "Skip"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]

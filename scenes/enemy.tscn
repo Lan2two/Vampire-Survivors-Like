@@ -20,7 +20,7 @@
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="18_physics"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
-radius = 5.0
+radius = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7p1mj"]
 atlas = ExtResource("1_7p1mj")
@@ -154,7 +154,7 @@ animations = [{
 radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1ycm"]
-radius = 7.0
+radius = 5.0
 
 [node name="Enemy" type="RigidBody2D" unique_id=1010643694]
 collision_layer = 2

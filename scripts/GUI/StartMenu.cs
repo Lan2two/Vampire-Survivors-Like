@@ -4,13 +4,13 @@ namespace SurvivorsGame
 
     public partial class StartMenu : Control
     {
-        private VBoxContainer _menuContainer;
+        private Control _menuContainer;
         private Button _startButton;
         private Button _exitButton;
 
         public override void _Ready()
         {
-            _menuContainer = GetNodeOrNull<VBoxContainer>("MenuContainer");
+            _menuContainer = GetNodeOrNull<Control>("MenuContainer");
             _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
             _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
             if (_menuContainer == null)
