@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
     using Godot.Collections;
 
-    [Tool] // Required to process inspector rendering in-editor
+    [Tool]
     [GlobalClass]
     public partial class NodeStrategy : Strategy
     {
@@ -11,7 +11,6 @@ namespace SurvivorsGame
         Node2D sceneInstance;
         Node currentNode;
 
-        // Fully serialized dictionary tracking dynamic configurations
         [Export] private Dictionary _subsceneData = new();
 
         [Export]
@@ -23,8 +22,12 @@ namespace SurvivorsGame
                 if (_packedScene != value)
                 {
                     _packedScene = value;
-                    _subsceneData.Clear(); // Flush outdated settings
-                    NotifyPropertyListChanged(); // Triggers real-time inspector refresh
+                    _subsceneData.Clear();
+
+                    // Only notify the inspector if we are running inside the editor toolset
+#if TOOLS
+                    NotifyPropertyListChanged();
+#endif
                 }
             }
         }
@@ -39,24 +42,17 @@ namespace SurvivorsGame
 
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
-            if (upgradable is not Node)
-            {
-                return;
-            }
+            if (upgradable is not Node) return;
+
             Node node = upgradable as Node;
-            if (_packedScene == null || node == null)
-            {
-                return;
-            }
+            if (_packedScene == null || node == null) return;
+
             if (sceneInstance == null || currentNode != node)
             {
                 sceneInstance = _packedScene.Instantiate<Node2D>();
                 currentNode = node;
             }
-            if (node.GetChildren().Contains(sceneInstance))
-            {
-                return;
-            }
+            if (node.GetChildren().Contains(sceneInstance)) return;
 
             // Reapply stored values safely via Godot's reflection API
             foreach (var key in _subsceneData.Keys)
@@ -67,16 +63,20 @@ namespace SurvivorsGame
             node.AddChild(sceneInstance);
         }
 
-
-        // 1. Tell Godot's inspector what properties to display dynamically
+        // ==========================================
+        // EDITOR ONLY LOGIC
+        // Completely hidden from Web/Release exports
+        // ==========================================
+#if TOOLS
         public override Array<Dictionary> _GetPropertyList()
         {
             var properties = new Array<Dictionary>();
 
             if (_packedScene == null) return properties;
 
-            // Instantiate a dummy instance in-editor memory to grab its script exports
             Node tempInstance = _packedScene.Instantiate();
+            if (tempInstance == null) return properties;
+
             var script = tempInstance.GetScript().As<Script>();
 
             if (script != null)
@@ -85,12 +85,10 @@ namespace SurvivorsGame
                 {
                     long usage = prop["usage"].AsInt64();
 
-                    // Filter exclusively for fields decorated with [Export]
                     if ((usage & (long)PropertyUsageFlags.Editor) != 0)
                     {
                         string propName = prop["name"].AsString();
 
-                        // Formats beautifully as a distinct expandable Category in your inspector
                         properties.Add(new Dictionary
                         {
                             { "name", $"Subscene Configuration/{propName}" },
@@ -98,7 +96,6 @@ namespace SurvivorsGame
                             { "usage", (long)PropertyUsageFlags.Editor | (long)PropertyUsageFlags.Storage }
                         });
 
-                        // Populate defaults from the node if not altered yet
                         if (!_subsceneData.ContainsKey(propName))
                         {
                             _subsceneData[propName] = tempInstance.Get(propName);
@@ -107,11 +104,10 @@ namespace SurvivorsGame
                 }
             }
 
-            tempInstance.Free(); // Explicit garbage collection in-editor
+            tempInstance.Free();
             return properties;
         }
 
-        // 2. Fetch value from the data map when Godot requests it for the inspector UI
         public override Variant _Get(StringName property)
         {
             string propStr = property.ToString();
@@ -123,7 +119,6 @@ namespace SurvivorsGame
             return base._Get(property);
         }
 
-        // 3. Store edited values directly back to your Strategy file
         public override bool _Set(StringName property, Variant value)
         {
             string propStr = property.ToString();
@@ -135,5 +130,6 @@ namespace SurvivorsGame
             }
             return base._Set(property, value);
         }
+#endif
     }
 }
