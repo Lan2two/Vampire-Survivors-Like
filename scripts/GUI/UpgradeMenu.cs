@@ -12,7 +12,7 @@ namespace SurvivorsGame
         [Export] private XpBar xpBar;
         [Export(PropertyHint.Range, "0,5,1")] private int StartingButtons { get; set; } = 3;
         [Export] PackedScene button;
-        private Dictionary<string, Button> _UpgradeButtons = new();
+        private Dictionary<string, CustomButton> _UpgradeButtons = new();
         private Array<Strategy> _RandUpgrades = new();
         private InventoryManager inventory;
         private int count;
@@ -56,10 +56,6 @@ namespace SurvivorsGame
                 GD.PrintErr("RerollButton not found in UpgradeMenu");
                 return;
             }
-            for (int i = 0; i < StartingButtons; i++)
-            {
-                AddButton();
-            }
             _rerollButton.Pressed += RerollButton;
             _skipButton.Pressed += SkipButton;
             GameScene.GameOverEvent += Hide;
@@ -67,8 +63,11 @@ namespace SurvivorsGame
             xpBar.LevelUpEvent += DisplayUpgrades;
             EventBus.AddButton += AddButton;
             SetReroll();
+            for (int i = 0; i < StartingButtons; i++)
+            {
+                AddButton();
+            }
             DisplayUpgrades();
-
         }
 
         public override void _ExitTree()
@@ -102,23 +101,18 @@ namespace SurvivorsGame
                 return;
             }
             count++;
-            Button buttonInstance = button.Instantiate<Button>();
+            CustomButton buttonInstance = button.Instantiate<CustomButton>();
+            if (buttonInstance is not CustomButton)
+            {
+                GD.PrintErr("Button instance is not of type CustomButton");
+                return;
+            }
             buttonInstance.Visible = true;
             buttonInstance.Name = $"{buttonInstance.Name}{count}";
             _upgradeButtonsContainer.AddChild(buttonInstance);
-            foreach (Node child in _upgradeButtonsContainer.GetChildren())
-            {
-                if (child is CustomButton button)
-                {
-                    string buttonName = button.Name.ToString();
-                    if (_UpgradeButtons.ContainsKey(buttonName))
-                    {
-                        continue;
-                    }
-                    _UpgradeButtons.Add(buttonName, button);
-                    button.CustomButtonPressed += ButtonPressed;
-                }
-            }
+            string buttonName = buttonInstance.Name.ToString();
+            _UpgradeButtons.Add(buttonName, buttonInstance);
+            buttonInstance.CustomButtonPressed += ButtonPressed;
         }
 
         private void ButtonPressed(CustomButton button)

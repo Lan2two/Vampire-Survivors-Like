@@ -107,7 +107,7 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_n7bdd"]
 script = ExtResource("13_fire_rate")
-UpgradeCooldown = -100.0
+UpgradeCooldown = -80.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
@@ -264,10 +264,11 @@ bg_color = Color(0.18091199, 0.7145692, 0.26417047, 1)
 [node name="HUD" type="CanvasLayer" unique_id=1447957346]
 
 [node name="KillsCounter" type="Label" parent="." unique_id=1656329884]
-offset_left = 24.0
-offset_top = 73.0
-offset_right = 245.0
-offset_bottom = 112.0
+anchors_preset = -1
+anchor_left = 0.01875
+anchor_top = 0.10138889
+anchor_right = 0.19140625
+anchor_bottom = 0.15555556
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_5j4t3")
@@ -275,6 +276,7 @@ theme_override_font_sizes/font_size = 40
 text = "Kills: 0"
 vertical_alignment = 1
 script = ExtResource("2_womn8")
+metadata/_edit_use_anchors_ = true
 
 [node name="GameOverNode" type="Control" parent="." unique_id=1945052996]
 process_mode = 3
@@ -288,18 +290,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("3_wi42t")
+metadata/_edit_use_anchors_ = true
 
 [node name="GameOverLabel" type="Label" parent="GameOverNode" unique_id=1051878861]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -174.5
-offset_right = 320.0
-offset_bottom = -33.5
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.2576389
+anchor_right = 0.75
+anchor_bottom = 0.45347223
+offset_top = -1.5258789e-05
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
@@ -307,22 +307,22 @@ theme_override_styles/normal = ExtResource("7_fuvlu")
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="GameOverContainer" type="VBoxContainer" parent="GameOverNode" unique_id=1401898499]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -170.5
-offset_top = -11.5
-offset_right = 170.5
-offset_bottom = 155.5
+anchors_preset = -1
+anchor_left = 0.36679688
+anchor_top = 0.4798611
+anchor_right = 0.63320315
+anchor_bottom = 0.7201389
+offset_top = 3.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 13
 alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="RetryButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=491936703]
 custom_minimum_size = Vector2(340, 80)
@@ -346,106 +346,92 @@ text = "Main Menu"
 
 [node name="UpgradesDisplay" type="ColorRect" parent="GameOverNode" unique_id=208435874]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -603.0
-offset_top = -175.0
-offset_right = -348.0
-offset_bottom = 300.0
+anchors_preset = -1
+anchor_left = 0.02890625
+anchor_top = 0.25694445
+anchor_right = 0.228125
+anchor_bottom = 0.9166667
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("4_pn61u")
 _textureRect = ExtResource("5_fuvlu")
+metadata/_edit_use_anchors_ = true
 
 [node name="GridContainer" type="GridContainer" parent="GameOverNode/UpgradesDisplay" unique_id=616568119]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -115.0
-offset_top = -221.5
-offset_right = 115.0
-offset_bottom = 221.5
+anchors_preset = -1
+anchor_left = 0.04901961
+anchor_top = 0.03368421
+anchor_right = 0.95098037
+anchor_bottom = 0.9663158
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 30
 columns = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="GameOverNode/UpgradesDisplay" unique_id=277693478]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -72.0
-offset_top = -27.0
-offset_right = 72.0
-offset_bottom = -1.0
+anchors_preset = -1
+anchor_left = 0.21764706
+anchor_top = -0.056842104
+anchor_right = 0.7823529
+anchor_bottom = -0.002105263
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 text = "Upgrades Picked"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="StatsDisplay" type="ColorRect" parent="GameOverNode" unique_id=1876184234]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 350.0
-offset_top = -175.0
-offset_right = 605.0
-offset_bottom = 300.0
+anchors_preset = -1
+anchor_left = 0.7734375
+anchor_top = 0.25694445
+anchor_right = 0.97265625
+anchor_bottom = 0.9166667
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("6_rvumk")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="GameOverNode/StatsDisplay" unique_id=1041667383]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -72.0
-offset_top = -27.0
-offset_right = 72.0
-offset_bottom = -1.0
+anchors_preset = -1
+anchor_left = 0.21764706
+anchor_top = -0.056842104
+anchor_right = 0.7823529
+anchor_bottom = -0.002105263
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 text = "StatsDisplay"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="StatsLabel" type="Label" parent="GameOverNode/StatsDisplay" unique_id=151084098]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_right = 100.0
-offset_bottom = 475.0
+anchors_preset = -1
+anchor_left = 0.10784314
+anchor_right = 0.89215684
+anchor_bottom = 1.0
 grow_horizontal = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="XpBar" type="ProgressBar" parent="." unique_id=585847015]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -247.0
-offset_top = 40.0
-offset_right = 247.0
-offset_bottom = 75.0
+anchors_preset = -1
+anchor_left = 0.30703124
+anchor_top = 0.055555556
+anchor_right = 0.6929687
+anchor_bottom = 0.104166664
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
@@ -455,25 +441,26 @@ max_value = 3.0
 step = 0.001
 allow_greater = true
 script = ExtResource("3_womn8")
+metadata/_edit_use_anchors_ = true
 
 [node name="XpLabel" type="Label" parent="XpBar" unique_id=297221265]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -68.0
-offset_top = -42.0
-offset_right = 68.0
-offset_bottom = 9.0
+anchors_preset = -1
+anchor_left = 0.36234817
+anchor_top = -1.2
+anchor_right = 0.6376518
+anchor_bottom = 0.25714287
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 42
 text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="UpgradeMenu" type="Control" parent="." unique_id=2142592123 node_paths=PackedStringArray("xpBar")]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -485,24 +472,22 @@ Rerolls = 100
 Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_rvumk"), SubResource("Resource_ll5b4"), SubResource("Resource_3k6xw"), SubResource("Resource_dkerm"), SubResource("Resource_72onm"), SubResource("Resource_db6u7"), SubResource("Resource_yy3iv"), SubResource("Resource_7mxsn"), SubResource("Resource_3xtru"), SubResource("Resource_h5tib"), SubResource("Resource_27n0u"), SubResource("Resource_3ugbd"), SubResource("Resource_k52m1"), SubResource("Resource_gpb48")])
 xpBar = NodePath("../XpBar")
 button = ExtResource("29_fuvlu")
+metadata/_edit_use_anchors_ = true
 
 [node name="UpgradeButtonContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=991177710]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -313.0
-offset_top = -150.0
-offset_right = 313.0
-offset_bottom = 150.0
+anchors_preset = -1
+anchor_left = 0.25546876
+anchor_top = 0.29166666
+anchor_right = 0.7445313
+anchor_bottom = 0.7083333
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="UpgradeMenuContainer" type="HBoxContainer" parent="UpgradeMenu" unique_id=1587918076]
 layout_mode = 1
@@ -511,10 +496,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -125.0
+offset_left = -230.0
 offset_top = 181.5
-offset_right = 125.0
-offset_bottom = 234.5
+offset_right = 230.0
+offset_bottom = 221.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 60
@@ -522,7 +507,8 @@ theme_override_constants/separation = 60
 [node name="RerollButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=595764150]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 0
+size_flags_vertical = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("7_fuvlu")
@@ -533,7 +519,8 @@ text = "Reroll 2/2"
 [node name="SkipButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=237283211]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 0
+size_flags_vertical = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("7_fuvlu")
@@ -542,31 +529,31 @@ theme_override_styles/hover = ExtResource("5_3xtru")
 text = "Skip"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]
-offset_left = 23.0
-offset_top = 46.0
-offset_right = 278.0
-offset_bottom = 72.0
+anchors_preset = -1
+anchor_left = 0.01796875
+anchor_top = 0.06388889
+anchor_right = 0.2171875
+anchor_bottom = 0.1
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/background = SubResource("StyleBoxFlat_8inel")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vjrnn")
 show_percentage = false
 script = ExtResource("15_vjrnn")
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthLabel" type="Label" parent="HealthBar" unique_id=1228758676]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -127.5
-offset_top = -34.0
-offset_right = 8.5
-offset_bottom = 2.0
+anchors_preset = -1
+anchor_top = -1.3076923
+anchor_right = 0.53333336
+anchor_bottom = 0.07692308
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 38
 text = "Health Bar"
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1674504300]
 visible = false
@@ -577,29 +564,29 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.11764706)
+metadata/_edit_use_anchors_ = true
 
 [node name="RollDisplay" type="TextureProgressBar" parent="." unique_id=937364242]
 visible = false
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.82222223
+anchor_right = 0.1
 anchor_bottom = 1.0
-offset_top = -128.0
-offset_right = 128.0
 grow_vertical = 0
 step = 0.001
 fill_mode = 4
 texture_progress = ExtResource("16_8fbvn")
 script = ExtResource("18_rq3sv")
+metadata/_edit_use_anchors_ = true
 
 [node name="GameTime" type="Control" parent="." unique_id=360503079]
 layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
+anchor_left = 0.96875
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
+anchor_bottom = 0.055555556
 grow_horizontal = 0
 script = ExtResource("21_t8u3o")
+metadata/_edit_use_anchors_ = true
 
 [node name="TimeLabel" type="Label" parent="GameTime" unique_id=1773697990]
 layout_mode = 1
@@ -626,11 +613,12 @@ autostart = true
 [node name="Pause" type="Label" parent="." unique_id=1247659101]
 process_mode = 1
 visible = false
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.9291667
+anchor_right = 0.096875
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 40.0
+offset_top = 28.0
+offset_right = -84.0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 64
@@ -638,3 +626,4 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("30_7mxsn")
+metadata/_edit_use_anchors_ = true
