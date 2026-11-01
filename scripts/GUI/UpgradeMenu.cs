@@ -117,6 +117,9 @@ namespace SurvivorsGame
             }
             _UpgradeButtons.Add(buttonName, buttonInstance);
             buttonInstance.CustomButtonPressed += ButtonPressed;
+            buttonInstance.PivotOffsetRatio = new Vector2(0.5f, 1f);
+            buttonInstance.CustomButtonHovered += OnHover;
+            buttonInstance.MouseExited += ResetScale;
         }
 
         private void ButtonPressed(CustomButton button)
@@ -205,5 +208,23 @@ namespace SurvivorsGame
             GetTree().Paused = false;
         }
 
+        private void OnHover(CustomButton button)
+        {
+            button.AnimateButtonScale(new Vector2(1.1f, 1.1f));
+
+            foreach (CustomButton child in _UpgradeButtons.Values)
+            {
+                if (child == button) { continue; }
+                child.AnimateButtonScale(new Vector2(0.95f, 0.95f));
+            }
+        }
+
+        private void ResetScale()
+        {
+            foreach (CustomButton child in _UpgradeButtons.Values)
+            {
+                child.AnimateButtonScale(new Vector2(1f, 1f), .12f);
+            }
+        }
     }
 }
