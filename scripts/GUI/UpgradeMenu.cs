@@ -111,6 +111,10 @@ namespace SurvivorsGame
             buttonInstance.Name = $"{buttonInstance.Name}{count}";
             _upgradeButtonsContainer.AddChild(buttonInstance);
             string buttonName = buttonInstance.Name.ToString();
+            if (_UpgradeButtons.ContainsKey(buttonName))
+            {
+                return;
+            }
             _UpgradeButtons.Add(buttonName, buttonInstance);
             buttonInstance.CustomButtonPressed += ButtonPressed;
         }
