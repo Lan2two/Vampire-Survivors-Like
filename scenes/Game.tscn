@@ -1195,7 +1195,6 @@ ItemData = SubResource("Resource_choun")
 [node name="HUD" parent="." unique_id=1447957346 instance=ExtResource("12_mcffj")]
 
 [node name="Cycle" type="CanvasModulate" parent="." unique_id=835588103]
-visible = false
 color = Color(0.16424277, 0.10368731, 0.11744278, 1)
 script = ExtResource("12_2rd6h")
 TimeGradient = SubResource("Gradient_7ua8r")
