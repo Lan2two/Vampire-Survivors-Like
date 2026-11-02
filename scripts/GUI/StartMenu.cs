@@ -116,61 +116,12 @@ namespace SurvivorsGame
 
         private void OptionsButton()
         {
-            if (_menuContainer == null || !IsInstanceValid(_menuContainer)) return;
-
-            if (_menuTween != null && IsInstanceValid(_menuTween))
-            {
-                _menuTween.Kill();
-            }
-
-            Vector2 currentPos = _menuContainer.GlobalPosition;
-            float currentAlpha = _menuContainer.Modulate.A;
-
-            _menuTween = GetTree().CreateTween();
-            _menuTween.SetParallel(true);
-
-            Vector2 outTargetPos = _menuPosition + new Vector2(-1000, 0);
-
-            _menuTween.TweenMethod(
-                Callable.From<Vector2>(pos => _menuContainer.GlobalPosition = pos),
-                currentPos,
-                outTargetPos,
-                1.0f
-            ).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-
-            _menuTween.TweenMethod(
-                Callable.From<float>(alpha => _menuContainer.Modulate = new Color(1, 1, 1, alpha)),
-                currentAlpha,
-                0.0f,
-                1.5f
-            ).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-
-            _menuTween.Chain().TweenInterval(0.5f);
-
-            _menuTween.Chain().TweenCallback(Callable.From(() =>
+            AnimateMenu(false, durationMultiplier: 0.5f);
+            GetTree().CreateTimer(0.5f).Timeout += () =>
             {
                 if (!IsInstanceValid(this)) return;
-
-                Vector2 midPos = _menuContainer.GlobalPosition;
-                float midAlpha = _menuContainer.Modulate.A;
-
-                Tween returnTween = GetTree().CreateTween();
-                returnTween.SetParallel(true);
-
-                returnTween.TweenMethod(
-                    Callable.From<Vector2>(pos => _menuContainer.GlobalPosition = pos),
-                    midPos,
-                    _menuPosition,
-                    1.0f
-                ).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
-
-                returnTween.TweenMethod(
-                    Callable.From<float>(alpha => _menuContainer.Modulate = new Color(1, 1, 1, alpha)),
-                    midAlpha,
-                    1.0f,
-                    1.5f
-                ).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
-            }));
+                AnimateMenu(true, durationMultiplier: 0.5f);
+            };
         }
 
         private void ExitButton()
