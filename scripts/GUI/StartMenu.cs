@@ -1,7 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using Godot.Collections;
 
     public partial class StartMenu : Control
     {
@@ -9,13 +8,12 @@ namespace SurvivorsGame
         private Button _startButton;
         private Button _optionsButton;
         private Button _exitButton;
-        private Array<Vector2> _originalPositions = new();
-        private Array<Color> _originalColors = new();
+        private System.Collections.Generic.List<Vector2> _originalPositions = new();
         private ColorRect _fadeRect;
         private int sign = 1;
-        private Color _menuColor;
         private Vector2 _menuPosition;
         private bool _isAnimating = false;
+        private Tween _menuModulateTween;
 
         public override void _Ready()
         {
@@ -24,145 +22,108 @@ namespace SurvivorsGame
             _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
             _optionsButton = GetNodeOrNull<Button>("MenuContainer/OptionsButton");
             _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
-            if (_menuContainer == null)
+
+            if (_menuContainer == null || _startButton == null || _exitButton == null)
             {
-                GD.PrintErr("MenuContainer not found in StartMenu");
+                GD.PrintErr("Required UI components missing in StartMenu");
                 return;
             }
-            if (_startButton == null)
-            {
-                GD.PrintErr("StartButton not found in StartMenu");
-                return;
-            }
-            if (_exitButton == null)
-            {
-                GD.PrintErr("ExitButton not found in StartMenu");
-                return;
-            }
+
             _startButton.Pressed += StartButton;
             _exitButton.Pressed += ExitButton;
             _optionsButton.Pressed += OptionsButton;
-            _menuColor = _menuContainer.Modulate;
+
+            InitializeMenuLayout();
+        }
+
+        private void InitializeMenuLayout()
+        {
+            if (_menuContainer == null || !IsInstanceValid(_menuContainer)) return;
+            _menuContainer.ForceUpdateTransform();
             _menuPosition = _menuContainer.Position;
-            foreach (Control child in _menuContainer.GetChildren())
+            foreach (Node child in _menuContainer.GetChildren())
             {
-                _originalPositions.Add(child.Position);
-                _originalColors.Add(child.Modulate);
+                if (child is Control controlChild)
+                {
+                    controlChild.ForceUpdateTransform();
+                    _originalPositions.Add(controlChild.Position);
+                }
             }
-            _menuContainer.Position += new Vector2(-1000, 0);
-            ModulateMenu();
+            _menuContainer.Position = _menuPosition + new Vector2(-1000, 0);
+            _menuContainer.Modulate = new Color(1, 1, 1, 0);
+            ModulateMenu(true);
         }
 
         public override void _ExitTree()
         {
-            if (_startButton != null)
-            {
-                _startButton.Pressed -= StartButton;
-            }
-            if (_exitButton != null)
-            {
-                _exitButton.Pressed -= ExitButton;
-            }
-        }
-
-        public override void _Process(double delta)
-        {
-            for (int i = 0; i < _menuContainer.GetChildren().Count; i++)
-            {
-                Control child = _menuContainer.GetChildren()[i] as Control;
-                if (child == null)
-                {
-                    return;
-                }
-                if (child.Position == _originalPositions[i])
-                {
-                    AnimateMenu(child);
-                }
-            }
-        }
-
-        private async void AnimateMenu(Control node)
-        {
-            if (_isAnimating)
-            {
-                return;
-            }
-            sign *= -1;
-            Vector2 initialPosition = _originalPositions[_menuContainer.GetChildren().IndexOf(node)];
-            Vector2 offsetPosition = initialPosition + new Vector2(2, 3) * sign;
-            float duration = 1.5f;
-            Tween tween = node.CreateTween();
-            tween.SetParallel(true);
-            tween.TweenProperty(node, "position", offsetPosition, duration)
-                .SetTrans(Tween.TransitionType.Linear)
-                .SetEase(Tween.EaseType.InOut);
-            tween.Finished += tween.Dispose;
-            await ToSignal(GetTree().CreateTimer(duration), "timeout");
-            Tween tween1 = node.CreateTween();
-            tween1.SetParallel(true);
-            tween1.TweenProperty(node, "position", initialPosition, duration)
-                .SetTrans(Tween.TransitionType.Linear)
-                .SetEase(Tween.EaseType.InOut);
-            tween1.Finished += tween.Dispose;
+            if (_startButton != null) _startButton.Pressed -= StartButton;
+            if (_exitButton != null) _exitButton.Pressed -= ExitButton;
+            if (_optionsButton != null) _optionsButton.Pressed -= OptionsButton;
         }
 
         private void ModulateMenu(bool fadeIn = true)
         {
-            Color startingModulate = _menuContainer.Modulate;
+            if (_menuContainer == null || !IsInstanceValid(_menuContainer)) return;
+
+            if (_menuModulateTween != null && IsInstanceValid(_menuModulateTween))
+            {
+                _menuModulateTween.Kill();
+            }
+
+            _menuModulateTween = _menuContainer.CreateTween();
+            _menuModulateTween.SetParallel(true);
+
             if (fadeIn)
             {
-                startingModulate.A = 0.0f;
-                _menuContainer.Modulate = startingModulate;
-                Tween tween = _menuContainer.CreateTween();
-                tween.SetParallel(true);
-                tween.TweenProperty(_menuContainer, "modulate:a", 1.0f, 2.0f)
-                    .SetTrans(Tween.TransitionType.Quad)
-                    .SetEase(Tween.EaseType.Out);
-                tween.TweenProperty(_menuContainer, "position", _menuPosition, 1.0f)
-                    .SetTrans(Tween.TransitionType.Quad)
-                    .SetEase(Tween.EaseType.Out);
-                tween.Finished += tween.Dispose;
+                _menuModulateTween.TweenProperty(_menuContainer, "modulate", new Color(1, 1, 1, 1), 2.0f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
+                _menuModulateTween.TweenProperty(_menuContainer, "position", _menuPosition, 1.0f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
             }
             else
             {
-                Tween tween = _menuContainer.CreateTween();
-                tween.SetParallel(true);
-                tween.TweenProperty(_menuContainer, "modulate:a", 0.0f, 2.0f)
-                    .SetTrans(Tween.TransitionType.Quad)
-                    .SetEase(Tween.EaseType.In);
-                tween.TweenProperty(_menuContainer, "position", _menuPosition + new Vector2(-1000, 0), 1.0f)
-                    .SetTrans(Tween.TransitionType.Quad)
-                    .SetEase(Tween.EaseType.In);
-                tween.Finished += tween.Dispose;
+                _menuModulateTween.TweenProperty(_menuContainer, "modulate", new Color(1, 1, 1, 0), 2.0f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
+                _menuModulateTween.TweenProperty(_menuContainer, "position", _menuPosition + new Vector2(-1000, 0), 1.0f).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
             }
         }
 
-        private async void StartButton()
+        private void StartButton()
         {
             if (_fadeRect != null)
             {
                 Tween fadeTween = _fadeRect.CreateTween();
-                fadeTween.TweenProperty(_fadeRect, "color:a", 1.0f, .5f)
-                    .SetTrans(Tween.TransitionType.Linear);
-                await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
+                fadeTween.TweenProperty(_fadeRect, "color", new Color(_fadeRect.Color.R, _fadeRect.Color.G, _fadeRect.Color.B, 1.0f), 0.5f).SetTrans(Tween.TransitionType.Linear);
+                fadeTween.TweenCallback(Callable.From(() =>
+                {
+                    GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
+                })).SetDelay(1.0f);
             }
-            GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
+            else
+            {
+                GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
+            }
         }
 
-        private async void OptionsButton()
+        private void OptionsButton()
         {
             if (!_isAnimating)
             {
                 _isAnimating = true;
                 ModulateMenu(false);
-                await ToSignal(GetTree().CreateTimer(2.0f), "timeout");
-                ModulateMenu(true);
-                _isAnimating = false;
+                GetTree().CreateTimer(2.0f).Timeout += () =>
+                {
+                    if (!IsInstanceValid(this)) return;
+                    ModulateMenu(true);
+                    _isAnimating = false;
+                };
             }
         }
 
         private void ExitButton()
         {
+            if (OS.GetName() == "Web")
+            {
+                GD.Print("Exit ignored on Web platform.");
+                return;
+            }
             GetTree().Quit();
         }
     }

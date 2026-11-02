@@ -4,7 +4,7 @@ namespace SurvivorsGame
 
     public partial class Fade : ColorRect
     {
-
+        private Tween tween;
         public override void _Ready()
         {
             FadeIn(true);
@@ -13,7 +13,12 @@ namespace SurvivorsGame
         private void FadeIn(bool fadeIn)
         {
             Visible = true;
-            Tween tween = CreateTween();
+            if (tween != null)
+            {
+                tween.Kill();
+                tween = null;
+            }
+            tween = CreateTween();
             float startAlpha = fadeIn ? 1f : 0f;
             float endAlpha = fadeIn ? 0f : 1f;
             Color currentModulate = Modulate;
