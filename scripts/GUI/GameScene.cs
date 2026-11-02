@@ -58,7 +58,6 @@ namespace SurvivorsGame
                 return;
             }
             player.PlayerDead += PlayerDeath;
-            Preloads();
         }
 
         public override void _EnterTree()
@@ -86,10 +85,6 @@ namespace SurvivorsGame
                 }
                 //GD.Print("Mass absorb xp");
             }
-        }
-
-        private void Preloads()
-        {
         }
 
         private void PlayerDeath()
@@ -127,7 +122,5 @@ namespace SurvivorsGame
             Enemy.Alive = 0;
             GetTree().Paused = false;
         }
-
-
     }
 }

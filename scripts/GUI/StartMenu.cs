@@ -9,10 +9,12 @@ namespace SurvivorsGame
         private Button _startButton;
         private Button _exitButton;
         private Array<Vector2> _originalPositions = new();
+        private ColorRect _fadeRect;
         private int sign = 1;
 
         public override void _Ready()
         {
+            _fadeRect = GetNodeOrNull<ColorRect>("Fade");
             _menuContainer = GetNodeOrNull<Control>("MenuContainer");
             _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
             _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
@@ -33,11 +35,12 @@ namespace SurvivorsGame
             }
             _startButton.Pressed += StartButton;
             _exitButton.Pressed += ExitButton;
-            ModulateMenu();
             foreach (Control child in _menuContainer.GetChildren())
             {
                 _originalPositions.Add(child.Position);
+                child.Position += new Vector2(-500, 0);
             }
+            ModulateMenu();
         }
 
         public override void _ExitTree()
@@ -78,15 +81,9 @@ namespace SurvivorsGame
             tween.TweenProperty(node, "position", offsetPosition, duration)
                 .SetTrans(Tween.TransitionType.Linear)
                 .SetEase(Tween.EaseType.InOut);
-            tween.TweenProperty(node, "rotation_degrees", GD.RandRange(-5, -4) + .2f, duration)
-                .SetTrans(Tween.TransitionType.Linear)
-                .SetEase(Tween.EaseType.InOut);
             await ToSignal(GetTree().CreateTimer(duration), "timeout");
             Tween tween1 = node.CreateTween();
             tween1.TweenProperty(node, "position", initialPosition, duration)
-                .SetTrans(Tween.TransitionType.Linear)
-                .SetEase(Tween.EaseType.InOut);
-            tween1.TweenProperty(node, "rotation_degrees", -4f, duration)
                 .SetTrans(Tween.TransitionType.Linear)
                 .SetEase(Tween.EaseType.InOut);
         }
@@ -96,14 +93,28 @@ namespace SurvivorsGame
             Color startingModulate = _menuContainer.Modulate;
             startingModulate.A = 0.0f;
             _menuContainer.Modulate = startingModulate;
-            _menuContainer.CreateTween()
-            .TweenProperty(_menuContainer, "modulate:a", 1.0f, 1.0f)
-            .SetTrans(Tween.TransitionType.Quad)
-            .SetEase(Tween.EaseType.Out);
+            Tween tween = _menuContainer.CreateTween();
+            tween.TweenProperty(_menuContainer, "modulate:a", 1.0f, 2.0f)
+                .SetTrans(Tween.TransitionType.Quad)
+                .SetEase(Tween.EaseType.Out);
+            foreach (Control child in _menuContainer.GetChildren())
+            {
+                Vector2 initialPosition = _originalPositions[_menuContainer.GetChildren().IndexOf(child)];
+                Tween childTween = child.CreateTween();
+                childTween.TweenProperty(child, "position", initialPosition, 1f)
+                    .SetTrans(Tween.TransitionType.Quad);
+            }
         }
 
-        private void StartButton()
+        private async void StartButton()
         {
+            if (_fadeRect != null)
+            {
+                Tween fadeTween = _fadeRect.CreateTween();
+                fadeTween.TweenProperty(_fadeRect, "color:a", 1.0f, .5f)
+                    .SetTrans(Tween.TransitionType.Linear);
+                await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
+            }
             GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
         }
 
