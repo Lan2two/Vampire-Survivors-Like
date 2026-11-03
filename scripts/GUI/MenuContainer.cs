@@ -7,7 +7,6 @@ namespace SurvivorsGame
     {
         [Export] private Vector2 offset = new Vector2(80, 130);
         private Dictionary<string, CustomButton> buttons = new();
-        private Dictionary<ulong, Tween> activeTweens = new();
 
         public override void _Ready()
         {
@@ -24,7 +23,6 @@ namespace SurvivorsGame
                     if (buttons.ContainsKey(buttonName)) { continue; }
 
                     buttons.Add(buttonName, button);
-                    button.PivotOffsetRatio = new Vector2(0.5f, 1f);
                     button.CustomButtonHovered += OnHover;
                     button.MouseExited += ResetScale;
 
