@@ -17,9 +17,10 @@ namespace SurvivorsGame
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is BulletData damageable)
+            if (config is BulletData bulletData)
             {
-                damageable.PierceCount += UpgradePierce;
+
+                bulletData.PierceCountAdditive += UpgradePierce;
             }
         }
     }

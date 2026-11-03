@@ -19,7 +19,7 @@ namespace SurvivorsGame
             Resource config = upgradable.currentConfig;
             if (config is MeleeWeaponBase damageable)
             {
-                damageable.CritRate += UpgradeCritRate;
+                damageable.CritRateAdditive += UpgradeCritRate;
             }
         }
     }

@@ -9,14 +9,14 @@ namespace SurvivorsGame
             IDamageDealing config = configInstance as IDamageDealing;
             int Randint = GD.RandRange(0, 100);
             bool Crit = false;
-            float FinalDamage = config.Damage;
-            if (Randint < config.CritRate)
+            float FinalDamage = config.GetStat("Damage").CalculateFinal();
+            if (Randint < config.GetStat("CritRate").CalculateFinal())
             {
                 Crit = true;
-                FinalDamage *= config.CritDamageMultiplier;
+                FinalDamage *= config.GetStat("CritDamage").CalculateFinal();
             }
             attackComponent.damage = FinalDamage;
-            attackComponent.knockback = config.Knockback;
+            attackComponent.knockback = config.GetStat("Knockback").CalculateFinal();
             attackComponent.crit = Crit;
         }
     }

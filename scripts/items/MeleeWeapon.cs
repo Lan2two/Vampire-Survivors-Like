@@ -73,8 +73,8 @@ namespace SurvivorsGame
             {
                 return;
             }
-            float speedMultiplier = config.SwingSpeedMultiplier;
-            timer = config.swingCooldown / speedMultiplier;
+            float speedMultiplier = config.GetStat("SwingCooldown").CalculateFinal();
+            timer = config.GetStat("SwingCooldown").CalculateFinal() / speedMultiplier;
             animationPlayer.SpeedScale = speedMultiplier;
             //GD.Print($"Swinging weapon with speed multiplier: {(int)speedMultiplier}, cooldown: {(int)config.swingCooldown}, timer set to: {(int)timer}");
 

@@ -10,11 +10,7 @@ namespace SurvivorsGame
         Player
     }
 
-    public enum UpgradeCalculationMode
-    {
-        Additive,
-        Percentage
-    }
+
 
     [GlobalClass]
     public partial class Strategy : ItemData

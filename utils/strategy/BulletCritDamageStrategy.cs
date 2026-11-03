@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletCritDamageStrategy : Strategy
     {
-        [Export] float UpgradeCritDamage { get; set; } = 5;
+        [Export] float UpgradeCritDamage { get; set; } = 5f;
 
         public BulletCritDamageStrategy()
         {
@@ -19,7 +19,7 @@ namespace SurvivorsGame
             Resource config = upgradable.currentConfig;
             if (config is BulletData damageable)
             {
-                damageable.CritDamageMultiplier += UpgradeCritDamage;
+                damageable.CritDamageAdditive += UpgradeCritDamage;
             }
 
         }

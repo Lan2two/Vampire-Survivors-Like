@@ -3,11 +3,11 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class PlayerSpeedStrategy : Strategy, IStatUpgrade
+    public partial class PlayerSpeedStrategy : Strategy
     {
         [Export] float UpgradeSpeed { get; set; } = 10f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
-        public float Amount => UpgradeSpeed;
+
 
         public PlayerSpeedStrategy()
         {
@@ -21,11 +21,14 @@ namespace SurvivorsGame
             Resource config = upgradable.currentConfig;
             if (config is PlayerStatsData stats)
             {
-                stats.MoveSpeed = CalculateStatUpgrade(
-                    stats.MoveSpeed,
-                    totalAmount,
-                    CalculationMode
-                );
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    stats.MoveSpeedPercent += UpgradeSpeed;
+                }
+                else
+                {
+                    stats.MoveSpeedAdditive += UpgradeSpeed;
+                }
             }
         }
     }
