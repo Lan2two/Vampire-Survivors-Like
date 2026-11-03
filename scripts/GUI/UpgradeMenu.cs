@@ -16,10 +16,10 @@ namespace SurvivorsGame
         [Export] private Array<Strategy> EpicTable = new();
         [Export] private Array<Strategy> LegendaryTable = new();
 
-        [Export] private int CommonWeight = 60;
-        [Export] private int RareWeight = 25;
-        [Export] private int EpicWeight = 12;
-        [Export] private int LegendaryWeight = 3;
+        [Export] private float CommonWeight = 60;
+        [Export] private float RareWeight = 25;
+        [Export] private float EpicWeight = 12;
+        [Export] private float LegendaryWeight = 3;
 
         [ExportGroup("Settings")]
         [Export] public int Rerolls = 2;
@@ -75,7 +75,7 @@ namespace SurvivorsGame
                 AddButton();
             }
 
-            DisplayUpgrades();
+            CallDeferred(MethodName.DisplayUpgrades);
         }
 
         public override void _ExitTree()
@@ -150,7 +150,7 @@ namespace SurvivorsGame
         public void RandUpgrade()
         {
             _activeUpgrades.Clear();
-            int totalWeight = CommonWeight + RareWeight + EpicWeight + LegendaryWeight;
+            float totalWeight = CommonWeight + RareWeight + EpicWeight + LegendaryWeight;
             HashSet<Strategy> pickedThisRoll = new();
 
             for (int i = 0; i < _activeButtons.Count; i++)
@@ -161,13 +161,13 @@ namespace SurvivorsGame
                 Strategy randStrategy = null;
 
                 int attempts = 0;
-                const int maxAttempts = 50;
+                const int maxAttempts = 10;
 
                 while (randStrategy == null && attempts < maxAttempts)
                 {
-                    attempts++;
-                    int randtable = GD.RandRange(1, totalWeight);
-
+                    ++attempts;
+                    float randtable = (float)GD.RandRange(0f, totalWeight);
+                    GD.Print($"Button{i + 1} Attempt: {attempts} RandNum: {randtable}");
                     if (randtable <= LegendaryWeight)
                     {
                         table = LegendaryTable;

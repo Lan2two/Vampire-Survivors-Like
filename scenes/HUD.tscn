@@ -10,16 +10,200 @@
 [ext_resource type="PackedScene" uid="uid://byx3jd4wok6sx" path="res://scenes/UpgradeRect.tscn" id="5_fuvlu"]
 [ext_resource type="Script" uid="uid://bagnvtmnb34fr" path="res://scripts/GUI/StatsDisplay.cs" id="6_rvumk"]
 [ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="7_fuvlu"]
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="11_pn61u"]
+[ext_resource type="Script" uid="uid://dqow2p6kmk3sg" path="res://utils/strategy/BulletBounceStrategy.cs" id="13_rvumk"]
+[ext_resource type="Script" uid="uid://d27j145v6nms" path="res://utils/strategy/MeleeCritDamageStrategy.cs" id="14_yy3iv"]
+[ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/BulletCritRateStrategy.cs" id="15_3k6xw"]
+[ext_resource type="Script" uid="uid://c1jxa2l0e5qpd" path="res://utils/strategy/MeleeCritRateStrategy.cs" id="15_7mxsn"]
 [ext_resource type="Script" uid="uid://1mmaum2i8n02" path="res://scripts/GUI/HealthBar.cs" id="15_vjrnn"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="16_dkerm"]
+[ext_resource type="Script" uid="uid://bp8ndd1bodxe" path="res://utils/strategy/MeleeDamageStrategy.cs" id="16_vlu7s"]
+[ext_resource type="Script" uid="uid://db4vbufj1pkwa" path="res://utils/strategy/MeleeKnockbackStrategy.cs" id="17_igqi4"]
+[ext_resource type="Script" uid="uid://chck2eeaeerer" path="res://utils/strategy/MeleeSwingSpeedStrategy.cs" id="18_jath5"]
 [ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
+[ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="19_fuvlu"]
+[ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="20_3xtru"]
+[ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/MoreUpgradeStrategy.cs" id="21_n7bdd"]
 [ext_resource type="Script" uid="uid://di31h4p0cxet7" path="res://scripts/GUI/GameTime.cs" id="21_t8u3o"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="22_yy1yx"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="23_qxvih"]
+[ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="24_7mxsn"]
+[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="26_fuvlu"]
+[ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/BulletSpeedStrategy.cs" id="28_3xtru"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="36_n7bdd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
+
+[sub_resource type="Resource" id="Resource_h5tib"]
+script = ExtResource("16_dkerm")
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_ahuxd"]
+script = ExtResource("14_yy3iv")
+metadata/_custom_type_script = "uid://d27j145v6nms"
+
+[sub_resource type="Resource" id="Resource_mmorv"]
+script = ExtResource("15_7mxsn")
+metadata/_custom_type_script = "uid://c1jxa2l0e5qpd"
+
+[sub_resource type="Resource" id="Resource_7tmnl"]
+script = ExtResource("16_vlu7s")
+metadata/_custom_type_script = "uid://bp8ndd1bodxe"
+
+[sub_resource type="Resource" id="Resource_du5ok"]
+script = ExtResource("17_igqi4")
+metadata/_custom_type_script = "uid://db4vbufj1pkwa"
+
+[sub_resource type="Resource" id="Resource_27n0u"]
+script = ExtResource("18_jath5")
+metadata/_custom_type_script = "uid://chck2eeaeerer"
+
+[sub_resource type="Resource" id="Resource_nvp4l"]
+script = ExtResource("19_fuvlu")
+metadata/_custom_type_script = "uid://1h87b88g3qhp"
+
+[sub_resource type="Resource" id="Resource_7p3oe"]
+script = ExtResource("20_3xtru")
+metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
+
+[sub_resource type="Resource" id="Resource_on3ir"]
+script = ExtResource("21_n7bdd")
+MaxStackSize = 2
+metadata/_custom_type_script = "uid://pnm0lgg85gka"
+
+[sub_resource type="Resource" id="Resource_d5rnw"]
+script = ExtResource("22_yy1yx")
+CalculationMode = 1
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_yy3iv"]
+script = ExtResource("16_dkerm")
+UpgradeDamage = -15.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_3ugbd"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_d5rnw"), SubResource("Resource_yy3iv"), null])
+MaxStackSize = 2
+ItemName = "Light Rounds"
+ItemDescription = "Weaker but faster shots"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_vlu7s"]
+script = ExtResource("16_dkerm")
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_igqi4"]
+script = ExtResource("24_7mxsn")
+UpgradeKnockback = 25.0
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[sub_resource type="Resource" id="Resource_jath5"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_vlu7s"), SubResource("Resource_igqi4")])
+MaxStackSize = 3
+ItemName = "Heavy Rounds"
+ItemDescription = "More Damage and Knockback"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_n7bdd"]
+script = ExtResource("13_rvumk")
+metadata/_custom_type_script = "uid://dqow2p6kmk3sg"
+
+[sub_resource type="Resource" id="Resource_yy1yx"]
+script = ExtResource("26_fuvlu")
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[sub_resource type="Resource" id="Resource_qxvih"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx")])
+ItemName = "Bouncy Rounds"
+ItemDescription = "Bullets bounce between nearby enemies"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_ah8js"]
+script = ExtResource("16_dkerm")
+UpgradeDamage = 100.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_tbqba"]
+script = ExtResource("22_yy1yx")
+UpgradeCooldown = -80.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_3eva0"]
+script = ExtResource("26_fuvlu")
+UpgradePierce = 3
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[sub_resource type="Resource" id="Resource_4q0sy"]
+script = ExtResource("15_3k6xw")
+UpgradeCritRate = 20.0
+metadata/_custom_type_script = "uid://welqlf4pw7cn"
+
+[sub_resource type="Resource" id="Resource_k52m1"]
+script = ExtResource("28_3xtru")
+UpgradeSpeed = 50.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
+
+[sub_resource type="Resource" id="Resource_qhe36"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_ah8js"), SubResource("Resource_tbqba"), SubResource("Resource_3eva0"), SubResource("Resource_4q0sy"), SubResource("Resource_k52m1")])
+MaxStackSize = 2
+ItemName = "Sniper Rounds"
+ItemDescription = "Big but slow gun"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_fuvlu"]
+script = ExtResource("16_dkerm")
+UpgradeDamage = -99.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_2jdyx"]
+script = ExtResource("22_yy1yx")
+UpgradeCooldown = 90.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_q1xwu"]
+script = ExtResource("24_7mxsn")
+UpgradeKnockback = -70.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[sub_resource type="Resource" id="Resource_3xtru"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_fuvlu"), SubResource("Resource_2jdyx"), SubResource("Resource_q1xwu")])
+MaxStackSize = 2
+ItemName = "Machine Gun Fire"
+ItemDescription = "Weak but fast shots"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_chqyv"]
+script = ExtResource("15_3k6xw")
+UpgradeCritRate = 50.0
+metadata/_custom_type_script = "uid://welqlf4pw7cn"
+
+[sub_resource type="Resource" id="Resource_e837n"]
+script = ExtResource("15_7mxsn")
+UpgradeCritRate = 50.0
+metadata/_custom_type_script = "uid://c1jxa2l0e5qpd"
+
+[sub_resource type="Resource" id="Resource_4xlrl"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_chqyv"), SubResource("Resource_e837n"), null])
+ItemName = "Luck"
+ItemDescription = "Makes you lucky"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8inel"]
 bg_color = Color(0.67754686, 0, 0, 1)
@@ -241,7 +425,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
-LootTable = Array[Dictionary]([{}, {}])
+CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe")])
+RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), SubResource("Resource_3ugbd"), SubResource("Resource_jath5"), SubResource("Resource_qxvih")])
+EpicTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_qhe36"), SubResource("Resource_3xtru")])
+LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl")])
+LegendaryWeight = 0.1
 Rerolls = 100
 xpBar = NodePath("../XpBar")
 button = ExtResource("29_fuvlu")
