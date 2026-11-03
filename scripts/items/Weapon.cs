@@ -13,7 +13,7 @@ namespace SurvivorsGame
             if (Randint < config.GetStat("CritRate").CalculateFinal())
             {
                 Crit = true;
-                FinalDamage *= config.GetStat("CritDamage").CalculateFinal();
+                FinalDamage *= (config.GetStat("CritDamage").CalculateFinal() / 100) + 1;
             }
             attackComponent.damage = FinalDamage;
             attackComponent.knockback = config.GetStat("Knockback").CalculateFinal();
