@@ -89,7 +89,6 @@ namespace SurvivorsGame
         {
             config = (BulletData)startingConfig.Duplicate();
             upgradeManager.ApplyUpgrades(this, UpgradeType.Bullet);
-            GD.Print(config.GetStat("CritDamage").CalculateFinal());
             timer.WaitTime = config.GetStat("GunCooldown").CalculateFinal();
         }
     }
