@@ -86,7 +86,6 @@ namespace SurvivorsGame
             VisibilityChanged -= SetReroll;
             if (xpBar != null) xpBar.LevelUpEvent -= DisplayUpgrades;
             EventBus.AddButton -= AddButton;
-
             UnbindButtonEvents();
         }
 
@@ -108,6 +107,7 @@ namespace SurvivorsGame
             buttonInstance.Visible = true;
             _upgradeButtonsContainer.AddChild(buttonInstance);
             _activeButtons.Add(buttonInstance);
+            buttonInstance.Material = buttonInstance.Material?.Duplicate() as Material;
 
             buttonInstance.CustomButtonPressed += ButtonPressed;
             buttonInstance.CustomButtonHovered += OnHover;
@@ -167,26 +167,29 @@ namespace SurvivorsGame
                 {
                     ++attempts;
                     float randtable = (float)GD.RandRange(0f, totalWeight);
-                    GD.Print($"Button{i + 1} Attempt: {attempts} RandNum: {randtable}");
                     if (randtable <= LegendaryWeight)
                     {
                         table = LegendaryTable;
                         rarity = Rarity.Legendary;
+                        btn.SetShader(Colors.Black, Colors.Goldenrod, .1f, true);
                     }
                     else if (randtable <= LegendaryWeight + EpicWeight)
                     {
                         table = EpicTable;
                         rarity = Rarity.Epic;
+                        btn.SetShader(Colors.Black, Colors.WebPurple, .1f, true);
                     }
                     else if (randtable <= LegendaryWeight + EpicWeight + RareWeight)
                     {
                         table = RareTable;
                         rarity = Rarity.Rare;
+                        btn.SetShader(Colors.Black, Colors.NavyBlue, .1f, true);
                     }
                     else
                     {
                         table = CommonTable;
                         rarity = Rarity.Common;
+                        btn.SetShader(Colors.Black, Colors.DimGray, .1f, true);
                     }
 
                     if (table == null || table.Count == 0)

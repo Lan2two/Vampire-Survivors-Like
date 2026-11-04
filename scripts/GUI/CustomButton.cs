@@ -25,6 +25,15 @@ namespace SurvivorsGame
             CustomButtonHovered?.Invoke(this);
         }
 
+        public void SetShader(Color targetColor, Color replacementColor, float threshold, bool enable = false)
+        {
+            ShaderMaterial shader = (ShaderMaterial)Material;
+            shader.SetShaderParameter("TargetColor", targetColor);
+            shader.SetShaderParameter("ReplacementColor", replacementColor);
+            shader.SetShaderParameter("Threshold", threshold);
+            shader.SetShaderParameter("Enable", enable);
+        }
+
         public void AnimateButtonScale(Vector2 targetScale, double duration = 0.085f)
         {
             if (tween != null)

@@ -88,7 +88,7 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_3ugbd"]
 script = ExtResource("23_qxvih")
-Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_d5rnw"), SubResource("Resource_yy3iv"), null])
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_d5rnw"), SubResource("Resource_yy3iv")])
 MaxStackSize = 2
 ItemName = "Light Rounds"
 ItemDescription = "Weaker but faster shots"
@@ -170,7 +170,7 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_2jdyx"]
 script = ExtResource("22_yy1yx")
-UpgradeCooldown = 90.0
+UpgradeCooldown = 80.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
@@ -188,21 +188,39 @@ ItemName = "Machine Gun Fire"
 ItemDescription = "Weak but fast shots"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
+[sub_resource type="Resource" id="Resource_gpb48"]
+script = ExtResource("26_fuvlu")
+MaxStackSize = 5
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[sub_resource type="Resource" id="Resource_vifrr"]
+script = ExtResource("16_dkerm")
+UpgradeDamage = 10.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_0iip1"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_gpb48"), SubResource("Resource_vifrr")])
+ItemName = "FMJ"
+ItemDescription = "High amount of piercing"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
 [sub_resource type="Resource" id="Resource_chqyv"]
 script = ExtResource("15_3k6xw")
-UpgradeCritRate = 50.0
+UpgradeCritRate = 100.0
 metadata/_custom_type_script = "uid://welqlf4pw7cn"
 
 [sub_resource type="Resource" id="Resource_e837n"]
 script = ExtResource("15_7mxsn")
-UpgradeCritRate = 50.0
+UpgradeCritRate = 100.0
 metadata/_custom_type_script = "uid://c1jxa2l0e5qpd"
 
 [sub_resource type="Resource" id="Resource_4xlrl"]
 script = ExtResource("23_qxvih")
-Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_chqyv"), SubResource("Resource_e837n"), null])
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_chqyv"), SubResource("Resource_e837n")])
 ItemName = "Luck"
-ItemDescription = "Makes you lucky"
+ItemDescription = "100% Crits"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8inel"]
@@ -427,9 +445,9 @@ grow_vertical = 2
 script = ExtResource("4_shsct")
 CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe")])
 RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), SubResource("Resource_3ugbd"), SubResource("Resource_jath5"), SubResource("Resource_qxvih")])
-EpicTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_qhe36"), SubResource("Resource_3xtru")])
+EpicTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_qhe36"), SubResource("Resource_3xtru"), SubResource("Resource_0iip1")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl")])
-LegendaryWeight = 0.1
+LegendaryWeight = 1.0
 Rerolls = 100
 xpBar = NodePath("../XpBar")
 button = ExtResource("29_fuvlu")
@@ -527,7 +545,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.11764706)
+color = Color(0.08833324, 0, 0.53, 0.16862746)
 metadata/_edit_use_anchors_ = true
 
 [node name="RollDisplay" type="TextureProgressBar" parent="." unique_id=937364242]

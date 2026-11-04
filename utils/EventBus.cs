@@ -18,6 +18,10 @@ namespace SurvivorsGame
 
         public static void InvokeUpgrades(Strategy strategy)
         {
+            if (strategy == null)
+            {
+                return;
+            }
             if (strategy.upgradeType == UpgradeType.Player)
             {
                 PlayerUpgrade?.Invoke();
