@@ -10,7 +10,8 @@ namespace SurvivorsGame
         private Button _statsButton;
         private Button _exitButton;
         private Fade _fadeRect;
-        private AnimationPlayer _animationPlayer;
+        private AnimationPlayer _menuAnimation;
+        private AnimationPlayer _optionAnimations;
 
         public override void _Ready()
         {
@@ -20,7 +21,8 @@ namespace SurvivorsGame
             _optionsButton = GetNodeOrNull<Button>("MainMenuContainer/OptionsButton");
             _statsButton = GetNodeOrNull<Button>("MainMenuContainer/StatsButton");
             _exitButton = GetNodeOrNull<Button>("MainMenuContainer/ExitButton");
-            _animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayers/MainMenu");
+            _menuAnimation = GetNodeOrNull<AnimationPlayer>("AnimationPlayers/MainMenu");
+            _optionAnimations = GetNodeOrNull<AnimationPlayer>("AnimationPlayers/Options");
 
             if (_menuContainer == null || _startButton == null || _exitButton == null)
             {
@@ -37,8 +39,8 @@ namespace SurvivorsGame
 
         private void OnReady()
         {
-            _animationPlayer.Play("bob");
-            _animationPlayer.Play("fade");
+            _menuAnimation.Play("bob");
+            _menuAnimation.Play("fade");
         }
 
         public override void _ExitTree()
@@ -51,7 +53,7 @@ namespace SurvivorsGame
         private void StartButton()
         {
             if (_fadeRect == null) return;
-            _animationPlayer.PlayBackwards("fade");
+            _menuAnimation.PlayBackwards("fade");
             _fadeRect.FadeIn(false);
 
             GetTree().CreateTimer(0.5f).Timeout += () =>
@@ -63,12 +65,8 @@ namespace SurvivorsGame
 
         private void OptionsButton()
         {
-            _animationPlayer.PlayBackwards("fade");
-
-            GetTree().CreateTimer(0.75f).Timeout += () =>
-            {
-                _animationPlayer.Play("fade");
-            };
+            _menuAnimation.PlayBackwards("fade");
+            _optionAnimations.Play("options");
         }
 
         private void StatsButton()
