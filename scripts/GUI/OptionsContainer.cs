@@ -8,10 +8,9 @@ namespace SurvivorsGame
         private AnimationPlayer _optionAnimations;
         public override void _Ready()
         {
-            Node _parent = GetParent();
             _backButton = GetNodeOrNull<Button>("BackButton");
-            _menuAnimation = _parent.GetNodeOrNull<AnimationPlayer>("AnimationPlayers/MainMenu");
-            _optionAnimations = _parent.GetNodeOrNull<AnimationPlayer>("AnimationPlayers/Options");
+            _menuAnimation = GetNodeOrNull<AnimationPlayer>("../../MainMenu");
+            _optionAnimations = GetNodeOrNull<AnimationPlayer>("../../Menus");
             _backButton.Pressed += BackButton;
         }
 

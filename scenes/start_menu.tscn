@@ -1,98 +1,14 @@
 [gd_scene format=3 uid="uid://cycqgne5vj7fw"]
 
-[ext_resource type="Script" uid="uid://c1ipng8lk3qou" path="res://scripts/GUI/StartMenu.cs" id="1_ouf4f"]
+[ext_resource type="Script" uid="uid://c1ipng8lk3qou" path="res://scripts/GUI/StartMenu.cs" id="1_4v6gu"]
 [ext_resource type="Script" uid="uid://dm0ibj6ewsvk1" path="res://scripts/GUI/MainMenuContainer.cs" id="2_fcv5n"]
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_m7x51"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/CustomButton.cs" id="4_h61rw"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 [ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/OptionsContainer.cs" id="6_4v6gu"]
 
-[sub_resource type="Animation" id="Animation_4v6gu"]
+[sub_resource type="Animation" id="Animation_h61rw"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.06981317]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StartButton:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.06981317]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("OptionsButton:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.06981317]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ExitButton:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.06981317]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("StatsButton:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.06981317]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2000, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_fcv5n"]
 resource_name = "bob"
@@ -101,7 +17,7 @@ loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label:rotation")
+tracks/0/path = NodePath("MainMenuContainer/Label:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -113,7 +29,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StartButton:rotation")
+tracks/1/path = NodePath("MainMenuContainer/StartButton:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -125,7 +41,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("OptionsButton:rotation")
+tracks/2/path = NodePath("MainMenuContainer/OptionsButton:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -137,7 +53,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ExitButton:rotation")
+tracks/3/path = NodePath("MainMenuContainer/ExitButton:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -149,7 +65,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("StatsButton:rotation")
+tracks/4/path = NodePath("MainMenuContainer/StatsButton:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -181,15 +97,15 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.42, 0.75),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.42, 0.43333334, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nxjfj"]
 _data = {
-&"RESET": SubResource("Animation_4v6gu"),
+&"RESET": SubResource("Animation_h61rw"),
 &"bob": SubResource("Animation_fcv5n"),
 &"fade": SubResource("Animation_apowk")
 }
@@ -211,14 +127,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath("../StatsContainer:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(2000, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5byqq"]
@@ -228,7 +144,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.75),
@@ -236,23 +152,27 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(2000, 0), Vector2(0, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.42, 0.75),
-"transitions": PackedFloat32Array(1, 1),
+
+[sub_resource type="Animation" id="Animation_vnuwp"]
+resource_name = "stats"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../StatsContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Vector2(2000, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58y3"]
 _data = {
 &"RESET": SubResource("Animation_e58y3"),
-&"options": SubResource("Animation_5byqq")
+&"options": SubResource("Animation_5byqq"),
+&"stats": SubResource("Animation_vnuwp")
 }
 
 [sub_resource type="Animation" id="Animation_nxjfj"]
@@ -394,17 +314,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ouf4f")
+script = ExtResource("1_4v6gu")
 
-[node name="AnimationPlayers" type="Node" parent="." unique_id=1789880917]
-
-[node name="MainMenu" type="AnimationPlayer" parent="AnimationPlayers" unique_id=569346262]
-root_node = NodePath("../../MainMenuContainer")
+[node name="MainMenu" type="AnimationPlayer" parent="." unique_id=569346262]
+root_node = NodePath("../MainMenuMotion")
 libraries/ = SubResource("AnimationLibrary_nxjfj")
 autoplay = &"fade"
 
-[node name="Options" type="AnimationPlayer" parent="AnimationPlayers" unique_id=753410683]
-root_node = NodePath("../../OptionsContainer")
+[node name="Menus" type="AnimationPlayer" parent="." unique_id=753410683]
+root_node = NodePath("../OptionsMotion")
 libraries/ = SubResource("AnimationLibrary_e58y3")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1972515449]
@@ -478,7 +396,7 @@ color = Color(0, 0, 0, 0.23529412)
 libraries/ = SubResource("AnimationLibrary_5byqq")
 autoplay = &"new_animation"
 
-[node name="MainMenuContainer" type="Control" parent="." unique_id=1074360344]
+[node name="MainMenuMotion" type="Control" parent="." unique_id=1789880917]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -488,17 +406,25 @@ offset_left = -2000.0
 offset_right = -2000.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MainMenuContainer" type="Control" parent="MainMenuMotion" unique_id=1074360344]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_fcv5n")
 
-[node name="Label" type="Label" parent="MainMenuContainer" unique_id=1957911604]
+[node name="Label" type="Label" parent="MainMenuMotion/MainMenuContainer" unique_id=1957911604]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.04469786
 anchor_top = -0.0006944835
 anchor_right = 0.72598284
 anchor_bottom = 0.09421624
-offset_left = -1.4814453
-offset_top = -1.4811592
+offset_left = -1.4814148
+offset_top = -1.4811597
 offset_right = -8.372559
 offset_bottom = 59.18315
 grow_horizontal = 2
@@ -517,7 +443,7 @@ text = "VAMPIRE SURVIVORS"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="StartButton" type="Button" parent="MainMenuContainer" unique_id=846835719]
+[node name="StartButton" type="Button" parent="MainMenuMotion/MainMenuContainer" unique_id=846835719]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
@@ -525,6 +451,7 @@ anchor_left = 0.125
 anchor_top = 0.30347225
 anchor_right = 0.4408261
 anchor_bottom = 0.36863166
+offset_left = 1.5258789e-05
 offset_top = 1.5258789e-05
 offset_right = -4.2573853
 offset_bottom = 28.085266
@@ -544,7 +471,7 @@ script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionsButton" type="Button" parent="MainMenuContainer" unique_id=1329301000]
+[node name="OptionsButton" type="Button" parent="MainMenuMotion/MainMenuContainer" unique_id=1329301000]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
@@ -552,6 +479,7 @@ anchor_left = 0.125
 anchor_top = 0.30347225
 anchor_right = 0.4408261
 anchor_bottom = 0.36863166
+offset_left = 1.5258789e-05
 offset_top = 1.5258789e-05
 offset_right = -4.2573853
 offset_bottom = 28.085266
@@ -572,7 +500,7 @@ script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
-[node name="StatsButton" type="Button" parent="MainMenuContainer" unique_id=1070812510]
+[node name="StatsButton" type="Button" parent="MainMenuMotion/MainMenuContainer" unique_id=1070812510]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
@@ -580,6 +508,7 @@ anchor_left = 0.125
 anchor_top = 0.30347225
 anchor_right = 0.4408261
 anchor_bottom = 0.36863166
+offset_left = 1.5258789e-05
 offset_top = 1.5258789e-05
 offset_right = -4.2573853
 offset_bottom = 28.085266
@@ -599,7 +528,7 @@ script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
-[node name="ExitButton" type="Button" parent="MainMenuContainer" unique_id=1415925070]
+[node name="ExitButton" type="Button" parent="MainMenuMotion/MainMenuContainer" unique_id=1415925070]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
@@ -639,19 +568,26 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("5_fcv5n")
 FadeInOnReady = false
 
-[node name="OptionsContainer" type="Control" parent="." unique_id=811449237]
-modulate = Color(1, 1, 1, 0)
+[node name="OptionsMotion" type="Control" parent="." unique_id=1789880918]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2000.0
-offset_right = 2000.0112
+offset_right = 2000.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsContainer" type="Control" parent="OptionsMotion" unique_id=811449237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_4v6gu")
 
-[node name="BackButton" type="Button" parent="OptionsContainer" unique_id=1330685163]
+[node name="BackButton" type="Button" parent="OptionsMotion/OptionsContainer" unique_id=1330685163]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
@@ -679,7 +615,7 @@ script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="OptionsContainer" unique_id=1810529658]
+[node name="Panel" type="Panel" parent="OptionsMotion/OptionsContainer" unique_id=1810529658]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05234372
@@ -690,7 +626,74 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="OptionsContainer/Panel" unique_id=1219577441]
+[node name="Label" type="Label" parent="OptionsMotion/OptionsContainer/Panel" unique_id=1219577441]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39103323
+anchor_top = -0.034372266
+anchor_right = 0.6159875
+anchor_bottom = 0.15808056
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 128
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="StatsContainer" type="Control" parent="." unique_id=183224552]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2000.0
+offset_right = 2000.0112
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_4v6gu")
+
+[node name="BackButton" type="Button" parent="StatsContainer" unique_id=2143976137]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.037499767
+anchor_top = 0.8256944
+anchor_right = 0.35332632
+anchor_bottom = 0.8908537
+offset_right = -4.257324
+offset_bottom = 28.085236
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 3
+theme = SubResource("Theme_m7x51")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h61rw")
+text = "Back
+"
+script = ExtResource("4_h61rw")
+metadata/_custom_type_script = "uid://c2qtgcffduvb"
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="StatsContainer" unique_id=554229234]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05234372
+anchor_top = 0.036111113
+anchor_right = 0.9414056
+anchor_bottom = 0.7722222
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="StatsContainer/Panel" unique_id=1045647611]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.39103323

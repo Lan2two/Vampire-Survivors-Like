@@ -36,14 +36,14 @@ namespace SurvivorsGame
 
         private void OnTimeOut()
         {
-            Stats.data.TotalSeconds++;
+            Stats.data.Seconds++;
             UpdateLabel();
         }
 
         private void UpdateLabel()
         {
-            int _minutes = Stats.data.TotalSeconds / 60;
-            int _seconds = Stats.data.TotalSeconds % 60;
+            int _minutes = Stats.data.Seconds / 60;
+            int _seconds = Stats.data.Seconds % 60;
 
             _timeLabel.Text = $"{_minutes:D2}:{_seconds:D2}";
         }

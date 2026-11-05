@@ -1,7 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
 
     public partial class StatsDisplay : ColorRect
     {
@@ -32,7 +31,7 @@ namespace SurvivorsGame
 
         private void OnGameOver()
         {
-            _statsLabel.Text = $"Enemies Killed: {Stats.data.EnemiesKilled}\nLevel: {Stats.data.Level}\nTotal XP: {(int)Stats.data.totalXP}\nDamage Dealt: {(int)Stats.data.DamageDealt}\nDamage Taken: {(int)Stats.data.DamageTaken}\nHealth Healed: {(int)Stats.data.HealthHealed}\nMax Health: {(int)_player.healthComponent.maxHealth}\nMax Speed: {(int)_player.velocityComponent.maxSpeed}\nCampfires Lit: {Stats.data.CampfiresLit}";
+            _statsLabel.Text = $"Time Elapsed: {Stats.data.Seconds}\nEnemies Killed: {Stats.data.EnemiesKilled}\nLevel: {Stats.data.Level}\nTotal XP: {(int)Stats.data.totalXP}\nDamage Dealt: {(int)Stats.data.DamageDealt}\nDamage Taken: {(int)Stats.data.DamageTaken}\nHealth Healed: {(int)Stats.data.HealthHealed}\nMax Health: {(int)_player.healthComponent.maxHealth}\nMax Speed: {(int)_player.velocityComponent.maxSpeed}\nCampfires Lit: {Stats.data.CampfiresLit}";
         }
 
     }
