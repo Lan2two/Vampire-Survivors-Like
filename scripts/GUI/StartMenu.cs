@@ -72,6 +72,8 @@ namespace SurvivorsGame
 
         private void StatsButton()
         {
+            _menuAnimation.PlayBackwards("fade");
+            _optionAnimations.Play("stats");
         }
 
         private void ExitButton()
