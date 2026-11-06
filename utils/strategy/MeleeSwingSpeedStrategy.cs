@@ -22,11 +22,11 @@ namespace SurvivorsGame
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    meleeWeapon.SwingCooldownPercent -= UpgradeSwingSpeed;
+                    meleeWeapon.SwingSpeedPercent += UpgradeSwingSpeed;
                 }
                 else
                 {
-                    meleeWeapon.SwingCooldownAdditive -= UpgradeSwingSpeed;
+                    meleeWeapon.SwingSpeedAdditive += UpgradeSwingSpeed;
                 }
             }
         }

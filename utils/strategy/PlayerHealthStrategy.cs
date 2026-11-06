@@ -15,7 +15,7 @@ namespace SurvivorsGame
             ItemDescription = "More Hp";
         }
 
-        public void ApplyStat(IUpgradable upgradable, float totalAmount)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
             if (config is PlayerStatsData stats)
@@ -26,7 +26,7 @@ namespace SurvivorsGame
                 }
                 else
                 {
-                    stats.MaxHealthPercent += UpgradeHealth;
+                    stats.MaxHealthAdditive += UpgradeHealth;
                 }
             }
         }

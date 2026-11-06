@@ -16,7 +16,7 @@ namespace SurvivorsGame
             ItemDescription = "More speed";
         }
 
-        public void ApplyStat(IUpgradable upgradable, float totalAmount)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
             if (config is PlayerStatsData stats)
