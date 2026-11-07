@@ -27,7 +27,9 @@ namespace SurvivorsGame
                 $"Total Kills: {data.TotalKills}",
                 $"Total Damage Dealt: {data.TotalDamageDealt}",
                 $"Total Damage Taken: {data.TotalDamageTaken}",
-                $"Total Health Healed: {data.TotalHealthHealed}"
+                $"Total Health Healed: {data.TotalHealthHealed}",
+                $"Total Campfires Lit: {data.TotalCampfiresLit}",
+                $"Total Xp Gained: {data.TotalTotalXp}"
             };
             _totalStatsLabel.Text = string.Join(System.Environment.NewLine, stats);
         }
