@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public const float MaxBulletSpeed = 1000f;
         public const float MinMeleeSwingSpeed = 0.25f;
         public const float MaxMeleeSwingSpeed = 5f;
-        public const float MinGunCooldown = 0.05f;
+        public const float MinProjectileCooldown = 0.05f;
         public const float MinSpread = 0f;
     }
 

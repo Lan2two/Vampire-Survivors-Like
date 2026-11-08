@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
     using System.Collections.Generic;
 
-    public partial class UpgradesDisplay : ColorRect
+    public partial class UpgradesDisplay : Panel
     {
         [Export] private PackedScene _textureRect;
         private GridContainer _gridContainer;

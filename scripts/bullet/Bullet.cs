@@ -4,7 +4,7 @@ namespace SurvivorsGame
 
     public partial class Bullet : Weapon
     {
-        [Export] public BulletData config;
+        [Export] public ProjectileData config;
         private RedirectBullet redirectBullet;
         private float traveledDistance = 0;
         private int hitCount = 0;

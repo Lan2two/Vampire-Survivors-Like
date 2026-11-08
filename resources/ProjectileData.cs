@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletData : Resource, IDamageDealing
+    public partial class ProjectileData : Resource, IDamageDealing
     {
         [ExportGroup("Damage Dealing")]
         [Export] public float DamageBase = 10f;
@@ -26,7 +26,7 @@ namespace SurvivorsGame
         public float SpeedAdditive;
         public float SpeedPercent;
 
-        [ExportGroup("Gun Stats")]
+        [ExportGroup("Projectile Stats")]
         [Export] public float MaxTravelDistanceBase = 500f;
         public float MaxTravelDistanceAdditive;
         public float MaxTravelDistancePercent;
@@ -35,9 +35,9 @@ namespace SurvivorsGame
         public float PierceCountAdditive;
         public float PierceCountPercent;
 
-        [Export] public float GunCooldownBase = 1f;
-        public float GunCooldownAdditive;
-        public float GunCooldownPercent;
+        [Export] public float ProjectileCooldownBase = 1f;
+        public float ProjectileCooldownAdditive;
+        public float ProjectileCooldownPercent;
 
         [Export] public int BurstBase = 1;
         public float BurstAdditive;
@@ -62,9 +62,9 @@ namespace SurvivorsGame
             "Speed" => new StatModifier(SpeedBase, SpeedAdditive, SpeedPercent, CombatStatLimits.MinBulletSpeed, CombatStatLimits.MaxBulletSpeed),
             "MaxTravelDistance" => new StatModifier(MaxTravelDistanceBase, MaxTravelDistanceAdditive, MaxTravelDistancePercent),
             "PierceCount" => new StatModifier(PierceCountBase, PierceCountAdditive, PierceCountPercent, 0f, float.MaxValue),
-            "GunCooldown" => new StatModifier(GunCooldownBase, GunCooldownAdditive, GunCooldownPercent, CombatStatLimits.MinGunCooldown, float.MaxValue),
+            "ProjectileCooldown" => new StatModifier(ProjectileCooldownBase, ProjectileCooldownAdditive, ProjectileCooldownPercent, CombatStatLimits.MinProjectileCooldown, float.MaxValue),
             "Burst" => new StatModifier(BurstBase, BurstAdditive, BurstPercent, 0, float.MaxValue),
-            "BurstInterval" => new StatModifier(BurstIntervalBase, BurstIntervalAdditive, BurstIntervalPercent, CombatStatLimits.MinGunCooldown, float.MaxValue),
+            "BurstInterval" => new StatModifier(BurstIntervalBase, BurstIntervalAdditive, BurstIntervalPercent, CombatStatLimits.MinProjectileCooldown, float.MaxValue),
             "Spread" => new StatModifier(SpreadBase, SpreadAdditive, SpreadPercent, CombatStatLimits.MinSpread, float.MaxValue),
             _ => default
         };
