@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://bbee636i8roee"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_t08qu"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_3j5gb"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="3_lpi8t"]
+[ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="4_5mnng"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="5_ghwk5"]
+
+[sub_resource type="Resource" id="Resource_vlu7s"]
+script = ExtResource("3_lpi8t")
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_igqi4"]
+script = ExtResource("4_5mnng")
+UpgradeKnockback = 25.0
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[resource]
+script = ExtResource("5_ghwk5")
+Children = Array[ExtResource("1_t08qu")]([SubResource("Resource_vlu7s"), SubResource("Resource_igqi4")])
+MaxStackSize = 3
+ItemName = "Heavy Rounds"
+ItemDescription = "More Damage and Knockback"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
