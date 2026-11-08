@@ -32,9 +32,7 @@
 [ext_resource type="Resource" uid="uid://druojo5qxunbl" path="res://resources/CompositeUpgrades/SniperRounds.tres" id="25_mmorv"]
 [ext_resource type="Resource" uid="uid://b6uud03qfm4ro" path="res://resources/CompositeUpgrades/MachineGun.tres" id="26_7tmnl"]
 [ext_resource type="Resource" uid="uid://d0r0j8cmvk6rq" path="res://resources/CompositeUpgrades/FMJ.tres" id="27_du5ok"]
-[ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="28_27n0u"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
-[ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="29_nvp4l"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="36_n7bdd"]
 
@@ -77,24 +75,6 @@ metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 script = ExtResource("21_n7bdd")
 MaxStackSize = 2
 metadata/_custom_type_script = "uid://pnm0lgg85gka"
-
-[sub_resource type="Resource" id="Resource_d5rnw"]
-resource_local_to_scene = true
-script = ExtResource("29_nvp4l")
-_subsceneData = {
-"Fade": false,
-"TrailDuration": 0.5,
-"TrailPoints": 50
-}
-PackedScene = ExtResource("28_27n0u")
-upgradeType = 3
-"Subscene Configuration/Fade" = false
-"Subscene Configuration/TrailDuration" = 0.5
-"Subscene Configuration/TrailPoints" = 50
-MaxStackSize = 3
-ItemName = "Add Node"
-ItemDescription = "Adds Node to Upgradable"
-metadata/_custom_type_script = "uid://dletf55xvu8sn"
 
 [sub_resource type="Resource" id="Resource_chqyv"]
 script = ExtResource("15_3k6xw")
@@ -144,6 +124,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="GameOverNode" type="Control" parent="." unique_id=1945052996]
 process_mode = 3
+visible = false
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -309,6 +290,7 @@ step = 0.001
 allow_greater = true
 show_percentage = false
 script = ExtResource("3_womn8")
+LevelIncrement = 5.0
 
 [node name="XpLabel" type="Label" parent="XpBar" unique_id=297221265]
 layout_mode = 1
@@ -339,7 +321,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
 CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe")])
-RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), SubResource("Resource_d5rnw")])
+RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl")])
 CommonWeight = 75.0
@@ -445,24 +427,23 @@ metadata/_edit_use_anchors_ = true
 
 [node name="GameTime" type="Control" parent="." unique_id=360503079]
 layout_mode = 3
-anchor_left = 0.5
-anchor_top = 0.08888889
-anchor_right = 0.5
-anchor_bottom = 0.08888889
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("21_t8u3o")
-metadata/_edit_use_anchors_ = true
 
 [node name="TimeLabel" type="Label" parent="GameTime" unique_id=1773697990]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -1.125
-anchor_top = 0.75
-anchor_right = 0.25
-anchor_bottom = 1.55
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_top = 40.0
+offset_right = 44.0
+offset_bottom = 91.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 3
@@ -471,7 +452,6 @@ theme_override_font_sizes/font_size = 64
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="GameTimer" type="Timer" parent="GameTime" unique_id=1329525926]
 autostart = true

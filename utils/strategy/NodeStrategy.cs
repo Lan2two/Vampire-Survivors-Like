@@ -43,7 +43,6 @@ namespace SurvivorsGame
 
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
-            GD.Print("Node Upgrade");
             if (upgradable is not Node node || _packedScene == null) return;
 
             if (UniqueScenePerStack)

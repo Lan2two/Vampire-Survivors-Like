@@ -6,12 +6,16 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class ProjectileLauncher : Area2D, IWeapon, IUpgradable
     {
+        [ExportGroup("Projectile Launcher")]
         [Export] public UpgradeManager upgradeManager;
-        public Timer timer;
-        private Marker2D ShootPoint;
-        private Array<Node2D> enemiesInRange;
         [Export] public ProjectileData startingConfig;
         [Export] PackedScene Scene;
+        [Export] Texture2D texture2D;
+        public Timer timer;
+        private Sprite2D sprite2D;
+        private Marker2D shootPoint;
+        private Marker2D weaponPivot;
+        private Array<Node2D> enemiesInRange;
         public ProjectileData config;
         public Resource currentConfig => config;
         private bool shooting = true;
@@ -19,7 +23,9 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             timer = GetNode<Timer>("Timer");
-            ShootPoint = GetNode<Marker2D>("%ShootPoint");
+            shootPoint = GetNode<Marker2D>("%ShootPoint");
+            sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
+            weaponPivot = GetNodeOrNull<Marker2D>("WeaponPivot");
 
             if (startingConfig == null)
             {
@@ -35,6 +41,20 @@ namespace SurvivorsGame
             {
                 GD.PrintErr("Launcher requires UpgradeManager.");
                 return;
+            }
+            if (sprite2D == null)
+            {
+                GD.PrintErr("Sprite2D not found in Projectile Launcher.");
+                return;
+            }
+            if (weaponPivot == null)
+            {
+                GD.PrintErr("WeaponPivot not found in Projectile Launcher.");
+                return;
+            }
+            if (texture2D != null)
+            {
+                sprite2D.Texture = texture2D;
             }
             timer.Timeout += OnTimeout;
         }
@@ -90,12 +110,13 @@ namespace SurvivorsGame
                     {
                         sign *= -1;
                         float spread = (float)GD.RandRange(0, config.GetStat("Spread").CalculateFinal() / 2);
+                        weaponPivot.GlobalRotation += spread * sign;
                         Bullet projectileInstance = Scene.Instantiate<Bullet>();
                         projectileInstance.config = config;
                         projectileInstance.Fire();
-                        projectileInstance.GlobalPosition = ShootPoint.GlobalPosition;
-                        projectileInstance.GlobalRotation = ShootPoint.GlobalRotation + spread * sign;
-                        ShootPoint.AddChild(projectileInstance);
+                        projectileInstance.GlobalPosition = shootPoint.GlobalPosition;
+                        projectileInstance.GlobalRotation = shootPoint.GlobalRotation;
+                        shootPoint.AddChild(projectileInstance);
                     };
                 }
             }

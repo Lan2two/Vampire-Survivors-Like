@@ -10,7 +10,7 @@ namespace SurvivorsGame
     {
         [Export] public float damage = 10f;
         [Export] public float knockback = 10f;
-        [Export] public float DamageInterval = .1f;
+        [Export] public float DamageInterval = .05f;
         [Export] public bool SingleHit = true;
         public bool crit;
         public event Action DamageApplied;

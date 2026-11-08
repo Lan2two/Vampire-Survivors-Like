@@ -130,6 +130,8 @@ namespace SurvivorsGame
             data.TotalDamageDealt += (int)Stats.data.DamageDealt;
             data.TotalDamageTaken += (int)Stats.data.DamageTaken;
             data.TotalHealthHealed += (int)Stats.data.HealthHealed;
+            data.TotalCampfiresLit += Stats.data.CampfiresLit;
+            data.TotalTotalXp += (int)Stats.data.totalXP;
             saveSystem.SaveData(data);
         }
     }
