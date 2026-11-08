@@ -60,7 +60,6 @@ namespace SurvivorsGame
                 return;
             }
             player.PlayerDead += PlayerDeath;
-            GetTree().Paused = true;
         }
 
         public override void _ExitTree()

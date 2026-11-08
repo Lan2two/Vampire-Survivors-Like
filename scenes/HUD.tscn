@@ -31,8 +31,11 @@
 [ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="24_7mxsn"]
 [ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="26_fuvlu"]
 [ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/BulletSpeedStrategy.cs" id="28_3xtru"]
+[ext_resource type="Script" uid="uid://bbhbxariivqbp" path="res://utils/strategy/BulletBurstStrategy.cs" id="29_3xtru"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
+[ext_resource type="Script" uid="uid://ccvfk48q4yhoh" path="res://utils/strategy/BulletSpreadStrategy.cs" id="30_n7bdd"]
+[ext_resource type="Script" uid="uid://dvgounn1leqxm" path="res://utils/strategy/BulletBurstIntervalStrategy.cs" id="31_yy1yx"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="36_n7bdd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
@@ -164,13 +167,13 @@ metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="Resource" id="Resource_fuvlu"]
 script = ExtResource("16_dkerm")
-UpgradeDamage = -99.0
+UpgradeDamage = -100.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_2jdyx"]
 script = ExtResource("22_yy1yx")
-UpgradeCooldown = 80.0
+UpgradeCooldown = -200.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
@@ -180,9 +183,23 @@ UpgradeKnockback = -70.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://b62e4twpi050i"
 
+[sub_resource type="Resource" id="Resource_f6cyg"]
+script = ExtResource("29_3xtru")
+BurstAmount = 15
+metadata/_custom_type_script = "uid://bbhbxariivqbp"
+
+[sub_resource type="Resource" id="Resource_ajpna"]
+script = ExtResource("30_n7bdd")
+AddSpread = 0.8
+metadata/_custom_type_script = "uid://ccvfk48q4yhoh"
+
+[sub_resource type="Resource" id="Resource_fs073"]
+script = ExtResource("31_yy1yx")
+metadata/_custom_type_script = "uid://dvgounn1leqxm"
+
 [sub_resource type="Resource" id="Resource_3xtru"]
 script = ExtResource("23_qxvih")
-Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_fuvlu"), SubResource("Resource_2jdyx"), SubResource("Resource_q1xwu")])
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_fuvlu"), SubResource("Resource_2jdyx"), SubResource("Resource_q1xwu"), SubResource("Resource_f6cyg"), SubResource("Resource_ajpna"), SubResource("Resource_fs073")])
 MaxStackSize = 2
 ItemName = "Machine Gun Fire"
 ItemDescription = "Weak but fast shots"
@@ -235,10 +252,10 @@ bg_color = Color(0.18091199, 0.7145692, 0.26417047, 1)
 
 [node name="KillsCounter" type="Label" parent="." unique_id=1656329884]
 anchors_preset = -1
-anchor_left = 0.01875
-anchor_top = 0.10138889
-anchor_right = 0.19140625
-anchor_bottom = 0.15555556
+anchor_left = 0.928125
+anchor_top = 0.056944445
+anchor_right = 0.9976562
+anchor_bottom = 0.11111112
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
@@ -247,6 +264,7 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 40
 text = "Kills: 0"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("2_womn8")
 metadata/_edit_use_anchors_ = true
@@ -405,6 +423,10 @@ anchor_left = 0.30703124
 anchor_top = 0.055555556
 anchor_right = 0.6929687
 anchor_bottom = 0.104166664
+offset_left = -393.0
+offset_top = -40.0
+offset_right = 394.0
+offset_bottom = -40.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
@@ -413,29 +435,30 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_womn8")
 max_value = 3.0
 step = 0.001
 allow_greater = true
+show_percentage = false
 script = ExtResource("3_womn8")
-metadata/_edit_use_anchors_ = true
 
 [node name="XpLabel" type="Label" parent="XpBar" unique_id=297221265]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.36234817
-anchor_top = -1.2
-anchor_right = 0.6376518
-anchor_bottom = 0.25714287
+anchor_left = 0.8852459
+anchor_top = -0.2
+anchor_right = 0.9960968
+anchor_bottom = 1.1714286
 grow_horizontal = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 42
-text = "Level: 0"
-horizontal_alignment = 1
+text = "Lvl 0"
+horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="UpgradeMenu" type="Control" parent="." unique_id=2142592123 node_paths=PackedStringArray("xpBar")]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -512,9 +535,9 @@ text = "Skip"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]
 anchors_preset = -1
-anchor_left = 0.01796875
+anchor_left = 0.00546875
 anchor_top = 0.06388889
-anchor_right = 0.2171875
+anchor_right = 0.2046875
 anchor_bottom = 0.1
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
@@ -522,22 +545,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_8inel")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vjrnn")
 show_percentage = false
 script = ExtResource("15_vjrnn")
-metadata/_edit_use_anchors_ = true
-
-[node name="HealthLabel" type="Label" parent="HealthBar" unique_id=1228758676]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -1.3076923
-anchor_right = 0.53333336
-anchor_bottom = 0.07692308
-grow_horizontal = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 38
-text = "Health Bar"
-vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1674504300]
@@ -566,10 +573,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="GameTime" type="Control" parent="." unique_id=360503079]
 layout_mode = 3
-anchor_left = 0.96875
-anchor_right = 1.0
-anchor_bottom = 0.055555556
-grow_horizontal = 0
+anchor_left = 0.5
+anchor_top = 0.08888889
+anchor_right = 0.5
+anchor_bottom = 0.08888889
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("21_t8u3o")
 metadata/_edit_use_anchors_ = true
 
@@ -586,7 +595,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 64
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1

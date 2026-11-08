@@ -44,7 +44,7 @@ namespace SurvivorsGame
             MaxValue += LevelIncrement;
             _currentLevel++;
             Stats.data.Level++;
-            XpLabel.Text = $"Level: {_currentLevel}";
+            XpLabel.Text = $"Lvl {_currentLevel}";
             LevelUpEvent?.Invoke();
         }
 

@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
     public partial class HpOrb : Absorbable
     {
-        [Export] public float HPAmount = 10f;
+        [Export] public float HPAmount = 5f;
         public override void _Ready()
         {
             base._Ready();

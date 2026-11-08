@@ -9,8 +9,8 @@ namespace SurvivorsGame
     public partial class AttackComponent : Area2D
     {
         [Export] public float damage = 10f;
-        [Export] public float knockback = 100f;
-        [Export] public float DamageInterval = .7f;
+        [Export] public float knockback = 10f;
+        [Export] public float DamageInterval = .1f;
         [Export] public bool SingleHit = true;
         public bool crit;
         public event Action DamageApplied;

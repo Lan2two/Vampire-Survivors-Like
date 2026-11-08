@@ -53,7 +53,6 @@ namespace SurvivorsGame
         {
             if (PositionOffsetNode == null || PositionOffsetNode.GetChildCount() == 0) return;
 
-            // Detect mouse motion to re-enable hover when the user physically moves the mouse
             if (@event is InputEventMouseMotion motion)
             {
                 if (motion.Position.DistanceTo(_lastMousePos) > 5.0f)
@@ -63,7 +62,6 @@ namespace SurvivorsGame
                 }
             }
 
-            // Handle mouse wheel scrolling
             if (UseMouseWheel && @event is InputEventMouseButton mouseButton && mouseButton.Pressed)
             {
                 if (mouseButton.ButtonIndex == MouseButton.WheelUp)
@@ -81,7 +79,7 @@ namespace SurvivorsGame
 
         private void ScrollTo(int newIndex)
         {
-            _ignoreMouseHover = true; // Block hover overrides when scrolling
+            _ignoreMouseHover = true;
             SelectedIndex = newIndex;
             UpdateFocusAndStyles();
         }
@@ -123,7 +121,6 @@ namespace SurvivorsGame
 
             if (!Engine.IsEditorHint())
             {
-                // Controller / Keyboard Focus check
                 if (FollowButtonFocus)
                 {
                     for (int i = 0; i < children.Count; i++)
@@ -140,7 +137,6 @@ namespace SurvivorsGame
                     }
                 }
 
-                // Mouse Hover Check (only if not blocked by scrolling)
                 if (FollowMouseHover && !_ignoreMouseHover)
                 {
                     for (int i = 0; i < children.Count; i++)
@@ -161,7 +157,6 @@ namespace SurvivorsGame
                 }
             }
 
-            // Layout positioning (Wraparound vs Linear Vertical)
             if (WraparoundEnabled)
             {
                 float maxIndexRange = Mathf.Max(1.0f, children.Count / 2.0f);
@@ -218,7 +213,6 @@ namespace SurvivorsGame
 
         private void ApplyVisuals(Control child, int index, float dt)
         {
-            child.PivotOffset = child.Size / 2.0f;
             float distance = Mathf.Abs(index - SelectedIndex);
 
             // Scale effect
