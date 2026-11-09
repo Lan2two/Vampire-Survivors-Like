@@ -7,7 +7,7 @@ namespace SurvivorsGame
     {
         public BulletBounceStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Bullet Bounce";
             ItemDescription = "Bullet bounces between enemies";
             MaxStackSize = 1;

@@ -22,11 +22,10 @@ namespace SurvivorsGame
         public float CritDamageAdditive;
         public float CritDamagePercent;
 
+        [ExportGroup("Projectile Stats")]
         [Export] public float SpeedBase = 300f;
         public float SpeedAdditive;
         public float SpeedPercent;
-
-        [ExportGroup("Projectile Stats")]
         [Export] public float MaxTravelDistanceBase = 500f;
         public float MaxTravelDistanceAdditive;
         public float MaxTravelDistancePercent;
@@ -64,7 +63,7 @@ namespace SurvivorsGame
             "PierceCount" => new StatModifier(PierceCountBase, PierceCountAdditive, PierceCountPercent, 0f, float.MaxValue),
             "ProjectileCooldown" => new StatModifier(ProjectileCooldownBase, ProjectileCooldownAdditive, ProjectileCooldownPercent, CombatStatLimits.MinProjectileCooldown, float.MaxValue),
             "Burst" => new StatModifier(BurstBase, BurstAdditive, BurstPercent, 0, float.MaxValue),
-            "BurstInterval" => new StatModifier(BurstIntervalBase, BurstIntervalAdditive, BurstIntervalPercent, CombatStatLimits.MinProjectileCooldown, float.MaxValue),
+            "BurstInterval" => new StatModifier(BurstIntervalBase, BurstIntervalAdditive, BurstIntervalPercent, 0, float.MaxValue),
             "Spread" => new StatModifier(SpreadBase, SpreadAdditive, SpreadPercent, CombatStatLimits.MinSpread, float.MaxValue),
             _ => default
         };

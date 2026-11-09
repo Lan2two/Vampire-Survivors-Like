@@ -10,7 +10,7 @@ namespace SurvivorsGame
 
         public BulletSpreadStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Inaccuracy";
             ItemDescription = "Bullet Spread";
         }

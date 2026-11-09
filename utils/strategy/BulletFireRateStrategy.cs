@@ -10,7 +10,7 @@ namespace SurvivorsGame
 
         public BulletFireRateStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Faster Shooting";
             ItemDescription = "The gun fires more often";
         }

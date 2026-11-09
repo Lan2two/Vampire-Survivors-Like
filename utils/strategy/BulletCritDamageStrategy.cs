@@ -9,7 +9,7 @@ namespace SurvivorsGame
 
         public BulletCritDamageStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Crit Damage";
             ItemDescription = "Increase Bullet Crit Damage";
         }

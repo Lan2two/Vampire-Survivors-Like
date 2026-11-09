@@ -10,7 +10,7 @@ namespace SurvivorsGame
 
         public BulletBurstStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Burst shots";
             ItemDescription = "Bullet bursts";
         }

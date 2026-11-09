@@ -9,7 +9,7 @@ namespace SurvivorsGame
 
         public BulletCritRateStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Luck of The Draw";
             ItemDescription = "Increase Bullet Crit Rate";
         }
