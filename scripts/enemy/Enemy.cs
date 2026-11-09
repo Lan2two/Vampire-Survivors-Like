@@ -6,6 +6,7 @@ namespace SurvivorsGame
     public partial class Enemy : RigidBody2D
     {
         [Export] public float XpAmount = 1f;
+        [Export] public float CoinAmount = 5f;
         public AnimatedSprite2D animatedSprite;
         public CollisionShape2D collisionbox;
         private HealthComponent healthComponent;

@@ -13,7 +13,6 @@ namespace SurvivorsGame
         public Timer timer;
         private Sprite2D sprite2D;
         private Marker2D shootPoint;
-        private Marker2D weaponPivot;
         private Array<Node2D> enemiesInRange;
         public ProjectileData config;
         public Resource currentConfig => config;
@@ -25,7 +24,6 @@ namespace SurvivorsGame
             timer = GetNode<Timer>("Timer");
             shootPoint = GetNode<Marker2D>("%ShootPoint");
             sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
-            weaponPivot = GetNodeOrNull<Marker2D>("WeaponPivot");
 
             if (startingConfig == null)
             {
@@ -42,17 +40,12 @@ namespace SurvivorsGame
                 GD.PrintErr("Sprite2D not found in Projectile Launcher.");
                 return;
             }
-            if (weaponPivot == null)
-            {
-                GD.PrintErr("WeaponPivot not found in Projectile Launcher.");
-                return;
-            }
             if (texture2D != null)
             {
                 sprite2D.Texture = texture2D;
             }
-            timer.Timeout += OnTimeout;
             CallDeferred(MethodName.Onready);
+            timer.Timeout += OnTimeout;
         }
 
         private void Onready()
@@ -111,12 +104,11 @@ namespace SurvivorsGame
                     {
                         sign *= -1;
                         float spread = (float)GD.RandRange(0, config.GetStat("Spread").CalculateFinal() / 2);
-                        weaponPivot.GlobalRotation += spread * sign;
                         Bullet projectileInstance = Scene.Instantiate<Bullet>();
                         projectileInstance.config = config;
                         projectileInstance.Fire();
                         projectileInstance.GlobalPosition = shootPoint.GlobalPosition;
-                        projectileInstance.GlobalRotation = shootPoint.GlobalRotation;
+                        projectileInstance.GlobalRotation = shootPoint.GlobalRotation + spread * sign;
                         shootPoint.AddChild(projectileInstance);
                     };
                 }

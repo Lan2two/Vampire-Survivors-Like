@@ -78,4 +78,5 @@ characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
 threshold = 0.0
 pathUpdateInterval = 0.1
+useNavigation = false
 metadata/_custom_type_script = "uid://bbw06doqvj4pd"

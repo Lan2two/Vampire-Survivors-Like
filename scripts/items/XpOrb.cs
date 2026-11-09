@@ -16,16 +16,15 @@ namespace SurvivorsGame
             BodyEntered -= OnBodyEntered;
         }
 
-        public void SetXPAmount(float amount)
+        public override void SetAmount(float amount)
         {
             XPAmount = amount;
         }
 
         private void OnBodyEntered(Node body)
         {
-            if (body is Player)
+            if (body is Player player)
             {
-                Player player = (Player)body;
                 player.playerXP += XPAmount;
                 Stats.data.totalXP += XPAmount;
             }

@@ -1,11 +1,10 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System.Collections.Generic;
 
     public partial class UpgradeManager : Node
     {
-        private const int CompositeDepth = 6;
+        private const int CompositeDepth = 8;
         [Export] InventoryManager inventoryManager;
 
         public void ApplyUpgrades(IUpgradable upgradable, UpgradeType targetType)

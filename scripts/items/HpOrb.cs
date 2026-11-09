@@ -18,9 +18,8 @@ namespace SurvivorsGame
 
         private void OnBodyEntered(Node body)
         {
-            if (body is Player)
+            if (body is Player player)
             {
-                Player player = (Player)body;
                 player.healthComponent.currentHealth += HPAmount;
                 Stats.data.HealthHealed += HPAmount;
             }

@@ -1,3 +1,5 @@
+using Godot;
+
 namespace SurvivorsGame
 {
     public partial class Knives : ProjectileLauncher
@@ -5,15 +7,18 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             base._Ready();
-            upgradeManager = this.GetPlayer().upgradeManager;
             CallDeferred(MethodName.OnUpgrade);
-            EventBus.GunUpgrade += OnUpgrade;
+            if (upgradeManager == null)
+            {
+                upgradeManager = this.GetPlayer().upgradeManager;
+            }
+            EventBus.KnivesUpgrade += OnUpgrade;
         }
 
         public override void _ExitTree()
         {
             base._ExitTree();
-            EventBus.GunUpgrade -= OnUpgrade;
+            EventBus.KnivesUpgrade -= OnUpgrade;
         }
 
         private void OnUpgrade()
