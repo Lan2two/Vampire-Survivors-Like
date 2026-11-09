@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_k1ruo"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_5vm0l"]
-[ext_resource type="Script" uid="uid://dqow2p6kmk3sg" path="res://utils/strategy/BulletBounceStrategy.cs" id="3_ojss3"]
-[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="4_ao04r"]
+[ext_resource type="Script" uid="uid://dqow2p6kmk3sg" path="res://utils/strategy/ProjectileBounceStrategy.cs" id="3_ojss3"]
+[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/ProjectilePierceStrategy.cs" id="4_ao04r"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="5_kk1ms"]
 
 [sub_resource type="Resource" id="Resource_n7bdd"]

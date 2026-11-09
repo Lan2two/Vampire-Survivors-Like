@@ -2,24 +2,33 @@
 
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_i1t4p"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_pcaov"]
-[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="3_6l55s"]
-[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="4_0vg32"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/ProjectileDamageStrategy.cs" id="3_i1t4p"]
+[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/ProjectilePierceStrategy.cs" id="4_pcaov"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="5_bryno"]
+[ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/ProjectileSpeedStrategy.cs" id="5_pcaov"]
 
-[sub_resource type="Resource" id="Resource_gpb48"]
-script = ExtResource("3_6l55s")
-MaxStackSize = 5
+[sub_resource type="Resource" id="Resource_6l55s"]
+script = ExtResource("3_i1t4p")
+CalculationMode = 1
+upgradeType = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_0vg32"]
+script = ExtResource("4_pcaov")
+UpgradePierce = 5
+upgradeType = 1
 metadata/_custom_type_script = "uid://cbifaria4lqs3"
 
-[sub_resource type="Resource" id="Resource_vifrr"]
-script = ExtResource("4_0vg32")
-UpgradeDamage = 10.0
+[sub_resource type="Resource" id="Resource_bryno"]
+script = ExtResource("5_pcaov")
+UpgradeSpeed = 5.0
 CalculationMode = 1
-metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+upgradeType = 1
+metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
 
 [resource]
 script = ExtResource("5_bryno")
-Children = Array[ExtResource("1_i1t4p")]([SubResource("Resource_gpb48"), SubResource("Resource_vifrr")])
+Children = Array[ExtResource("1_i1t4p")]([SubResource("Resource_6l55s"), SubResource("Resource_0vg32"), SubResource("Resource_bryno")])
 ItemName = "FMJ"
 ItemDescription = "High amount of piercing"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

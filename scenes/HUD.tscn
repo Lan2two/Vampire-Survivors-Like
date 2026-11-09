@@ -12,12 +12,9 @@
 [ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="7_fuvlu"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="11_pn61u"]
 [ext_resource type="Script" uid="uid://d27j145v6nms" path="res://utils/strategy/MeleeCritDamageStrategy.cs" id="14_yy3iv"]
-[ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/BulletCritRateStrategy.cs" id="15_3k6xw"]
 [ext_resource type="Script" uid="uid://c1jxa2l0e5qpd" path="res://utils/strategy/MeleeCritRateStrategy.cs" id="15_7mxsn"]
 [ext_resource type="Script" uid="uid://1mmaum2i8n02" path="res://scripts/GUI/HealthBar.cs" id="15_vjrnn"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
-[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="16_dkerm"]
-[ext_resource type="Script" uid="uid://bp8ndd1bodxe" path="res://utils/strategy/MeleeDamageStrategy.cs" id="16_vlu7s"]
 [ext_resource type="Script" uid="uid://db4vbufj1pkwa" path="res://utils/strategy/MeleeKnockbackStrategy.cs" id="17_igqi4"]
 [ext_resource type="Script" uid="uid://chck2eeaeerer" path="res://utils/strategy/MeleeSwingSpeedStrategy.cs" id="18_jath5"]
 [ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
@@ -35,43 +32,40 @@
 [ext_resource type="PackedScene" uid="uid://d1ufo1hep2ntf" path="res://scenes/bullet.tscn" id="26_ahuxd"]
 [ext_resource type="Resource" uid="uid://d0r0j8cmvk6rq" path="res://resources/CompositeUpgrades/FMJ.tres" id="27_du5ok"]
 [ext_resource type="Resource" uid="uid://chmpvk2u7ljht" path="res://resources/Projectiles/Knives.tres" id="27_h5tib"]
+[ext_resource type="Script" uid="uid://dvgounn1leqxm" path="res://utils/strategy/ProjectileBurstIntervalStrategy.cs" id="27_yy1yx"]
 [ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="28_7tmnl"]
+[ext_resource type="Script" uid="uid://bbhbxariivqbp" path="res://utils/strategy/ProjectileBurstStrategy.cs" id="28_qxvih"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/ProjectileFireRateStrategy.cs" id="29_h5tib"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/ProjectileDamageStrategy.cs" id="34_ahuxd"]
+[ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="35_mmorv"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="36_n7bdd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
-[sub_resource type="Resource" id="Resource_h5tib"]
-script = ExtResource("16_dkerm")
-metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
-
-[sub_resource type="Resource" id="Resource_ahuxd"]
+[sub_resource type="Resource" id="Resource_n7bdd"]
 script = ExtResource("14_yy3iv")
 metadata/_custom_type_script = "uid://d27j145v6nms"
 
-[sub_resource type="Resource" id="Resource_mmorv"]
+[sub_resource type="Resource" id="Resource_yy1yx"]
 script = ExtResource("15_7mxsn")
 metadata/_custom_type_script = "uid://c1jxa2l0e5qpd"
 
-[sub_resource type="Resource" id="Resource_7tmnl"]
-script = ExtResource("16_vlu7s")
-metadata/_custom_type_script = "uid://bp8ndd1bodxe"
-
-[sub_resource type="Resource" id="Resource_du5ok"]
+[sub_resource type="Resource" id="Resource_qxvih"]
 script = ExtResource("17_igqi4")
 metadata/_custom_type_script = "uid://db4vbufj1pkwa"
 
-[sub_resource type="Resource" id="Resource_27n0u"]
+[sub_resource type="Resource" id="Resource_h5tib"]
 script = ExtResource("18_jath5")
 metadata/_custom_type_script = "uid://chck2eeaeerer"
 
-[sub_resource type="Resource" id="Resource_nvp4l"]
+[sub_resource type="Resource" id="Resource_ahuxd"]
 script = ExtResource("19_fuvlu")
 metadata/_custom_type_script = "uid://1h87b88g3qhp"
 
-[sub_resource type="Resource" id="Resource_7p3oe"]
+[sub_resource type="Resource" id="Resource_mmorv"]
 script = ExtResource("20_3xtru")
 metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 
@@ -80,7 +74,7 @@ script = ExtResource("21_n7bdd")
 MaxStackSize = 2
 metadata/_custom_type_script = "uid://pnm0lgg85gka"
 
-[sub_resource type="Resource" id="Resource_d5rnw"]
+[sub_resource type="Resource" id="Resource_7tmnl"]
 resource_local_to_scene = true
 script = ExtResource("28_7tmnl")
 _subsceneData = {
@@ -89,26 +83,66 @@ _subsceneData = {
 "texture2D": null
 }
 PackedScene = ExtResource("25_h5tib")
-upgradeType = 3
 "Subscene Configuration/startingConfig" = ExtResource("27_h5tib")
 "Subscene Configuration/Scene" = ExtResource("26_ahuxd")
-ItemName = "Knives"
-ItemDescription = "Gives the players knives"
+upgradeType = 4
+ItemName = "Add Node"
+ItemDescription = "Adds Node to Upgradable"
 metadata/_custom_type_script = "uid://dletf55xvu8sn"
 
-[sub_resource type="Resource" id="Resource_chqyv"]
-script = ExtResource("15_3k6xw")
+[sub_resource type="Resource" id="Resource_27n0u"]
+script = ExtResource("27_yy1yx")
+BurstTime = 10.0
+CalculationMode = 1
+upgradeType = 2
+metadata/_custom_type_script = "uid://dvgounn1leqxm"
+
+[sub_resource type="Resource" id="Resource_nvp4l"]
+script = ExtResource("28_qxvih")
+upgradeType = 2
+metadata/_custom_type_script = "uid://bbhbxariivqbp"
+
+[sub_resource type="Resource" id="Resource_7p3oe"]
+script = ExtResource("29_h5tib")
+UpgradeCooldown = 25.0
+CalculationMode = 1
+upgradeType = 2
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_d5rnw"]
+script = ExtResource("34_ahuxd")
+UpgradeDamage = 3.0
+upgradeType = 2
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_du5ok"]
+script = ExtResource("23_qxvih")
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_7tmnl"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe"), SubResource("Resource_d5rnw")])
+ItemName = "Knives"
+ItemDescription = "Knives Weapon"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_3ugbd"]
+script = ExtResource("35_mmorv")
 UpgradeCritRate = 100.0
+upgradeType = 1
 metadata/_custom_type_script = "uid://welqlf4pw7cn"
 
-[sub_resource type="Resource" id="Resource_e837n"]
+[sub_resource type="Resource" id="Resource_ah8js"]
+script = ExtResource("35_mmorv")
+UpgradeCritRate = 100.0
+upgradeType = 2
+metadata/_custom_type_script = "uid://welqlf4pw7cn"
+
+[sub_resource type="Resource" id="Resource_tbqba"]
 script = ExtResource("15_7mxsn")
 UpgradeCritRate = 100.0
+upgradeType = 3
 metadata/_custom_type_script = "uid://c1jxa2l0e5qpd"
 
 [sub_resource type="Resource" id="Resource_4xlrl"]
 script = ExtResource("23_qxvih")
-Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_chqyv"), SubResource("Resource_e837n")])
+Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_3ugbd"), SubResource("Resource_ah8js"), SubResource("Resource_tbqba")])
 ItemName = "Luck"
 ItemDescription = "100% Crits"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
@@ -340,8 +374,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
-CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe")])
-RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), SubResource("Resource_d5rnw")])
+CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv")])
+RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), SubResource("Resource_du5ok")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl")])
 CommonWeight = 75.0

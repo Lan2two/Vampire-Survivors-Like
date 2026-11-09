@@ -31,7 +31,6 @@ namespace SurvivorsGame
                 }
             }
         }
-        [Export] public override UpgradeType upgradeType { get; set; }
         [Export] public bool UniqueScenePerStack { get; set; }
 
         public NodeStrategy()

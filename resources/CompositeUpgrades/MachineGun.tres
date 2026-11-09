@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_kgg2c"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_iq32u"]
-[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="3_4o4af"]
-[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="4_patyk"]
-[ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="5_a2a7i"]
-[ext_resource type="Script" uid="uid://bbhbxariivqbp" path="res://utils/strategy/BulletBurstStrategy.cs" id="6_gqqfq"]
-[ext_resource type="Script" uid="uid://ccvfk48q4yhoh" path="res://utils/strategy/BulletSpreadStrategy.cs" id="7_upnqo"]
-[ext_resource type="Script" uid="uid://dvgounn1leqxm" path="res://utils/strategy/BulletBurstIntervalStrategy.cs" id="8_4wp4q"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/ProjectileDamageStrategy.cs" id="3_4o4af"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/ProjectileFireRateStrategy.cs" id="4_patyk"]
+[ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/ProjectileKnockbackStrategy.cs" id="5_a2a7i"]
+[ext_resource type="Script" uid="uid://bbhbxariivqbp" path="res://utils/strategy/ProjectileBurstStrategy.cs" id="6_gqqfq"]
+[ext_resource type="Script" uid="uid://cxijbyd0qif3" path="res://utils/strategy/ProjectileSpreadStrategy.cs" id="7_upnqo"]
+[ext_resource type="Script" uid="uid://dvgounn1leqxm" path="res://utils/strategy/ProjectileBurstIntervalStrategy.cs" id="8_4wp4q"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="9_n1m6p"]
 
 [sub_resource type="Resource" id="Resource_fuvlu"]
@@ -36,7 +36,6 @@ metadata/_custom_type_script = "uid://bbhbxariivqbp"
 [sub_resource type="Resource" id="Resource_ajpna"]
 script = ExtResource("7_upnqo")
 AddSpread = 0.8
-metadata/_custom_type_script = "uid://ccvfk48q4yhoh"
 
 [sub_resource type="Resource" id="Resource_fs073"]
 script = ExtResource("8_4wp4q")

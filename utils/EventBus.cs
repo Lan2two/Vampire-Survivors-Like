@@ -8,7 +8,8 @@ namespace SurvivorsGame
         public static event Action AddButton;
         public static event Action PlayerUpgrade;
         public static event Action MeleeUpgrade;
-        public static event Action BulletUpgrade;
+        public static event Action GunUpgrade;
+        public static event Action KnivesUpgrade;
 
         public static void InvokeAddButton()
         {
@@ -34,8 +35,13 @@ namespace SurvivorsGame
             }
             if (strategy.upgradeType == UpgradeType.Gun)
             {
-                BulletUpgrade?.Invoke();
-                GD.Print("Bullet upgrades invoked");
+                GunUpgrade?.Invoke();
+                GD.Print("Gun upgrades invoked");
+            }
+            if (strategy.upgradeType == UpgradeType.Knives)
+            {
+                KnivesUpgrade?.Invoke();
+                GD.Print("Knives upgrades invoked");
             }
         }
     }

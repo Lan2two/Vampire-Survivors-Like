@@ -22,7 +22,7 @@ namespace SurvivorsGame
             MaxStackSize = 5;
         }
         public int Count { get; set; }
-        public virtual UpgradeType upgradeType { get; set; }
+        [Export] public virtual UpgradeType upgradeType { get; set; }
 
         protected static float CalculateStatUpgrade(
             float currentValue,

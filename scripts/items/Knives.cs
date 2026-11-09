@@ -5,14 +5,15 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             base._Ready();
+            upgradeManager = this.GetPlayer().upgradeManager;
             CallDeferred(MethodName.OnUpgrade);
-            EventBus.BulletUpgrade += OnUpgrade;
+            EventBus.GunUpgrade += OnUpgrade;
         }
 
         public override void _ExitTree()
         {
             base._ExitTree();
-            EventBus.BulletUpgrade -= OnUpgrade;
+            EventBus.GunUpgrade -= OnUpgrade;
         }
 
         private void OnUpgrade()
