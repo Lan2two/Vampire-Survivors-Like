@@ -3,13 +3,13 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletCritDamageStrategy : Strategy
+    public partial class ProjectileCritDamageStrategy : Strategy
     {
         [Export] float UpgradeCritDamage { get; set; } = 5f;
 
-        public BulletCritDamageStrategy()
+        public ProjectileCritDamageStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
+            upgradeType = UpgradeType.Gun;
             ItemName = "Crit Damage";
             ItemDescription = "Increase Bullet Crit Damage";
         }

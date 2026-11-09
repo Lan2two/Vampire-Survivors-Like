@@ -3,30 +3,30 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletSpeedStrategy : Strategy
+    public partial class ProjectileBurstStrategy : Strategy
     {
-        [Export] float UpgradeSpeed { get; set; } = 25f;
+        [Export] int BurstAmount { get; set; } = 3;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
-        public BulletSpeedStrategy()
+        public ProjectileBurstStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
-            ItemName = "Fast Shot";
-            ItemDescription = "Bullet travels faster";
+            upgradeType = UpgradeType.Gun;
+            ItemName = "Burst shots";
+            ItemDescription = "Bullet bursts";
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is ProjectileData bulletData)
+            if (config is ProjectileData damageable)
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    bulletData.SpeedPercent += UpgradeSpeed;
+                    damageable.BurstPercent += BurstAmount;
                 }
                 else
                 {
-                    bulletData.SpeedAdditive += UpgradeSpeed;
+                    damageable.BurstAdditive += BurstAmount;
                 }
             }
         }

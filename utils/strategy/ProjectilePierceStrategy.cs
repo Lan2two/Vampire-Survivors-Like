@@ -3,13 +3,13 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletPierceStrategy : Strategy
+    public partial class ProjectilePierceStrategy : Strategy
     {
         [Export] int UpgradePierce { get; set; } = 1;
 
-        public BulletPierceStrategy()
+        public ProjectilePierceStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
+            upgradeType = UpgradeType.Gun;
             ItemName = "Piercing Rounds";
             ItemDescription = "Bullet pierces";
         }

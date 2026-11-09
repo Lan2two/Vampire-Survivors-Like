@@ -3,16 +3,16 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletFireRateStrategy : Strategy
+    public partial class ProjectileSpeedStrategy : Strategy
     {
-        [Export] float UpgradeCooldown { get; set; } = 15f;
+        [Export] float UpgradeSpeed { get; set; } = 25f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
-        public BulletFireRateStrategy()
+        public ProjectileSpeedStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
-            ItemName = "Faster Shooting";
-            ItemDescription = "The gun fires more often";
+            upgradeType = UpgradeType.Gun;
+            ItemName = "Fast Shot";
+            ItemDescription = "Bullet travels faster";
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
@@ -22,11 +22,11 @@ namespace SurvivorsGame
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    bulletData.ProjectileCooldownPercent -= UpgradeCooldown;
+                    bulletData.SpeedPercent += UpgradeSpeed;
                 }
                 else
                 {
-                    bulletData.ProjectileCooldownAdditive -= UpgradeCooldown;
+                    bulletData.SpeedAdditive += UpgradeSpeed;
                 }
             }
         }

@@ -18,7 +18,7 @@ namespace SurvivorsGame
         private void OnUpgrade()
         {
             config = (ProjectileData)startingConfig.Duplicate();
-            upgradeManager.ApplyUpgrades(this, UpgradeType.Projectile);
+            upgradeManager.ApplyUpgrades(this, UpgradeType.Gun);
             timer.WaitTime = config.GetStat("ProjectileCooldown").CalculateFinal();
         }
     }
