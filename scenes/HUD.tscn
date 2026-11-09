@@ -327,7 +327,6 @@ CommonWeight = 75.0
 RareWeight = 15.0
 EpicWeight = 5.0
 LegendaryWeight = 0.5
-Rerolls = 100
 xpBar = NodePath("../XpBar")
 button = ExtResource("29_fuvlu")
 metadata/_edit_use_anchors_ = true

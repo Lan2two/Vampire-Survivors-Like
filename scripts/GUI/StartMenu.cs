@@ -8,6 +8,7 @@ namespace SurvivorsGame
         private Button _optionsButton;
         private Button _statsButton;
         private Button _exitButton;
+        private Button _shopButton;
         private Fade _fadeRect;
         private AnimationPlayer _menuAnimation;
         private AnimationPlayer _optionAnimations;
@@ -19,6 +20,7 @@ namespace SurvivorsGame
             _optionsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/OptionsButton");
             _statsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StatsButton");
             _exitButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/ExitButton");
+            _shopButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/ShopButton");
             _menuAnimation = GetNodeOrNull<AnimationPlayer>("MainMenu");
             _optionAnimations = GetNodeOrNull<AnimationPlayer>("Menus");
 
@@ -32,6 +34,7 @@ namespace SurvivorsGame
             _optionsButton.Pressed += OptionsButton;
             _statsButton.Pressed += StatsButton;
             _exitButton.Pressed += ExitButton;
+            _shopButton.Pressed += ShopButton;
             _menuAnimation.Play("fade");
             _menuAnimation.AnimationFinished += Bob;
         }
@@ -68,6 +71,12 @@ namespace SurvivorsGame
         {
             _menuAnimation.PlayBackwards("fade");
             _optionAnimations.Play("options");
+        }
+
+        private void ShopButton()
+        {
+            _menuAnimation.PlayBackwards("fade");
+            _optionAnimations.Play("shop");
         }
 
         private void StatsButton()

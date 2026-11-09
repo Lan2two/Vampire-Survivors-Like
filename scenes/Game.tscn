@@ -1179,6 +1179,7 @@ position_smoothing_speed = 10.0
 
 [node name="Node2D" parent="Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
 EnemySceneArray = Array[PackedScene]([ExtResource("5_y5y3l"), ExtResource("7_7ua8r"), ExtResource("8_r7sob")])
+_maxEnemies = 150
 
 [node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)
@@ -1186,9 +1187,23 @@ scale = Vector2(5.732422, 6.0349936)
 color = Color(0.87775594, 0.94410115, 0.76046246, 1)
 texture = SubResource("GradientTexture2D_2rd6h")
 
-[node name="WorldItem" parent="." unique_id=579653615 instance=ExtResource("6_vjgi4")]
+[node name="Coin" parent="." unique_id=579653615 instance=ExtResource("6_vjgi4")]
 position = Vector2(-190, -19)
 ItemData = SubResource("Resource_choun")
+
+[node name="Objects" type="Node" parent="." unique_id=1707808884]
+
+[node name="Campfire" parent="Objects" unique_id=1670016202 instance=ExtResource("13_2rd6h")]
+position = Vector2(-229, -62)
+
+[node name="Campfire2" parent="Objects" unique_id=240434088 instance=ExtResource("13_2rd6h")]
+position = Vector2(-361, 184)
+
+[node name="Campfire3" parent="Objects" unique_id=1965595540 instance=ExtResource("13_2rd6h")]
+position = Vector2(33, 194)
+
+[node name="Campfire4" parent="Objects" unique_id=328187902 instance=ExtResource("13_2rd6h")]
+position = Vector2(-717, -7)
 
 [node name="HUD" parent="." unique_id=1447957346 instance=ExtResource("12_mcffj")]
 
@@ -1197,15 +1212,3 @@ color = Color(0.16424277, 0.10368731, 0.11744278, 1)
 script = ExtResource("12_2rd6h")
 TimeGradient = SubResource("Gradient_7ua8r")
 CycleTimeSeconds = 300.0
-
-[node name="Campfire" parent="." unique_id=1670016202 instance=ExtResource("13_2rd6h")]
-position = Vector2(-229, -62)
-
-[node name="Campfire2" parent="." unique_id=240434088 instance=ExtResource("13_2rd6h")]
-position = Vector2(-361, 184)
-
-[node name="Campfire3" parent="." unique_id=1965595540 instance=ExtResource("13_2rd6h")]
-position = Vector2(33, 194)
-
-[node name="Campfire4" parent="." unique_id=328187902 instance=ExtResource("13_2rd6h")]
-position = Vector2(-717, -7)
