@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 [ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/SubMenuContainer.cs" id="6_nxjfj"]
 [ext_resource type="Script" uid="uid://b28q8smk74ucl" path="res://scripts/GUI/StatsContainer.cs" id="7_nxjfj"]
+[ext_resource type="PackedScene" uid="uid://dv0kpnk2i0gq5" path="res://scenes/shop_item.tscn" id="8_u4qax"]
 
 [sub_resource type="Animation" id="Animation_h61rw"]
 length = 0.001
@@ -410,6 +411,11 @@ shadow_offset = Vector2(6, 6)
 
 [sub_resource type="Theme" id="Theme_m7x51"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4qax"]
+content_margin_left = 30.0
+content_margin_right = 0.0
+content_margin_bottom = 10.0
+
 [node name="Start Menu" type="Control" unique_id=1891589572]
 layout_mode = 3
 anchors_preset = 15
@@ -746,7 +752,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2000.0
-offset_right = 2000.0
+offset_right = 1999.9998
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -764,15 +770,16 @@ animName = "options"
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.037499767
-anchor_top = 0.8256944
-anchor_right = 0.35332632
-anchor_bottom = 0.8908537
+anchor_left = 0.018749813
+anchor_top = 0.86736095
+anchor_right = 0.33457637
+anchor_bottom = 0.9325204
 offset_right = -4.257324
 offset_bottom = 28.085236
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+scale = Vector2(0.8, 0.8)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme = SubResource("Theme_m7x51")
@@ -795,6 +802,9 @@ anchor_left = 0.05234372
 anchor_top = 0.036111113
 anchor_right = 0.9414056
 anchor_bottom = 0.7722222
+offset_left = 1.5258789e-05
+offset_right = 0.00024414063
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -839,15 +849,16 @@ script = ExtResource("7_nxjfj")
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.037499767
-anchor_top = 0.8256944
-anchor_right = 0.35332632
-anchor_bottom = 0.8908537
+anchor_left = 0.018749777
+anchor_top = 0.86736095
+anchor_right = 0.3345763
+anchor_bottom = 0.9325204
 offset_right = -4.257324
 offset_bottom = 28.085236
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+scale = Vector2(0.8, 0.8)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme = SubResource("Theme_m7x51")
@@ -870,6 +881,7 @@ anchor_left = 0.05234372
 anchor_top = 0.036111113
 anchor_right = 0.9414056
 anchor_bottom = 0.7722222
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -920,7 +932,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2000.0
-offset_right = 2000.0022
+offset_right = 2000.0005
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -938,15 +950,16 @@ animName = "shop"
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.037499767
-anchor_top = 0.8256944
-anchor_right = 0.35332632
-anchor_bottom = 0.8908537
+anchor_left = 0.018749801
+anchor_top = 0.86735916
+anchor_right = 0.33457637
+anchor_bottom = 0.93251854
 offset_right = -4.257324
 offset_bottom = 28.085236
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+scale = Vector2(0.8, 0.8)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme = SubResource("Theme_m7x51")
@@ -969,6 +982,9 @@ anchor_left = 0.05234372
 anchor_top = 0.036111113
 anchor_right = 0.9414056
 anchor_bottom = 0.7722222
+offset_left = 6.1035156e-05
+offset_right = 0.0010986328
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -988,3 +1004,134 @@ text = "Shop"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopMotion/ShopContainer/Panel" unique_id=1583893267]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 99.0
+offset_right = -422.0008
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_u4qax")
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="ShopMotion/ShopContainer/Panel/ScrollContainer" unique_id=1100568145]
+custom_minimum_size = Vector2(0, 650)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_constants/h_separation = 110
+theme_override_constants/v_separation = 110
+columns = 6
+
+[node name="ShopItem" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=233906624 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem2" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=2061847167 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem3" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1361198427 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem4" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=656870465 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem5" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1181998363 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem6" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1571629419 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem7" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=759990289 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem8" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=2023459356 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem9" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=276235164 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem10" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1287988305 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem11" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=939107980 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem12" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=715798275 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem13" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1474420499 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem14" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=331793795 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem15" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=811829953 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem16" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1760871405 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem17" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1607511771 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem18" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=474619786 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem19" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1303829651 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem20" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1483208632 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem21" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1147535703 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem22" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=262447983 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem23" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=2109367429 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem24" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=2006056780 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem25" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=158483352 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem26" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1192365868 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem27" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=2053899127 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem28" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=155070882 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem29" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1659453758 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem30" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=859958320 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem31" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=28145845 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem32" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=2069810538 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem33" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1942163191 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem34" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1237696763 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem35" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=910586320 instance=ExtResource("8_u4qax")]
+layout_mode = 2
+
+[node name="ShopItem36" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1235883753 instance=ExtResource("8_u4qax")]
+layout_mode = 2
