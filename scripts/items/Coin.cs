@@ -1,9 +1,11 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using System;
     public partial class Coin : Absorbable
     {
         public int CoinAmount = 1;
+        public static event Action CoinPickup;
         public override void _Ready()
         {
             base._Ready();
@@ -25,6 +27,7 @@ namespace SurvivorsGame
         {
             if (body is Player)
             {
+                CoinPickup?.Invoke();
                 Stats.data.Coins += CoinAmount;
             }
         }

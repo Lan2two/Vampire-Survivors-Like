@@ -104,10 +104,10 @@ bg_color = Color(0.18091199, 0.7145692, 0.26417047, 1)
 
 [node name="KillsCounter" type="Label" parent="." unique_id=1656329884]
 anchors_preset = -1
-anchor_left = 0.928125
-anchor_top = 0.056944445
-anchor_right = 0.9976562
-anchor_bottom = 0.11111112
+anchor_left = 0.915625
+anchor_top = 0.045833334
+anchor_right = 0.98515624
+anchor_bottom = 0.10000001
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
@@ -116,6 +116,25 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 40
 text = "Kills: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("2_womn8")
+metadata/_edit_use_anchors_ = true
+
+[node name="CoinCounter" type="Label" parent="." unique_id=1190869070]
+anchors_preset = -1
+anchor_left = 0.815625
+anchor_top = 0.045833334
+anchor_right = 0.8851563
+anchor_bottom = 0.10000001
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 40
+text = "Coins: 0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("2_womn8")
