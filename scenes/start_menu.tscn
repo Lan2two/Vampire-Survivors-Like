@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 [ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/SubMenuContainer.cs" id="6_nxjfj"]
 [ext_resource type="Script" uid="uid://b28q8smk74ucl" path="res://scripts/GUI/StatsContainer.cs" id="7_nxjfj"]
+[ext_resource type="Script" uid="uid://cv0v58q3c602y" path="res://scripts/GUI/ShopContainer.cs" id="8_apowk"]
 [ext_resource type="PackedScene" uid="uid://dv0kpnk2i0gq5" path="res://scenes/shop_item.tscn" id="8_u4qax"]
-[ext_resource type="Script" uid="uid://c3hrqufub2gqn" path="res://scripts/GUI/ItemDisplay.cs" id="9_apowk"]
 [ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="9_e58y3"]
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="10_apowk"]
 
@@ -189,6 +189,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../ShopMotion/ShopContainer/Panel/ItemDisplay:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_5byqq"]
 resource_name = "options"
@@ -244,6 +256,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ShopMotion/ShopContainer/Panel/ItemDisplay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_vnuwp"]
@@ -419,9 +443,41 @@ content_margin_left = 30.0
 content_margin_right = 0.0
 content_margin_bottom = 10.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e58y3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1kog"]
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.2901961)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.23, 0.23, 0.23, 1)
+shadow_color = Color(0.09803922, 0.09803922, 0.09803922, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(3, 3)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vnuwp"]
 atlas = ExtResource("10_apowk")
 region = Rect2(3, 3, 10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apowk"]
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnuwp"]
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egh8s"]
+bg_color = Color(1, 1, 1, 1)
+corner_detail = 1
+shadow_size = 4
+shadow_offset = Vector2(6, 6)
 
 [node name="Start Menu" type="Control" unique_id=1891589572]
 layout_mode = 3
@@ -951,8 +1007,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("6_nxjfj")
-animName = "shop"
+script = ExtResource("8_apowk")
 
 [node name="BackButton" type="Button" parent="ShopMotion/ShopContainer" unique_id=1192280665]
 custom_minimum_size = Vector2(400, 75)
@@ -1146,7 +1201,7 @@ layout_mode = 2
 [node name="ShopItem36" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=1235883753 instance=ExtResource("8_u4qax")]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="ShopMotion/ShopContainer/Panel" unique_id=965957961]
+[node name="Panel" type="Panel" parent="ShopMotion/ShopContainer/Panel" unique_id=241790417]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1154,14 +1209,44 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 162.99976
-offset_top = -191.0
+offset_top = -275.0
 offset_right = 553.00024
 offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("9_apowk")
 
-[node name="Panel" type="Panel" parent="ShopMotion/ShopContainer/Panel/Panel" unique_id=137272171]
+[node name="ItemDisplay" type="Panel" parent="ShopMotion/ShopContainer/Panel" unique_id=965957961]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 162.99976
+offset_top = -275.0
+offset_right = 553.00024
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e58y3")
+
+[node name="Label" type="RichTextLabel" parent="ShopMotion/ShopContainer/Panel/ItemDisplay" unique_id=273694200]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = 20.0
+offset_right = 173.0
+offset_bottom = 206.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1kog")
+
+[node name="Panel" type="Panel" parent="ShopMotion/ShopContainer/Panel/ItemDisplay" unique_id=137272171]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1169,9 +1254,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -22.5
-offset_top = -158.5
+offset_top = -190.5
 offset_right = 22.5
-offset_bottom = -113.5
+offset_bottom = -145.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
@@ -1179,7 +1264,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 1
 theme_override_styles/panel = ExtResource("9_e58y3")
 
-[node name="TextureRect" type="TextureRect" parent="ShopMotion/ShopContainer/Panel/Panel/Panel" unique_id=360490523]
+[node name="TextureRect" type="TextureRect" parent="ShopMotion/ShopContainer/Panel/ItemDisplay/Panel" unique_id=360490523]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -1196,7 +1281,7 @@ grow_vertical = 2
 scale = Vector2(0.9, 0.9)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 
-[node name="Label" type="Label" parent="ShopMotion/ShopContainer/Panel/Panel/Panel/TextureRect" unique_id=776551303]
+[node name="Label" type="Label" parent="ShopMotion/ShopContainer/Panel/ItemDisplay/Panel/TextureRect" unique_id=776551303]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -1213,9 +1298,9 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("2_m7x51")
 theme_override_font_sizes/font_size = 24
-text = "000"
+text = "0"
 
-[node name="TextureRect" type="TextureRect" parent="ShopMotion/ShopContainer/Panel/Panel/Panel/TextureRect/Label" unique_id=666540555]
+[node name="TextureRect" type="TextureRect" parent="ShopMotion/ShopContainer/Panel/ItemDisplay/Panel/TextureRect/Label" unique_id=666540555]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1231,3 +1316,58 @@ grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_vnuwp")
+
+[node name="UpgradeButton" type="Button" parent="ShopMotion/ShopContainer/Panel/ItemDisplay" unique_id=1104028568]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -248.0
+offset_top = -75.0
+offset_right = 52.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 3
+theme = SubResource("Theme_m7x51")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_apowk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vnuwp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_egh8s")
+text = "Upgrade"
+script = ExtResource("4_h61rw")
+metadata/_custom_type_script = "uid://c2qtgcffduvb"
+
+[node name="RefundButton" type="Button" parent="ShopMotion/ShopContainer/Panel/ItemDisplay" unique_id=810030628]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -75.0
+offset_right = 248.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 3
+theme = SubResource("Theme_m7x51")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_apowk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vnuwp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_egh8s")
+text = "Refund
+"
+script = ExtResource("4_h61rw")
+metadata/_custom_type_script = "uid://c2qtgcffduvb"

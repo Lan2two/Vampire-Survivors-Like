@@ -15,8 +15,7 @@ namespace SurvivorsGame
                 _shaderMaterial = (ShaderMaterial)originalMaterial.Duplicate();
                 Material = _shaderMaterial;
             }
-
-            GetTree().CreateTimer(1, false).Timeout += () => { Impact(new Vector2(0.5f, -0.5f)); };
+                   GetTree().CreateTimer(1, false).Timeout += () => { Impact(new Vector2(0.5f, -0.5f)); };
         }
 
         public void Impact(Vector2 sliceDirection)
