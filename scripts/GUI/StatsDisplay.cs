@@ -1,6 +1,7 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using System;
 
     public partial class StatsDisplay : Panel
     {
@@ -9,7 +10,7 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
-            _statsLabel = GetNodeOrNull<Label>("StatsLabel");
+            _statsLabel = GetNodeOrNull<Label>("%StatsLabel");
             _player = this.GetPlayer();
             if (_statsLabel == null)
             {
@@ -31,7 +32,22 @@ namespace SurvivorsGame
 
         private void OnGameOver()
         {
-            _statsLabel.Text = $"Time Elapsed: {Stats.data.Seconds}\nEnemies Killed: {Stats.data.EnemiesKilled}\nLevel: {Stats.data.Level}\nTotal XP: {(int)Stats.data.totalXP}\nDamage Dealt: {(int)Stats.data.DamageDealt}\nDamage Taken: {(int)Stats.data.DamageTaken}\nHealth Healed: {(int)Stats.data.HealthHealed}\nMax Health: {(int)_player.healthComponent.maxHealth}\nMax Speed: {(int)_player.velocityComponent.maxSpeed}\nCampfires Lit: {Stats.data.CampfiresLit}";
+            TimeSpan time = TimeSpan.FromSeconds(Stats.data.Seconds);
+            string[] stats =
+            [
+                $"Time Elapsed: {time.Hours:D2}:{time.Minutes:D2}:{time.Seconds:D2}",
+                $"Coins Collected: {Stats.data.Coins}",
+                $"Enemies Killed: {Stats.data.EnemiesKilled}",
+                $"Level: {Stats.data.Level}",
+                $"XP Collected: {(int)Stats.data.totalXP}",
+                $"Damage Dealt: {(int)Stats.data.DamageDealt}",
+                $"Damage Taken: {(int)Stats.data.DamageTaken}",
+                $"Health Healed: {(int)Stats.data.HealthHealed}",
+                $"Max Health: {(int)_player.healthComponent.maxHealth}",
+                $"Max Speed: {(int)_player.velocityComponent.maxSpeed}",
+                $"Campfires Lit: {Stats.data.CampfiresLit}"
+            ];
+            _statsLabel.Text = string.Join(System.Environment.NewLine, stats);
         }
 
     }
