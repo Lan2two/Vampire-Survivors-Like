@@ -9,6 +9,7 @@ namespace SurvivorsGame
         [Export] public double iFrames = 0.05;
         private double _iFramesTimer;
         private CollisionShape2D _hurtboxShape;
+        private bool invincible;
         public override void _Ready()
         {
             _hurtboxShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
@@ -23,7 +24,7 @@ namespace SurvivorsGame
         public override void _PhysicsProcess(double delta)
         {
             _iFramesTimer -= delta;
-            if (_iFramesTimer > 0)
+            if (_iFramesTimer > 0 || invincible)
             {
                 return;
             }
@@ -46,6 +47,12 @@ namespace SurvivorsGame
 
         private void SetiFrames(bool state)
         {
+            _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, state);
+        }
+
+        private void SetInvincibility(bool state)
+        {
+            invincible = state;
             _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, state);
         }
     }

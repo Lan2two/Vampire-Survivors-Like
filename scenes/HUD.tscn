@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="1_5j4t3"]
 [ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="2_womn8"]
+[ext_resource type="Script" uid="uid://bryfidvx05snc" path="res://scripts/GUI/CoinsCounter.cs" id="3_3xtru"]
 [ext_resource type="Script" uid="uid://buj4yudf04fqf" path="res://scripts/GUI/GameOverNode.cs" id="3_wi42t"]
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
 [ext_resource type="Script" uid="uid://baai0rxjneanb" path="res://scripts/GUI/UpgradesDisplay.cs" id="4_pn61u"]
@@ -137,7 +138,7 @@ theme_override_font_sizes/font_size = 40
 text = "Coins: 0"
 horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("2_womn8")
+script = ExtResource("3_3xtru")
 metadata/_edit_use_anchors_ = true
 
 [node name="GameOverNode" type="Control" parent="." unique_id=1945052996]

@@ -86,6 +86,12 @@ namespace SurvivorsGame
             UpdateFocusAndStyles();
         }
 
+        public void ResetMouseHoverSuppression()
+        {
+            _ignoreMouseHover = false;
+            _lastMousePos = GetViewport().GetMousePosition();
+        }
+
         private void UpdateFocusAndStyles()
         {
             var children = PositionOffsetNode.GetChildren();

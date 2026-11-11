@@ -4,7 +4,7 @@ namespace SurvivorsGame
 
     public partial class UpgradeManager : Node
     {
-        private const int CompositeDepth = 8;
+        private const int CompositeDepth = 10;
         [Export] InventoryManager inventoryManager;
 
         public void ApplyUpgrades(IUpgradable upgradable, UpgradeType targetType)

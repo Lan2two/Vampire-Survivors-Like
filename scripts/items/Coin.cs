@@ -27,8 +27,8 @@ namespace SurvivorsGame
         {
             if (body is Player)
             {
-                CoinPickup?.Invoke();
                 Stats.data.Coins += CoinAmount;
+                CoinPickup?.Invoke();
             }
         }
     }
