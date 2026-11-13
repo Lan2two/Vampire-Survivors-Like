@@ -8,7 +8,8 @@ namespace SurvivorsGame
         Gun,
         Knives,
         Melee,
-        Player
+        Player,
+        Absorbable
     }
 
 

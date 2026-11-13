@@ -10,6 +10,7 @@ namespace SurvivorsGame
         public static event Action MeleeUpgrade;
         public static event Action GunUpgrade;
         public static event Action KnivesUpgrade;
+        public static event Action AbsorbableUpgrade;
 
         public static void InvokeAddButton()
         {
@@ -23,25 +24,31 @@ namespace SurvivorsGame
             {
                 return;
             }
-            if (strategy.upgradeType == UpgradeType.Player)
+            UpgradeType type = strategy.upgradeType;
+            switch (type)
             {
-                PlayerUpgrade?.Invoke();
-                GD.Print("Player upgrades invoked");
-            }
-            if (strategy.upgradeType == UpgradeType.Melee)
-            {
-                MeleeUpgrade?.Invoke();
-                GD.Print("Melee upgrades invoked");
-            }
-            if (strategy.upgradeType == UpgradeType.Gun)
-            {
-                GunUpgrade?.Invoke();
-                GD.Print("Gun upgrades invoked");
-            }
-            if (strategy.upgradeType == UpgradeType.Knives)
-            {
-                KnivesUpgrade?.Invoke();
-                GD.Print("Knives upgrades invoked");
+                case UpgradeType.Player:
+                    PlayerUpgrade?.Invoke();
+                    GD.Print("Player upgrades invoked");
+                    break;
+                case UpgradeType.Melee:
+                    MeleeUpgrade?.Invoke();
+                    GD.Print("Melee upgrades invoked");
+                    break;
+                case UpgradeType.Gun:
+                    GunUpgrade?.Invoke();
+                    GD.Print("Gun upgrades invoked");
+                    break;
+                case UpgradeType.Knives:
+                    KnivesUpgrade?.Invoke();
+                    GD.Print("Knives upgrades invoked");
+                    break;
+                case UpgradeType.Absorbable:
+                    AbsorbableUpgrade?.Invoke();
+                    GD.Print("Absorbable upgrades invoked");
+                    break;
+                default:
+                    break;
             }
         }
     }
