@@ -12,6 +12,7 @@ namespace SurvivorsGame
         private Button _upgradeButton;
         private Button _refundButton;
         private ShopItem _currentItem;
+        private ChecksContainer _checksContainer;
         private GameSaveData gameSaveData;
         private UpgradeSaveData upgradeSaveData;
         SaveSystem saveSystem;
@@ -26,8 +27,10 @@ namespace SurvivorsGame
             _itemDisplay = GetNodeOrNull<Panel>("%ItemDisplay");
             _upgradeButton = GetNodeOrNull<Button>("%UpgradeButton");
             _refundButton = GetNodeOrNull<Button>("%RefundButton");
+            _checksContainer = GetNodeOrNull<ChecksContainer>("%ChecksContainer");
 
             saveSystem = new SaveSystem();
+            upgradeSaveData = saveSystem.LoadUpgrades();
 
             foreach (ShopItem item in _gridContainer.GetChildren())
             {
@@ -45,6 +48,11 @@ namespace SurvivorsGame
             _textureRect.Texture = item.textureRect.Texture;
             _desciptionLabel.Text = item.strategy.GetDescription();
             _nameLabel.Text = item.strategy.ItemName;
+            _checksContainer.AddChecks(item.count);
+            for (int i = 0; i < upgradeSaveData.PurchasedUpgrades[item.strategy.ResourcePath]; i++)
+            {
+                _checksContainer.ToggleBox(i);
+            }
         }
 
         private void OnUpgrade()
@@ -76,6 +84,7 @@ namespace SurvivorsGame
 
             int newCount = currentCount + 1;
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = newCount;
+            _checksContainer.ToggleBox(newCount - 1);
             GD.Print($"Upgrade: {_currentItem.strategy.ItemName}, Count: {newCount}");
 
             gameSaveData.TotalCoins -= _currentItem.cost;
@@ -107,6 +116,7 @@ namespace SurvivorsGame
             GD.Print($"Remaining Coins: {gameSaveData.TotalCoins}");
 
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = 0;
+            _checksContainer.ToggleAllBoxes(false);
             GD.Print($"Upgrade: {_currentItem.strategy.ItemName}, Count: {upgradeSaveData.PurchasedUpgrades[upgradeKey]}");
 
             saveSystem.SaveData(gameSaveData);
