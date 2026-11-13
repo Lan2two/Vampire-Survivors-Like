@@ -123,8 +123,7 @@ namespace SurvivorsGame
 
         private void SaveData()
         {
-            SaveSystem saveSystem = new SaveSystem();
-            GameSaveData data = saveSystem.LoadData();
+            GameSaveData data = SaveSystem.LoadData();
             data.TotalSeconds += Stats.data.Seconds;
             data.TotalKills += Stats.data.EnemiesKilled;
             data.TotalDamageDealt += (int)Stats.data.DamageDealt;
@@ -133,7 +132,7 @@ namespace SurvivorsGame
             data.TotalCampfiresLit += Stats.data.CampfiresLit;
             data.TotalTotalXp += (int)Stats.data.totalXP;
             data.TotalCoins += Stats.data.Coins;
-            saveSystem.SaveData(data);
+            SaveSystem.SaveData(data);
         }
     }
 }

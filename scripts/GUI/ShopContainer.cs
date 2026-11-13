@@ -15,7 +15,6 @@ namespace SurvivorsGame
         private ChecksContainer _checksContainer;
         private GameSaveData gameSaveData;
         private UpgradeSaveData upgradeSaveData;
-        SaveSystem saveSystem;
         public override void _Ready()
         {
             base._Ready();
@@ -29,8 +28,7 @@ namespace SurvivorsGame
             _refundButton = GetNodeOrNull<Button>("%RefundButton");
             _checksContainer = GetNodeOrNull<ChecksContainer>("%ChecksContainer");
 
-            saveSystem = new SaveSystem();
-            upgradeSaveData = saveSystem.LoadUpgrades();
+            upgradeSaveData = SaveSystem.LoadUpgrades();
 
             foreach (ShopItem item in _gridContainer.GetChildren())
             {
@@ -63,7 +61,7 @@ namespace SurvivorsGame
                 return;
             }
 
-            gameSaveData = saveSystem.LoadData();
+            gameSaveData = SaveSystem.LoadData();
 
             if (gameSaveData.TotalCoins < _currentItem.cost)
             {
@@ -71,7 +69,7 @@ namespace SurvivorsGame
                 return;
             }
 
-            upgradeSaveData = saveSystem.LoadUpgrades();
+            upgradeSaveData = SaveSystem.LoadUpgrades();
             string upgradeKey = _currentItem.strategy.ResourcePath;
 
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
@@ -85,13 +83,11 @@ namespace SurvivorsGame
             int newCount = currentCount + 1;
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = newCount;
             _checksContainer.ToggleBox(newCount - 1);
-            GD.Print($"Upgrade: {_currentItem.strategy.ItemName}, Count: {newCount}");
 
             gameSaveData.TotalCoins -= _currentItem.cost;
-            GD.Print($"Remaining Coins: {gameSaveData.TotalCoins}");
 
-            saveSystem.SaveData(gameSaveData);
-            saveSystem.SaveUpgrades(upgradeSaveData);
+            SaveSystem.SaveData(gameSaveData);
+            SaveSystem.SaveUpgrades(upgradeSaveData);
         }
 
 
@@ -102,8 +98,8 @@ namespace SurvivorsGame
                 GD.PrintErr("Refund failed: Current item or strategy is null.");
                 return;
             }
-            gameSaveData = saveSystem.LoadData();
-            upgradeSaveData = saveSystem.LoadUpgrades();
+            gameSaveData = SaveSystem.LoadData();
+            upgradeSaveData = SaveSystem.LoadUpgrades();
             string upgradeKey = _currentItem.strategy.ResourcePath;
 
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
@@ -113,14 +109,12 @@ namespace SurvivorsGame
                 return;
             }
             gameSaveData.TotalCoins += _currentItem.cost * currentCount;
-            GD.Print($"Remaining Coins: {gameSaveData.TotalCoins}");
 
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = 0;
             _checksContainer.ToggleAllBoxes(false);
-            GD.Print($"Upgrade: {_currentItem.strategy.ItemName}, Count: {upgradeSaveData.PurchasedUpgrades[upgradeKey]}");
 
-            saveSystem.SaveData(gameSaveData);
-            saveSystem.SaveUpgrades(upgradeSaveData);
+            SaveSystem.SaveData(gameSaveData);
+            SaveSystem.SaveUpgrades(upgradeSaveData);
         }
 
     }
