@@ -47,7 +47,8 @@ namespace SurvivorsGame
             _desciptionLabel.Text = item.strategy.GetDescription();
             _nameLabel.Text = item.strategy.ItemName;
             _checksContainer.AddChecks(item.count);
-            for (int i = 0; i < upgradeSaveData.PurchasedUpgrades[item.strategy.ResourcePath]; i++)
+            upgradeSaveData.PurchasedUpgrades.TryGetValue(item.strategy.ResourceFile, out int purchasedCount);
+            for (int i = 0; i < purchasedCount; i++)
             {
                 _checksContainer.ToggleBox(i);
             }
@@ -70,8 +71,8 @@ namespace SurvivorsGame
             }
 
             upgradeSaveData = SaveSystem.LoadUpgrades();
-            string upgradeKey = _currentItem.strategy.ResourcePath;
-
+            string upgradeKey = _currentItem.strategy.ResourceFile;
+            GD.Print($"path: {upgradeKey}");
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
 
             if (currentCount >= _currentItem.count)
@@ -100,8 +101,8 @@ namespace SurvivorsGame
             }
             gameSaveData = SaveSystem.LoadData();
             upgradeSaveData = SaveSystem.LoadUpgrades();
-            string upgradeKey = _currentItem.strategy.ResourcePath;
-
+            string upgradeKey = _currentItem.strategy.ResourceFile;
+            GD.Print($"path: {upgradeKey}");
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
             if (currentCount <= 0)
             {

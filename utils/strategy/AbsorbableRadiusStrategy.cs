@@ -5,13 +5,13 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class AbsorbableRadiusStrategy : Strategy
     {
-        [Export] float UpgradeRadius { get; set; } = 10f;
+        [Export] float UpgradeRadius { get; set; } = 100f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
         public AbsorbableRadiusStrategy()
         {
             upgradeType = UpgradeType.Absorbable;
-            ItemName = "Absorbable Range";
+            ItemName = "Magnet";
             ItemDescription = "Increases range of pickup";
         }
 

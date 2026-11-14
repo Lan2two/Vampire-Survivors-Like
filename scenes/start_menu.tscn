@@ -8,10 +8,9 @@
 [ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/SubMenuContainer.cs" id="6_nxjfj"]
 [ext_resource type="Script" uid="uid://b28q8smk74ucl" path="res://scripts/GUI/StatsContainer.cs" id="7_nxjfj"]
 [ext_resource type="Script" uid="uid://cv0v58q3c602y" path="res://scripts/GUI/ShopContainer.cs" id="8_apowk"]
-[ext_resource type="PackedScene" uid="uid://dv0kpnk2i0gq5" path="res://scenes/shop_item.tscn" id="8_u4qax"]
 [ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="9_e58y3"]
+[ext_resource type="PackedScene" uid="uid://o0j2gkjejn5w" path="res://scenes/ShopItems.tscn" id="9_egh8s"]
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="10_apowk"]
-[ext_resource type="Resource" uid="uid://mnxbouc6padw" path="res://resources/CompositeUpgrades/LightRounds.tres" id="10_vnuwp"]
 [ext_resource type="Script" uid="uid://qmw2h1rpgmkx" path="res://scripts/GUI/ChecksContainer.cs" id="11_egh8s"]
 [ext_resource type="Script" uid="uid://8nbpk2j2cweq" path="res://scripts/GUI/ShopCoins.cs" id="14_b1kog"]
 
@@ -1089,20 +1088,9 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_u4qax")
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="ShopMotion/ShopContainer/Panel/ScrollContainer" unique_id=1100568145]
+[node name="GridContainer" parent="ShopMotion/ShopContainer/Panel/ScrollContainer" unique_id=1099827021 instance=ExtResource("9_egh8s")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 650)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-theme_override_constants/h_separation = 15
-theme_override_constants/v_separation = 15
-columns = 6
-
-[node name="ShopItem" parent="ShopMotion/ShopContainer/Panel/ScrollContainer/GridContainer" unique_id=233906624 instance=ExtResource("8_u4qax")]
-layout_mode = 2
-strategy = ExtResource("10_vnuwp")
 
 [node name="Panel" type="Panel" parent="ShopMotion/ShopContainer/Panel" unique_id=241790417]
 layout_mode = 1

@@ -23,6 +23,13 @@ namespace SurvivorsGame
             MaxStackSize = 5;
         }
         public int Count { get; set; }
+        private string _resourceFile = "";
+        [Export]
+        public string ResourceFile
+        {
+            get => string.IsNullOrEmpty(ResourcePath) ? _resourceFile : ResourcePath;
+            set => _resourceFile = value;
+        }
         [Export] public virtual UpgradeType upgradeType { get; set; }
 
         protected static float CalculateStatUpgrade(
