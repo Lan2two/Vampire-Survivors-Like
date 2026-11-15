@@ -22,14 +22,14 @@ namespace SurvivorsGame
                 GD.PrintErr("HealthComponent not assigned in HitFlashComponent.");
                 return;
             }
-            healthComponent.Damage += Flash;
+            healthComponent.FinalDamageEvent += Flash;
         }
 
         public override void _ExitTree()
         {
             if (healthComponent != null)
             {
-                healthComponent.Damage -= Flash;
+                healthComponent.FinalDamageEvent -= Flash;
             }
         }
 

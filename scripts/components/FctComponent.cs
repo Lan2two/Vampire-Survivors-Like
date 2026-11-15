@@ -26,14 +26,14 @@ namespace SurvivorsGame
                 return;
             }
 
-            healthComponent.Damage += DisplayDamage;
+            healthComponent.FinalDamageEvent += DisplayDamage;
         }
 
         public override void _ExitTree()
         {
             if (healthComponent != null)
             {
-                healthComponent.Damage -= DisplayDamage;
+                healthComponent.FinalDamageEvent -= DisplayDamage;
             }
         }
 

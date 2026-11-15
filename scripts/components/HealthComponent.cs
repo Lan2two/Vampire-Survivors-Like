@@ -7,9 +7,12 @@ namespace SurvivorsGame
     public partial class HealthComponent : Node
     {
         [Export] public float maxHealth = 100f;
+        [Export] public float Defense = 100f;
 
-        public event Action<Attack> Damage;
+        public event Action<Attack> FinalDamageEvent;
+        public event Action<Attack> InitalDamageEvent;
         public float currentHealth;
+        private int K = 100;
 
         public override void _Ready()
         {
@@ -18,8 +21,10 @@ namespace SurvivorsGame
 
         public void TakeDamage(Attack attackData)
         {
+            InitalDamageEvent?.Invoke(attackData);
+            attackData.Damage *= K / (K + Defense);
             currentHealth -= attackData.Damage;
-            Damage?.Invoke(attackData);
+            FinalDamageEvent?.Invoke(attackData);
         }
 
 

@@ -26,6 +26,7 @@ _subsceneData = {
 PackedScene = ExtResource("3_0cbad")
 "Subscene Configuration/startingConfig" = ExtResource("5_oeji3")
 "Subscene Configuration/Scene" = ExtResource("4_1u0lj")
+ResourceFile = "res://resources/CompositeUpgrades/Knives.tres::Resource_7tmnl"
 upgradeType = 4
 ItemName = "Add Node"
 ItemDescription = "Adds Node to Upgradable"

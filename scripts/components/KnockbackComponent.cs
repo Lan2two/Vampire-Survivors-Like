@@ -15,13 +15,13 @@ namespace SurvivorsGame
                 GD.PrintErr("VelocityComponent unset in Knockback");
                 return;
             }
-            healthComponent.Damage += TakeKnockback;
+            healthComponent.FinalDamageEvent += TakeKnockback;
         }
         public override void _ExitTree()
         {
             if (healthComponent != null)
             {
-                healthComponent.Damage -= TakeKnockback;
+                healthComponent.FinalDamageEvent -= TakeKnockback;
             }
         }
 
