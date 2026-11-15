@@ -6,6 +6,7 @@ namespace SurvivorsGame
     {
         public const float MinMaxHealth = 1f;
         public const float MaxMaxHealth = 1000f;
+        public const float MinDefense = -50;
         public const float MinMoveSpeed = 20f;
         public const float MaxMoveSpeed = 600f;
     }
@@ -18,6 +19,10 @@ namespace SurvivorsGame
         public float MaxHealthAdditive;
         public float MaxHealthPercent;
 
+        [Export] public float DefenseBase = 0;
+        public float DefenseAdditive;
+        public float DefensePercent;
+
         [Export] public float MoveSpeedBase = 100f;
         public float MoveSpeedAdditive;
         public float MoveSpeedPercent;
@@ -26,6 +31,7 @@ namespace SurvivorsGame
         public StatModifier GetStat(string statName) => statName switch
         {
             "MaxHealth" => new StatModifier(MaxHealthBase, MaxHealthAdditive, MaxHealthPercent, PlayerStatsRange.MinMaxHealth, PlayerStatsRange.MaxMaxHealth),
+            "Defense" => new StatModifier(DefenseBase, DefenseAdditive, DefensePercent, PlayerStatsRange.MinDefense),
             "MoveSpeed" => new StatModifier(MoveSpeedBase, MoveSpeedAdditive, MoveSpeedPercent, PlayerStatsRange.MinMoveSpeed, PlayerStatsRange.MaxMoveSpeed),
             _ => default
         };

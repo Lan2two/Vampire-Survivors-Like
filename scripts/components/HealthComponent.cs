@@ -7,7 +7,7 @@ namespace SurvivorsGame
     public partial class HealthComponent : Node
     {
         [Export] public float maxHealth = 100f;
-        [Export] public float Defense = 100f;
+        [Export] public float Defense = 0;
 
         public event Action<Attack> FinalDamageEvent;
         public event Action<Attack> InitalDamageEvent;
