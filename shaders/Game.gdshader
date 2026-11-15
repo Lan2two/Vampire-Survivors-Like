@@ -12,6 +12,27 @@ float hash(float n) {
     return fract(sin(n) * 43758.5453123);
 }
 
+float get_screen_majority_brightness(sampler2D tex) {
+    float total_brightness = 0.0;
+    for (int x = 0; x < 4; x++) {
+        for (int y = 0; y < 4; y++) {
+            vec2 sample_uv = vec2((float(x) + 0.5) / 4.0, (float(y) + 0.5) / 4.0);
+            vec3 col = texture(tex, sample_uv).rgb;
+            float b = dot(col, vec3(0.299, 0.587, 0.114));
+            
+            if (impact_flash > 0.0) {
+                float bw = step(bw_cutoff, b);
+                if (invert_impact) {
+                    bw = 1.0 - bw;
+                }
+                b = mix(b, bw, impact_flash);
+            }
+            total_brightness += b;
+        }
+    }
+    return total_brightness / 16.0;
+}
+
 void fragment() {
     vec2 norm = normalize(split_normal);
     vec2 tangent = vec2(-norm.y, norm.x);
@@ -39,7 +60,8 @@ void fragment() {
     }
 
     if (split_offset > 0.0) {
-        vec3 void_and_line_color = invert_impact ? vec3(0.0) : vec3(1.0);
+        float avg_brightness = get_screen_majority_brightness(screen_texture);
+        vec3 void_and_line_color = (avg_brightness > 0.5) ? vec3(0.0) : vec3(1.0);
         
         float dist_from_void_edge = max(0.0, abs(distance_from_split) - split_offset);
         float ray_noise = hash(floor(position_along_split * 250.0));
