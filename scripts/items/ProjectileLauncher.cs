@@ -102,6 +102,7 @@ namespace SurvivorsGame
                 {
                     GetTree().CreateTimer(config.GetStat("BurstInterval").CalculateFinal() * i, false).Timeout += () =>
                     {
+                        if (!IsInstanceValid(this) || !IsInstanceValid(shootPoint)) return;
                         sign *= -1;
                         float spread = (float)GD.RandRange(0, config.GetStat("Spread").CalculateFinal() / 2);
                         Bullet projectileInstance = Scene.Instantiate<Bullet>();
