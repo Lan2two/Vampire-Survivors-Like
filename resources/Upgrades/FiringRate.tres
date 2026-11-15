@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://dl2cs4wun551l"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_kra76"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_h8nlr"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/ProjectileFireRateStrategy.cs" id="3_3wqkb"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="4_4jxeu"]
+
+[sub_resource type="Resource" id="Resource_1b0wd"]
+script = ExtResource("3_3wqkb")
+UpgradeCooldown = 5.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_kra76"]
+script = ExtResource("3_3wqkb")
+UpgradeCooldown = 5.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[resource]
+script = ExtResource("4_4jxeu")
+Children = Array[ExtResource("1_kra76")]([SubResource("Resource_1b0wd"), SubResource("Resource_kra76")])
+MaxStackSize = 2
+ItemName = "Firing Rate"
+ItemDescription = "Ranged  Weapons fire 5% faster"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

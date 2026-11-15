@@ -140,14 +140,13 @@ metadata/_custom_type_script = "uid://7otgg0gqbqc5"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=96188564]
 shape = SubResource("CircleShape2D_md0e3")
 
-[node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
+[node name="VelocityComponent" type="Node" parent="." unique_id=931346710 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
 script = ExtResource("11_w8i8w")
 rigidBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
 maxSpeed = 25.0
 acceleration = 10.0
 SpeedVariation = true
-metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
 [node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=1314197410 node_paths=PackedStringArray("characterBody", "velocityComponent")]
 script = ExtResource("11_ile5s")
