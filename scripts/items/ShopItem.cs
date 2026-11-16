@@ -6,7 +6,6 @@ namespace SurvivorsGame
     public partial class ShopItem : Control
     {
         [Export] public int cost { get; set; } = 10;
-        [Export] public int count { get; set; } = 3;
         [Export] public Strategy strategy;
         public event Action<ShopItem> ShowDetail;
         private bool hovering = false;

@@ -22,7 +22,7 @@ namespace SurvivorsGame
         [Export] private float LegendaryWeight = 3;
 
         [ExportGroup("Settings")]
-        [Export] public int Rerolls = 2;
+        [Export] public int Rerolls = 0;
         [Export(PropertyHint.Range, "0, 5, 1")] private int StartingButtons { get; set; } = 3;
 
         [ExportGroup("Scenes")]
@@ -68,6 +68,7 @@ namespace SurvivorsGame
             VisibilityChanged += SetReroll;
             xpBar.LevelUpEvent += DisplayUpgrades;
             EventBus.AddButton += AddButton;
+            EventBus.AddRerollEvent += IncrementRerolls;
 
             SetReroll();
             for (int i = 0; i < StartingButtons; i++)
@@ -84,7 +85,13 @@ namespace SurvivorsGame
             VisibilityChanged -= SetReroll;
             if (xpBar != null) xpBar.LevelUpEvent -= DisplayUpgrades;
             EventBus.AddButton -= AddButton;
+            EventBus.AddRerollEvent -= IncrementRerolls;
             UnbindButtonEvents();
+        }
+
+        public void IncrementRerolls()
+        {
+            Rerolls++;
         }
 
         public void AddButton()
@@ -143,6 +150,10 @@ namespace SurvivorsGame
         {
             RandUpgrade();
             Visible = true;
+            if (Rerolls > 0)
+            {
+                _rerollButton.Visible = true;
+            }
             GetTree().Paused = true;
         }
         public void RandUpgrade()

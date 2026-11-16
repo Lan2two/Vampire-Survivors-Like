@@ -86,10 +86,6 @@ metadata/_custom_type_script = "uid://pnm0lgg85gka"
 script = ExtResource("26_qxvih")
 metadata/_custom_type_script = "uid://4rlryks4rd2l"
 
-[sub_resource type="Resource" id="Resource_27n0u"]
-script = ExtResource("27_h5tib")
-metadata/_custom_type_script = "uid://dd4asm4opckmw"
-
 [sub_resource type="Resource" id="Resource_3ugbd"]
 script = ExtResource("35_mmorv")
 UpgradeCritRate = 100.0
@@ -114,6 +110,11 @@ Children = Array[ExtResource("11_pn61u")]([SubResource("Resource_3ugbd"), SubRes
 ItemName = "Luck"
 ItemDescription = "100% Crits"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_27n0u"]
+script = ExtResource("27_h5tib")
+MaxStackSize = 10
+metadata/_custom_type_script = "uid://dd4asm4opckmw"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8inel"]
 bg_color = Color(0.67754686, 0, 0, 1)
@@ -376,15 +377,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
 CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
-RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok"), SubResource("Resource_27n0u")])
+RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
-LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl")])
+LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl"), SubResource("Resource_27n0u")])
 CommonWeight = 75.0
 RareWeight = 15.0
 EpicWeight = 5.0
 LegendaryWeight = 0.5
-Rerolls = 100
-StartingButtons = 5
 xpBar = NodePath("../XpBar")
 button = ExtResource("29_fuvlu")
 metadata/_edit_use_anchors_ = true
@@ -418,8 +417,10 @@ offset_bottom = 221.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 60
+alignment = 1
 
 [node name="RerollButton" type="Button" parent="UpgradeMenu/UpgradeMenuContainer" unique_id=595764150]
+visible = false
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 0

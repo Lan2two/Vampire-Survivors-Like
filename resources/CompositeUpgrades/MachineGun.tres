@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_2jdyx"]
 script = ExtResource("4_patyk")
-UpgradeCooldown = -250.0
+UpgradeCooldown = -300.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
@@ -30,15 +30,17 @@ metadata/_custom_type_script = "uid://b62e4twpi050i"
 
 [sub_resource type="Resource" id="Resource_f6cyg"]
 script = ExtResource("6_gqqfq")
-BurstAmount = 15
+BurstAmount = 20
 metadata/_custom_type_script = "uid://bbhbxariivqbp"
 
 [sub_resource type="Resource" id="Resource_ajpna"]
 script = ExtResource("7_upnqo")
-AddSpread = 0.8
+AddSpread = 0.3
 
 [sub_resource type="Resource" id="Resource_fs073"]
 script = ExtResource("8_4wp4q")
+BurstTime = 30.0
+CalculationMode = 1
 metadata/_custom_type_script = "uid://dvgounn1leqxm"
 
 [resource]

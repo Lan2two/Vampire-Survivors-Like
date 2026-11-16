@@ -46,7 +46,7 @@ namespace SurvivorsGame
             _textureRect.Texture = item.textureRect.Texture;
             _desciptionLabel.Text = item.strategy.GetDescription();
             _nameLabel.Text = item.strategy.ItemName;
-            _checksContainer.AddChecks(item.count);
+            _checksContainer.AddChecks(item.strategy.MaxStackSize);
             upgradeSaveData.PurchasedUpgrades.TryGetValue(item.strategy.ResourceFile, out int purchasedCount);
             for (int i = 0; i < purchasedCount; i++)
             {
@@ -75,7 +75,7 @@ namespace SurvivorsGame
             GD.Print($"path: {upgradeKey}");
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
 
-            if (currentCount >= _currentItem.count)
+            if (currentCount >= _currentItem.strategy.MaxStackSize)
             {
                 GD.Print("Max Stacks");
                 return;
