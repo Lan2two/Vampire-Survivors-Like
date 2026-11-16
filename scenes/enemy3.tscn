@@ -18,8 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://cu1txkretppd7" path="res://scenes/xp_orb.tscn" id="17_dslev"]
 [ext_resource type="PackedScene" uid="uid://w4av11tswr7n" path="res://scenes/Coin.tscn" id="18_d2mwy"]
 [ext_resource type="PackedScene" uid="uid://b2hdv4s8cdj6u" path="res://scenes/Hp_orb.tscn" id="18_na8y0"]
-[ext_resource type="Script" uid="uid://wx2mmotn2vcr" path="res://scripts/status/Moratorium.cs" id="19_d2mwy"]
-[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="20_letdu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 4.0
@@ -118,7 +116,7 @@ enemy = NodePath("../..")
 pathfindComponent = NodePath("../../PathfindComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "_hurtbox", "healthComponent", "velocityComponent", "attackComponent", "Sprite") groups=["enemies"]]
+[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "_hurtbox", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
 script = ExtResource("7_50oie")
 characterBody = NodePath("../..")
 _hurtbox = NodePath("../../HurtboxComponent")
@@ -193,22 +191,3 @@ deathState = NodePath("../StateMachine/Death")
 XpOrbScene = ExtResource("17_dslev")
 HpOrbScene = ExtResource("18_na8y0")
 CoinScene = ExtResource("18_d2mwy")
-
-[node name="Moratorium" type="Node2D" parent="." unique_id=162948018]
-script = ExtResource("19_d2mwy")
-
-[node name="Display" type="TextureProgressBar" parent="Moratorium" unique_id=333547886]
-modulate = Color(1, 1, 1, 0.46666667)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 128.0
-offset_bottom = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.1, 0.1)
-step = 0.001
-fill_mode = 4
-texture_progress = ExtResource("20_letdu")

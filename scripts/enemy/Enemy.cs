@@ -9,7 +9,7 @@ namespace SurvivorsGame
         [Export] public float CoinAmount = 5f;
         public AnimatedSprite2D animatedSprite;
         public CollisionShape2D collisionbox;
-        private HealthComponent healthComponent;
+        public HealthComponent healthComponent;
         public static int Alive = 0;
         public override void _Ready()
         {
