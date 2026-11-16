@@ -1494,6 +1494,7 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("3_egh8s")
 IsHorizontal = true
 FollowButtonFocus = false
+StartFocused = true
 PositionOffsetNode = NodePath("Offset")
 
 [node name="Offset" type="Control" parent="GameMotion/GameContainer/Panel/CarouselMenuContainer" unique_id=1467778380]

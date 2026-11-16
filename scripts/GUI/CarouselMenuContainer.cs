@@ -7,6 +7,9 @@ namespace SurvivorsGame
 #endif
     public partial class CarouselMenuContainer : Node2D
     {
+        // Tracks the currently active carousel across the scene
+        public static CarouselMenuContainer CurrentFocused { get; private set; }
+
         [Export] public bool IsHorizontal { get; set; } = false;
         [Export] public float Spacing { get; set; } = 50.0f;
         [Export] public bool WraparoundEnabled { get; set; } = false;
@@ -38,7 +41,14 @@ namespace SurvivorsGame
         [Export] public bool FollowButtonFocus { get; set; } = true;
         [Export] public bool FollowMouseHover { get; set; } = true;
         [Export] public bool UseMouseWheel { get; set; } = true;
+
+        // New Focus Controls
+        [Export] public bool StartFocused { get; set; } = false;
+        [Export] public bool FocusOnHover { get; set; } = true;
+
         [Export] public Control PositionOffsetNode { get; set; }
+
+        public bool IsFocused => CurrentFocused == this;
 
         private bool _ignoreMouseHover = false;
         private Vector2 _lastMousePos = Vector2.Zero;
@@ -48,6 +58,50 @@ namespace SurvivorsGame
             if (!Engine.IsEditorHint())
             {
                 _lastMousePos = GetViewport().GetMousePosition();
+                if (StartFocused || CurrentFocused == null)
+                {
+                    SetFocused();
+                }
+            }
+        }
+
+        public override void _ExitTree()
+        {
+            if (CurrentFocused == this)
+            {
+                CurrentFocused = null;
+            }
+        }
+
+        /// <summary>
+        /// Call this from your UI controller (or via button/tab signals) to focus this specific carousel.
+        /// </summary>
+        public void SetFocused()
+        {
+            if (CurrentFocused == this) return;
+
+            CarouselMenuContainer previous = CurrentFocused;
+            CurrentFocused = this;
+
+            ResetMouseHoverSuppression();
+
+            if (previous != null && IsInstanceValid(previous))
+            {
+                previous.ClearChildFocus();
+            }
+
+            UpdateFocusAndStyles();
+        }
+
+        public void ClearChildFocus()
+        {
+            if (PositionOffsetNode == null) return;
+            foreach (Node child in PositionOffsetNode.GetChildren())
+            {
+                if (child is Control ctrl && ctrl.HasFocus())
+                {
+                    ctrl.ReleaseFocus();
+                }
             }
         }
 
@@ -55,14 +109,7 @@ namespace SurvivorsGame
         {
             if (PositionOffsetNode == null || PositionOffsetNode.GetChildCount() == 0) return;
 
-            if (@event is InputEventMouseMotion motion)
-            {
-                if (motion.Position.DistanceTo(_lastMousePos) > 5.0f)
-                {
-                    _ignoreMouseHover = false;
-                    _lastMousePos = motion.Position;
-                }
-            }
+            if (!IsFocused) return;
 
             if (UseMouseWheel && @event is InputEventMouseButton mouseButton && mouseButton.Pressed)
             {
@@ -81,6 +128,7 @@ namespace SurvivorsGame
 
         private void ScrollTo(int newIndex)
         {
+            if (!IsFocused) SetFocused();
             _ignoreMouseHover = true;
             SelectedIndex = newIndex;
             UpdateFocusAndStyles();
@@ -94,6 +142,8 @@ namespace SurvivorsGame
 
         private void UpdateFocusAndStyles()
         {
+            if (!IsFocused || PositionOffsetNode == null) return;
+
             var children = PositionOffsetNode.GetChildren();
             if (SelectedIndex < 0 || SelectedIndex >= children.Count) return;
 
@@ -107,12 +157,9 @@ namespace SurvivorsGame
                         ctrl.GrabFocus();
                         ctrl.QueueRedraw();
                     }
-                    else
+                    else if (ctrl.HasFocus())
                     {
-                        if (ctrl.HasFocus())
-                        {
-                            ctrl.ReleaseFocus();
-                        }
+                        ctrl.ReleaseFocus();
                     }
                 }
             }
@@ -129,12 +176,22 @@ namespace SurvivorsGame
 
             if (!Engine.IsEditorHint())
             {
+                // Reliable mouse movement check that works even when UI controls consume input events
+                Vector2 currentMousePos = GetViewport().GetMousePosition();
+                if (currentMousePos.DistanceTo(_lastMousePos) > 5.0f)
+                {
+                    _ignoreMouseHover = false;
+                    _lastMousePos = currentMousePos;
+                }
+
+                // 1. Check if a child inside this carousel gained focus (e.g., via keyboard/gamepad)
                 if (FollowButtonFocus)
                 {
                     for (int i = 0; i < children.Count; i++)
                     {
                         if (children[i] is Control control && control.HasFocus())
                         {
+                            if (!IsFocused) SetFocused();
                             if (SelectedIndex != i)
                             {
                                 SelectedIndex = i;
@@ -145,25 +202,29 @@ namespace SurvivorsGame
                     }
                 }
 
+                // 2. Check mouse hover
                 if (FollowMouseHover && !_ignoreMouseHover)
                 {
                     for (int i = 0; i < children.Count; i++)
                     {
-                        if (children[i] is Control control)
+                        if (children[i] is Control control && control.GetGlobalRect().HasPoint(control.GetGlobalMousePosition()))
                         {
-                            if (control.GetGlobalRect().HasPoint(control.GetGlobalMousePosition()))
+                            if (!IsFocused && FocusOnHover)
                             {
-                                if (SelectedIndex != i)
-                                {
-                                    SelectedIndex = i;
-                                    UpdateFocusAndStyles();
-                                }
-                                break;
+                                SetFocused();
                             }
+
+                            if (IsFocused && SelectedIndex != i)
+                            {
+                                SelectedIndex = i;
+                                UpdateFocusAndStyles();
+                            }
+                            break;
                         }
                     }
                 }
             }
+
 
             if (WraparoundEnabled)
             {
@@ -171,11 +232,9 @@ namespace SurvivorsGame
                 for (int i = 0; i < children.Count; i++)
                 {
                     if (children[i] is not Control child) continue;
-
                     float indexDiff = (i - SelectedIndex) / maxIndexRange;
                     float clampedDiff = Mathf.Clamp(indexDiff, -1.0f, 1.0f);
                     float angle = clampedDiff * Mathf.Pi;
-
                     Vector2 targetPos;
                     if (IsHorizontal)
                     {
@@ -189,11 +248,9 @@ namespace SurvivorsGame
                         float posY = Mathf.Sin(angle) * Radius;
                         targetPos = new Vector2(posX, posY) - (child.Size / 2.0f);
                     }
-
                     child.Position = child.Position.Lerp(targetPos, SmoothingSpeed * dt);
                     ApplyVisuals(child, i, dt);
                 }
-
                 PositionOffsetNode.Position = PositionOffsetNode.Position.Lerp(Vector2.Zero, SmoothingSpeed * dt);
             }
             else
@@ -202,7 +259,6 @@ namespace SurvivorsGame
                 for (int i = 0; i < children.Count; i++)
                 {
                     if (children[i] is not Control child) continue;
-
                     Vector2 targetPos;
                     if (IsHorizontal)
                     {
@@ -214,11 +270,9 @@ namespace SurvivorsGame
                         targetPos = new Vector2(-child.Size.X / 2.0f, currentOffset);
                         currentOffset += child.Size.Y + Spacing;
                     }
-
                     child.Position = targetPos;
                     ApplyVisuals(child, i, dt);
                 }
-
                 if (children[SelectedIndex] is Control selectedChild)
                 {
                     Vector2 targetOffsetPos;
@@ -232,32 +286,25 @@ namespace SurvivorsGame
                         float finalTargetOffsetY = -(selectedChild.Position.Y + (selectedChild.Size.Y / 2.0f));
                         targetOffsetPos = new Vector2(0.0f, finalTargetOffsetY);
                     }
-
                     PositionOffsetNode.Position = PositionOffsetNode.Position.Lerp(targetOffsetPos, SmoothingSpeed * dt);
                 }
             }
-
             if (Engine.IsEditorHint())
             {
                 QueueRedraw();
             }
         }
-
         private void ApplyVisuals(Control child, int index, float dt)
         {
             float distance = Mathf.Abs(index - SelectedIndex);
-
             // Scale effect
             float targetScaleVal = Mathf.Clamp(1.0f - (distance * 0.2f * ScaleStrength), ScaleMin, 1.0f);
             Vector2 targetScale = new Vector2(targetScaleVal, targetScaleVal);
             child.Scale = child.Scale.Lerp(targetScale, SmoothingSpeed * dt);
-
-            // Opacity / Modulate alpha
             float targetAlpha = Mathf.Clamp(1.0f - (distance * 0.3f * OpacityStrength), 0.0f, 1.0f);
             Color modulate = child.Modulate;
             modulate.A = Mathf.Lerp(modulate.A, targetAlpha, SmoothingSpeed * dt);
             child.Modulate = modulate;
-
             // Z-Index and Focus/Mouse Mode management
             if (index == SelectedIndex)
             {

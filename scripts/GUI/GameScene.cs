@@ -136,18 +136,9 @@ namespace SurvivorsGame
             GetTree().Paused = false;
         }
 
-        private void SaveData()
+        public void SaveData()
         {
-            GameSaveData data = SaveSystem.LoadData();
-            data.TotalSeconds += Stats.data.Seconds;
-            data.TotalKills += Stats.data.EnemiesKilled;
-            data.TotalDamageDealt += (int)Stats.data.DamageDealt;
-            data.TotalDamageTaken += (int)Stats.data.DamageTaken;
-            data.TotalHealthHealed += (int)Stats.data.HealthHealed;
-            data.TotalCampfiresLit += Stats.data.CampfiresLit;
-            data.TotalTotalXp += (int)Stats.data.totalXP;
-            data.TotalCoins += Stats.data.Coins;
-            SaveSystem.SaveData(data);
+            Stats.FlushToSave();
         }
     }
 }
