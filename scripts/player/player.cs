@@ -83,7 +83,7 @@ namespace SurvivorsGame
 			upgradeManager.ApplyUpgrades(stats, UpgradeType.Player);
 			float previousMaxhealth = healthComponent.maxHealth;
 			healthComponent.maxHealth = stats.MaxHealth;
-			GD.Print($"MaxHp: {stats.MaxHealth} Speed: {stats.MoveSpeed}");
+			GD.Print($"MaxHp: {(int)stats.MaxHealth} Speed: {(int)stats.MoveSpeed}");
 			if (healthComponent.currentHealth > 0)
 			{
 				float heal = Mathf.Max(0f, stats.MaxHealth - previousMaxhealth);
