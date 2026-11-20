@@ -31,7 +31,7 @@ namespace SurvivorsGame
                 return;
             }
             Sprite.AnimationFinished += OnAnimationFinished;
-            healthComponent.Damage += CheckforDeath;
+            healthComponent.FinalDamageEvent += CheckforDeath;
         }
         private void CheckforDeath(Attack attackData)
         {
@@ -65,7 +65,7 @@ namespace SurvivorsGame
             }
             if (healthComponent != null)
             {
-                healthComponent.Damage -= CheckforDeath;
+                healthComponent.FinalDamageEvent -= CheckforDeath;
             }
         }
         private void OnAnimationFinished()

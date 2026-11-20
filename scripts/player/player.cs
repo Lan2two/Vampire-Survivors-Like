@@ -59,7 +59,7 @@ namespace SurvivorsGame
 
 			_baseMaxHealth = healthComponent.maxHealth;
 			_baseMoveSpeed = velocityComponent.maxSpeed;
-			healthComponent.Damage += TrackDamage;
+			healthComponent.FinalDamageEvent += TrackDamage;
 			EventBus.PlayerUpgrade += CalculateStats;
 		}
 
@@ -67,7 +67,7 @@ namespace SurvivorsGame
 		{
 			if (healthComponent != null)
 			{
-				healthComponent.Damage -= TrackDamage;
+				healthComponent.FinalDamageEvent -= TrackDamage;
 			}
 			if (inventoryManager != null)
 			{

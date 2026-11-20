@@ -31,14 +31,14 @@ namespace SurvivorsGame
                 GD.PrintErr("HealthComponent not found in Enemy");
                 return;
             }
-            healthComponent.Damage += TrackDamage;
+            healthComponent.FinalDamageEvent += TrackDamage;
             Alive++;
         }
         public override void _ExitTree()
         {
             if (healthComponent != null)
             {
-                healthComponent.Damage -= TrackDamage;
+                healthComponent.FinalDamageEvent -= TrackDamage;
             }
             Alive--;
         }
