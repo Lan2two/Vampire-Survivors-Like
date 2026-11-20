@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
 [ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="19_fuvlu"]
 [ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="20_3xtru"]
+[ext_resource type="Script" uid="uid://c511gf8c34x2u" path="res://utils/strategy/PlayerDefenseStrategy.cs" id="20_n7bdd"]
 [ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/MoreUpgradeStrategy.cs" id="21_n7bdd"]
 [ext_resource type="Script" uid="uid://di31h4p0cxet7" path="res://scripts/GUI/GameTime.cs" id="21_t8u3o"]
 [ext_resource type="Resource" uid="uid://mnxbouc6padw" path="res://resources/CompositeUpgrades/LightRounds.tres" id="22_yy1yx"]
@@ -69,6 +70,10 @@ metadata/_custom_type_script = "uid://1h87b88g3qhp"
 [sub_resource type="Resource" id="Resource_mmorv"]
 script = ExtResource("20_3xtru")
 metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
+
+[sub_resource type="Resource" id="Resource_7tmnl"]
+script = ExtResource("20_n7bdd")
+metadata/_custom_type_script = "uid://c511gf8c34x2u"
 
 [sub_resource type="Resource" id="Resource_on3ir"]
 script = ExtResource("21_n7bdd")
@@ -360,7 +365,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
-CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv")])
+CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
 RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl")])
