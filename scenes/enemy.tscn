@@ -146,10 +146,11 @@ script = ExtResource("4_md484")
 enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=1595408084 node_paths=PackedStringArray("enemy", "detectionComponent")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1595408084 node_paths=PackedStringArray("enemy", "detectionComponent", "wanderComponent")]
 script = ExtResource("3_xwavj")
 enemy = NodePath("../..")
 detectionComponent = NodePath("../../DetectionComponent")
+wanderComponent = NodePath("../../WanderComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "detectionComponent", "pathfindComponent")]
@@ -178,17 +179,20 @@ script = ExtResource("9_wtq4b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=774907234]
 shape = SubResource("CircleShape2D_md484")
 
-[node name="WanderComponent" type="Node" parent="." unique_id=1687195080 node_paths=PackedStringArray("enemy")]
-script = ExtResource("10_j0cyh")
-enemy = NodePath("..")
-
-[node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("characterBody")]
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("characterBody", "animatedSprite2D")]
 script = ExtResource("11_w8i8w")
 characterBody = NodePath("..")
-maxSpeed = 30.0
+animatedSprite2D = NodePath("../AnimatedSprite2D")
+maxSpeed = 10.0
 acceleration = 10.0
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
-[node name="PathfindComponent" type="Node" parent="." unique_id=324770547 node_paths=PackedStringArray("velocityComponent")]
+[node name="PathfindComponent" type="Node" parent="." unique_id=324770547 node_paths=PackedStringArray("characterBody", "velocityComponent")]
 script = ExtResource("12_wtq4b")
+characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
+
+[node name="WanderComponent" type="Node" parent="." unique_id=1687195080 node_paths=PackedStringArray("characterBody", "pathfindComponent")]
+script = ExtResource("10_j0cyh")
+characterBody = NodePath("..")
+pathfindComponent = NodePath("../PathfindComponent")

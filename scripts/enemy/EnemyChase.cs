@@ -17,7 +17,7 @@ public partial class EnemyChase : States
         {
             ChangeState("idle");
         }
-        pathfindComponent.PathfindToPlayer(enemy);
+        pathfindComponent.PathfindToPlayer();
     }
 
 }

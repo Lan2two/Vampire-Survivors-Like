@@ -5,6 +5,7 @@ using System;
 public partial class VelocityComponent : Node2D
 {
     [Export] public CharacterBody2D characterBody;
+    [Export] public AnimatedSprite2D animatedSprite2D;
     [Export] public float maxSpeed = 100.0f;
     [Export] public float acceleration = 40.0f;
 
@@ -18,11 +19,14 @@ public partial class VelocityComponent : Node2D
 
     public void AccelerateToVelocity(Vector2 velocity)
     {
-        Velocity = Velocity.Lerp(velocity, acceleration * (float)GetProcessDeltaTime());
+        float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
+        Velocity = Velocity.MoveToward(velocity, step * maxSpeed);
     }
+
     public void AccelerateToDirection(Vector2 direction)
     {
-        Velocity = Velocity.Lerp(direction * maxSpeed, acceleration * (float)GetProcessDeltaTime());
+        float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
+        Velocity = Velocity.MoveToward(direction * maxSpeed, step * maxSpeed);
     }
     public Vector2 GetMaxVelocity()
     {
@@ -30,16 +34,37 @@ public partial class VelocityComponent : Node2D
     }
     public void Decelerate()
     {
-        Velocity = Velocity.Lerp(Vector2.Zero, acceleration * (float)GetProcessDeltaTime());
+        float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
+        Velocity = Velocity.MoveToward(Vector2.Zero, step * maxSpeed);
     }
+
+    public void Stop()
+    {
+        Velocity = Vector2.Zero;
+        if (characterBody != null)
+        {
+            characterBody.Velocity = Vector2.Zero;
+        }
+    }
+
     public void Move(Vector2 direction)
     {
-        if (direction.X != 0)
+        if (characterBody == null)
+            return;
+
+        if (direction.X != 0 && animatedSprite2D != null)
         {
-            this.GetPlayer().anim.FlipH = direction.X < 0;
+            animatedSprite2D.FlipH = direction.X < 0;
         }
+
+        if (direction == Vector2.Zero)
+        {
+            Stop();
+            return;
+        }
+
         characterBody.Velocity = Velocity;
-        characterBody.MoveAndSlide();
+        characterBody.MoveAndCollide(Velocity * (float)GetProcessDeltaTime());
     }
 
 
