@@ -7,6 +7,7 @@ public partial class StateMachine : Node
     Dictionary<string, States> _states = new();
     States currentState;
     [Export] States startingState;
+    public AnimatedSprite2D anim;
 
     public override void _Ready()
     {
@@ -25,9 +26,14 @@ public partial class StateMachine : Node
         {
             currentState = startingState;
             GD.Print("Current State: " + currentState.Name);
-            currentState.Enter();
+            CallDeferred(nameof(EnterCurrentState));
         }
 
+    }
+
+    private void EnterCurrentState()
+    {
+        currentState?.Enter();
     }
 
     public override void _Process(double delta)

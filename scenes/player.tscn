@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ch5qbeiukyfd0"]
 
 [ext_resource type="Texture2D" uid="uid://davyudedmf2dw" path="res://assets/sprites/knight.png" id="1_fjrip"]
+[ext_resource type="Script" uid="uid://bhbq8p8gic681" path="res://scripts/player/Player.cs" id="1_smehm"]
 [ext_resource type="Script" uid="uid://g80o8hshrv1n" path="res://scripts/player/StateMachine.cs" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://0c8vpks0a618" path="res://scripts/player/Idle.cs" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://cbdhn8h7th0ng" path="res://scripts/player/Move.cs" id="4_qlg0r"]
@@ -168,12 +169,13 @@ radius = 45.347282
 radius = 9.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1724972010]
+script = ExtResource("1_smehm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1701228797]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_pf23h")
-animation = &"idle"
-frame_progress = 0.39040312
+animation = &"move"
+frame_progress = 0.52073294
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
 scale = Vector2(0.15436426, 0.15436426)
@@ -183,11 +185,13 @@ shape = SubResource("CircleShape2D_4dvvg")
 script = ExtResource("2_qhqgy")
 startingState = NodePath("idle")
 
-[node name="idle" type="Node" parent="StateMachine" unique_id=631768234]
+[node name="idle" type="Node" parent="StateMachine" unique_id=631768234 node_paths=PackedStringArray("player")]
 script = ExtResource("3_qhqgy")
+player = NodePath("../..")
 
-[node name="move" type="Node" parent="StateMachine" unique_id=359843175]
+[node name="move" type="Node" parent="StateMachine" unique_id=359843175 node_paths=PackedStringArray("player")]
 script = ExtResource("4_qlg0r")
+player = NodePath("../..")
 
 [node name="attack" type="Node" parent="StateMachine" unique_id=1021731077]
 script = ExtResource("5_tuyoq")
@@ -201,3 +205,6 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=144013464]
 shape = SubResource("CircleShape2D_ur7pv")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=722524921]
+zoom = Vector2(5, 5)
