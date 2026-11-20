@@ -15,7 +15,7 @@ namespace SurvivorsGame
             }
         }
 
-        public void FadeIn(bool fadeIn)
+        public void FadeIn(bool fadeIn, float durationMultiplier = 1.0f)
         {
             Visible = true;
             if (tween != null && IsInstanceValid(tween))
@@ -34,7 +34,7 @@ namespace SurvivorsGame
                 Callable.From<float>(alpha => Modulate = new Color(Modulate.R, Modulate.G, Modulate.B, alpha)),
                 startAlpha,
                 endAlpha,
-                0.5f
+                0.5f * durationMultiplier
             ).SetTrans(Tween.TransitionType.Linear);
 
             tween.Finished += () =>
