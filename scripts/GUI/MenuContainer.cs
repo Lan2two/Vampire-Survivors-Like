@@ -24,7 +24,7 @@ namespace SurvivorsGame
                     if (buttons.ContainsKey(buttonName)) { continue; }
 
                     buttons.Add(buttonName, button);
-                    button.PivotOffsetRatio = new Vector2(0.5f, 0.5f);
+                    button.PivotOffsetRatio = new Vector2(0.5f, 1f);
                     button.CustomButtonHovered += OnHover;
                     button.MouseExited += ResetScale;
 
