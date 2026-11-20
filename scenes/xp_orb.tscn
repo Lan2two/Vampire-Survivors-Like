@@ -36,7 +36,7 @@ height = 8
 fill = 1
 fill_from = Vector2(0.5017361, 0.4982639)
 
-[node name="XpOrb" type="RigidBody2D" unique_id=740080798 groups=["XpOrbs"]]
+[node name="XpOrb" type="RigidBody2D" unique_id=740080798 node_paths=PackedStringArray("detectionComponent", "pathfindComponent") groups=["XpOrbs"]]
 y_sort_enabled = true
 collision_layer = 0
 physics_material_override = ExtResource("1_7dfxl")
@@ -44,6 +44,8 @@ lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 20
 script = ExtResource("1_me6n8")
+detectionComponent = NodePath("DetectionComponent")
+pathfindComponent = NodePath("PathfindComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599445404]
 position = Vector2(0, -1)

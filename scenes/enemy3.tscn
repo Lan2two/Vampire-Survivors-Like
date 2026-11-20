@@ -257,7 +257,7 @@ metadata/_custom_type_script = "uid://cdw8gc8lrtxck"
 
 [node name="LootComponent" type="Node" parent="." unique_id=1869586982 node_paths=PackedStringArray("enemy", "deathState")]
 script = ExtResource("16_iglgl")
-HealthDropRate = 100.0
+LootDropRate = 100.0
 enemy = NodePath("..")
 deathState = NodePath("../StateMachine/Death")
 XpOrbScene = ExtResource("17_dslev")

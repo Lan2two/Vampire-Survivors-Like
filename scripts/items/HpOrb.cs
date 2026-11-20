@@ -6,11 +6,13 @@ namespace SurvivorsGame
         [Export] public float HPAmount = 10f;
         public override void _Ready()
         {
+            base._Ready();
             BodyEntered += OnBodyEntered;
         }
 
         public override void _ExitTree()
         {
+            base._ExitTree();
             BodyEntered -= OnBodyEntered;
         }
 
