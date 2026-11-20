@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_m7x51"]
 [ext_resource type="Script" uid="uid://dm0ibj6ewsvk1" path="res://scripts/GUI/MenuContainer.cs" id="3_m7x51"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/CustomButton.cs" id="4_h61rw"]
+[ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcv5n"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -216,6 +217,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="Fade" type="ColorRect" parent="." unique_id=732324014]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -223,4 +225,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0)
+color = Color(0, 0, 0, 1)
+script = ExtResource("5_fcv5n")
+FadeInOnReady = false
