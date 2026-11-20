@@ -22,8 +22,8 @@ public partial class StateMachine : Node
         }
         if (startingState != null)
         {
-            GD.Print("Current State: " + currentState.Name);
             currentState = startingState;
+            GD.Print("Current State: " + currentState.Name);
             currentState.Enter();
         }
 
