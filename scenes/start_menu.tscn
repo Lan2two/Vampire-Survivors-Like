@@ -6,6 +6,116 @@
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/CustomButton.cs" id="4_h61rw"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 
+[sub_resource type="Animation" id="Animation_nxjfj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-156, 475.00003)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-196, 315)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-156.38339, 654.20154)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-196, 107)]
+}
+
+[sub_resource type="Animation" id="Animation_u4qax"]
+resource_name = "new_animation"
+length = 3.0001
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect4:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-156, 475.00003), Vector2(-156, 455)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-196, 315), Vector2(-196, 320)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-156.38339, 654.20154), Vector2(-156.383, 674.202)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect3:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-196, 107), Vector2(-196, 127)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5byqq"]
+_data = {
+&"RESET": SubResource("Animation_nxjfj"),
+&"new_animation": SubResource("Animation_u4qax")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcv5n"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 skew = Vector2(0.8, 0)
@@ -27,6 +137,116 @@ shadow_size = 4
 shadow_offset = Vector2(6, 6)
 
 [sub_resource type="Theme" id="Theme_m7x51"]
+
+[sub_resource type="Animation" id="Animation_4v6gu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.06981317]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StartButton:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.06981317]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OptionsButton:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.06981317]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ExitButton:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.06981317]
+}
+
+[sub_resource type="Animation" id="Animation_fcv5n"]
+resource_name = "bob"
+length = 8.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.1, 6.1, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.06981317, -0.07330382858376164, -0.06632251157578473, -0.06981317]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StartButton:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.2, 6.2, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.06981317, -0.055850536063818346, -0.08377580409572802, -0.06981317]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OptionsButton:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.3, 6.3, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.06981317, -0.08377580409572802, -0.055850536063818346, -0.06981317]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ExitButton:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.4, 6.4, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.06981317, -0.055850536063818346, -0.08377580409572802, -0.06981317]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nxjfj"]
+_data = {
+&"RESET": SubResource("Animation_4v6gu"),
+&"bob": SubResource("Animation_fcv5n")
+}
 
 [node name="Start Menu" type="Control" unique_id=1891589572]
 layout_mode = 3
@@ -56,7 +276,7 @@ anchor_bottom = 1.0
 offset_left = -196.0
 offset_top = 315.0
 offset_right = 24.591919
-offset_bottom = -338.66937
+offset_bottom = -134.96265
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
@@ -69,8 +289,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -156.38339
 offset_top = 654.20154
-offset_right = 64.208496
-offset_bottom = 81.10669
+offset_right = 64.208374
+offset_bottom = 290.31323
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
@@ -84,7 +304,7 @@ anchor_bottom = 1.0
 offset_left = -196.0
 offset_top = 107.0
 offset_right = 24.591919
-offset_bottom = -571.58966
+offset_bottom = -558.50366
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
@@ -97,12 +317,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -156.0
 offset_top = 475.00003
-offset_right = 64.59192
-offset_bottom = -169.31311
+offset_right = 64.59204
+offset_bottom = 39.450806
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
 color = Color(0, 0, 0, 0.23529412)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect" unique_id=1718023959]
+libraries/ = SubResource("AnimationLibrary_5byqq")
+autoplay = &"new_animation"
 
 [node name="MenuContainer" type="Control" parent="." unique_id=1074360344]
 layout_mode = 1
@@ -120,11 +344,14 @@ anchor_left = 0.04469786
 anchor_top = 0.05486107
 anchor_right = 0.72598284
 anchor_bottom = 0.1497718
-offset_right = -6.8911743
-offset_bottom = 60.664307
+offset_left = -1.4814453
+offset_top = -1.4811592
+offset_right = -8.372559
+offset_bottom = 59.18315
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 9
@@ -151,6 +378,7 @@ offset_bottom = 28.085266
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_m7x51")
@@ -177,6 +405,7 @@ offset_bottom = 28.085266
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_m7x51")
@@ -203,6 +432,7 @@ offset_bottom = 28.085236
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme = SubResource("Theme_m7x51")
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -215,6 +445,10 @@ text = "EXIT"
 script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuContainer" unique_id=569346262]
+libraries/ = SubResource("AnimationLibrary_nxjfj")
+autoplay = &"bob"
 
 [node name="Fade" type="ColorRect" parent="." unique_id=732324014]
 visible = false
