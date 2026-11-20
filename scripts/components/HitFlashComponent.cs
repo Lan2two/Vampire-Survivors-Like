@@ -30,15 +30,34 @@ public partial class HitFlashComponent : Node
 
     private void Flash()
     {
-        if (_flashTween != null && _flashTween.IsRunning())
+        if (Sprite == null)
+        {
+            return;
+        }
+
+        if (_flashTween != null)
         {
             _flashTween.Kill();
+            _flashTween = null;
         }
-        else
+
+        Sprite.Modulate = Colors.White;
+        _flashTween = CreateTween();
+        _flashTween.TweenProperty(Sprite, "modulate", flashColor, flashDuration)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+        _flashTween.TweenProperty(Sprite, "modulate", Colors.White, flashDuration)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut)
+            .SetDelay(flashDuration);
+
+        _flashTween.Finished += () =>
         {
-            _flashTween = CreateTween();
-            _flashTween.TweenProperty(Sprite, "modulate", flashColor, flashDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-            _flashTween.TweenProperty(Sprite, "modulate", Colors.White, flashDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut).SetDelay(flashDuration);
-        }
+            if (_flashTween != null)
+            {
+                _flashTween.Dispose();
+                _flashTween = null;
+            }
+        };
     }
 }

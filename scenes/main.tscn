@@ -246,3 +246,17 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Enemy" parent="." unique_id=1010643694 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy2" parent="." unique_id=814931911 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy3" parent="." unique_id=2116187120 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy4" parent="." unique_id=1416233242 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy5" parent="." unique_id=1869591610 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy6" parent="." unique_id=1023597261 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy7" parent="." unique_id=1848791434 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy8" parent="." unique_id=1448750854 instance=ExtResource("4_jyhfs")]
