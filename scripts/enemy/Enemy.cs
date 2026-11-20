@@ -22,10 +22,17 @@ namespace SurvivorsGame
                 }
             }
         }
+        public static int Alive = 0;
         public override void _Ready()
         {
             anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             collisionbox = GetNode<CollisionShape2D>("CollisionShape2D");
+            Alive++;
+        }
+
+        public override void _ExitTree()
+        {
+            Alive--;
         }
     }
 }

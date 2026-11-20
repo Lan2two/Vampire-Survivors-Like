@@ -6,6 +6,7 @@ namespace SurvivorsGame
     {
         [Export] public PackedScene EnemyScene;
         [Export] public double spawnInterval = 0.5;
+        [Export] private int _maxEnemies = 150;
 
         private PathFollow2D pathFollow;
         private double spawnTimer;
@@ -40,7 +41,7 @@ namespace SurvivorsGame
         public override void _PhysicsProcess(double delta)
         {
             spawnTimer -= delta;
-            if (spawnTimer > 0)
+            if (spawnTimer > 0 || Enemy.Alive >= _maxEnemies)
             {
                 return;
             }
