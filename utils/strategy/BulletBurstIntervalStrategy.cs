@@ -10,7 +10,7 @@ namespace SurvivorsGame
 
         public BulletBurstIntervalStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Burst Interval";
             ItemDescription = "Affects time between shots in bursts";
         }

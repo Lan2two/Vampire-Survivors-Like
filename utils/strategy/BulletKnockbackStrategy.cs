@@ -10,7 +10,7 @@ namespace SurvivorsGame
 
         public BulletKnockbackStrategy()
         {
-            upgradeType = UpgradeType.Bullet;
+            upgradeType = UpgradeType.Projectile;
             ItemName = "Heavier bullets";
             ItemDescription = "Bullet deals more knockback";
         }

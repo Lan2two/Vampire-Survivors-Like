@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ProjectileData" format=3 uid="uid://chmpvk2u7ljht"]
+
+[ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/ProjectileData.cs" id="1_td8c0"]
+
+[resource]
+script = ExtResource("1_td8c0")
+DamageBase = 5.0
+SpeedBase = 200.0
+MaxTravelDistanceBase = 100.0
+ProjectileCooldownBase = 5.0
+BurstBase = 5
+BurstIntervalBase = 0.3
+SpreadBase = 2.0
+metadata/_custom_type_script = "uid://de57a3gqbkhhn"

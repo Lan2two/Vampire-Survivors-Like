@@ -1,12 +1,11 @@
 namespace SurvivorsGame
 {
-    using Godot;
     public partial class Gun : ProjectileLauncher
     {
         public override void _Ready()
         {
             base._Ready();
-            OnUpgrade();
+            CallDeferred(MethodName.OnUpgrade);
             EventBus.BulletUpgrade += OnUpgrade;
         }
 
@@ -19,7 +18,7 @@ namespace SurvivorsGame
         private void OnUpgrade()
         {
             config = (ProjectileData)startingConfig.Duplicate();
-            upgradeManager.ApplyUpgrades(this, UpgradeType.Bullet);
+            upgradeManager.ApplyUpgrades(this, UpgradeType.Projectile);
             timer.WaitTime = config.GetStat("ProjectileCooldown").CalculateFinal();
         }
     }

@@ -7,7 +7,6 @@ namespace SurvivorsGame
     public partial class ProjectileLauncher : Area2D, IWeapon, IUpgradable
     {
         [ExportGroup("Projectile Launcher")]
-        [Export] public UpgradeManager upgradeManager;
         [Export] public ProjectileData startingConfig;
         [Export] PackedScene Scene;
         [Export] Texture2D texture2D;
@@ -18,6 +17,7 @@ namespace SurvivorsGame
         private Array<Node2D> enemiesInRange;
         public ProjectileData config;
         public Resource currentConfig => config;
+        public UpgradeManager upgradeManager;
         private bool shooting = true;
 
         public override void _Ready()
@@ -29,17 +29,12 @@ namespace SurvivorsGame
 
             if (startingConfig == null)
             {
-                GD.PrintErr("Launcher requires a BulletData resource.");
+                GD.PrintErr("Launcher requires a ProjectileData resource.");
                 return;
             }
             if (Scene == null)
             {
-                GD.PrintErr("Launcher requires a Bullet Scene.");
-                return;
-            }
-            if (upgradeManager == null)
-            {
-                GD.PrintErr("Launcher requires UpgradeManager.");
+                GD.PrintErr("Launcher requires a Projectile Scene.");
                 return;
             }
             if (sprite2D == null)
@@ -57,6 +52,12 @@ namespace SurvivorsGame
                 sprite2D.Texture = texture2D;
             }
             timer.Timeout += OnTimeout;
+            CallDeferred(MethodName.Onready);
+        }
+
+        private void Onready()
+        {
+            upgradeManager = this.GetPlayer().upgradeManager;
         }
 
         public override void _ExitTree()
