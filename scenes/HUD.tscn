@@ -211,8 +211,12 @@ script = ExtResource("27_vlu7s")
 metadata/_custom_type_script = "uid://pnm0lgg85gka"
 
 [sub_resource type="Resource" id="Resource_27n0u"]
+resource_local_to_scene = true
 script = ExtResource("28_igqi4")
-packedScene = ExtResource("28_jath5")
+PackedScene = ExtResource("28_jath5")
+"Subscene Configuration/Fade" = false
+"Subscene Configuration/TrailDuration" = 0.5
+"Subscene Configuration/TrailPoints" = 50
 ItemName = "Trail"
 ItemDescription = "Adds a trail to the player"
 metadata/_custom_type_script = "uid://dletf55xvu8sn"
