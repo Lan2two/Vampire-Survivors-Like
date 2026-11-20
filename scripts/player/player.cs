@@ -13,7 +13,6 @@ namespace SurvivorsGame
 		public HealthComponent healthComponent;
 		public VelocityComponent velocityComponent;
 		public Roll rollState;
-		public float totalXP;
 		public event Action PlayerDead;
 		private bool DeathGuard = false;
 		private float _baseMaxHealth = 100f;
