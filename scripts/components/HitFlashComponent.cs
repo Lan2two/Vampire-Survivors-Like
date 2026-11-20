@@ -24,11 +24,14 @@ public partial class HitFlashComponent : Node
 
     public override void _ExitTree()
     {
-        healthComponent.Damage -= Flash;
+        if (healthComponent != null)
+        {
+            healthComponent.Damage -= Flash;
+        }
     }
 
 
-    private void Flash()
+    private void Flash(Attack attackData)
     {
         if (Sprite == null)
         {
