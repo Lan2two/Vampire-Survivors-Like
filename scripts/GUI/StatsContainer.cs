@@ -13,7 +13,6 @@ namespace SurvivorsGame
             base._Ready();
             _totalStatsLabel = GetNodeOrNull<RichTextLabel>("Panel/TotalStatsLabel");
             LoadTotalStats();
-            GD.Print(animName);
         }
 
         private void LoadTotalStats()

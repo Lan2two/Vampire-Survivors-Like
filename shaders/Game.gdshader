@@ -6,6 +6,7 @@ uniform vec2 split_normal = vec2(1.0, -0.5);
 uniform float impact_flash : hint_range(0.0, 1.0) = 0.0;
 uniform bool invert_impact = false;
 uniform float speed_line_intensity : hint_range(0.0, 1.0) = 1.0;
+uniform float bw_cutoff : hint_range(0.0, 1.0) = 0.5;
 
 float hash(float n) {
     return fract(sin(n) * 43758.5453123);
@@ -13,9 +14,11 @@ float hash(float n) {
 
 void fragment() {
     vec2 norm = normalize(split_normal);
-    vec2 centered_uv = SCREEN_UV - vec2(0.55, .45);
+    vec2 tangent = vec2(-norm.y, norm.x);
+    vec2 centered_uv = SCREEN_UV - vec2(0.55, 0.45);
     
     float distance_from_split = dot(centered_uv, norm);
+    float position_along_split = dot(centered_uv, tangent);
     
     vec2 displacement = norm * split_offset;
     vec2 uv_offset = (distance_from_split > 0.0) ? -displacement : displacement;
@@ -25,27 +28,32 @@ void fragment() {
 
     if (impact_flash > 0.0) {
         float brightness = dot(scene_color.rgb, vec3(0.299, 0.587, 0.114));
-        float bw_threshold = step(0.5, brightness);
+        float bw_threshold = step(bw_cutoff, brightness);
         
         if (invert_impact) {
             bw_threshold = 1.0 - bw_threshold;
-        }
-    
-        float angle = atan(centered_uv.y, centered_uv.x);
-        float ray = step(0.92, hash(floor(angle * 350.0)));
-        float distance_mask = smoothstep(0.1, 0.45, length(centered_uv));
-        float lines = ray * distance_mask * speed_line_intensity;
-        
-        if (lines > 0.5) {
-            bw_threshold = 0.0; 
         }
 
         vec3 impact_color = vec3(bw_threshold);
         final_color = mix(scene_color.rgb, impact_color, impact_flash);
     }
 
-    if (abs(distance_from_split) < split_offset) {
-        final_color = vec3(0.0);
+    if (split_offset > 0.0) {
+        vec3 void_and_line_color = invert_impact ? vec3(0.0) : vec3(1.0);
+        
+        float dist_from_void_edge = max(0.0, abs(distance_from_split) - split_offset);
+        float ray_noise = hash(floor(position_along_split * 250.0));
+        float spike_reach = ray_noise * 0.45 * speed_line_intensity;
+        
+        float edge_spikes = step(dist_from_void_edge, spike_reach * 0.35);
+        float outer_rays = step(0.88, ray_noise) * smoothstep(0.0, 0.25, dist_from_void_edge) * speed_line_intensity;
+        
+        bool in_void = abs(distance_from_split) < split_offset;
+        bool in_lines = (edge_spikes > bw_cutoff || outer_rays > bw_cutoff);
+        
+        if (in_void || in_lines) {
+            final_color = void_and_line_color;
+        }
     }
 
     COLOR.rgb = final_color;

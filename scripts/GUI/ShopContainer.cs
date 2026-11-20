@@ -1,18 +1,19 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
-
-    public partial class ItemDisplay : Panel
+    public partial class ShopContainer : SubMenuContainer
     {
         private GridContainer _gridContainer;
         private Label _costLabel;
         private TextureRect _textureRect;
+        private Panel _itemDisplay;
         public override void _Ready()
         {
+            base._Ready();
             _gridContainer = GetNodeOrNull<GridContainer>("%GridContainer");
             _costLabel = GetNodeOrNull<Label>("%Label");
             _textureRect = GetNodeOrNull<TextureRect>("%TextureRect");
+            _itemDisplay = GetNodeOrNull<Panel>("Panel/ItemDisplay");
             foreach (ShopItem item in _gridContainer.GetChildren())
             {
                 item.ShowDetail += ShowDetail;
@@ -21,7 +22,7 @@ namespace SurvivorsGame
 
         private void ShowDetail(ShopItem item)
         {
-            GD.Print($"{item.cost}");
+            _itemDisplay.Visible = true;
             _costLabel.Text = $"{item.cost}";
             _textureRect.Texture = (Texture2D)item.texture;
         }

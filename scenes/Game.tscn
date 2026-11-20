@@ -1154,7 +1154,8 @@ shader_parameter/split_offset = 0.0
 shader_parameter/split_normal = Vector2(1, -0.5)
 shader_parameter/impact_flash = 0.0
 shader_parameter/invert_impact = false
-shader_parameter/speed_line_intensity = 0.5010000237975
+shader_parameter/speed_line_intensity = 0.0
+shader_parameter/bw_cutoff = 0.5
 
 [sub_resource type="Animation" id="Animation_vjgi4"]
 resource_name = "RESET"
@@ -1217,12 +1218,12 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.5010000237975]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_y5y3l"]
 resource_name = "impact"
-length = 0.8
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1230,7 +1231,7 @@ tracks/0/path = NodePath("ColorRect:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.14, 0.18, 0.43, 0.56, 0.8),
+"times": PackedFloat32Array(0, 0.05, 0.14, 0.18, 0.43, 0.56, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-12, 12), Vector2(8, -6), Vector2(-4, 4), Vector2(8, -6), Vector2(-4, 4), Vector2(0, 0)]
@@ -1242,10 +1243,10 @@ tracks/1/path = NodePath("ColorRect:material:shader_parameter/split_offset")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.35, 0.8),
-"transitions": PackedFloat32Array(1, 1, 2, 1),
+"times": PackedFloat32Array(0, 0.51, 1.1, 1.35, 2),
+"transitions": PackedFloat32Array(1, 0.054409362, 1, 2, 1),
 "update": 0,
-"values": [0.0, 0.10000000475, 0.010000000475, 0.0]
+"values": [0.0, 0.0, 0.10000000475, 0.010000000475, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1254,10 +1255,10 @@ tracks/2/path = NodePath("ColorRect:material:shader_parameter/impact_flash")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.3667, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [1.0, 1.0, 0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1266,10 +1267,10 @@ tracks/3/path = NodePath("ColorRect:material:shader_parameter/invert_impact")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.18, 0.2, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2000334, 0.26666668, 0.36670008, 0.4, 0.66666675, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 26.908693, 1),
 "update": 1,
-"values": [true, false, true, false, true, false]
+"values": [false, true, false, true, false, false, true]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1278,10 +1279,10 @@ tracks/4/path = NodePath("ColorRect:material:shader_parameter/speed_line_intensi
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.3, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.6, 1.4666667),
+"transitions": PackedFloat32Array(2.219138, 4.2870927, 0.1961461),
 "update": 0,
-"values": [1.0, 1.0, 0.510000024225, 0.0]
+"values": [0.0, 0.50000002375, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vjgi4"]

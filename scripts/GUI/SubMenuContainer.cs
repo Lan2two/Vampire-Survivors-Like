@@ -17,7 +17,7 @@ namespace SurvivorsGame
             _backButton.Pressed += BackButton;
         }
 
-        private void BackButton()
+        public virtual void BackButton()
         {
             GD.Print(animName);
             _mainMenuContainer.ResetMouseHoverSuppression();
