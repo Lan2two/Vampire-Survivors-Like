@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ch5qbeiukyfd0"]
+
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_g2els"]
+[ext_resource type="Script" uid="uid://g80o8hshrv1n" path="res://scripts/player/StateMachine.cs" id="2_qhqgy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4dvvg"]
+radius = 64.78183
+
+[node name="Player" type="CharacterBody2D" unique_id=1724972010]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=136221413]
+scale = Vector2(0.15436426, 0.15436426)
+texture = ExtResource("1_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
+scale = Vector2(0.15436426, 0.15436426)
+shape = SubResource("CircleShape2D_4dvvg")
+
+[node name="StateMachine" type="Node" parent="." unique_id=848243345 node_paths=PackedStringArray("startingState")]
+script = ExtResource("2_qhqgy")
+startingState = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateMachine" unique_id=631768234]
+
+[node name="move" type="Node" parent="StateMachine" unique_id=359843175]
+
+[node name="attack" type="Node" parent="StateMachine" unique_id=1021731077]
