@@ -10,7 +10,4 @@ public partial class Player : CharacterBody2D
 	{
 		anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
-	public override void _PhysicsProcess(double delta)
-	{
-	}
 }

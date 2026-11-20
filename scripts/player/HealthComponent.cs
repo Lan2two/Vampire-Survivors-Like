@@ -49,7 +49,6 @@ public partial class HealthComponent : Node
 
     private void Die()
     {
-        GD.Print("Player has died.");
         // Handle death logic here (e.g., respawn, game over screen, etc.)
 
     }
