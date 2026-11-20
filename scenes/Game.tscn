@@ -1149,12 +1149,13 @@ metadata/_snap_count = 20
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5y3l"]
 shader = ExtResource("15_r7sob")
-shader_parameter/split_offset = 0.0
+shader_parameter/split_offset = 0.2000000095
 shader_parameter/split_normal = Vector2(1, -0.5)
-shader_parameter/impact_flash = 0.0
+shader_parameter/impact_flash = 1.0
 shader_parameter/invert_impact = false
 shader_parameter/speed_line_intensity = 0.0
 shader_parameter/bw_cutoff = 0.5
+shader_parameter/shake_offset = Vector2(0, 0)
 
 [sub_resource type="Animation" id="Animation_vjgi4"]
 resource_name = "RESET"
@@ -1162,7 +1163,7 @@ length = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:position")
+tracks/0/path = NodePath("ColorRect:ShakeOffset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1174,7 +1175,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:material:shader_parameter/split_offset")
+tracks/1/path = NodePath("ColorRect:SplitOffset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1186,7 +1187,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:material:shader_parameter/impact_flash")
+tracks/2/path = NodePath("ColorRect:ImpactFlash")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1198,7 +1199,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ColorRect:material:shader_parameter/invert_impact")
+tracks/3/path = NodePath("ColorRect:InvertImpact")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1210,7 +1211,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ColorRect:material:shader_parameter/speed_line_intensity")
+tracks/4/path = NodePath("ColorRect:SpeedLineIntensity")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1222,7 +1223,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ColorRect:material:shader_parameter/bw_cutoff")
+tracks/5/path = NodePath("ColorRect:BwCutoff")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1238,31 +1239,31 @@ length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:position")
+tracks/0/path = NodePath("ColorRect:ShakeOffset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.14, 0.18, 0.43, 0.56, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-12, 12), Vector2(8, -6), Vector2(-4, 4), Vector2(8, -6), Vector2(-4, 4), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(-0.01, 0.015), Vector2(0.007, -0.008), Vector2(-0.004, 0.005), Vector2(0.007, -0.008), Vector2(-0.004, 0.005), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:material:shader_parameter/split_offset")
+tracks/1/path = NodePath("ColorRect:SplitOffset")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.4333333, 2.3666666, 2.9333334, 4),
 "transitions": PackedFloat32Array(1, 0.054409362, 2.2191384, 1, 1),
 "update": 0,
-"values": [0.0, 0.0, 0.10000000475, 0.050000002375, 0.0]
+"values": [0.2000000095, 0.0, 0.10000000475, 0.050000002375, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:material:shader_parameter/impact_flash")
+tracks/2/path = NodePath("ColorRect:ImpactFlash")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1274,7 +1275,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ColorRect:material:shader_parameter/invert_impact")
+tracks/3/path = NodePath("ColorRect:InvertImpact")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1286,7 +1287,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ColorRect:material:shader_parameter/speed_line_intensity")
+tracks/4/path = NodePath("ColorRect:SpeedLineIntensity")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1298,7 +1299,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ColorRect:material:shader_parameter/bw_cutoff")
+tracks/5/path = NodePath("ColorRect:BwCutoff")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1376,22 +1377,32 @@ scale = Vector2(5.732422, 6.0349936)
 color = Color(0.87775594, 0.94410115, 0.76046246, 1)
 texture = SubResource("GradientTexture2D_2rd6h")
 
-[node name="Coin" parent="." unique_id=579653615 instance=ExtResource("6_vjgi4")]
+[node name="Node2D" type="Node2D" parent="." unique_id=1750514284]
+
+[node name="Coin" parent="Node2D" unique_id=579653615 instance=ExtResource("6_vjgi4")]
 position = Vector2(-190, -19)
 ItemData = SubResource("Resource_choun")
 
 [node name="Objects" type="Node" parent="." unique_id=1707808884]
 
-[node name="Campfire" parent="Objects" unique_id=1670016202 instance=ExtResource("13_2rd6h")]
+[node name="Node2D" type="Node2D" parent="Objects" unique_id=1786930220]
+
+[node name="Campfire" parent="Objects/Node2D" unique_id=1670016202 instance=ExtResource("13_2rd6h")]
 position = Vector2(-229, -62)
 
-[node name="Campfire2" parent="Objects" unique_id=240434088 instance=ExtResource("13_2rd6h")]
+[node name="Node2D2" type="Node2D" parent="Objects" unique_id=1884004080]
+
+[node name="Campfire2" parent="Objects/Node2D2" unique_id=240434088 instance=ExtResource("13_2rd6h")]
 position = Vector2(-361, 184)
 
-[node name="Campfire3" parent="Objects" unique_id=1965595540 instance=ExtResource("13_2rd6h")]
+[node name="Node2D3" type="Node2D" parent="Objects" unique_id=2018912647]
+
+[node name="Campfire3" parent="Objects/Node2D3" unique_id=1965595540 instance=ExtResource("13_2rd6h")]
 position = Vector2(33, 194)
 
-[node name="Campfire4" parent="Objects" unique_id=328187902 instance=ExtResource("13_2rd6h")]
+[node name="Node2D4" type="Node2D" parent="Objects" unique_id=1624468965]
+
+[node name="Campfire4" parent="Objects/Node2D4" unique_id=328187902 instance=ExtResource("13_2rd6h")]
 position = Vector2(-717, -7)
 
 [node name="HUD" parent="." unique_id=1447957346 instance=ExtResource("12_mcffj")]
@@ -1406,7 +1417,10 @@ CycleTimeSeconds = 300.0
 process_mode = 3
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1022703155]
+z_index = 10
+z_as_relative = false
 material = SubResource("ShaderMaterial_y5y3l")
+custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
