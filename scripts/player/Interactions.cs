@@ -18,6 +18,7 @@ public partial class Interactions : Area2D
 
     public override void _Process(double delta)
     {
+        interactablesInRange = GetOverlappingAreas();
         if (interactablesInRange.Count > 0 && CanInteract)
         {
             interactablesInRange.OrderBy(area => GlobalPosition.DistanceTo(area.GlobalPosition));
@@ -38,7 +39,7 @@ public partial class Interactions : Area2D
     {
         if (Input.IsActionJustPressed("interact"))
         {
-
+            currentIntractable.EmitSignal(InteractableComponent.SignalName.Interact);
         }
     }
 

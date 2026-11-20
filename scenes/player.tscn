@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="10_y4r1p"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://ceegnlbuq4yyn" path="res://scripts/player/WeaponController.cs" id="12_jej6c"]
-[ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="13_f1ej7"]
 [ext_resource type="Script" uid="uid://dlmrtl8or42r4" path="res://scripts/player/InventoryManager.cs" id="14_f1ej7"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/DamageStrategy.cs" id="15_a8ls1"]
 [ext_resource type="Script" uid="uid://b2smhlmvtllwm" path="res://scripts/player/UpgradeManager.cs" id="15_oprun"]
@@ -346,11 +345,10 @@ upgradeManager = NodePath("../UpgradeManager")
 
 [node name="HandPosition" type="Marker2D" parent="WeaponController" unique_id=1586711627]
 
-[node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 instance=ExtResource("13_f1ej7")]
-
-[node name="InventoryManager" type="Node" parent="." unique_id=1110935275]
+[node name="InventoryManager" type="Node" parent="." unique_id=1110935275 node_paths=PackedStringArray("weaponController")]
 script = ExtResource("14_f1ej7")
 Upgrades = Array[Object]([SubResource("Resource_qfm1y"), SubResource("Resource_a8ls1")])
+weaponController = NodePath("../WeaponController")
 
 [node name="UpgradeManager" type="Node" parent="." unique_id=1180921809 node_paths=PackedStringArray("inventoryManager")]
 script = ExtResource("15_oprun")
@@ -372,6 +370,7 @@ script = ExtResource("18_fulsm")
 shape = SubResource("CircleShape2D_fulsm")
 
 [node name="Label" type="Label" parent="Interactions" unique_id=2017283089]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

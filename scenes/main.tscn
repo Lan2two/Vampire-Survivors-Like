@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cvkgnts3tn6n0" path="res://assets/sprites/Untitled115_20260604221553.png" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://rou1io4c6lci" path="res://scenes/enemy.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dmij8mi8skdhk" path="res://scenes/equipable.tscn" id="6_tefeu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -260,3 +261,6 @@ position_smoothing_speed = 10.0
 [node name="Enemy7" parent="." unique_id=1848791434 instance=ExtResource("4_jyhfs")]
 
 [node name="Enemy8" parent="." unique_id=1448750854 instance=ExtResource("4_jyhfs")]
+
+[node name="Equipable" parent="." unique_id=385991965 instance=ExtResource("6_tefeu")]
+position = Vector2(-149, 0)

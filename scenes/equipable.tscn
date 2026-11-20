@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dmij8mi8skdhk"]
+
+[ext_resource type="Script" uid="uid://bcpl8hj7u7ujm" path="res://scripts/items/Equipable.cs" id="1_paeka"]
+[ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="2_3i621"]
+[ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="2_d8lnu"]
+[ext_resource type="PackedScene" uid="uid://dhh130tvlwprl" path="res://scenes/interactable_component.tscn" id="4_3i621"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ch7y"]
+
+[node name="Equipable" type="Node2D" unique_id=385991965]
+script = ExtResource("1_paeka")
+texture = ExtResource("2_3i621")
+weapon = ExtResource("2_d8lnu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=921295257]
+
+[node name="InteractableComponent" parent="." unique_id=1101123131 instance=ExtResource("4_3i621")]
+interactName = "Coin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=788177655]
+shape = SubResource("CircleShape2D_1ch7y")
