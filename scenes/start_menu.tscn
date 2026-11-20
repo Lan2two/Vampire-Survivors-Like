@@ -183,7 +183,8 @@ theme_override_font_sizes/font_size = 75
 theme_override_styles/normal = SubResource("StyleBoxFlat_thu50")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_thu50")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h61rw")
-text = "OPTIONS"
+text = "OPTIONS
+"
 script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
@@ -213,3 +214,13 @@ text = "EXIT"
 script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
+
+[node name="Fade" type="ColorRect" parent="." unique_id=732324014]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
