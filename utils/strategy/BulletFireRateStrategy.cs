@@ -18,15 +18,15 @@ namespace SurvivorsGame
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is BulletData bulletData)
+            if (config is ProjectileData bulletData)
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    bulletData.GunCooldownPercent -= UpgradeCooldown;
+                    bulletData.ProjectileCooldownPercent -= UpgradeCooldown;
                 }
                 else
                 {
-                    bulletData.GunCooldownAdditive -= UpgradeCooldown;
+                    bulletData.ProjectileCooldownAdditive -= UpgradeCooldown;
                 }
             }
         }

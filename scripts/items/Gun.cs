@@ -1,106 +1,26 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using Godot.Collections;
-
-    [GlobalClass]
-    public partial class Gun : Area2D, IWeapon, IUpgradable
+    public partial class Gun : ProjectileLauncher
     {
-        [Export] private UpgradeManager upgradeManager;
-        Timer timer;
-        Marker2D ShootPoint;
-        Array<Node2D> enemiesInRange;
-        [Export] BulletData startingConfig;
-        [Export] PackedScene BULLET;
-        private BulletData config;
-        public Resource currentConfig => config;
-        private int Burst = 3;
-        private float BurstInterval = .2f;
-
         public override void _Ready()
         {
-            timer = GetNode<Timer>("Timer");
-            ShootPoint = GetNode<Marker2D>("%ShootPoint");
-
-            if (startingConfig == null)
-            {
-                GD.PrintErr("Gun requires a BulletData resource.");
-                return;
-            }
-            if (BULLET == null)
-            {
-                GD.PrintErr("Gun requires a Bullet Scene.");
-                return;
-            }
-            if (upgradeManager == null)
-            {
-                GD.PrintErr("Gun requires UpgradeManager.");
-                return;
-            }
+            base._Ready();
             OnUpgrade();
-            timer.Stop();
-            timer.Start();
-            timer.Timeout += Use;
             EventBus.BulletUpgrade += OnUpgrade;
         }
 
         public override void _ExitTree()
         {
-            if (timer != null)
-            {
-                timer.Timeout -= Use;
-            }
+            base._ExitTree();
             EventBus.BulletUpgrade -= OnUpgrade;
-        }
-
-
-        public override void _PhysicsProcess(double delta)
-        {
-            enemiesInRange = GetOverlappingBodies();
-            Node2D closestEnemy = null;
-            float closestDistSq = float.MaxValue;
-            foreach (Node2D enemy in enemiesInRange)
-            {
-                float distSq = GlobalPosition.DistanceSquaredTo(enemy.GlobalPosition);
-                if (distSq < closestDistSq)
-                {
-                    closestDistSq = distSq;
-                    closestEnemy = enemy;
-                }
-            }
-            if (closestEnemy != null)
-            {
-                LookAt(closestEnemy.GlobalPosition);
-            }
-        }
-
-        public void Use()
-        {
-            if (enemiesInRange.Count > 0)
-            {
-                int sign = 1;
-                for (int i = 0; i < config.GetStat("Burst").CalculateFinal(); i++)
-                {
-                    GetTree().CreateTimer(config.GetStat("BurstInterval").CalculateFinal() * i, false).Timeout += () =>
-                    {
-                        sign *= -1;
-                        float spread = (float)GD.RandRange(0, config.GetStat("Spread").CalculateFinal() / 2);
-                        Bullet newBullet = BULLET.Instantiate<Bullet>();
-                        newBullet.config = config;
-                        newBullet.Fire();
-                        newBullet.GlobalPosition = ShootPoint.GlobalPosition;
-                        newBullet.GlobalRotation = ShootPoint.GlobalRotation + spread * sign;
-                        ShootPoint.AddChild(newBullet);
-                    };
-                }
-            }
         }
 
         private void OnUpgrade()
         {
-            config = (BulletData)startingConfig.Duplicate();
+            config = (ProjectileData)startingConfig.Duplicate();
             upgradeManager.ApplyUpgrades(this, UpgradeType.Bullet);
-            timer.WaitTime = config.GetStat("GunCooldown").CalculateFinal();
+            timer.WaitTime = config.GetStat("ProjectileCooldown").CalculateFinal();
         }
     }
 }

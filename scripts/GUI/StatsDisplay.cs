@@ -2,7 +2,7 @@ namespace SurvivorsGame
 {
     using Godot;
 
-    public partial class StatsDisplay : ColorRect
+    public partial class StatsDisplay : Panel
     {
         private Label _statsLabel;
         private Player _player;
