@@ -1,7 +1,7 @@
 # Vampire-Survivors-Like
 
 A top-down survivors-like built in Godot 4.6 with C#(.NET 8). Fight off waves of enemies with automatic firing weapons and less automatic ones. Kill loot and stack upgrades so you can kill even more.<br>
-Some weapons you can pickup and drop others you can't
+Some weapons you can pickup and drop others you can't. <br>
 ```Demo Note: the player has god mode, the only interactable weapon is the coin at spawn. The run ends after 20 kills. Demo is still underbaked so you don't have upgrades and enemies don't drop loot```
 # Controls
 ### Movement
