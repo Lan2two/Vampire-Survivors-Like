@@ -1,12 +1,15 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using Godot.Collections;
 
     public partial class StartMenu : Control
     {
         private Control _menuContainer;
         private Button _startButton;
         private Button _exitButton;
+        private Array<Vector2> _originalPositions = new();
+        private int sign = 1;
 
         public override void _Ready()
         {
@@ -30,6 +33,11 @@ namespace SurvivorsGame
             }
             _startButton.Pressed += StartButton;
             _exitButton.Pressed += ExitButton;
+            ModulateMenu();
+            foreach (Control child in _menuContainer.GetChildren())
+            {
+                _originalPositions.Add(child.Position);
+            }
         }
 
         public override void _ExitTree()
@@ -42,6 +50,56 @@ namespace SurvivorsGame
             {
                 _exitButton.Pressed -= ExitButton;
             }
+        }
+
+        public override void _Process(double delta)
+        {
+            for (int i = 0; i < _menuContainer.GetChildren().Count; i++)
+            {
+                Control child = _menuContainer.GetChildren()[i] as Control;
+                if (child == null)
+                {
+                    return;
+                }
+                if (child.Position == _originalPositions[i])
+                {
+                    AnimateMenu(child);
+                }
+            }
+        }
+
+        private async void AnimateMenu(Control node)
+        {
+            sign *= -1;
+            Vector2 initialPosition = _originalPositions[_menuContainer.GetChildren().IndexOf(node)];
+            Vector2 offsetPosition = initialPosition + new Vector2(2, 3) * sign;
+            float duration = (float)GD.RandRange(1.5f, 1.55f);
+            Tween tween = node.CreateTween();
+            tween.TweenProperty(node, "position", offsetPosition, duration)
+                .SetTrans(Tween.TransitionType.Linear)
+                .SetEase(Tween.EaseType.InOut);
+            tween.TweenProperty(node, "rotation_degrees", GD.RandRange(-5, -4) + .2f, duration)
+                .SetTrans(Tween.TransitionType.Linear)
+                .SetEase(Tween.EaseType.InOut);
+            await ToSignal(GetTree().CreateTimer(duration), "timeout");
+            Tween tween1 = node.CreateTween();
+            tween1.TweenProperty(node, "position", initialPosition, duration)
+                .SetTrans(Tween.TransitionType.Linear)
+                .SetEase(Tween.EaseType.InOut);
+            tween1.TweenProperty(node, "rotation_degrees", -4f, duration)
+                .SetTrans(Tween.TransitionType.Linear)
+                .SetEase(Tween.EaseType.InOut);
+        }
+
+        private void ModulateMenu()
+        {
+            Color startingModulate = _menuContainer.Modulate;
+            startingModulate.A = 0.0f;
+            _menuContainer.Modulate = startingModulate;
+            _menuContainer.CreateTween()
+            .TweenProperty(_menuContainer, "modulate:a", 1.0f, 1.0f)
+            .SetTrans(Tween.TransitionType.Quad)
+            .SetEase(Tween.EaseType.Out);
         }
 
         private void StartButton()
