@@ -7,32 +7,36 @@ namespace SurvivorsGame
 
     public partial class Trail : Line2D
     {
+        [Export] float TrailDuration = .5f;
+        [Export] int TrailPoints = 20;
+        private float _StartingModulateA;
         private Node2D bullet;
         public override void _Ready()
         {
             bullet = GetParent() as Node2D;
             bullet.CallDeferred(Node.MethodName.RemoveChild, this);
             GetTree().CurrentScene.CallDeferred(Node.MethodName.AddChild, this);
+            _StartingModulateA = SelfModulate.A;
         }
 
         public override void _Process(double delta)
         {
             Color currentModulate = SelfModulate;
-            currentModulate.A = Mathf.Max(0, currentModulate.A - (float)(1.5f * delta));
+            currentModulate.A = Mathf.Max(0, currentModulate.A - (float)(_StartingModulateA / TrailDuration * delta));
             SelfModulate = currentModulate;
             if (SelfModulate.A <= 0)
             {
                 QueueFree();
             }
-            if (!IsInstanceValid(bullet))
+            if (IsInstanceValid(bullet))
             {
-                return;
+                AddPoint(bullet.GlobalPosition);
+                if (Points.Count() > TrailPoints)
+                {
+                    RemovePoint(0);
+                }
             }
-            AddPoint(bullet.GlobalPosition);
-            if (Points.Count() > 20)
-            {
-                RemovePoint(0);
-            }
+
         }
 
     }
