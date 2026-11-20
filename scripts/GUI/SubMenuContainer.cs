@@ -1,19 +1,20 @@
 namespace SurvivorsGame
 {
     using Godot;
+    [GlobalClass]
     public partial class SubMenuContainer : Control
     {
         [Export] public string animName;
         private Button _backButton;
         private AnimationPlayer _menuAnimation;
         private AnimationPlayer _optionAnimations;
-        private MainMenuContainer _mainMenuContainer;
+        private CarouselMenuContainer _mainMenuContainer;
         public override void _Ready()
         {
             _backButton = GetNodeOrNull<Button>("BackButton");
             _menuAnimation = GetNodeOrNull<AnimationPlayer>("../../MainMenu");
             _optionAnimations = GetNodeOrNull<AnimationPlayer>("../../Menus");
-            _mainMenuContainer = GetNode<MainMenuContainer>("../../MainMenuMotion/MainMenuContainer");
+            _mainMenuContainer = GetNode<CarouselMenuContainer>("../../MainMenuMotion/MainMenuContainer");
             _backButton.Pressed += BackButton;
         }
 

@@ -6,6 +6,8 @@ namespace SurvivorsGame
     public partial class EventBus
     {
         public static event Action AddButton;
+        public static event Action MoratoriumEvent;
+        public static event Action WorldSlashEvent;
         public static event Action PlayerUpgrade;
         public static event Action MeleeUpgrade;
         public static event Action GunUpgrade;
@@ -16,6 +18,18 @@ namespace SurvivorsGame
         {
             AddButton?.Invoke();
             GD.Print("Add buttons invoked");
+        }
+
+        public static void InvokeMoratorium()
+        {
+            MoratoriumEvent?.Invoke();
+            GD.Print("Moratorium event invoked");
+        }
+
+        public static void InvokeSlash()
+        {
+            WorldSlashEvent?.Invoke();
+            GD.Print("World Slash event invoked");
         }
 
         public static void InvokeUpgrades(Strategy strategy)

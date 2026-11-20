@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b3wfrqgky1ipk"]
+
+[ext_resource type="Script" uid="uid://wx2mmotn2vcr" path="res://scripts/status/Moratorium.cs" id="1_d5qou"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_vy6li"]
+
+[node name="Moratorium" type="Node2D" unique_id=1166831236]
+script = ExtResource("1_d5qou")
+
+[node name="Display" type="TextureProgressBar" parent="." unique_id=1568181052]
+modulate = Color(1, 1, 1, 0.46666667)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+step = 0.001
+fill_mode = 4
+texture_progress = ExtResource("2_vy6li")

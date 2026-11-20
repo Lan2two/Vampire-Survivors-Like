@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cycqgne5vj7fw"]
 
 [ext_resource type="Script" uid="uid://c1ipng8lk3qou" path="res://scripts/GUI/StartMenu.cs" id="1_nxjfj"]
-[ext_resource type="Script" uid="uid://dm0ibj6ewsvk1" path="res://scripts/GUI/MainMenuContainer.cs" id="2_fcv5n"]
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_m7x51"]
+[ext_resource type="Script" uid="uid://dm0ibj6ewsvk1" path="res://scripts/GUI/CarouselMenuContainer.cs" id="3_egh8s"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/CustomButton.cs" id="4_h61rw"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 [ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/SubMenuContainer.cs" id="6_nxjfj"]
@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="10_apowk"]
 [ext_resource type="Script" uid="uid://qmw2h1rpgmkx" path="res://scripts/GUI/ChecksContainer.cs" id="11_egh8s"]
 [ext_resource type="Script" uid="uid://8nbpk2j2cweq" path="res://scripts/GUI/ShopCoins.cs" id="14_b1kog"]
+[ext_resource type="Texture2D" uid="uid://ditxhq4h5mu2" path="res://assets/MapSelect/Forest.png" id="14_ruo1u"]
+[ext_resource type="Script" uid="uid://ets1jscwem1x" path="res://scripts/GUI/MapButton.cs" id="15_ruo1u"]
+[ext_resource type="PackedScene" uid="uid://cddh2vixop3f6" path="res://scenes/Game.tscn" id="16_gqu1h"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="17_s0oe1"]
 
 [sub_resource type="Animation" id="Animation_h61rw"]
 length = 0.001
@@ -203,6 +207,58 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../GameMotion:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2000, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../GameMotion:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b1kog"]
+resource_name = "game"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../GameMotion:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2000, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GameMotion:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.42, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_5byqq"]
 resource_name = "options"
@@ -303,6 +359,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58y3"]
 _data = {
 &"RESET": SubResource("Animation_e58y3"),
+&"game": SubResource("Animation_b1kog"),
 &"options": SubResource("Animation_5byqq"),
 &"shop": SubResource("Animation_egh8s"),
 &"stats": SubResource("Animation_vnuwp")
@@ -495,10 +552,12 @@ grow_vertical = 2
 script = ExtResource("1_nxjfj")
 
 [node name="MainMenu" type="AnimationPlayer" parent="." unique_id=569346262]
+unique_name_in_owner = true
 root_node = NodePath("../MainMenuMotion")
 libraries/ = SubResource("AnimationLibrary_nxjfj")
 
 [node name="Menus" type="AnimationPlayer" parent="." unique_id=753410683]
+unique_name_in_owner = true
 root_node = NodePath("../OptionsMotion")
 libraries/ = SubResource("AnimationLibrary_e58y3")
 
@@ -614,13 +673,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="MainMenuContainer" type="Node2D" parent="MainMenuMotion" unique_id=421222010 node_paths=PackedStringArray("PositionOffsetNode")]
 position = Vector2(919, 320)
-script = ExtResource("2_fcv5n")
-Spacing = 40.0
-OpacityStrength = 0.1
-ScaleStrength = 5.0
-SmoothingSpeed = 5.0
+script = ExtResource("3_egh8s")
+Spacing = 100.0
 SelectedIndex = 2
-FollowButtonFocus = false
 PositionOffsetNode = NodePath("Offset")
 
 [node name="Offset" type="Control" parent="MainMenuMotion/MainMenuContainer" unique_id=1074360344]
@@ -628,8 +683,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -361.25
-offset_bottom = -361.25
+offset_top = -481.25
+offset_bottom = -481.25
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -637,7 +692,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 
 [node name="StatsButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1070812510]
-modulate = Color(1, 1, 1, 0.94)
+modulate = Color(1, 1, 1, 0.39999998)
 z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -648,7 +703,7 @@ offset_bottom = 112.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.0715585
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(300, 56.25006)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
@@ -668,19 +723,19 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1329301000]
-modulate = Color(1, 1, 1, 0.97)
+modulate = Color(1, 1, 1, 0.7)
 z_index = -1
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
 anchors_preset = -1
 offset_left = -300.0
-offset_top = 152.5
+offset_top = 212.5
 offset_right = 300.0
-offset_bottom = 265.0
+offset_bottom = 325.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(300, 56.25)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
@@ -710,9 +765,9 @@ anchor_top = 0.27603936
 anchor_right = 0.41422606
 anchor_bottom = 0.33923844
 offset_left = -300.0
-offset_top = 305.0
+offset_top = 425.0
 offset_right = 300.0
-offset_bottom = 417.5
+offset_bottom = 537.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.073303826
@@ -733,19 +788,19 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="ShopButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=645824201]
-modulate = Color(1, 1, 1, 0.97)
+modulate = Color(1, 1, 1, 0.7)
 z_index = -1
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
 anchors_preset = -1
 offset_left = -300.0
-offset_top = 457.5
+offset_top = 637.5
 offset_right = 300.0
-offset_bottom = 570.0
+offset_bottom = 750.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.0715585
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(300, 56.25006)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
@@ -765,7 +820,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1415925070]
-modulate = Color(1, 1, 1, 0.94)
+modulate = Color(1, 1, 1, 0.39999998)
 z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -775,13 +830,13 @@ anchor_top = 0.67407966
 anchor_right = 0.5453482
 anchor_bottom = 0.7411985
 offset_left = -300.0
-offset_top = 610.0
+offset_top = 850.0
 offset_right = 300.0
-offset_bottom = 722.5
+offset_bottom = 962.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06632251
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(300, 56.25)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
@@ -802,6 +857,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="Fade" type="ColorRect" parent="." unique_id=732324014]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -824,6 +880,7 @@ offset_left = 2000.0
 offset_right = 1999.9998
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="OptionsContainer" type="Control" parent="OptionsMotion" unique_id=811449237]
 layout_mode = 1
@@ -832,6 +889,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("6_nxjfj")
 animName = "options"
 
@@ -876,6 +934,7 @@ offset_right = 0.00024414063
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="OptionsMotion/OptionsContainer/Panel" unique_id=1219577441]
@@ -1001,7 +1060,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2000.0
-offset_right = 1999.9983
+offset_right = 1999.9978
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1343,3 +1402,164 @@ grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_egh8s")
+
+[node name="GameMotion" type="Control" parent="." unique_id=1079595491]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2000.0
+offset_right = 1999.9988
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GameContainer" type="Control" parent="GameMotion" unique_id=394148380]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_nxjfj")
+animName = "game"
+metadata/_custom_type_script = "uid://dg5bxmg21hgxp"
+
+[node name="BackButton" type="Button" parent="GameMotion/GameContainer" unique_id=1664015418]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.018749813
+anchor_top = 0.86736095
+anchor_right = 0.33457637
+anchor_bottom = 0.9325204
+offset_right = -4.257324
+offset_bottom = 28.085236
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.06981317
+scale = Vector2(0.8, 0.8)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 3
+theme = SubResource("Theme_m7x51")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h61rw")
+text = "Back
+"
+script = ExtResource("4_h61rw")
+metadata/_custom_type_script = "uid://c2qtgcffduvb"
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="GameMotion/GameContainer" unique_id=983955975]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05234372
+anchor_top = 0.036111113
+anchor_right = 0.9414056
+anchor_bottom = 0.7722222
+offset_left = 1.5258789e-05
+offset_right = 0.00024414063
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="GameMotion/GameContainer/Panel" unique_id=1058300904]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39103323
+anchor_top = -0.034372266
+anchor_right = 0.6159875
+anchor_bottom = 0.15808056
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 128
+text = "Map Select"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CarouselMenuContainer" type="Node2D" parent="GameMotion/GameContainer/Panel" unique_id=1138245899 node_paths=PackedStringArray("PositionOffsetNode")]
+position = Vector2(576, 312)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("3_egh8s")
+IsHorizontal = true
+FollowButtonFocus = false
+PositionOffsetNode = NodePath("Offset")
+
+[node name="Offset" type="Control" parent="GameMotion/GameContainer/Panel/CarouselMenuContainer" unique_id=1467778380]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_right = -640.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="TextureButton2" type="TextureButton" parent="GameMotion/GameContainer/Panel/CarouselMenuContainer/Offset" unique_id=728905572]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = -360.0
+offset_right = 1280.0
+offset_bottom = 360.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture_normal = ExtResource("14_ruo1u")
+script = ExtResource("15_ruo1u")
+packedScene = ExtResource("16_gqu1h")
+
+[node name="TextureButton" type="TextureButton" parent="GameMotion/GameContainer/Panel/CarouselMenuContainer/Offset" unique_id=283327516]
+modulate = Color(1, 1, 1, 0.7)
+z_index = -1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1330.0
+offset_top = -360.0
+offset_right = 2610.0
+offset_bottom = 360.0
+grow_horizontal = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+focus_mode = 0
+mouse_filter = 2
+texture_normal = ExtResource("17_s0oe1")
+stretch_mode = 0
+script = ExtResource("15_ruo1u")
+
+[node name="TextureButton3" type="TextureButton" parent="GameMotion/GameContainer/Panel/CarouselMenuContainer/Offset" unique_id=1178493481]
+modulate = Color(1, 1, 1, 0.39999998)
+z_index = -2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2660.0
+offset_top = -360.0
+offset_right = 3940.0
+offset_bottom = 360.0
+grow_horizontal = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+focus_mode = 0
+mouse_filter = 2
+texture_normal = ExtResource("17_s0oe1")
+stretch_mode = 0
+script = ExtResource("15_ruo1u")

@@ -9,6 +9,7 @@ namespace SurvivorsGame
     public partial class GameScene : Node2D
     {
         [Export] private int _absorbXpInterval = 100;
+        [Export] PackedScene MoratoriumScene;
         private Control gameOverNode;
         private Label gameOverLabel;
         private CanvasLayer HUD;
@@ -60,6 +61,7 @@ namespace SurvivorsGame
                 return;
             }
             player.PlayerDead += PlayerDeath;
+            EventBus.MoratoriumEvent += Moratorium;
         }
 
         public override void _ExitTree()
@@ -68,6 +70,7 @@ namespace SurvivorsGame
             {
                 player.PlayerDead -= PlayerDeath;
             }
+            EventBus.MoratoriumEvent -= Moratorium;
         }
 
         public override void _PhysicsProcess(double delta)
@@ -107,6 +110,18 @@ namespace SurvivorsGame
             GD.Print("GameOver");
             GetTree().CreateTimer(.1).Timeout += PauseGame;
             GameOverEvent?.Invoke();
+        }
+
+        private void Moratorium()
+        {
+            if (MoratoriumScene == null) return;
+
+            Array<Node> GlobalEnemies = GetTree().GetNodesInGroup("enemies");
+            foreach (Enemy enemy in GlobalEnemies)
+            {
+                Moratorium moratorium = MoratoriumScene.Instantiate<Moratorium>();
+                enemy.AddChild(moratorium);
+            }
         }
 
         private void PauseGame()

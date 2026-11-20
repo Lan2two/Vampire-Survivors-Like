@@ -15,14 +15,14 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
-            _fadeRect = GetNodeOrNull<Fade>("Fade");
+            _fadeRect = GetNodeOrNull<Fade>("%Fade");
             _startButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StartButton");
             _optionsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/OptionsButton");
             _statsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StatsButton");
             _exitButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/ExitButton");
             _shopButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/ShopButton");
-            _menuAnimation = GetNodeOrNull<AnimationPlayer>("MainMenu");
-            _optionAnimations = GetNodeOrNull<AnimationPlayer>("Menus");
+            _menuAnimation = GetNodeOrNull<AnimationPlayer>("%MainMenu");
+            _optionAnimations = GetNodeOrNull<AnimationPlayer>("%Menus");
 
             if (_startButton == null || _exitButton == null)
             {
@@ -56,15 +56,8 @@ namespace SurvivorsGame
 
         private void StartButton()
         {
-            if (_fadeRect == null) return;
             _menuAnimation.PlayBackwards("fade");
-            _fadeRect.FadeIn(false);
-
-            GetTree().CreateTimer(0.5f).Timeout += () =>
-            {
-                if (!IsInstanceValid(this)) return;
-                GetTree().ChangeSceneToFile("res://scenes/Game.tscn");
-            };
+            _optionAnimations.Play("game");
         }
 
         private void OptionsButton()

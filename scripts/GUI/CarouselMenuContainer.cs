@@ -5,13 +5,13 @@ namespace SurvivorsGame
 #if !GODOT_WEB
     [Tool]
 #endif
-    public partial class MainMenuContainer : Node2D
+    public partial class CarouselMenuContainer : Node2D
     {
+        [Export] public bool IsHorizontal { get; set; } = false;
         [Export] public float Spacing { get; set; } = 50.0f;
         [Export] public bool WraparoundEnabled { get; set; } = false;
         [Export] public float Radius { get; set; } = 300.0f;
         [Export] public float WraparoundWidth { get; set; } = 100.0f;
-
         [Export(PropertyHint.Range, "0.1,5.0,0.1")] public float OpacityStrength { get; set; } = 1.0f;
         [Export(PropertyHint.Range, "0.1,5.0,0.1")] public float ScaleStrength { get; set; } = 1.0f;
         [Export(PropertyHint.Range, "0.0,1.0,0.05")] public float ScaleMin { get; set; } = 0.5f;
@@ -168,7 +168,6 @@ namespace SurvivorsGame
             if (WraparoundEnabled)
             {
                 float maxIndexRange = Mathf.Max(1.0f, children.Count / 2.0f);
-
                 for (int i = 0; i < children.Count; i++)
                 {
                     if (children[i] is not Control child) continue;
@@ -177,12 +176,21 @@ namespace SurvivorsGame
                     float clampedDiff = Mathf.Clamp(indexDiff, -1.0f, 1.0f);
                     float angle = clampedDiff * Mathf.Pi;
 
-                    float posX = -Mathf.Cos(angle) * WraparoundWidth;
-                    float posY = Mathf.Sin(angle) * Radius;
+                    Vector2 targetPos;
+                    if (IsHorizontal)
+                    {
+                        float posX = Mathf.Sin(angle) * Radius;
+                        float posY = -Mathf.Cos(angle) * WraparoundWidth;
+                        targetPos = new Vector2(posX, posY) - (child.Size / 2.0f);
+                    }
+                    else
+                    {
+                        float posX = -Mathf.Cos(angle) * WraparoundWidth;
+                        float posY = Mathf.Sin(angle) * Radius;
+                        targetPos = new Vector2(posX, posY) - (child.Size / 2.0f);
+                    }
 
-                    Vector2 targetPos = new Vector2(posX, posY) - (child.Size / 2.0f);
                     child.Position = child.Position.Lerp(targetPos, SmoothingSpeed * dt);
-
                     ApplyVisuals(child, i, dt);
                 }
 
@@ -190,25 +198,41 @@ namespace SurvivorsGame
             }
             else
             {
-                float currentY = 0.0f;
-
+                float currentOffset = 0.0f;
                 for (int i = 0; i < children.Count; i++)
                 {
                     if (children[i] is not Control child) continue;
 
-                    float targetPosY = currentY;
-                    currentY += child.Size.Y + Spacing;
+                    Vector2 targetPos;
+                    if (IsHorizontal)
+                    {
+                        targetPos = new Vector2(currentOffset, -child.Size.Y / 2.0f);
+                        currentOffset += child.Size.X + Spacing;
+                    }
+                    else
+                    {
+                        targetPos = new Vector2(-child.Size.X / 2.0f, currentOffset);
+                        currentOffset += child.Size.Y + Spacing;
+                    }
 
-                    Vector2 targetPos = new Vector2(-child.Size.X / 2.0f, targetPosY);
                     child.Position = targetPos;
-
                     ApplyVisuals(child, i, dt);
                 }
 
                 if (children[SelectedIndex] is Control selectedChild)
                 {
-                    float finalTargetOffsetY = -(selectedChild.Position.Y + (selectedChild.Size.Y / 2.0f));
-                    Vector2 targetOffsetPos = new Vector2(0.0f, finalTargetOffsetY);
+                    Vector2 targetOffsetPos;
+                    if (IsHorizontal)
+                    {
+                        float finalTargetOffsetX = -(selectedChild.Position.X + (selectedChild.Size.X / 2.0f));
+                        targetOffsetPos = new Vector2(finalTargetOffsetX, 0.0f);
+                    }
+                    else
+                    {
+                        float finalTargetOffsetY = -(selectedChild.Position.Y + (selectedChild.Size.Y / 2.0f));
+                        targetOffsetPos = new Vector2(0.0f, finalTargetOffsetY);
+                    }
+
                     PositionOffsetNode.Position = PositionOffsetNode.Position.Lerp(targetOffsetPos, SmoothingSpeed * dt);
                 }
             }
@@ -251,17 +275,17 @@ namespace SurvivorsGame
                 child.FocusMode = Control.FocusModeEnum.None;
             }
         }
-
         public void MoveUp()
         {
             if (PositionOffsetNode == null) return;
             ScrollTo(SelectedIndex - 1);
         }
-
         public void MoveDown()
         {
             if (PositionOffsetNode == null) return;
             ScrollTo(SelectedIndex + 1);
         }
+        public void MoveLeft() => MoveUp();
+        public void MoveRight() => MoveDown();
     }
 }

@@ -5,6 +5,7 @@ namespace SurvivorsGame
     public partial class Fade : ColorRect
     {
         [Export] bool FadeInOnReady = true;
+        public float fadeDuration = 0.5f;
         private Tween tween;
 
         public override void _Ready()
@@ -34,7 +35,7 @@ namespace SurvivorsGame
                 Callable.From<float>(alpha => Modulate = new Color(Modulate.R, Modulate.G, Modulate.B, alpha)),
                 startAlpha,
                 endAlpha,
-                0.5f * durationMultiplier
+                fadeDuration * durationMultiplier
             ).SetTrans(Tween.TransitionType.Linear);
 
             tween.Finished += () =>
