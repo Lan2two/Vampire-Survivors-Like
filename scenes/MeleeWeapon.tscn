@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="2_io1w2"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="3_77l1b"]
 
-[sub_resource type="Resource" id="Resource_xucw5"]
+[sub_resource type="Resource" id="Resource_io1w2"]
 script = ExtResource("2_77l1b")
 SwingSpeedMultiplier = 2.0
 metadata/_custom_type_script = "uid://dn3ljl5g8ukin"
@@ -51,7 +51,7 @@ _data = {
 
 [node name="MeleeWeapon" type="Node2D" unique_id=100259256 node_paths=PackedStringArray("damageComponent")]
 script = ExtResource("1_t7crx")
-config = SubResource("Resource_xucw5")
+Baseconfig = SubResource("Resource_io1w2")
 damageComponent = NodePath("Sprite2D/DamageComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=434499713]

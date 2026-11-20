@@ -27,15 +27,9 @@ public partial class WeaponController : Node2D
     {
         if (weapon is MeleeWeapon melee)
         {
-            if (melee.config != null)
-            {
-                melee.config = (MeleeWeaponData)melee.config.Duplicate();
-            }
-            else
-            {
-                melee.config = new MeleeWeaponData();
-            }
+            melee.config = (MeleeWeaponData)melee.Baseconfig.Duplicate();
             upgradeManager.UpgradeMelee(melee);
+            melee.UpdateDamage();
         }
         weapon.Use();
     }

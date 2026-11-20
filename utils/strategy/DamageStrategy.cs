@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class DamageBulletStrategy : Strategy, IStrategy
+public partial class DamageStrategy : Strategy, IStrategy
 {
     [Export] float UpgradeDamage { get; set; } = 5f;
     public void ApplyUpgrade(Node2D node2D)
@@ -9,6 +9,10 @@ public partial class DamageBulletStrategy : Strategy, IStrategy
         if (node2D is Bullet bullet)
         {
             bullet.config.Damage += UpgradeDamage;
+        }
+        if (node2D is MeleeWeapon meleeWeapon)
+        {
+            meleeWeapon.config.Damage += UpgradeDamage;
         }
     }
 
