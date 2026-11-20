@@ -1,7 +1,5 @@
 using Godot;
-
-[GlobalClass]
-public partial class Attack : Resource
+public partial class Attack
 {
     public float Damage { get; set; } = 0;
     public Vector2 GlobalPosition { get; set; } = Vector2.Zero;

@@ -12,11 +12,10 @@ metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 4.0
 
-[node name="Bullet" type="Area2D" unique_id=575893659 node_paths=PackedStringArray("damageComponent")]
+[node name="Bullet" type="Area2D" unique_id=575893659]
 top_level = true
 script = ExtResource("1_y25gk")
 config = SubResource("Resource_qncy5")
-damageComponent = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028173980]
 scale = Vector2(0.057799753, 0.057799753)

@@ -6,7 +6,7 @@ public partial class HealthComponent : Node
 {
     [Export] float maxHealth = 100f;
 
-    [Signal] public delegate void DamageEventHandler(Attack attackData);
+    public event Action<Attack> Damage;
     public float currentHealth;
 
     public override void _Ready()
@@ -17,7 +17,7 @@ public partial class HealthComponent : Node
     public void TakeDamage(Attack attackData)
     {
         currentHealth -= attackData.Damage;
-        EmitSignal(SignalName.Damage, attackData);
+        Damage.Invoke(attackData);
         GD.Print("Took damage: " + attackData.Damage + ", Current Health: " + currentHealth);
     }
 
