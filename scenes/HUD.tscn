@@ -36,7 +36,6 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_8inel"]
 script = ExtResource("13_fire_rate")
-UpgradePool = 5
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="Resource" id="Resource_vjrnn"]
@@ -84,6 +83,61 @@ Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_5eteg"), SubReso
 UpgradePool = 2
 ItemName = "Heavy Rounds"
 ItemDescription = "Bullets deal more damage and knockback but take longer to fire"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_ll5b4"]
+script = ExtResource("6_dcyui")
+UpgradeDamage = -8.0
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_3k6xw"]
+script = ExtResource("9_8fbvn")
+metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
+
+[sub_resource type="Resource" id="Resource_dkerm"]
+script = ExtResource("13_fire_rate")
+UpgradeCooldown = 0.4
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_db6u7"]
+script = ExtResource("7_8inel")
+UpgradeKnockback = -50.0
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[sub_resource type="Resource" id="Resource_72onm"]
+script = ExtResource("16_5eteg")
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_ll5b4"), SubResource("Resource_3k6xw"), SubResource("Resource_dkerm"), SubResource("Resource_db6u7")])
+UpgradePool = 2
+ItemName = "Light Rounds"
+ItemDescription = "Faster firing and bullets for less damage"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_yy3iv"]
+script = ExtResource("8_vjrnn")
+UpgradePierce = 2
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[sub_resource type="Resource" id="Resource_7mxsn"]
+script = ExtResource("9_8fbvn")
+UpgradeSpeed = 150.0
+metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
+
+[sub_resource type="Resource" id="Resource_vlu7s"]
+script = ExtResource("6_dcyui")
+UpgradeDamage = 50.0
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_igqi4"]
+script = ExtResource("13_fire_rate")
+UpgradeCooldown = -2.0
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_jath5"]
+script = ExtResource("16_5eteg")
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy3iv"), SubResource("Resource_7mxsn"), SubResource("Resource_vlu7s"), SubResource("Resource_igqi4")])
+UpgradePool = 2
+ItemName = "Sniper Rounds"
+ItemDescription = "Upgrades piercing, damage, and bullet speed, longer cooldown"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
@@ -243,7 +297,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5")])
 xpBar = NodePath("../../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]

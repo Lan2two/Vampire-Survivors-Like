@@ -3,9 +3,11 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletSpeedStrategy : Strategy, IStrategy
+    public partial class BulletSpeedStrategy : Strategy, IStrategy, IStatUpgrade
     {
         [Export] float UpgradeSpeed { get; set; } = 25f;
+        public float Amount => UpgradeSpeed;
+
         public BulletSpeedStrategy()
         {
             upgradeType = UpgradeType.Bullet;
@@ -14,9 +16,14 @@ namespace SurvivorsGame
         }
         public void ApplyUpgrade(Resource config)
         {
+            ApplyUpgrade(config, UpgradeSpeed);
+        }
+
+        public void ApplyUpgrade(Resource config, float totalAmount)
+        {
             if (config is BulletData damageable)
             {
-                damageable.Speed += UpgradeSpeed;
+                damageable.Speed += totalAmount;
             }
         }
     }
