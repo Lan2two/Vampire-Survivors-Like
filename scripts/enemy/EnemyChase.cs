@@ -1,19 +1,22 @@
-using Godot;
-using System;
-
-public partial class EnemyChase : States
+namespace SurvivorsGame
 {
-    [Export] Enemy enemy;
-    [Export] DetectionComponent detectionComponent;
-    [Export] PathfindComponent pathfindComponent;
+    using Godot;
+    using System;
 
-    public override void Enter()
+    public partial class EnemyChase : States
     {
-        enemy.anim.Play("idle");
-    }
-    public override void PhysicsUpdate(double delta)
-    {
-        pathfindComponent?.PathfindToPlayer();
-    }
+        [Export] Enemy enemy;
+        [Export] DetectionComponent detectionComponent;
+        [Export] PathfindComponent pathfindComponent;
 
+        public override void Enter()
+        {
+            enemy.anim.Play("idle");
+        }
+        public override void PhysicsUpdate(double delta)
+        {
+            pathfindComponent?.PathfindToPlayer();
+        }
+
+    }
 }

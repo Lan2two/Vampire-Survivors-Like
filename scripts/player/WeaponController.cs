@@ -1,44 +1,47 @@
-using Godot;
-using System;
-using System.Linq;
-
-public partial class WeaponController : Node2D
+namespace SurvivorsGame
 {
-    [Export] StateMachine stateMachine;
-    [Export] UpgradeManager upgradeManager;
-    [Export] InventoryManager inventoryManager;
-    public Marker2D handposition;
-    public IWeapon weapon;
+    using Godot;
+    using System;
+    using System.Linq;
 
-    public override void _Ready()
+    public partial class WeaponController : Node2D
     {
-        handposition = GetNode<Marker2D>("HandPosition");
-    }
-    public override void _Process(double delta)
-    {
-        AimRotationCursor();
-        if (Input.IsActionPressed("m1"))
-        {
-            TryForAttack();
-        }
-        if (Input.IsActionJustPressed("drop_weapon"))
-        {
-            inventoryManager.DropWeapon();
-        }
-    }
+        [Export] StateMachine stateMachine;
+        [Export] UpgradeManager upgradeManager;
+        [Export] InventoryManager inventoryManager;
+        public Marker2D handposition;
+        public IWeapon weapon;
 
-    private void TryForAttack()
-    {
-        if (weapon == null)
+        public override void _Ready()
         {
-            return;
+            handposition = GetNode<Marker2D>("HandPosition");
         }
-        weapon.Use(upgradeManager);
-    }
+        public override void _Process(double delta)
+        {
+            AimRotationCursor();
+            if (Input.IsActionPressed("m1"))
+            {
+                TryForAttack();
+            }
+            if (Input.IsActionJustPressed("drop_weapon"))
+            {
+                inventoryManager.DropWeapon();
+            }
+        }
 
-    private void AimRotationCursor()
-    {
-        Vector2 mousePosition = GetGlobalMousePosition();
-        handposition.LookAt(mousePosition);
+        private void TryForAttack()
+        {
+            if (weapon == null)
+            {
+                return;
+            }
+            weapon.Use(upgradeManager);
+        }
+
+        private void AimRotationCursor()
+        {
+            Vector2 mousePosition = GetGlobalMousePosition();
+            handposition.LookAt(mousePosition);
+        }
     }
 }

@@ -1,17 +1,20 @@
-using Godot;
-using System;
-
-public partial class UpgradeManager : Node
+namespace SurvivorsGame
 {
-    [Export] InventoryManager inventoryManager;
+    using Godot;
+    using System;
 
-    public void ApplyUpgrades(Resource config, UpgradeType targetType)
+    public partial class UpgradeManager : Node
     {
-        foreach (Strategy strategy in inventoryManager.Upgrades)
+        [Export] InventoryManager inventoryManager;
+
+        public void ApplyUpgrades(Resource config, UpgradeType targetType)
         {
-            if (strategy.upgradeType == targetType && strategy is IStrategy s)
+            foreach (Strategy strategy in inventoryManager.Upgrades)
             {
-                s.ApplyUpgrade(config);
+                if (strategy.upgradeType == targetType && strategy is IStrategy s)
+                {
+                    s.ApplyUpgrade(config);
+                }
             }
         }
     }

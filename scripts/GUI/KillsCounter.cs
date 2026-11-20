@@ -1,23 +1,26 @@
-using Godot;
-using System;
-
-public partial class KillsCounter : Label
+namespace SurvivorsGame
 {
-    public override void _Ready()
+    using Godot;
+    using System;
+
+    public partial class KillsCounter : Label
     {
-        Text = $"Kills: {Enemy.EnemiesKilled}";
-        Enemy.EnemyDied += UpdateCounter;
+        public override void _Ready()
+        {
+            Text = $"Kills: {Enemy.EnemiesKilled}";
+            Enemy.EnemyDied += UpdateCounter;
+        }
+
+        public override void _ExitTree()
+        {
+            Enemy.EnemyDied -= UpdateCounter;
+        }
+
+        private void UpdateCounter(Enemy enemy)
+        {
+            Text = $"Kills: {Enemy.EnemiesKilled}";
+        }
+
+
     }
-
-    public override void _ExitTree()
-    {
-        Enemy.EnemyDied -= UpdateCounter;
-    }
-
-    private void UpdateCounter(Enemy enemy)
-    {
-        Text = $"Kills: {Enemy.EnemiesKilled}";
-    }
-
-
 }

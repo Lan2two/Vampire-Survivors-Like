@@ -1,18 +1,21 @@
-using Godot;
-
-public static class NodeExtensions
+namespace SurvivorsGame
 {
-    public static Player GetPlayer(this Node node)
+    using Godot;
+
+    public static class NodeExtensions
     {
-        SceneTree tree = node.GetTree();
-        Player player = tree.GetFirstNodeInGroup("player") as Player;
-        if (player != null)
+        public static Player GetPlayer(this Node node)
         {
-            return player;
-        }
-        else
-        {
-            return null;
+            SceneTree tree = node.GetTree();
+            Player player = tree.GetFirstNodeInGroup("player") as Player;
+            if (player != null)
+            {
+                return player;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

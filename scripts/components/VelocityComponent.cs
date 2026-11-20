@@ -1,82 +1,100 @@
-using Godot;
-using System;
-
-[GlobalClass]
-public partial class VelocityComponent : Node2D
+namespace SurvivorsGame
 {
-    [Export] public CharacterBody2D characterBody;
-    [Export] public AnimatedSprite2D animatedSprite2D;
-    [Export] public float maxSpeed = 100.0f;
-    [Export] public float acceleration = 40.0f;
+    using Godot;
+    using System;
 
-    public Vector2 Velocity;
-
-
-    public override void _Ready()
+    [GlobalClass]
+    public partial class VelocityComponent : Node2D
     {
-        base._Ready();
+        [Export] public RigidBody2D rigidBody;
+        [Export] public AnimatedSprite2D animatedSprite2D;
+        [Export] public float maxSpeed = 100.0f;
+        [Export] public float acceleration = 40.0f;
 
-        if (characterBody != null)
+        public Vector2 Velocity;
+
+        public override void _Ready()
         {
-            characterBody.MotionMode = CharacterBody2D.MotionModeEnum.Floating;
-        }
-    }
+            if (rigidBody == null)
+            {
+                GD.PrintErr($"{Name}: RigidBody2D is not assigned.");
+                SetPhysicsProcess(false);
+                return;
+            }
 
-    public void AccelerateToVelocity(Vector2 velocity)
-    {
-        float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
-        Velocity = Velocity.MoveToward(velocity, step * maxSpeed);
-    }
-
-    public void AccelerateToDirection(Vector2 direction)
-    {
-        float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
-        Velocity = Velocity.MoveToward(direction * maxSpeed, step * maxSpeed);
-    }
-    public Vector2 GetMaxVelocity()
-    {
-        return Velocity * maxSpeed;
-    }
-    public void Decelerate()
-    {
-        float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
-        Velocity = Velocity.MoveToward(Vector2.Zero, step * acceleration);
-    }
-
-    public void Stop()
-    {
-        Velocity = Vector2.Zero;
-        if (characterBody != null)
-        {
-            characterBody.Velocity = Vector2.Zero;
-        }
-    }
-
-
-    public void Move(Vector2 direction)
-    {
-        if (characterBody == null)
-            return;
-
-        if (direction.X != 0 && animatedSprite2D != null)
-        {
-            animatedSprite2D.FlipH = direction.X < 0;
+            rigidBody.GravityScale = 0.0f;
+            rigidBody.LockRotation = true;
         }
 
-        if (direction == Vector2.Zero)
+        public void AccelerateToVelocity(Vector2 velocity)
         {
-            Stop();
-            return;
+            float step = Mathf.Clamp(acceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
+            Velocity = Velocity.MoveToward(velocity, step * maxSpeed);
         }
 
-        characterBody.Velocity = Velocity;
-    }
-    public override void _PhysicsProcess(double delta)
-    {
-        characterBody.Velocity = Velocity;
-        characterBody.MoveAndSlide();
-        Decelerate();
-    }
+        public void AccelerateToDirection(Vector2 direction)
+        {
+            float step = Mathf.Clamp(acceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
+            Velocity = Velocity.MoveToward(direction * maxSpeed, step * maxSpeed);
+        }
 
+        public Vector2 GetMaxVelocity()
+        {
+            return Velocity;
+        }
 
+        public void Decelerate()
+        {
+            float step = Mathf.Clamp(acceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
+            Velocity = Velocity.MoveToward(Vector2.Zero, step * acceleration);
+        }
+
+        public void Stop()
+        {
+            Velocity = Vector2.Zero;
+        }
+
+        public void ApplyVelocityChange(Vector2 velocityChange)
+        {
+            if (rigidBody == null || !IsInstanceValid(rigidBody))
+            {
+                return;
+            }
+
+            rigidBody.ApplyCentralImpulse(velocityChange * rigidBody.Mass);
+        }
+
+        public void Move(Vector2 direction)
+        {
+            if (direction.X != 0 && animatedSprite2D != null)
+            {
+                animatedSprite2D.FlipH = direction.X < 0;
+            }
+
+            if (direction == Vector2.Zero)
+            {
+                Stop();
+                return;
+            }
+        }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            if (rigidBody == null || !IsInstanceValid(rigidBody))
+            {
+                return;
+            }
+
+            if (delta > 0.0)
+            {
+                float maxAcceleration = Mathf.Max(0.0f, maxSpeed * acceleration);
+                Vector2 velocityError = Velocity - rigidBody.LinearVelocity;
+                Vector2 desiredAcceleration = (velocityError / (float)delta).LimitLength(maxAcceleration);
+                rigidBody.ApplyCentralForce(desiredAcceleration * rigidBody.Mass);
+            }
+
+            Decelerate();
+        }
+
+    }
 }

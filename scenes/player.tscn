@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="17_qfm1y"]
 [ext_resource type="Script" uid="uid://dgy61lxty6j4q" path="res://scripts/player/Interactions.cs" id="18_fulsm"]
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="19_4r5pv"]
+[ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="20_physics"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -292,8 +293,12 @@ metadata/_custom_type_script = "uid://c3leaqfncc7tu"
 [sub_resource type="CircleShape2D" id="CircleShape2D_fulsm"]
 radius = 16.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1724972010 groups=["player"]]
+[node name="Player" type="RigidBody2D" unique_id=1724972010 groups=["player"]]
 collision_layer = 5
+collision_mask = 3
+physics_material_override = ExtResource("20_physics")
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_ur7pv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1701228797]
@@ -335,9 +340,9 @@ healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=144013464]
 shape = SubResource("CircleShape2D_ur7pv")
 
-[node name="VelocityComponent" type="Node2D" parent="." unique_id=1509356134 node_paths=PackedStringArray("characterBody", "animatedSprite2D")]
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=1509356134 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
 script = ExtResource("10_y4r1p")
-characterBody = NodePath("..")
+rigidBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
 
 [node name="HitFlashComponent" type="Node" parent="." unique_id=1194158263 node_paths=PackedStringArray("Sprite", "healthComponent")]

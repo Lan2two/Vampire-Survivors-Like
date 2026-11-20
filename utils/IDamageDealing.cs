@@ -1,5 +1,8 @@
-public interface IDamageDealing
+namespace SurvivorsGame
 {
-    float Damage { get; set; }
-    float Knockback { get; set; }
+    public interface IDamageDealing
+    {
+        float Damage { get; set; }
+        float Knockback { get; set; }
+    }
 }

@@ -1,24 +1,27 @@
-using Godot;
-using System;
-
-[GlobalClass]
-public partial class HealthComponent : Node
+namespace SurvivorsGame
 {
-    [Export] float maxHealth = 100f;
+    using Godot;
+    using System;
 
-    public event Action<Attack> Damage;
-    public float currentHealth;
-
-    public override void _Ready()
+    [GlobalClass]
+    public partial class HealthComponent : Node
     {
-        currentHealth = maxHealth;
+        [Export] float maxHealth = 100f;
+
+        public event Action<Attack> Damage;
+        public float currentHealth;
+
+        public override void _Ready()
+        {
+            currentHealth = maxHealth;
+        }
+
+        public void TakeDamage(Attack attackData)
+        {
+            currentHealth -= attackData.Damage;
+            Damage?.Invoke(attackData);
+        }
+
+
     }
-
-    public void TakeDamage(Attack attackData)
-    {
-        currentHealth -= attackData.Damage;
-        Damage?.Invoke(attackData);
-    }
-
-
 }

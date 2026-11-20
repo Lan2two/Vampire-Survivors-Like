@@ -1,6 +1,9 @@
-using Godot;
-
-public interface IStrategy
+namespace SurvivorsGame
 {
-    void ApplyUpgrade(Resource config);
+    using Godot;
+
+    public interface IStrategy
+    {
+        void ApplyUpgrade(Resource config);
+    }
 }

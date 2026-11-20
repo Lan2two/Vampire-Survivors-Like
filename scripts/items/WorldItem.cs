@@ -1,38 +1,41 @@
-using Godot;
-using System;
-
-[GlobalClass]
-public partial class WorldItem : Node2D
+namespace SurvivorsGame
 {
-    [Export] public ItemData ItemData;
-    InteractableComponent interactableComponent;
-    Sprite2D sprite2D;
+    using Godot;
+    using System;
 
-    public override void _Ready()
+    [GlobalClass]
+    public partial class WorldItem : Node2D
     {
-        if (Engine.IsEditorHint()) return;
-        interactableComponent = GetNode<InteractableComponent>("InteractableComponent");
-        sprite2D = GetNode<Sprite2D>("Sprite2D");
-        interactableComponent.Interact += OnInteract;
-        if (ItemData != null)
+        [Export] public ItemData ItemData;
+        InteractableComponent interactableComponent;
+        Sprite2D sprite2D;
+
+        public override void _Ready()
         {
-            sprite2D.Texture = ItemData.ItemIcon;
-            interactableComponent.interactName = $"Pick up {ItemData.ItemName} [F]";
+            if (Engine.IsEditorHint()) return;
+            interactableComponent = GetNode<InteractableComponent>("InteractableComponent");
+            sprite2D = GetNode<Sprite2D>("Sprite2D");
+            interactableComponent.Interact += OnInteract;
+            if (ItemData != null)
+            {
+                sprite2D.Texture = ItemData.ItemIcon;
+                interactableComponent.interactName = $"Pick up {ItemData.ItemName} [F]";
+            }
         }
-    }
 
-    public override void _ExitTree()
-    {
-        interactableComponent.Interact -= OnInteract;
-    }
-
-
-    private void OnInteract()
-    {
-        bool picked = this.GetPlayer().inventoryManager.AddItem(ItemData);
-        if (picked)
+        public override void _ExitTree()
         {
-            QueueFree();
+            interactableComponent.Interact -= OnInteract;
+        }
+
+
+        private void OnInteract()
+        {
+            bool picked = this.GetPlayer().inventoryManager.AddItem(ItemData);
+            if (picked)
+            {
+                QueueFree();
+            }
         }
     }
 }

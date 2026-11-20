@@ -1,14 +1,17 @@
-using Godot;
-
-[GlobalClass]
-public partial class KnockbackStrategy : Strategy, IStrategy
+namespace SurvivorsGame
 {
-    [Export] float UpgradeKnockback { get; set; } = 10f;
-    public void ApplyUpgrade(Resource config)
+    using Godot;
+
+    [GlobalClass]
+    public partial class KnockbackStrategy : Strategy, IStrategy
     {
-        if (config is IDamageDealing damageable)
+        [Export] float UpgradeKnockback { get; set; } = 10f;
+        public void ApplyUpgrade(Resource config)
         {
-            damageable.Knockback += UpgradeKnockback;
+            if (config is IDamageDealing damageable)
+            {
+                damageable.Knockback += UpgradeKnockback;
+            }
         }
     }
 }

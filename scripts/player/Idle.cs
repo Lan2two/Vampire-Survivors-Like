@@ -1,18 +1,21 @@
-using Godot;
-using System;
-
-public partial class Idle : States
+namespace SurvivorsGame
 {
-    public override void Enter()
+    using Godot;
+    using System;
+
+    public partial class Idle : States
     {
-        this.GetPlayer().anim.Play("idle");
-    }
-    public override void PhysicsUpdate(double delta)
-    {
-        Vector2 direction = Input.GetVector("left", "right", "up", "down");
-        if (direction != Vector2.Zero)
+        public override void Enter()
         {
-            ChangeState("Move");
+            this.GetPlayer().anim.Play("idle");
+        }
+        public override void PhysicsUpdate(double delta)
+        {
+            Vector2 direction = Input.GetVector("left", "right", "up", "down");
+            if (direction != Vector2.Zero)
+            {
+                ChangeState("Move");
+            }
         }
     }
 }
