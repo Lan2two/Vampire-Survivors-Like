@@ -29,9 +29,9 @@ public partial class DeathComponent : Node
 
     private async void Die()
     {
-        damageComponent?.QueueFree();
+        damageComponent?.SetDeferred("collision_mask", 0);
         velocityComponent?.Stop();
-        characterBody?.QueueFree();
+        characterBody?.SetDeferred("collision_layer", 0);
 
         if (Sprite?.SpriteFrames.HasAnimation("die") == true)
         {

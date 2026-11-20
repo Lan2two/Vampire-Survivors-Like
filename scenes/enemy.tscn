@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="15_g0wcc"]
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="16_s1ycm"]
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="17_shcg2"]
-[ext_resource type="PackedScene" uid="uid://bip5ogwimo5xy" path="res://scenes/floating_numbers.tscn" id="18_ile5s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -235,11 +234,12 @@ script = ExtResource("13_wtq4b")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 
-[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "healthComponent", "velocityComponent", "Sprite")]
+[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "healthComponent", "velocityComponent", "damageComponent", "Sprite")]
 script = ExtResource("14_j0cyh")
 characterBody = NodePath("..")
 healthComponent = NodePath("../HealthComponent")
 velocityComponent = NodePath("../VelocityComponent")
+damageComponent = NodePath("../DamageComponent")
 Sprite = NodePath("../AnimatedSprite2D")
 
 [node name="DamageComponent" type="Area2D" parent="." unique_id=1858224252]
@@ -261,5 +261,4 @@ characterBody = NodePath("..")
 [node name="FctComponent" type="Node2D" parent="." unique_id=401156257 node_paths=PackedStringArray("healthComponent")]
 script = ExtResource("17_shcg2")
 healthComponent = NodePath("../HealthComponent")
-damageLabelScene = ExtResource("18_ile5s")
 metadata/_custom_type_script = "uid://cdw8gc8lrtxck"

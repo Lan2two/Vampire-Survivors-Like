@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dywixrbgtp314" path="res://resources/MeleeWeaponBase.cs" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="8_choun"]
 [ext_resource type="PackedScene" uid="uid://f7c0v7jmqee1" path="res://scenes/still.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://rou1io4c6lci" path="res://scenes/enemy.tscn" id="10_choun"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -269,3 +270,6 @@ ItemData = SubResource("Resource_choun")
 [node name="Enemy" parent="." unique_id=1010643694 instance=ExtResource("9_85g3d")]
 y_sort_enabled = true
 position = Vector2(7, -41)
+
+[node name="Enemy2" parent="." unique_id=2000380022 instance=ExtResource("10_choun")]
+position = Vector2(2, 9)

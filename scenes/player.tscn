@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://ceegnlbuq4yyn" path="res://scripts/player/WeaponController.cs" id="12_jej6c"]
 [ext_resource type="Script" uid="uid://dlmrtl8or42r4" path="res://scripts/player/InventoryManager.cs" id="14_f1ej7"]
+[ext_resource type="Script" uid="uid://ddu5sx4am1lol" path="res://utils/strategy/KnockbackStrategy.cs" id="15_60mlk"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/DamageStrategy.cs" id="15_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://d1t24gaxw444e" path="res://scenes/item.tscn" id="15_fulsm"]
 [ext_resource type="Script" uid="uid://b2smhlmvtllwm" path="res://scripts/player/UpgradeManager.cs" id="15_oprun"]
@@ -283,6 +284,11 @@ script = ExtResource("15_a8ls1")
 upgradeType = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
+[sub_resource type="Resource" id="Resource_i4ail"]
+script = ExtResource("15_60mlk")
+UpgradeKnockback = 100.0
+metadata/_custom_type_script = "uid://ddu5sx4am1lol"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_fulsm"]
 radius = 16.0
 
@@ -349,7 +355,7 @@ inventoryManager = NodePath("../InventoryManager")
 
 [node name="InventoryManager" type="Node" parent="." unique_id=1110935275 node_paths=PackedStringArray("weaponController")]
 script = ExtResource("14_f1ej7")
-Upgrades = Array[Object]([SubResource("Resource_qfm1y"), SubResource("Resource_a8ls1")])
+Upgrades = Array[Object]([SubResource("Resource_qfm1y"), SubResource("Resource_a8ls1"), SubResource("Resource_i4ail")])
 weaponController = NodePath("../WeaponController")
 WorldItemScene = ExtResource("15_fulsm")
 

@@ -5,7 +5,7 @@ public partial class Roll : States
 {
     [Export] HitboxComponent hitboxComponent;
     [Export] VelocityComponent velocityComponent;
-    [Export] double rollCooldown = 5f;
+    [Export] double rollCooldown = 3f;
     private bool animationplaying;
     private double timer = 0;
     Vector2 direction;
