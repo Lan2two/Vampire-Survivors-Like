@@ -2,11 +2,87 @@
 
 [ext_resource type="Script" uid="uid://yqp04a743l0o" path="res://scripts/components/InteractableComponent.cs" id="1_54scn"]
 [ext_resource type="Script" uid="uid://bwewa73y6r483" path="res://scripts/world/Campfire.cs" id="1_yfrnb"]
-[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_yfrnb"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="4_8pk5p"]
+[ext_resource type="Texture2D" uid="uid://sit3ejh2g124" path="res://assets/sprites/Campfire.png" id="5_m6xh0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8pk5p"]
-radius = 11.045361
+radius = 16.124516
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v5ef"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63vhv"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_te7ig"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2pjx"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f1eb"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbayf"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73d8c"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdo0i"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03221"]
+atlas = ExtResource("5_m6xh0")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ravfa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v5ef")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63vhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_te7ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2pjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0f1eb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbayf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73d8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdo0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03221")
+}],
+"loop": true,
+"name": &"lit",
+"speed": 3.0
+}]
 
 [sub_resource type="Gradient" id="Gradient_mcffj"]
 interpolation_color_space = 2
@@ -24,7 +100,11 @@ fill_from = Vector2(0.5017361, 0.4982639)
 radius = 48.0
 height = 132.0
 
-[node name="Campfire" type="Node2D" unique_id=436587811]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m6xh0"]
+radius = 6.0
+height = 28.0
+
+[node name="Campfire" type="StaticBody2D" unique_id=1670016202]
 script = ExtResource("1_yfrnb")
 
 [node name="InteractableComponent" type="Area2D" parent="." unique_id=33965412]
@@ -38,9 +118,13 @@ metadata/_custom_type_script = "uid://yqp04a743l0o"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=484671731]
 shape = SubResource("CircleShape2D_8pk5p")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=919938622]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_yfrnb")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=222156081]
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ravfa")
+animation = &"lit"
+autoplay = "default"
+frame_progress = 0.9640328
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=110549552]
 visible = false
@@ -68,3 +152,10 @@ shape = SubResource("CapsuleShape2D_8pk5p")
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=1322770816]
 one_shot = true
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=773725102]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1827930665]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_m6xh0")
