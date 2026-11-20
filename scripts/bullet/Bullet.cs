@@ -8,14 +8,6 @@ public partial class Bullet : Area2D
     private int hitCount = 0;
     public override void _Ready()
     {
-        if (config != null)
-        {
-            config = (BulletData)config.Duplicate();
-        }
-        else
-        {
-            config = new BulletData();
-        }
         AreaEntered += OnAreaEntered;
     }
 
