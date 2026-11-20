@@ -6,7 +6,7 @@ namespace SurvivorsGame
     public partial class HurtboxComponent : Area2D
     {
         [Export] public HealthComponent healthComponent;
-        [Export] public double iFrames = 0.1;
+        [Export] public double iFrames = 0.05;
         private double _iFramesTimer;
         private CollisionShape2D _hurtboxShape;
         public override void _Ready()
