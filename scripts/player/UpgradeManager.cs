@@ -5,18 +5,17 @@ namespace SurvivorsGame
 
     public partial class UpgradeManager : Node
     {
-        private const int CompositeDepth = 4;
+        private const int CompositeDepth = 6;
         private static readonly UpgradeCalculationMode[] ApplyOrder = { UpgradeCalculationMode.Additive, UpgradeCalculationMode.Percentage };
         [Export] InventoryManager inventoryManager;
 
-        public void ApplyUpgrades(Node node, Resource config, UpgradeType targetType)
+        public void ApplyUpgrades(Node2D node, Resource config, UpgradeType targetType)
         {
             List<StatUpgradeTotal> statUpgrades = new();
             foreach (Strategy strategy in inventoryManager.Upgrades)
             {
                 ApplyStrategy(strategy, config, targetType, 0, statUpgrades);
             }
-
             foreach (UpgradeCalculationMode mode in ApplyOrder)
             {
                 foreach (StatUpgradeTotal total in statUpgrades)
@@ -27,9 +26,16 @@ namespace SurvivorsGame
                     }
                 }
             }
-
             foreach (Strategy strat in inventoryManager.NodeQueue)
             {
+                if (strat == null)
+                {
+                    return;
+                }
+                if (strat.upgradeType != targetType)
+                {
+                    return;
+                }
                 if (strat is IAttachment attachment)
                 {
                     attachment.ApplyUpgrade(node);
@@ -51,11 +57,11 @@ namespace SurvivorsGame
             }
             if (strategy is CompositeStrategy composite)
             {
+                if (strategy is IAttachment)
+                {
+                    inventoryManager.NodeQueue.Add(strategy);
+                }
                 ApplyComposite(composite, config, targetType, depth, statUpgrades);
-                return;
-            }
-            if (strategy is IAttachment)
-            {
                 return;
             }
             if (strategy.upgradeType != targetType)
