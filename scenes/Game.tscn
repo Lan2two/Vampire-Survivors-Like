@@ -1134,7 +1134,7 @@ tile_set = SubResource("TileSet_7ua8r")
 
 [node name="Tree" type="TileMapLayer" parent="Node2D" unique_id=911237371]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AADr/wkAAAAAAAgAAAD3/wMAAAAAAAgAAADz//z/AAAAAAgAAADw/wYAAAAAAAgAAAD6/wcAAAAAAAgAAAD2/wkAAAAAAAgAAAACAAYAAAAAAAgAAAA=")
+tile_map_data = PackedByteArray("AADr/wkAAAAAAAgAAADz//z/AAAAAAgAAADw/wYAAAAAAAgAAAARAAUAAAAAAAgAAAAfAPf/AAAAAAgAAAD1//D/AAAAAAgAAADa//P/AAAAAAgAAADR/wMAAAAAAAgAAADT/w0AAAAAAAgAAADc/xIAAAAAAAgAAAD0/xIAAAAAAAgAAAARABIAAAAAAAgAAAAwAP7/AAAAAAgAAAApAPH/AAAAAAgAAADo/+z/AAAAAAgAAAAMAPH/AAAAAAgAAADl//z/AAAAAAgAAAAtABQAAAAAAAgAAADc/xkAAAAAAAgAAAAcABsAAAAAAAgAAAA=")
 tile_set = SubResource("TileSet_mcffj")
 
 [node name="Player" parent="." unique_id=1724972010 instance=ExtResource("2_2rd6h")]

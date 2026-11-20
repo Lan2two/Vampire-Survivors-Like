@@ -5,7 +5,8 @@ namespace SurvivorsGame
     public enum UpgradeType
     {
         Bullet,
-        Melee
+        Melee,
+        Player
     }
 
     public enum UpgradeCalculationMode

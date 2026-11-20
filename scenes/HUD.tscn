@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://di31h4p0cxet7" path="res://scripts/GUI/GameTime.cs" id="21_t8u3o"]
 [ext_resource type="Script" uid="uid://c1jxa2l0e5qpd" path="res://utils/strategy/MeleeCritRateStrategy.cs" id="22_yy3iv"]
 [ext_resource type="Script" uid="uid://d27j145v6nms" path="res://utils/strategy/MeleeCritDamageStrategy.cs" id="23_7mxsn"]
+[ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="24_db6u7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -188,6 +189,17 @@ Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_yy1yx"), SubReso
 ItemName = "Lucky Strike"
 ItemDescription = "Crits for melee"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
+
+[sub_resource type="Resource" id="Resource_ahuxd"]
+script = ExtResource("24_db6u7")
+ItemName = "HP add"
+metadata/_custom_type_script = "uid://1h87b88g3qhp"
+
+[sub_resource type="Resource" id="Resource_mmorv"]
+script = ExtResource("24_db6u7")
+CalculationMode = 1
+ItemName = "HP %"
+metadata/_custom_type_script = "uid://1h87b88g3qhp"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
 content_margin_left = 10.0
@@ -470,7 +482,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv")])
 xpBar = NodePath("../../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]
