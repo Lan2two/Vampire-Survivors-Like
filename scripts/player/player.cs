@@ -59,28 +59,32 @@ namespace SurvivorsGame
 
 			_baseMaxHealth = healthComponent.maxHealth;
 			_baseMoveSpeed = velocityComponent.maxSpeed;
+			config = new PlayerStatsData
+			{
+				MaxHealthBase = _baseMaxHealth,
+				MoveSpeedBase = _baseMoveSpeed
+			};
+
+			upgradeManager.inventoryManager = inventoryManager;
+
 			healthComponent.FinalDamageEvent += TrackDamage;
 			EventBus.PlayerUpgrade += CalculateStats;
 		}
 
 		public override void _ExitTree()
 		{
-			if (GodotObject.IsInstanceValid(healthComponent))
+			if (IsInstanceValid(healthComponent))
 			{
 				healthComponent.FinalDamageEvent -= TrackDamage;
 			}
-			if (GodotObject.IsInstanceValid(inventoryManager))
+			if (IsInstanceValid(inventoryManager))
 			{
 				EventBus.PlayerUpgrade -= CalculateStats;
 			}
 		}
 		private void CalculateStats()
 		{
-			config = new PlayerStatsData
-			{
-				MaxHealthBase = _baseMaxHealth,
-				MoveSpeedBase = _baseMoveSpeed
-			};
+
 			upgradeManager.ApplyUpgrades(this, UpgradeType.Player);
 			float previousMaxhealth = healthComponent.maxHealth;
 			healthComponent.maxHealth = config.GetStat("MaxHealth").CalculateFinal();

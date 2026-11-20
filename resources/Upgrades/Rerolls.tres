@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="RerollStrategy" format=3 uid="uid://dgs1hrd8t4685"]
-
-[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_me2rc"]
-[ext_resource type="Script" uid="uid://bumipdbxnndnf" path="res://utils/strategy/RerollStrategy.cs" id="2_40f6c"]
-
-[resource]
-script = ExtResource("2_40f6c")
-ItemDescription = "Adds 1 reroll to upgrades"
-metadata/_custom_type_script = "uid://bumipdbxnndnf"

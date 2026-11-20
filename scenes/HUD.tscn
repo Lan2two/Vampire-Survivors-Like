@@ -22,7 +22,6 @@
 [ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="19_fuvlu"]
 [ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="20_3xtru"]
 [ext_resource type="Script" uid="uid://c511gf8c34x2u" path="res://utils/strategy/PlayerDefenseStrategy.cs" id="20_n7bdd"]
-[ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/MoreUpgradeStrategy.cs" id="21_n7bdd"]
 [ext_resource type="Script" uid="uid://di31h4p0cxet7" path="res://scripts/GUI/GameTime.cs" id="21_t8u3o"]
 [ext_resource type="Resource" uid="uid://mnxbouc6padw" path="res://resources/CompositeUpgrades/LightRounds.tres" id="22_yy1yx"]
 [ext_resource type="Resource" uid="uid://47bdockur6jx" path="res://resources/CompositeUpgrades/Knives.tres" id="23_fuvlu"]
@@ -32,6 +31,7 @@
 [ext_resource type="Resource" uid="uid://druojo5qxunbl" path="res://resources/CompositeUpgrades/SniperRounds.tres" id="25_mmorv"]
 [ext_resource type="Resource" uid="uid://b6uud03qfm4ro" path="res://resources/CompositeUpgrades/MachineGun.tres" id="26_7tmnl"]
 [ext_resource type="Script" uid="uid://4rlryks4rd2l" path="res://utils/strategy/MoratoriumStrategy.cs" id="26_qxvih"]
+[ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/ShopUpgradesStrategy.cs" id="26_yy1yx"]
 [ext_resource type="Resource" uid="uid://d0r0j8cmvk6rq" path="res://resources/CompositeUpgrades/FMJ.tres" id="27_du5ok"]
 [ext_resource type="Script" uid="uid://dd4asm4opckmw" path="res://utils/strategy/SlashStrategy.cs" id="27_h5tib"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
@@ -76,14 +76,13 @@ metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 script = ExtResource("20_n7bdd")
 metadata/_custom_type_script = "uid://c511gf8c34x2u"
 
-[sub_resource type="Resource" id="Resource_on3ir"]
-script = ExtResource("21_n7bdd")
-MaxStackSize = 2
-metadata/_custom_type_script = "uid://pnm0lgg85gka"
-
 [sub_resource type="Resource" id="Resource_du5ok"]
 script = ExtResource("26_qxvih")
 metadata/_custom_type_script = "uid://4rlryks4rd2l"
+
+[sub_resource type="Resource" id="Resource_nvp4l"]
+script = ExtResource("26_yy1yx")
+metadata/_custom_type_script = "uid://pnm0lgg85gka"
 
 [sub_resource type="Resource" id="Resource_3ugbd"]
 script = ExtResource("35_mmorv")
@@ -376,7 +375,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
 CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
-RareTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_on3ir"), ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok")])
+RareTable = Array[ExtResource("11_pn61u")]([ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok"), SubResource("Resource_nvp4l")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl"), SubResource("Resource_27n0u")])
 CommonWeight = 75.0

@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public override void _PhysicsProcess(double delta)
         {
             SaveSystem.LoadData();
-            Text = $"{SaveSystem.LoadData().TotalCoins}";
+            Text = $"{SaveSystem.LoadData().Coins}";
         }
 
 

@@ -6,11 +6,13 @@ namespace SurvivorsGame
     public partial class UpgradeManager : Node
     {
         private const int CompositeDepth = 10;
-        [Export] InventoryManager inventoryManager;
+        public static UpgradeManager Instance { get; private set; }
+        public InventoryManager inventoryManager;
         private Array<Strategy> ShopStrategies = new();
         private Array<Strategy> Strategies => [.. inventoryManager.Upgrades, .. ShopStrategies];
         public override void _Ready()
         {
+            Instance = this;
             CallDeferred(MethodName.CallUpgrades);
         }
 
@@ -63,6 +65,8 @@ namespace SurvivorsGame
             else
             {
                 strategy.ApplyUpgrade(upgradable);
+                ShopStrategies.Remove(strategy);
+                inventoryManager.Upgrades.Remove(strategy);
             }
         }
 

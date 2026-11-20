@@ -6,7 +6,7 @@ namespace SurvivorsGame
 
     public enum Rarity { Common, Rare, Epic, Legendary }
 
-    public partial class UpgradeMenu : Control
+    public partial class UpgradeMenu : Control, IUpgradable
     {
         private const int MaxUpgradeButtons = 5;
 
@@ -37,6 +37,7 @@ namespace SurvivorsGame
         private Button _rerollButton;
         private Button _skipButton;
         private int _rerollCount;
+        public Resource currentConfig => null;
 
         private struct UpgradeChoiceData
         {
@@ -67,8 +68,7 @@ namespace SurvivorsGame
             GameScene.GameOverEvent += Hide;
             VisibilityChanged += SetReroll;
             xpBar.LevelUpEvent += DisplayUpgrades;
-            EventBus.AddButton += AddButton;
-            EventBus.AddRerollEvent += IncrementRerolls;
+            EventBus.ShopUpgrade += OnUpgrade;
 
             SetReroll();
             for (int i = 0; i < StartingButtons; i++)
@@ -84,14 +84,13 @@ namespace SurvivorsGame
             GameScene.GameOverEvent -= Hide;
             VisibilityChanged -= SetReroll;
             if (xpBar != null) xpBar.LevelUpEvent -= DisplayUpgrades;
-            EventBus.AddButton -= AddButton;
-            EventBus.AddRerollEvent -= IncrementRerolls;
+            EventBus.ShopUpgrade -= OnUpgrade;
             UnbindButtonEvents();
         }
 
-        public void IncrementRerolls()
+        public void OnUpgrade()
         {
-            Rerolls++;
+            UpgradeManager.Instance.ApplyUpgrades(this, UpgradeType.Shop);
         }
 
         public void AddButton()

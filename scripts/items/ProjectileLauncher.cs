@@ -15,8 +15,7 @@ namespace SurvivorsGame
         public CircleShape2D detectionRange;
         private Marker2D shootPoint;
         private Array<Node2D> enemiesInRange;
-        public ProjectileData config;
-        public Resource currentConfig => config;
+        public Resource currentConfig => startingConfig;
         public UpgradeManager upgradeManager;
         private bool shooting = true;
 
@@ -108,15 +107,15 @@ namespace SurvivorsGame
             if (enemiesInRange.Count > 0)
             {
                 int sign = 1;
-                for (int i = 0; i < config.GetStat("Burst").CalculateFinal(); i++)
+                for (int i = 0; i < startingConfig.GetStat("Burst").CalculateFinal(); i++)
                 {
-                    GetTree().CreateTimer(config.GetStat("BurstInterval").CalculateFinal() * i, false).Timeout += () =>
+                    GetTree().CreateTimer(startingConfig.GetStat("BurstInterval").CalculateFinal() * i, false).Timeout += () =>
                     {
                         if (!IsInstanceValid(this) || !IsInstanceValid(shootPoint)) return;
                         sign *= -1;
-                        float spread = (float)GD.RandRange(0, config.GetStat("Spread").CalculateFinal() / 2);
+                        float spread = (float)GD.RandRange(0, startingConfig.GetStat("Spread").CalculateFinal() / 2);
                         Bullet projectileInstance = Scene.Instantiate<Bullet>();
-                        projectileInstance.config = config;
+                        projectileInstance.config = startingConfig;
                         projectileInstance.Fire();
                         projectileInstance.GlobalPosition = shootPoint.GlobalPosition;
                         projectileInstance.GlobalRotation = shootPoint.GlobalRotation + spread * sign;
@@ -128,14 +127,14 @@ namespace SurvivorsGame
 
         public void ApplyStrategy(UpgradeType upgradeType)
         {
-            config = (ProjectileData)startingConfig.Duplicate();
+            startingConfig = (ProjectileData)startingConfig.Duplicate();
             if (upgradeManager == null)
             {
                 upgradeManager = this.GetPlayer().upgradeManager;
             }
             upgradeManager.ApplyUpgrades(this, upgradeType);
-            detectionRange.Radius = config.GetStat("DetectionRange").CalculateFinal();
-            timer.WaitTime = config.GetStat("ProjectileCooldown").CalculateFinal();
+            detectionRange.Radius = startingConfig.GetStat("DetectionRange").CalculateFinal();
+            timer.WaitTime = startingConfig.GetStat("ProjectileCooldown").CalculateFinal();
         }
     }
 }

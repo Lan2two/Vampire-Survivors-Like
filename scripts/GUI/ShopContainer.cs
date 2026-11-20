@@ -64,7 +64,7 @@ namespace SurvivorsGame
 
             gameSaveData = SaveSystem.LoadData();
 
-            if (gameSaveData.TotalCoins < _currentItem.cost)
+            if (gameSaveData.Coins < _currentItem.cost)
             {
                 GD.Print("Not enough coins");
                 return;
@@ -85,7 +85,7 @@ namespace SurvivorsGame
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = newCount;
             _checksContainer.ToggleBox(newCount - 1);
 
-            gameSaveData.TotalCoins -= _currentItem.cost;
+            gameSaveData.Coins -= _currentItem.cost;
 
             SaveSystem.SaveData(gameSaveData);
             SaveSystem.SaveUpgrades(upgradeSaveData);
@@ -109,7 +109,7 @@ namespace SurvivorsGame
                 GD.Print("No Stacks");
                 return;
             }
-            gameSaveData.TotalCoins += _currentItem.cost * currentCount;
+            gameSaveData.Coins += _currentItem.cost * currentCount;
 
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = 0;
             _checksContainer.ToggleAllBoxes(false);

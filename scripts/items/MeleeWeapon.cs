@@ -10,10 +10,9 @@ namespace SurvivorsGame
         public MeleeWeaponBase Baseconfig;
         private AnimationPlayer animationPlayer;
         private UpgradeManager upgradeManager;
-        public MeleeWeaponBase config;
         private double timer = 0;
         private bool swingForward = true;
-        public Resource currentConfig => config;
+        public Resource currentConfig => Baseconfig;
 
         public override void _Ready()
         {
@@ -41,7 +40,6 @@ namespace SurvivorsGame
 
         private void OnUpgrade()
         {
-            config = (MeleeWeaponBase)Baseconfig.Duplicate();
             upgradeManager.ApplyUpgrades(this, UpgradeType.Melee);
         }
         public void Use()
@@ -50,7 +48,7 @@ namespace SurvivorsGame
             {
                 return;
             }
-            UpdateDamage(config, attackComponent);
+            UpdateDamage(Baseconfig, attackComponent);
             Swing();
         }
 
@@ -73,10 +71,10 @@ namespace SurvivorsGame
             {
                 return;
             }
-            float speedMultiplier = config.GetStat("SwingSpeed").CalculateFinal();
-            timer = config.GetStat("SwingCooldown").CalculateFinal() / speedMultiplier;
+            float speedMultiplier = Baseconfig.GetStat("SwingSpeed").CalculateFinal();
+            timer = Baseconfig.GetStat("SwingCooldown").CalculateFinal() / speedMultiplier;
             animationPlayer.SpeedScale = speedMultiplier;
-            //GD.Print($"Swinging weapon with speed multiplier: {(int)speedMultiplier}, cooldown: {(int)config.swingCooldown}, timer set to: {(int)timer}");
+            //GD.Print($"Swinging weapon with speed multiplier: {(int)speedMultiplier}, cooldown: {(int)Baseconfig.swingCooldown}, timer set to: {(int)timer}");
 
             if (SwingVariant)
             {

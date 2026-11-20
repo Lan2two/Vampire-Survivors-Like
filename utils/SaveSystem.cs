@@ -125,6 +125,7 @@ namespace SurvivorsGame
         public int TotalHealthHealed { get; set; }
         public int TotalCampfiresLit { get; set; }
         public int TotalTotalXp { get; set; }
+        public int Coins { get; set; }
         public int TotalCoins { get; set; }
         public Dictionary<string, int> Inventory { get; set; } = new();
     }

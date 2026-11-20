@@ -8,8 +8,7 @@ namespace SurvivorsGame
         [Export] private PathfindComponent pathfindComponent;
         [Export] private VelocityComponent velocityComponent;
         private AbsorbableData baseConfig = new();
-        private AbsorbableData config;
-        public Resource currentConfig => config;
+        public Resource currentConfig => baseConfig;
         public bool SawPlayer;
         public float detectionRangePercent;
         private UpgradeManager upgradeManager;
@@ -57,10 +56,9 @@ namespace SurvivorsGame
 
         public void OnUpgrade()
         {
-            config = (AbsorbableData)baseConfig.Duplicate();
             upgradeManager.ApplyUpgrades(this, UpgradeType.Absorbable);
-            shape.Radius = config.GetStat("Radius").CalculateFinal();
-            velocityComponent.maxSpeed = config.GetStat("MoveSpeed").CalculateFinal();
+            shape.Radius = baseConfig.GetStat("Radius").CalculateFinal();
+            velocityComponent.maxSpeed = baseConfig.GetStat("MoveSpeed").CalculateFinal();
         }
 
         public override void _PhysicsProcess(double delta)

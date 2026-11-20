@@ -65,6 +65,7 @@ namespace SurvivorsGame
             save.TotalHealthHealed += deltaHealthHealed;
             save.TotalCampfiresLit += deltaCampfiresLit;
             save.TotalTotalXp += deltaTotalXp;
+            save.Coins += deltaCoins;
             save.TotalCoins += deltaCoins;
             SaveSystem.SaveData(save);
 

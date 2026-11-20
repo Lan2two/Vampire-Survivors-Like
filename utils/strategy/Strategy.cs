@@ -9,7 +9,8 @@ namespace SurvivorsGame
         Knives,
         Melee,
         Player,
-        Absorbable
+        Absorbable,
+        Shop
     }
 
 

@@ -5,21 +5,14 @@ namespace SurvivorsGame
 
     public partial class EventBus
     {
-        public static event Action AddButton;
         public static event Action MoratoriumEvent;
         public static event Action WorldSlashEvent;
-        public static event Action AddRerollEvent;
         public static event Action PlayerUpgrade;
         public static event Action MeleeUpgrade;
         public static event Action GunUpgrade;
         public static event Action KnivesUpgrade;
         public static event Action AbsorbableUpgrade;
-
-        public static void InvokeAddButton()
-        {
-            AddButton?.Invoke();
-            GD.Print("Add buttons invoked");
-        }
+        public static event Action ShopUpgrade;
 
         public static void InvokeMoratorium()
         {
@@ -31,12 +24,6 @@ namespace SurvivorsGame
         {
             WorldSlashEvent?.Invoke();
             GD.Print("World Slash event invoked");
-        }
-
-        public static void InvokeAddReroll()
-        {
-            AddRerollEvent?.Invoke();
-            GD.Print("Add Reroll event invoked");
         }
 
         public static void InvokeUpgrades(Strategy strategy)
@@ -67,6 +54,10 @@ namespace SurvivorsGame
                 case UpgradeType.Absorbable:
                     AbsorbableUpgrade?.Invoke();
                     GD.Print("Absorbable upgrades invoked");
+                    break;
+                case UpgradeType.Shop:
+                    ShopUpgrade?.Invoke();
+                    GD.Print("Shop upgrades invoked");
                     break;
                 default:
                     break;
