@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bpqkhhblg5qo2" path="res://assets/sprites/slime_purple.png" id="3_7kcof"]
 [ext_resource type="PackedScene" uid="uid://bub4440b8c76f" path="res://scenes/state_machine.tscn" id="4_wthoe"]
 [ext_resource type="Script" uid="uid://b0pj8g5yl7jlm" path="res://scripts/enemy/EnemyChase.cs" id="5_myxnc"]
-[ext_resource type="Script" uid="uid://dkq1ef6bp4d3r" path="res://scripts/enemy/EnemySpawn.cs" id="6_tjbyi"]
 [ext_resource type="Script" uid="uid://dueqcebmrlxsg" path="res://scripts/enemy/EnemyDeath.cs" id="7_h0e4r"]
 [ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/components/HealthComponent.cs" id="8_muo6g"]
 [ext_resource type="Script" uid="uid://7otgg0gqbqc5" path="res://scripts/components/HurtboxComponent.cs" id="9_6tjes"]
@@ -50,38 +49,6 @@ region = Rect2(24, 0, 24, 24)
 atlas = ExtResource("3_7kcof")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_otmr2"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(48, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtq4b"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(72, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j0cyh"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(24, 24, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g0wcc"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(72, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1ycm"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(0, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(24, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ile5s"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(48, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1x4g4"]
-atlas = ExtResource("3_7kcof")
-region = Rect2(72, 0, 24, 24)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_nenq2"]
 animations = [{
 "frames": [{
@@ -97,7 +64,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_md484")
 }],
-"loop": true,
+"loop": false,
 "name": &"chase",
 "speed": 5.0
 }, {
@@ -114,40 +81,6 @@ animations = [{
 "loop": false,
 "name": &"die",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_otmr2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wtq4b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j0cyh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g0wcc")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s1ycm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_shcg2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ile5s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1x4g4")
-}],
-"loop": false,
-"name": &"spawn",
-"speed": 4.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
@@ -172,22 +105,15 @@ shape = SubResource("CircleShape2D_8qclf")
 self_modulate = Color(0, 0.9647059, 0.77254903, 1)
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_nenq2")
-animation = &"die"
-frame = 2
-frame_progress = 1.0
+animation = &"chase"
 
 [node name="StateMachine" parent="." unique_id=1879212461 node_paths=PackedStringArray("startingState") instance=ExtResource("4_wthoe")]
-startingState = NodePath("Spawn")
+startingState = NodePath("Chase")
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "pathfindComponent")]
 script = ExtResource("5_myxnc")
 enemy = NodePath("../..")
 pathfindComponent = NodePath("../../PathfindComponent")
-metadata/_custom_type_script = "uid://77fm1np7g5nw"
-
-[node name="Spawn" type="Node" parent="StateMachine" unique_id=2088072294 node_paths=PackedStringArray("enemy")]
-script = ExtResource("6_tjbyi")
-enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "_hurtboxShape", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
@@ -227,6 +153,7 @@ metadata/_custom_type_script = "uid://bi226kkohh0fe"
 script = ExtResource("11_j8bqn")
 characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
+useNavigation = false
 metadata/_custom_type_script = "uid://bbw06doqvj4pd"
 
 [node name="HitFlashComponent" type="Node" parent="." unique_id=1715292759 node_paths=PackedStringArray("Sprite", "healthComponent")]

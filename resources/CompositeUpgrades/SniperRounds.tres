@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="3_fgird"]
 [ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="4_8my6j"]
 [ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="5_skl2y"]
-[ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/BulletCritRateStrategy.cs" id="6_qx4gg"]
+[ext_resource type="Script" uid="uid://bsi06qlqgp2au" path="res://utils/strategy/BulletCritDamageStrategy.cs" id="6_c3ste"]
 [ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/BulletSpeedStrategy.cs" id="7_tr8el"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="8_u51sn"]
 
@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_tbqba"]
 script = ExtResource("4_8my6j")
-UpgradeCooldown = -80.0
+UpgradeCooldown = -100.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
@@ -26,10 +26,10 @@ script = ExtResource("5_skl2y")
 UpgradePierce = 3
 metadata/_custom_type_script = "uid://cbifaria4lqs3"
 
-[sub_resource type="Resource" id="Resource_4q0sy"]
-script = ExtResource("6_qx4gg")
-UpgradeCritRate = 20.0
-metadata/_custom_type_script = "uid://welqlf4pw7cn"
+[sub_resource type="Resource" id="Resource_c65qr"]
+script = ExtResource("6_c3ste")
+UpgradeCritDamage = 20.0
+metadata/_custom_type_script = "uid://bsi06qlqgp2au"
 
 [sub_resource type="Resource" id="Resource_k52m1"]
 script = ExtResource("7_tr8el")
@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
 
 [resource]
 script = ExtResource("8_u51sn")
-Children = Array[ExtResource("1_c3ste")]([SubResource("Resource_ah8js"), SubResource("Resource_tbqba"), SubResource("Resource_3eva0"), SubResource("Resource_4q0sy"), SubResource("Resource_k52m1")])
+Children = Array[ExtResource("1_c3ste")]([SubResource("Resource_ah8js"), SubResource("Resource_tbqba"), SubResource("Resource_3eva0"), SubResource("Resource_c65qr"), SubResource("Resource_k52m1")])
 MaxStackSize = 2
 ItemName = "Sniper Rounds"
 ItemDescription = "Big but slow gun"

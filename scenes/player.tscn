@@ -18,9 +18,9 @@
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="17_qfm1y"]
 [ext_resource type="Script" uid="uid://dgy61lxty6j4q" path="res://scripts/player/Interactions.cs" id="18_fulsm"]
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="19_4r5pv"]
-[ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="20_60mlk"]
+[ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun.tscn" id="20_60mlk"]
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="20_physics"]
-[ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/BulletData.cs" id="21_i4ail"]
+[ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/ProjectileData.cs" id="21_i4ail"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -381,10 +381,11 @@ script = ExtResource("8_ur7pv")
 collision_layer = 4
 script = ExtResource("9_y4r1p")
 healthComponent = NodePath("../HealthComponent")
-iFrames = 0.1
+iFrames = 0.15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=144013464]
 shape = SubResource("CircleShape2D_ur7pv")
+disabled = true
 
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=1509356134 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]
 script = ExtResource("10_y4r1p")

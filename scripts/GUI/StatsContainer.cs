@@ -23,7 +23,7 @@ namespace SurvivorsGame
             TimeSpan time = TimeSpan.FromSeconds(data.TotalSeconds);
             string[] stats = new[]
             {
-                $"Time Played: {time:hh\\:mm\\:ss}",
+                $"Time Played: {time.Hours:D2}:{time.Minutes:D2}:{time.Seconds:D2}",
                 $"Total Kills: {data.TotalKills}",
                 $"Total Damage Dealt: {data.TotalDamageDealt}",
                 $"Total Damage Taken: {data.TotalDamageTaken}",

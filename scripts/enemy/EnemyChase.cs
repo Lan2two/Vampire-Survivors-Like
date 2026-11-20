@@ -9,7 +9,7 @@ namespace SurvivorsGame
 
         public override void Enter()
         {
-            enemy.animatedSprite.Play("idle");
+            enemy.animatedSprite.Play("chase");
         }
         public override void PhysicsUpdate(double delta)
         {

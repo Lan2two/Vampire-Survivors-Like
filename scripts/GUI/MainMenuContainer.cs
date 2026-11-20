@@ -2,7 +2,9 @@ namespace SurvivorsGame
 {
     using Godot;
 
+#if !GODOT_WEB
     [Tool]
+#endif
     public partial class MainMenuContainer : Node2D
     {
         [Export] public float Spacing { get; set; } = 50.0f;
