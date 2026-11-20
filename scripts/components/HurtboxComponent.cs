@@ -36,7 +36,7 @@ namespace SurvivorsGame
             if (healthComponent != null)
             {
                 healthComponent.TakeDamage(attackData);
-                if (attackData.Damage <= 0)
+                if (attackData.Damage <= 0 || invincible)
                 {
                     return;
                 }
