@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbsorbableRadiusStrategy" format=3 uid="uid://cfks73yne5k6b"]
+
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_akxla"]
+[ext_resource type="Script" uid="uid://by0fp6fn45eih" path="res://utils/strategy/AbsorbableRadiusStrategy.cs" id="2_807wh"]
+
+[resource]
+script = ExtResource("2_807wh")
+UpgradeRadius = 10.0
+metadata/_custom_type_script = "uid://by0fp6fn45eih"

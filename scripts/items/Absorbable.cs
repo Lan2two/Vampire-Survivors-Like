@@ -7,7 +7,7 @@ namespace SurvivorsGame
         [Export] private DetectionComponent detectionComponent;
         [Export] private PathfindComponent pathfindComponent;
         [Export] private VelocityComponent velocityComponent;
-        private AbsorbableData baseConfig;
+        private AbsorbableData baseConfig = new();
         private AbsorbableData config;
         public Resource currentConfig => config;
         public bool SawPlayer;
@@ -26,8 +26,19 @@ namespace SurvivorsGame
                 GD.PrintErr("PathfindComponent not found in Absorbable");
                 return;
             }
+            if (velocityComponent == null)
+            {
+                GD.PrintErr("VelocityComponent not found in Absorbable");
+                return;
+            }
             upgradeManager = this.GetPlayer().upgradeManager;
-            shape = detectionComponent.shape.Shape as CircleShape2D;
+            shape = detectionComponent.shape.Shape.Duplicate() as CircleShape2D;
+            if (shape == null)
+            {
+                GD.PrintErr("CircleShape2D not found in Absorbable detection component");
+                return;
+            }
+            detectionComponent.shape.Shape = shape;
             baseConfig = new AbsorbableData()
             {
                 RadiusBase = shape.Radius,
@@ -44,7 +55,7 @@ namespace SurvivorsGame
             EventBus.AbsorbableUpgrade -= OnUpgrade;
         }
 
-        private void OnUpgrade()
+        public void OnUpgrade()
         {
             config = (AbsorbableData)baseConfig.Duplicate();
             upgradeManager.ApplyUpgrades(this, UpgradeType.Absorbable);

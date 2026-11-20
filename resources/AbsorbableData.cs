@@ -4,7 +4,7 @@ namespace SurvivorsGame
 
     public static class AbsorbableStatsRange
     {
-        public const float MinRadius = 10f;
+        public const float MinRadius = 5f;
         public const float MaxRadius = 500f;
         public const float MinMoveSpeed = 100f;
         public const float MaxMoveSpeed = 600f;

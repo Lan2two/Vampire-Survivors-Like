@@ -1,15 +1,22 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using Godot.Collections;
 
     public partial class UpgradeManager : Node
     {
         private const int CompositeDepth = 10;
         [Export] InventoryManager inventoryManager;
+        private Array<Strategy> ShopStrategies = new();
+        private Array<Strategy> Strategies => [.. inventoryManager.Upgrades, .. ShopStrategies];
+        public override void _Ready()
+        {
+            CallDeferred(MethodName.CallUpgrades);
+        }
 
         public void ApplyUpgrades(IUpgradable upgradable, UpgradeType targetType)
         {
-            foreach (Strategy strategy in inventoryManager.Upgrades)
+            foreach (Strategy strategy in Strategies)
             {
                 ApplyStrategy(strategy, upgradable, targetType, 0);
             }
@@ -74,6 +81,25 @@ namespace SurvivorsGame
             foreach (Strategy child in composite.Children)
             {
                 ApplyStrategy(child, upgradable, targetType, depth + 1);
+            }
+        }
+
+        private void CallUpgrades()
+        {
+            foreach (System.Collections.Generic.KeyValuePair<string, int> pair in SaveSystem.LoadUpgrades().PurchasedUpgrades)
+            {
+                if (pair.Value == 0) continue;
+                for (int i = 0; i < pair.Value; i++)
+                {
+                    Strategy strategy = ResourceLoader.Load<Strategy>(pair.Key);
+                    if (strategy == null)
+                    {
+                        GD.PrintErr($"Failed to load saved upgrade: {pair.Key}");
+                        continue;
+                    }
+                    ShopStrategies.Add(strategy);
+                    InvokeUpgrades(strategy);
+                }
             }
         }
     }
