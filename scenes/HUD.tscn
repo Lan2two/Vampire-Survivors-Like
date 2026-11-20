@@ -30,8 +30,8 @@
 [ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="24_db6u7"]
 [ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="25_yy3iv"]
 [ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/MoreUpgradeStrategy.cs" id="27_vlu7s"]
-[ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/PlayerNodeStrategy.cs" id="28_igqi4"]
 [ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="28_jath5"]
+[ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="29_jath5"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
@@ -212,13 +212,20 @@ metadata/_custom_type_script = "uid://pnm0lgg85gka"
 
 [sub_resource type="Resource" id="Resource_27n0u"]
 resource_local_to_scene = true
-script = ExtResource("28_igqi4")
+script = ExtResource("29_jath5")
+_subsceneData = {
+"AfterEffects": false,
+"Fade": false,
+"TrailDuration": 0.5,
+"TrailPoints": 50
+}
 PackedScene = ExtResource("28_jath5")
+upgradeType = 1
 "Subscene Configuration/Fade" = false
 "Subscene Configuration/TrailDuration" = 0.5
 "Subscene Configuration/TrailPoints" = 50
 ItemName = "Trail"
-ItemDescription = "Adds a trail to the player"
+ItemDescription = "Adds a trail to player when holding weapon"
 metadata/_custom_type_script = "uid://dletf55xvu8sn"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy3iv"]
@@ -479,6 +486,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_shsct")
+Rerolls = 100
 
 [node name="Upgrade" type="Button" parent="UpgradeMenu" unique_id=499441132]
 visible = false

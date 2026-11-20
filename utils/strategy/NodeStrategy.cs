@@ -5,10 +5,11 @@ namespace SurvivorsGame
 
     [Tool] // Required to process inspector rendering in-editor
     [GlobalClass]
-    public partial class PlayerNodeStrategy : Strategy
+    public partial class NodeStrategy : Strategy
     {
         private PackedScene _packedScene;
-        private bool called = false;
+        Node2D sceneInstance;
+        Node currentNode;
 
         // Fully serialized dictionary tracking dynamic configurations
         [Export] private Dictionary _subsceneData = new();
@@ -27,18 +28,18 @@ namespace SurvivorsGame
                 }
             }
         }
+        [Export] public override UpgradeType upgradeType { get; set; }
 
-        public PlayerNodeStrategy()
+        public NodeStrategy()
         {
-            upgradeType = UpgradeType.Player;
             ItemName = "Add Node";
-            ItemDescription = "Adds Node to Player";
+            ItemDescription = "Adds Node to Upgradable";
             MaxStackSize = 1;
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
-            if (upgradable is not Node || called == true)
+            if (upgradable is not Node)
             {
                 return;
             }
@@ -47,8 +48,15 @@ namespace SurvivorsGame
             {
                 return;
             }
-
-            Node2D sceneInstance = _packedScene.Instantiate<Node2D>();
+            if (sceneInstance == null || currentNode != node)
+            {
+                sceneInstance = _packedScene.Instantiate<Node2D>();
+                currentNode = node;
+            }
+            if (node.GetChildren().Contains(sceneInstance))
+            {
+                return;
+            }
 
             // Reapply stored values safely via Godot's reflection API
             foreach (var key in _subsceneData.Keys)
@@ -56,9 +64,8 @@ namespace SurvivorsGame
                 string propName = key.AsString();
                 sceneInstance.Set(propName, _subsceneData[propName]);
             }
-
             node.AddChild(sceneInstance);
-            called = true;
+            GD.Print(sceneInstance);
         }
 
 
