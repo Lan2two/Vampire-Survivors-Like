@@ -14,6 +14,8 @@ namespace SurvivorsGame
         [Export] PackedScene BULLET;
         private BulletData config;
         public Resource currentConfig => config;
+        private int Burst = 3;
+        private float BurstInterval = .2f;
 
         public override void _Ready()
         {
@@ -76,12 +78,21 @@ namespace SurvivorsGame
         {
             if (enemiesInRange.Count > 0)
             {
-                Bullet newBullet = BULLET.Instantiate<Bullet>();
-                newBullet.config = config;
-                newBullet.Fire();
-                newBullet.GlobalPosition = ShootPoint.GlobalPosition;
-                newBullet.GlobalRotation = ShootPoint.GlobalRotation;
-                ShootPoint.AddChild(newBullet);
+                int sign = 1;
+                for (int i = 0; i < config.GetStat("Burst").CalculateFinal(); i++)
+                {
+                    GetTree().CreateTimer(config.GetStat("BurstInterval").CalculateFinal() * i, false).Timeout += () =>
+                    {
+                        sign *= -1;
+                        float spread = (float)GD.RandRange(0, config.GetStat("Spread").CalculateFinal() / 2);
+                        Bullet newBullet = BULLET.Instantiate<Bullet>();
+                        newBullet.config = config;
+                        newBullet.Fire();
+                        newBullet.GlobalPosition = ShootPoint.GlobalPosition;
+                        newBullet.GlobalRotation = ShootPoint.GlobalRotation + spread * sign;
+                        ShootPoint.AddChild(newBullet);
+                    };
+                }
             }
         }
 

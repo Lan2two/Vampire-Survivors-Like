@@ -1,14 +1,13 @@
 namespace SurvivorsGame
 {
-    using System;
     using Godot;
     using Godot.Collections;
 
     public partial class EnemySpawner : Path2D
     {
         [Export] public Array<PackedScene> EnemySceneArray;
-        [Export] public double spawnInterval = 0.5;
-        [Export] private int _maxEnemies = 150;
+        [Export] public double spawnInterval = 1;
+        [Export] private int _maxEnemies = 300;
 
         private PathFollow2D pathFollow;
         private double spawnTimer;
@@ -52,7 +51,7 @@ namespace SurvivorsGame
                 //GD.Print("Cap Reached");
                 return;
             }
-            spawnTimer = spawnInterval;
+            spawnTimer = spawnInterval / ((Stats.data.Seconds + 10) / 10);
             SpawnEnemy();
         }
 

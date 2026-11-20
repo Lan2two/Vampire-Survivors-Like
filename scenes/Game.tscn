@@ -1134,7 +1134,6 @@ region = Rect2(0, 0, 16.60905, 16)
 
 [sub_resource type="Resource" id="Resource_choun"]
 script = ExtResource("9_sv1m6")
-SwingSpeedMultiplier = 1.2
 WeaponVisualScene = ExtResource("8_45i86")
 ItemName = "Coin"
 ItemIcon = SubResource("AtlasTexture_mcffj")
@@ -1174,13 +1173,12 @@ tile_set = SubResource("TileSet_mcffj")
 position = Vector2(-86, -17)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1308932069]
-zoom = Vector2(3, 3)
+zoom = Vector2(2.5, 2.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Node2D" parent="Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
 EnemySceneArray = Array[PackedScene]([ExtResource("5_y5y3l"), ExtResource("7_7ua8r"), ExtResource("8_r7sob")])
-_maxEnemies = 75
 
 [node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)

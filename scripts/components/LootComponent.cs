@@ -6,7 +6,8 @@ namespace SurvivorsGame
     public partial class LootComponent : Node
     {
         [Export] Array<PackedScene> LootTable = new();
-        [Export] float HealthDropRate = 5;
+        [Export] float XpDropRate = 100;
+        [Export] float HealthDropRate = .1f;
         [Export] float LootDropRate = .1f;
         [Export] Enemy enemy;
         [Export] EnemyDeath deathState;
@@ -46,12 +47,17 @@ namespace SurvivorsGame
 
         private void _OnDeath()
         {
-            DropXP();
+            DropXP(XpDropRate);
             DropHP(HealthDropRate);
             DropItem(LootDropRate);
         }
-        public void DropXP()
+        public void DropXP(float chance)
         {
+            float XpChance = (float)GD.RandRange(0f, 100f);
+            if (XpChance > chance)
+            {
+                return;
+            }
             XpOrb XpInstance = DropScene(XpOrbScene) as XpOrb;
             XpInstance.SetXPAmount(enemy.XpAmount);
         }

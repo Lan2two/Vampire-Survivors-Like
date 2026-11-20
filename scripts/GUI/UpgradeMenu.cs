@@ -74,8 +74,6 @@ namespace SurvivorsGame
             {
                 AddButton();
             }
-
-            CallDeferred(MethodName.DisplayUpgrades);
         }
 
         public override void _ExitTree()
@@ -196,6 +194,7 @@ namespace SurvivorsGame
                     {
                         table = CommonTable;
                         rarity = Rarity.Common;
+                        btn.SetShader(Colors.Black, Colors.DimGray, .1f, true);
                     }
 
                     if (table == null || table.Count == 0)

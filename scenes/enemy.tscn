@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://dueqcebmrlxsg" path="res://scripts/enemy/EnemyDeath.cs" id="7_ile5s"]
 [ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/components/HealthComponent.cs" id="7_w8i8w"]
 [ext_resource type="Script" uid="uid://7otgg0gqbqc5" path="res://scripts/components/HurtboxComponent.cs" id="8_otmr2"]
+[ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="11_ile5s"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="11_w8i8w"]
-[ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="12_wtq4b"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_wtq4b"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="15_g0wcc"]
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="16_s1ycm"]
@@ -201,7 +201,7 @@ metadata/_custom_type_script = "uid://1pglkcxd7gg8"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1925952333]
 script = ExtResource("7_w8i8w")
-maxHealth = 50.0
+maxHealth = 15.0
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
@@ -222,10 +222,12 @@ acceleration = 10.0
 SpeedVariation = true
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
-[node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=1537615406 node_paths=PackedStringArray("characterBody", "velocityComponent")]
-script = ExtResource("12_wtq4b")
+[node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=1314197410 node_paths=PackedStringArray("characterBody", "velocityComponent")]
+script = ExtResource("11_ile5s")
 characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
+useNavigation = false
+metadata/_custom_type_script = "uid://bbw06doqvj4pd"
 
 [node name="HitFlashComponent" type="Node" parent="." unique_id=452125329 node_paths=PackedStringArray("Sprite", "healthComponent")]
 script = ExtResource("13_wtq4b")
@@ -236,7 +238,6 @@ healthComponent = NodePath("../HealthComponent")
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("15_g0wcc")
-damage = 5.0
 SingleHit = false
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 

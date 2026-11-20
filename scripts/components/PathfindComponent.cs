@@ -9,6 +9,7 @@ namespace SurvivorsGame
         [Export] private VelocityComponent velocityComponent;
         [Export] private float threshold = 3.0f;
         [Export] private float pathUpdateInterval = 0.2f;
+        [Export] private bool useNavigation = true;
 
         private float distanceToTarget;
         private bool targetReached = false;
@@ -19,7 +20,8 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             player = this.GetPlayer();
-            TargetDesiredDistance = threshold;
+            if (useNavigation)
+                TargetDesiredDistance = threshold;
             AvoidanceEnabled = false;
 
             if (characterBody == null || velocityComponent == null)
@@ -35,49 +37,58 @@ namespace SurvivorsGame
         {
             if (characterBody == null || velocityComponent == null || player == null)
                 return;
-            timeSinceLastUpdate += (float)GetPhysicsProcessDeltaTime();
-            if (!hasTargetPosition || timeSinceLastUpdate >= pathUpdateInterval)
+
+            if (useNavigation)
             {
-                Vector2 target = player.GlobalPosition;
-                if (!hasTargetPosition || TargetPosition != target)
-                    TargetPosition = target;
-                timeSinceLastUpdate = 0.0f;
-                hasTargetPosition = true;
+                timeSinceLastUpdate += (float)GetPhysicsProcessDeltaTime();
+                if (!hasTargetPosition || timeSinceLastUpdate >= pathUpdateInterval)
+                {
+                    Vector2 target = player.GlobalPosition;
+                    if (!hasTargetPosition || TargetPosition != target)
+                        TargetPosition = target;
+                    timeSinceLastUpdate = 0.0f;
+                    hasTargetPosition = true;
+                }
             }
-            MoveAlongCalculatedPath(player.GlobalPosition);
+
+            MoveTowardTarget(player.GlobalPosition);
         }
 
         public void PathfindToPoint(Vector2 target)
         {
-            if (characterBody == null || velocityComponent == null) return;
-            if (!hasTargetPosition || TargetPosition != target)
+            if (characterBody == null || velocityComponent == null)
+                return;
+
+            if (useNavigation && (!hasTargetPosition || TargetPosition != target))
             {
                 TargetPosition = target;
                 hasTargetPosition = true;
             }
-            MoveAlongCalculatedPath(target);
+
+            MoveTowardTarget(target);
         }
 
-        private void MoveAlongCalculatedPath(Vector2 finalTarget)
+        private void MoveTowardTarget(Vector2 finalTarget)
         {
-            if (IsTargetReached())
+            distanceToTarget = characterBody.GlobalPosition.DistanceTo(finalTarget);
+            targetReached = useNavigation
+                ? IsTargetReached()
+                : distanceToTarget <= threshold;
+
+            if (targetReached)
             {
-                targetReached = true;
                 velocityComponent.Stop();
                 return;
             }
 
-            targetReached = false;
-            Vector2 nextPathPosition = GetNextPathPosition();
-
+            Vector2 nextPathPosition = useNavigation ? GetNextPathPosition() : finalTarget;
             Vector2 direction = characterBody.GlobalPosition.DirectionTo(nextPathPosition).Normalized();
-            distanceToTarget = characterBody.GlobalPosition.DistanceTo(finalTarget);
-
             velocityComponent.AccelerateToDirection(direction);
             velocityComponent.Move(direction);
         }
 
         public float DistanceFromTarget() => distanceToTarget;
-        public bool ReachedTarget() => IsTargetReached();
+        public bool ReachedTarget() => targetReached;
+        public new bool TargetReached() => targetReached;
     }
 }
