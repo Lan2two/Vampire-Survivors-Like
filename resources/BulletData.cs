@@ -10,6 +10,8 @@ namespace SurvivorsGame
         private float _speed = 300f;
         private int _pierceCount = 0;
         private float _gunCooldown = 1f;
+        private float _critRate = 0;
+        private float _critDamageMultiplier = 1.2f;
         [Export]
         public float Damage
         {
@@ -40,6 +42,18 @@ namespace SurvivorsGame
         {
             get => _gunCooldown;
             set => _gunCooldown = (float)Mathf.Max(value, 0.001);
+        }
+        [Export]
+        public float CritRate
+        {
+            get => _critRate;
+            set => _critRate = value;
+        }
+        [Export]
+        public float CritDamageMultiplier
+        {
+            get => _critDamageMultiplier;
+            set => _critDamageMultiplier = value;
         }
     }
 }

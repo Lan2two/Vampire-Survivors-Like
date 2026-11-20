@@ -67,8 +67,10 @@ namespace SurvivorsGame
 
         public void UpdateDamage()
         {
-            attackComponent.damage = config.BaseDamage;
-            attackComponent.knockback = config.BaseKnockback;
+            attackComponent.damage = config.Damage;
+            attackComponent.knockback = config.Knockback;
+            attackComponent.critRate = config.CritRate;
+            attackComponent.critDamageMultiplier = config.CritDamageMultiplier;
         }
         private void Swing()
         {

@@ -9,6 +9,8 @@ namespace SurvivorsGame
     {
         [Export] public float damage = 10f;
         [Export] public float knockback = 100f;
+        [Export] public float critRate = 0;
+        [Export] public float critDamageMultiplier = 1.2f;
         [Export] public float DamageInterval = .7f;
         [Export] public bool SingleHit = true;
 
@@ -81,9 +83,11 @@ namespace SurvivorsGame
 
             Attack attack = new Attack
             {
-                Damage = damage,
+                BaseDamage = damage,
                 GlobalPosition = GlobalPosition,
-                KnockbackForce = knockback
+                KnockbackForce = knockback,
+                CritRate = critRate,
+                CritDamageMultiplier = critDamageMultiplier
             };
 
             if (SingleHit)

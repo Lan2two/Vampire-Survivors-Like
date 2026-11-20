@@ -44,7 +44,7 @@ namespace SurvivorsGame
 
         private void TrackDamage(Attack attack)
         {
-            Stats.data.DamageDealt += attack.Damage;
+            Stats.data.DamageDealt += attack.FinalDamage;
         }
     }
 }

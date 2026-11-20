@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class MeleeWeaponBase : WeaponBase, IDamageDealing
+    public partial class MeleeWeaponBase : WeaponBase
     {
         private float _swingSpeedMultiplier = 1.0f;
 
@@ -18,16 +18,5 @@ namespace SurvivorsGame
         }
 
         [Export] public float swingCooldown { get; set; } = 1.0f;
-
-        public float Damage
-        {
-            get => BaseDamage;
-            set => BaseDamage = value;
-        }
-        public float Knockback
-        {
-            get => BaseKnockback;
-            set => BaseKnockback = value;
-        }
     }
 }

@@ -5,7 +5,7 @@ namespace SurvivorsGame
     public partial class FloatingNumbers : Node2D
     {
         private const double FadeDelay = 0.3;
-        private Node damageLabel;
+        private Label damageLabel;
         private Vector2 startPosition;
         private Vector2 targetPosition;
         private double elapsed;
@@ -22,8 +22,12 @@ namespace SurvivorsGame
                 return;
             }
 
-            damageLabel = GetChild(0);
-            damageLabel.SetDeferred("text", FormatDamage(attackData.Damage));
+            damageLabel = GetChild(0) as Label;
+            if (attackData.Crit)
+            {
+                damageLabel.AddThemeColorOverride("font_color", Colors.Yellow);
+            }
+            damageLabel.SetDeferred("text", FormatDamage(attackData.FinalDamage));
             startPosition = Position;
             targetPosition = startPosition + new Vector2(GD.RandRange(-30, 30), -35);
             movementDuration = targetDuration;
