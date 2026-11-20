@@ -15,6 +15,11 @@ public partial class VelocityComponent : Node2D
     public override void _Ready()
     {
         base._Ready();
+
+        if (characterBody != null)
+        {
+            characterBody.MotionMode = CharacterBody2D.MotionModeEnum.Floating;
+        }
     }
 
     public void AccelerateToVelocity(Vector2 velocity)
@@ -64,7 +69,7 @@ public partial class VelocityComponent : Node2D
         }
 
         characterBody.Velocity = Velocity;
-        characterBody.MoveAndCollide(Velocity * (float)GetProcessDeltaTime());
+        characterBody.MoveAndSlide();
     }
 
 
