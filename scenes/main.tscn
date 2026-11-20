@@ -235,7 +235,6 @@ metadata/_custom_type_script = "uid://dywixrbgtp314"
 
 [node name="Main" type="Node2D" unique_id=2069482560]
 y_sort_enabled = true
-position = Vector2(-20, -7)
 
 [node name="Node2D" type="Node2D" parent="." unique_id=293186727]
 z_index = -1
