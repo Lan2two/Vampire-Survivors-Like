@@ -3,5 +3,11 @@
 [resource]
 content_margin_bottom = 8.0
 bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.23, 0.23, 0.23, 1)
+shadow_color = Color(0.09803922, 0.09803922, 0.09803922, 0.6)
 shadow_size = 1
 shadow_offset = Vector2(3, 3)
