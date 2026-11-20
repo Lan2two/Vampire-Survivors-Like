@@ -46,14 +46,13 @@ if (${env:ProgramFiles(x86)}) {
     $ChromeCandidates += Join-Path ${env:ProgramFiles(x86)} 'Google\Chrome\Application\chrome.exe'
 }
 
-$ChromePath = $ChromeCandidates |
-    Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) } |
-    Select-Object -First 1
+$ChromePath = $ChromeCandidates | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) } | Select-Object -First 1
 
 if ($ChromePath) {
-    Start-Process -FilePath $ChromePath -ArgumentList @('--auto-open-devtools-for-tabs', $Url)
+    # Opens the URL automatically, but explicitly forces the DevTools panel to stay closed
+    Start-Process -FilePath $ChromePath -ArgumentList @($Url, '--disable-devtools')
 } else {
-    Write-Host 'Chrome was not found; opening the default browser. Press F12 to view its Console.'
+    Write-Host 'Chrome was not found; opening the default browser.'
     Start-Process $Url
 }
 
@@ -64,17 +63,12 @@ try {
         $Response.Headers['Cross-Origin-Opener-Policy'] = 'same-origin'
         $Response.Headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
         $Response.Headers['Cache-Control'] = 'no-store'
-
         $RelativePath = [Uri]::UnescapeDataString($Context.Request.Url.AbsolutePath.TrimStart('/'))
         if ([string]::IsNullOrWhiteSpace($RelativePath)) {
             $RelativePath = 'index.html'
         }
-
         $FilePath = [System.IO.Path]::GetFullPath((Join-Path $Root $RelativePath))
-        if (
-            -not $FilePath.StartsWith($RootPrefix, [System.StringComparison]::OrdinalIgnoreCase) -or
-            -not (Test-Path -LiteralPath $FilePath -PathType Leaf)
-        ) {
+        if (-not $FilePath.StartsWith($RootPrefix, [System.StringComparison]::OrdinalIgnoreCase) -or-not (Test-Path -LiteralPath $FilePath -PathType Leaf)) {
             $Response.StatusCode = 404
             $Body = [System.Text.Encoding]::UTF8.GetBytes('Not found')
             $Response.ContentType = 'text/plain; charset=utf-8'
@@ -86,18 +80,16 @@ try {
             $Response.Close()
             continue
         }
-
         $Response.ContentType = switch ([System.IO.Path]::GetExtension($FilePath).ToLowerInvariant()) {
             '.html' { 'text/html; charset=utf-8' }
-            '.js'   { 'application/javascript' }
+            '.js' { 'application/javascript' }
             '.wasm' { 'application/wasm' }
-            '.pck'  { 'application/octet-stream' }
-            '.png'  { 'image/png' }
-            '.svg'  { 'image/svg+xml' }
+            '.pck' { 'application/octet-stream' }
+            '.png' { 'image/png' }
+            '.svg' { 'image/svg+xml' }
             '.json' { 'application/json' }
             default { 'application/octet-stream' }
         }
-
         $Body = [System.IO.File]::ReadAllBytes($FilePath)
         $Response.ContentLength64 = $Body.Length
         if ($Context.Request.HttpMethod -ne 'HEAD') {
