@@ -283,6 +283,37 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 [sub_resource type="CircleShape2D" id="CircleShape2D_fulsm"]
 radius = 16.0
 
+[sub_resource type="FontFile" id="FontFile_qfm1y"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/5/0/ascent = 0.0
+cache/0/5/0/descent = 0.0
+cache/0/5/0/underline_position = 0.0
+cache/0/5/0/underline_thickness = 0.0
+cache/0/5/0/scale = 1.0
+cache/0/6/0/ascent = 0.0
+cache/0/6/0/descent = 0.0
+cache/0/6/0/underline_position = 0.0
+cache/0/6/0/underline_thickness = 0.0
+cache/0/6/0/scale = 1.0
+cache/0/7/0/ascent = 0.0
+cache/0/7/0/descent = 0.0
+cache/0/7/0/underline_position = 0.0
+cache/0/7/0/underline_thickness = 0.0
+cache/0/7/0/scale = 1.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1724972010 groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_ur7pv")
@@ -370,7 +401,6 @@ script = ExtResource("18_fulsm")
 shape = SubResource("CircleShape2D_fulsm")
 
 [node name="Label" type="Label" parent="Interactions" unique_id=2017283089]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -383,7 +413,8 @@ offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 5
+theme_override_fonts/font = SubResource("FontFile_qfm1y")
+theme_override_font_sizes/font_size = 7
 text = "Example"
 horizontal_alignment = 1
 vertical_alignment = 1

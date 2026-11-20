@@ -6,6 +6,7 @@ public partial class MeleeWeapon : Node2D, IWeapon
 {
     [Export] public MeleeWeaponData Baseconfig;
     [Export] DamageComponent damageComponent;
+    [Export] bool SwingVariant;
     AnimationPlayer animationPlayer;
     public MeleeWeaponData config;
     private double timer = 0;
@@ -49,13 +50,20 @@ public partial class MeleeWeapon : Node2D, IWeapon
         timer = config.swingCooldown / speedMultiplier;
         animationPlayer.SpeedScale = speedMultiplier;
 
-        if (swingForward)
+        if (SwingVariant)
         {
-            animationPlayer.Play("swing");
+            if (swingForward)
+            {
+                animationPlayer.Play("swing");
+            }
+            else
+            {
+                animationPlayer.PlayBackwards("swing");
+            }
         }
         else
         {
-            animationPlayer.PlayBackwards("swing");
+            animationPlayer.Play("swing");
         }
 
         swingForward = !swingForward;
@@ -69,6 +77,7 @@ public partial class MeleeWeapon : Node2D, IWeapon
         }
 
         SetDamageNodeEnabled(false);
+        damageComponent.ClearHash();
     }
     private void OnAnimationStarted(StringName animName)
     {

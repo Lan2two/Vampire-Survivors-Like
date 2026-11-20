@@ -26,6 +26,10 @@ public partial class WeaponController : Node2D
 
     private void TryForAttack()
     {
+        if (weapon == null)
+        {
+            return;
+        }
         if (weapon is MeleeWeapon melee)
         {
             melee.config = (MeleeWeaponData)melee.Baseconfig.Duplicate();

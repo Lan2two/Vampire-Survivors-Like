@@ -48,25 +48,7 @@ public partial class DamageComponent : Area2D
         }
     }
 
-    private void OnAreaEntered(Area2D area)
-    {
-        if (area is not HitboxComponent)
-        {
-            return;
-        }
 
-        if (SingleHit)
-        {
-            ApplyDamage(area);
-            return;
-        }
-
-        bool isNewHitbox = hitboxes.Add(area);
-        if (isNewHitbox)
-        {
-            UniqueHitboxesEntered = hitboxes.Count;
-        }
-    }
 
     private void ApplyDamage(Area2D area)
     {
@@ -95,8 +77,39 @@ public partial class DamageComponent : Area2D
         }
     }
 
+    public void ClearHash()
+    {
+        hitboxes.Clear();
+        damagedHitboxes.Clear();
+        UniqueHitboxesEntered = hitboxes.Count;
+    }
+
+    private void OnAreaEntered(Area2D area)
+    {
+        if (area is not HitboxComponent)
+        {
+            return;
+        }
+
+        if (SingleHit)
+        {
+            ApplyDamage(area);
+            return;
+        }
+
+        bool isNewHitbox = hitboxes.Add(area);
+        if (isNewHitbox)
+        {
+            UniqueHitboxesEntered = hitboxes.Count;
+        }
+    }
+
     private void OnAreaExited(Area2D area)
     {
+        if (SingleHit)
+        {
+            return;
+        }
         if (area is not HitboxComponent)
         {
             return;
