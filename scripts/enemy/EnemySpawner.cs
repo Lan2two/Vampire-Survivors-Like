@@ -45,7 +45,7 @@ public partial class EnemySpawner : Path2D
     {
         pathFollow.ProgressRatio = GD.Randf() * 1.0f; // Random progress along the path
         Node2D enemyInstance = EnemyScene.Instantiate() as Node2D;
-        GetTree().Root.AddChild(enemyInstance);
+        GetTree().CurrentScene.AddChild(enemyInstance);
         enemyInstance.GlobalPosition = pathFollow.GlobalPosition;
     }
 
