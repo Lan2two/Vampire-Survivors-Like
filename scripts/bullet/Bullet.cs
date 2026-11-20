@@ -2,27 +2,17 @@ namespace SurvivorsGame
 {
     using Godot;
 
-    public partial class Bullet : Node2D, IWeapon
+    public partial class Bullet : Weapon, IWeapon
     {
         [Export] public BulletData config;
-        private AttackComponent attackComponent;
         private float traveledDistance = 0;
         private int hitCount = 0;
         private bool Crit;
         private float FinalDamage;
 
-        public override void _Ready()
-        {
-            attackComponent = GetNodeOrNull<AttackComponent>("AttackComponent");
-            if (attackComponent == null)
-            {
-                GD.PrintErr("AttackComponent not found in Bullet");
-            }
-        }
-
         public void Use(UpgradeManager upgradeManager)
         {
-            CallDeferred(MethodName.UpdateDamage);
+            CallDeferred(Weapon.MethodName.UpdateDamage, config, attackComponent);
         }
 
         public override void _PhysicsProcess(double delta)
@@ -35,21 +25,6 @@ namespace SurvivorsGame
             {
                 QueueFree();
             }
-        }
-
-        private void UpdateDamage()
-        {
-            int Randint = GD.RandRange(0, 100);
-            Crit = false;
-            FinalDamage = config.Damage;
-            if (Randint < config.CritRate)
-            {
-                Crit = true;
-                FinalDamage *= config.CritDamageMultiplier;
-            }
-            attackComponent.damage = FinalDamage;
-            attackComponent.knockback = config.Knockback;
-            attackComponent.crit = Crit;
         }
     }
 }

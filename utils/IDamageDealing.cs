@@ -16,5 +16,7 @@ namespace SurvivorsGame
     {
         float Damage { get; set; }
         float Knockback { get; set; }
+        float CritRate { get; set; }
+        float CritDamageMultiplier { get; set; }
     }
 }
