@@ -6,7 +6,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class HealthComponent : Node
     {
-        [Export] float maxHealth = 100f;
+        [Export] public float maxHealth = 100f;
 
         public event Action<Attack> Damage;
         public float currentHealth;

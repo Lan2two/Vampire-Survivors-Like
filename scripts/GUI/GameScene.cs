@@ -61,22 +61,26 @@ namespace SurvivorsGame
 
         private void PlayerDeath()
         {
-            GameOver("You died :(");
+            CallDeferred(MethodName.GameOver, "You Died");
         }
 
         private void GameOver(string message)
         {
             if (_isChangingScene || !IsInstanceValid(this)) return;
             _isChangingScene = true;
-            GetTree().Paused = true;
             if (gameOverLabel != null)
             {
                 Dim.Visible = true;
                 gameOverLabel.Text = message;
                 gameOverLabel.Visible = true;
             }
+            GetTree().CreateTimer(.1).Timeout += PauseGame;
+            GetTree().CreateTimer(3).Timeout += ReturnToMenu;
+        }
 
-            GetTree().CreateTimer(5).Timeout += ReturnToMenu;
+        private void PauseGame()
+        {
+            GetTree().Paused = true;
         }
 
         private void ReturnToMenu()

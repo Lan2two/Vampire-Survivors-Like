@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://chck2eeaeerer" path="res://utils/strategy/MeleeSwingSpeedStrategy.cs" id="11_m8p4d"]
 [ext_resource type="Script" uid="uid://bp8ndd1bodxe" path="res://utils/strategy/MeleeDamageStrategy.cs" id="12_gm6g3"]
 [ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="13_fire_rate"]
+[ext_resource type="Script" uid="uid://1mmaum2i8n02" path="res://scripts/GUI/HealthBar.cs" id="15_vjrnn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -70,18 +71,25 @@ content_margin_right = 10.0
 content_margin_bottom = 50.0
 bg_color = Color(0, 0, 0, 0.2509804)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8inel"]
+bg_color = Color(0.67754686, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjrnn"]
+bg_color = Color(0.18091199, 0.7145692, 0.26417047, 1)
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1447957346]
 
 [node name="KillsCounter" type="Label" parent="." unique_id=1656329884]
-offset_left = 22.0
-offset_top = 19.0
-offset_right = 243.0
-offset_bottom = 117.0
+offset_left = 24.0
+offset_top = 73.0
+offset_right = 245.0
+offset_bottom = 112.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 50
-text = "0"
+theme_override_font_sizes/font_size = 40
+text = "Kills: 0"
+vertical_alignment = 1
 script = ExtResource("2_womn8")
 
 [node name="GameOver" type="Label" parent="." unique_id=1051878861]
@@ -108,10 +116,10 @@ horizontal_alignment = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -257.0
-offset_top = 66.0
-offset_right = 257.0
-offset_bottom = 104.0
+offset_left = -247.0
+offset_top = 40.0
+offset_right = 247.0
+offset_bottom = 75.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
@@ -127,9 +135,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -68.0
-offset_top = -50.0
+offset_top = -42.0
 offset_right = 68.0
-offset_bottom = 1.0
+offset_bottom = 9.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 42
@@ -202,3 +210,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.11764706)
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=390020723]
+offset_left = 23.0
+offset_top = 46.0
+offset_right = 278.0
+offset_bottom = 72.0
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/background = SubResource("StyleBoxFlat_8inel")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vjrnn")
+show_percentage = false
+script = ExtResource("15_vjrnn")
+
+[node name="HealthLabel" type="Label" parent="HealthBar" unique_id=1228758676]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -127.5
+offset_top = -34.0
+offset_right = 8.5
+offset_bottom = 2.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 38
+text = "Health Bar"
+vertical_alignment = 1
