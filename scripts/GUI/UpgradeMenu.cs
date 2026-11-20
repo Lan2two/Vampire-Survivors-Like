@@ -39,7 +39,7 @@ namespace SurvivorsGame
             }
             if (inventory == null)
             {
-                GD.Print("Inventory from player not found in GridContainer");
+                GD.PrintErr("Inventory from player not found in GridContainer");
             }
             if (_upgradeButtonsContainer == null)
             {
@@ -173,7 +173,7 @@ namespace SurvivorsGame
             }
             Strategy chosenUpgrade = _RandUpgrades[i];
             inventory.AddItem(chosenUpgrade);
-            GD.Print(_RandUpgrades[i].ItemName);
+            //GD.Print(_RandUpgrades[i].ItemName);
             chosenUpgrade.Count++;
             if (chosenUpgrade.Count >= chosenUpgrade.MaxStackSize)
             {
