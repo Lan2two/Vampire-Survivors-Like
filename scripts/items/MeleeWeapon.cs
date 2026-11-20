@@ -67,10 +67,17 @@ namespace SurvivorsGame
 
         public void UpdateDamage()
         {
-            attackComponent.damage = config.Damage;
+            int Randint = GD.RandRange(0, 100);
+            bool Crit = false;
+            float FinalDamage = config.Damage;
+            if (Randint < config.CritRate)
+            {
+                Crit = true;
+                FinalDamage *= config.CritDamageMultiplier;
+            }
+            attackComponent.damage = FinalDamage;
             attackComponent.knockback = config.Knockback;
-            attackComponent.critRate = config.CritRate;
-            attackComponent.critDamageMultiplier = config.CritDamageMultiplier;
+            attackComponent.crit = Crit;
         }
         private void Swing()
         {

@@ -7,6 +7,8 @@ namespace SurvivorsGame
         [Export] public BulletData config;
         private float traveledDistance = 0;
         private int hitCount = 0;
+        private bool Crit;
+        private float FinalDamage;
         public override void _Ready()
         {
             AreaEntered += OnAreaEntered;
@@ -16,6 +18,14 @@ namespace SurvivorsGame
         {
             config = config != null ? (BulletData)config.Duplicate() : new BulletData();
             upgradeManager.ApplyUpgrades(config, UpgradeType.Bullet);
+            int Randint = GD.RandRange(0, 100);
+            Crit = false;
+            FinalDamage = config.Damage;
+            if (Randint < config.CritRate)
+            {
+                Crit = true;
+                FinalDamage *= config.CritDamageMultiplier;
+            }
         }
 
         public override void _ExitTree()
@@ -41,15 +51,6 @@ namespace SurvivorsGame
             {
                 if (hitCount <= config.PierceCount)
                 {
-                    int Randint = GD.RandRange(0, 100);
-                    bool Crit = false;
-                    float FinalDamage = config.Damage;
-                    if (Randint < config.CritRate)
-                    {
-                        Crit = true;
-                        FinalDamage *= config.CritDamageMultiplier;
-                    }
-
                     Attack attack = new Attack
                     {
                         Damage = FinalDamage,

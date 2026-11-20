@@ -6,7 +6,7 @@ namespace SurvivorsGame
     {
         private float _baseDamage = 10f;
         private float _baseKnockback = 100f;
-        private float _critRate = 0;
+        private float _critRate = 5;
         private float _critDamageMultiplier = 1.2f;
         [Export] public PackedScene WeaponVisualScene;
         [Export]
