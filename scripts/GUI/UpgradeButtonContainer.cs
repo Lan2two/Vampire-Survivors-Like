@@ -106,7 +106,7 @@ namespace SurvivorsGame
             }
             Strategy chosenUpgrade = _RandUpgrades[i];
             inventory.AddItem(chosenUpgrade);
-            GD.Print(_RandUpgrades[i].ItemName);
+            //GD.Print(_RandUpgrades[i].ItemName);
             chosenUpgrade.Count++;
             if (chosenUpgrade.Count >= chosenUpgrade.MaxStackSize)
             {

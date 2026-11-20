@@ -1,10 +1,12 @@
 namespace SurvivorsGame
 {
+    using System;
     using Godot;
+    using Godot.Collections;
 
     public partial class EnemySpawner : Path2D
     {
-        [Export] public PackedScene EnemyScene;
+        [Export] public Array<PackedScene> EnemySceneArray;
         [Export] public double spawnInterval = 0.5;
         [Export] private int _maxEnemies = 150;
 
@@ -14,9 +16,9 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             pathFollow = GetNodeOrNull<PathFollow2D>("PathFollow2D");
-            if (EnemyScene == null)
+            if (EnemySceneArray.Count == 0)
             {
-                GD.PrintErr("EnemyScene is not assigned in EnemySpawner.");
+                GD.PrintErr("No EnemyScene is not assigned in EnemySpawner.");
                 SetPhysicsProcess(false);
                 return;
             }
@@ -57,9 +59,10 @@ namespace SurvivorsGame
         private void SpawnEnemy()
         {
             float randomRatio = (float)GD.RandRange(0.0, 1.0);
+            int randEnemy = GD.RandRange(0, EnemySceneArray.Count - 1);
             pathFollow.ProgressRatio = randomRatio;
 
-            Node2D enemyInstance = EnemyScene.Instantiate<Node2D>();
+            Node2D enemyInstance = EnemySceneArray[randEnemy].Instantiate<Node2D>();
             if (enemyInstance == null)
             {
                 GD.PrintErr("EnemySpawner could not instantiate a Node2D enemy.");
