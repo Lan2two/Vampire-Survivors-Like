@@ -534,11 +534,15 @@ metadata/_better_terrain = {
 &"version": "0.2"
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcffj"]
+atlas = ExtResource("7_kyk2p")
+region = Rect2(0, 0, 16.60905, 16)
+
 [sub_resource type="Resource" id="Resource_choun"]
 script = ExtResource("9_sv1m6")
 WeaponVisualScene = ExtResource("8_45i86")
 ItemName = "Coin"
-ItemIcon = ExtResource("7_kyk2p")
+ItemIcon = SubResource("AtlasTexture_mcffj")
 metadata/_custom_type_script = "uid://dywixrbgtp314"
 
 [node name="Game" type="Node2D" unique_id=2069482560]
