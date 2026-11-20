@@ -3,16 +3,23 @@ using System;
 
 public partial class Bullet : Node2D
 {
-    [Export] float speed = 700f;
-    [Export] float range = 500f;
+    [Export] BulletData config;
+    [Export] DamageComponent damageComponent;
     private float traveledDistance = 0;
+    public override void _Ready()
+    {
+        if (damageComponent != null && config.PierceCount > 0)
+        {
+            damageComponent.SingleHit = false;
+        }
+    }
 
     public override void _PhysicsProcess(double delta)
     {
         Vector2 direction = Vector2.Left.Rotated(Rotation).Normalized();
-        Position += direction * speed * (float)delta;
-        traveledDistance += speed * (float)delta;
-        if (range < traveledDistance)
+        Position += direction * config.Speed * (float)delta;
+        traveledDistance += config.Speed * (float)delta;
+        if (config.MaxTravelDistance < traveledDistance || damageComponent.UniqueHitboxesEntered > config.PierceCount)
         {
             QueueFree();
         }

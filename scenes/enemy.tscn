@@ -192,7 +192,6 @@ metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1925952333]
 script = ExtResource("7_w8i8w")
-maxHealth = 10
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
@@ -244,6 +243,7 @@ Sprite = NodePath("../AnimatedSprite2D")
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("15_g0wcc")
+SingleHit = false
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent" unique_id=1330584947]

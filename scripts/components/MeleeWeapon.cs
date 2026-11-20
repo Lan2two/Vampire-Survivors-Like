@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 
-public partial class WeaponComponent : Node
+public partial class MeleeWeapon : Node2D
 {
     [Export] SpriteFrames spriteFrames;
     [Export] public float swingCooldown;

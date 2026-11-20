@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://u3i2pnm8ccrf"]
+
+[ext_resource type="Script" uid="uid://8eychqx3gcaf" path="res://scripts/components/MeleeWeapon.cs" id="1_t7crx"]
+[ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="2_io1w2"]
+[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="3_77l1b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2dcma"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_26aoe"]
+length = 0.6333333
+
+[sub_resource type="Animation" id="Animation_xucw5"]
+resource_name = "swing"
+length = 0.6333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3, 0.43333334, 0.56666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -10), Vector2(7, -7), Vector2(10, 0), Vector2(7, 7), Vector2(0, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001, 0.56666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.7853982, 0.7853982]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_26aoe"]
+_data = {
+&"RESET": SubResource("Animation_26aoe"),
+&"swing": SubResource("Animation_xucw5")
+}
+
+[node name="MeleeWeapon" type="Node2D" unique_id=100259256]
+script = ExtResource("1_t7crx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=434499713]
+position = Vector2(0, -10)
+rotation = -0.7853982
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("2_io1w2")
+hframes = 12
+
+[node name="DamageComponent" type="Area2D" parent="Sprite2D" unique_id=275614870]
+rotation = 0.7853982
+scale = Vector2(1.0000001, 1.0000001)
+monitoring = false
+script = ExtResource("3_77l1b")
+metadata/_custom_type_script = "uid://be1ra4a5fewk7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/DamageComponent" unique_id=742652395]
+shape = SubResource("CircleShape2D_2dcma")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1983282392]
+libraries/ = SubResource("AnimationLibrary_26aoe")

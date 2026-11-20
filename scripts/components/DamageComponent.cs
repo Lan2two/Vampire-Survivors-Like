@@ -6,12 +6,14 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class DamageComponent : Area2D
 {
-    [Export] int Damage = 10;
-    [Export] float DamageInterval = .7f;
-    [Export] bool SingleHit = false;
+    [Export] public float damage = 10f;
+    [Export] public float knockback = 100f;
+    [Export] public float DamageInterval = .7f;
+    [Export] public bool SingleHit = true;
 
     private double damageTimer;
-    private readonly HashSet<Area2D> hitAreas = new();
+    private readonly HashSet<Area2D> hitboxes = new();
+    public int UniqueHitboxesEntered;
 
     public override void _PhysicsProcess(double delta)
     {
@@ -31,17 +33,23 @@ public partial class DamageComponent : Area2D
                 continue;
             }
 
-            if (SingleHit && hitAreas.Contains(area))
+            bool isNewHitbox = hitboxes.Add(area);
+            if (isNewHitbox)
+            {
+                UniqueHitboxesEntered = hitboxes.Count;
+            }
+
+            if (SingleHit && !isNewHitbox)
             {
                 continue;
             }
-
-            if (SingleHit)
+            Attack attack = new Attack
             {
-                hitAreas.Add(area);
-            }
-
-            hitbox.TakeDamage(Damage);
+                Damage = damage,
+                GlobalPosition = this.GlobalPosition,
+                KnockbackForce = knockback
+            };
+            hitbox.TakeDamage(attack);
         }
     }
 }

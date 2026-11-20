@@ -4,19 +4,30 @@ using System;
 [GlobalClass]
 public partial class HealthComponent : Node
 {
-    [Export] int maxHealth = 100;
+    [Export] float maxHealth = 100f;
+    [Export] CharacterBody2D characterBody;
     [Signal] public delegate void DamageEventHandler();
-    public int currentHealth;
+    public float currentHealth;
 
     public override void _Ready()
     {
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(Attack attackData)
     {
-        currentHealth -= damage;
+        currentHealth -= attackData.Damage;
         EmitSignal(SignalName.Damage);
-        GD.Print("Took damage: " + damage + ", Current Health: " + currentHealth);
+        GD.Print("Took damage: " + attackData.Damage + ", Current Health: " + currentHealth);
+        if (characterBody != null)
+        {
+            TakeKnockback(attackData);
+        }
+    }
+
+    private void TakeKnockback(Attack attackData)
+    {
+        Vector2 pushDirection = (characterBody.GlobalPosition - attackData.GlobalPosition).Normalized();
+        characterBody.Velocity += pushDirection * attackData.KnockbackForce;
     }
 }
