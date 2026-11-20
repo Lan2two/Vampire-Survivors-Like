@@ -4,7 +4,7 @@ namespace SurvivorsGame
     using Godot.Collections;
 
     [GlobalClass]
-    public partial class Gun : Area2D
+    public partial class Gun : Area2D, IWeapon
     {
         [Export] private UpgradeManager upgradeManager;
         Timer timer;
@@ -37,7 +37,7 @@ namespace SurvivorsGame
             OnUpgrade();
             timer.Stop();
             timer.Start();
-            timer.Timeout += Shoot;
+            timer.Timeout += Use;
             EventBus.BulletUpgrade += OnUpgrade;
         }
 
@@ -45,7 +45,7 @@ namespace SurvivorsGame
         {
             if (timer != null)
             {
-                timer.Timeout -= Shoot;
+                timer.Timeout -= Use;
             }
             EventBus.BulletUpgrade -= OnUpgrade;
         }
@@ -71,13 +71,13 @@ namespace SurvivorsGame
             }
         }
 
-        private void Shoot()
+        public void Use()
         {
             if (enemiesInRange.Count > 0)
             {
                 Bullet newBullet = BULLET.Instantiate<Bullet>();
                 newBullet.config = currentConfig;
-                newBullet.Use();
+                newBullet.Fire();
                 newBullet.GlobalPosition = ShootPoint.GlobalPosition;
                 newBullet.GlobalRotation = ShootPoint.GlobalRotation;
                 ShootPoint.AddChild(newBullet);

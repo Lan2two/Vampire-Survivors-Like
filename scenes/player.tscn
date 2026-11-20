@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ch5qbeiukyfd0"]
 
 [ext_resource type="Texture2D" uid="uid://davyudedmf2dw" path="res://assets/sprites/knight.png" id="1_fjrip"]
-[ext_resource type="Script" uid="uid://cv3hpyq171vfh" path="res://scripts/player/Player.cs" id="1_ur7pv"]
+[ext_resource type="Script" uid="uid://cob1k88a3qbpi" path="res://scripts/player/Player.cs" id="2_i4ail"]
 [ext_resource type="Texture2D" uid="uid://bijshq8x3pr5y" path="res://assets/sprites/slime_green.png" id="2_ur7pv"]
 [ext_resource type="Script" uid="uid://0c8vpks0a618" path="res://scripts/player/Idle.cs" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://bub4440b8c76f" path="res://scenes/state_machine.tscn" id="4_d2wvv"]
@@ -343,7 +343,7 @@ collision_mask = 3
 physics_material_override = ExtResource("20_physics")
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_ur7pv")
+script = ExtResource("2_i4ail")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1701228797]
 position = Vector2(0, -4)
