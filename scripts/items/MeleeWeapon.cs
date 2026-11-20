@@ -69,7 +69,7 @@ public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
         float speedMultiplier = config.SwingSpeedMultiplier;
         timer = config.swingCooldown / speedMultiplier;
         animationPlayer.SpeedScale = speedMultiplier;
-        GD.Print($"Swinging weapon with speed multiplier: {speedMultiplier}, cooldown: {config.swingCooldown}, timer set to: {timer}");
+        //GD.Print($"Swinging weapon with speed multiplier: {speedMultiplier}, cooldown: {config.swingCooldown}, timer set to: {timer}");
 
         if (SwingVariant)
         {
