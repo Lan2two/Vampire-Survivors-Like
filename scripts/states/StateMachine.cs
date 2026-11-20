@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class StateMachine : Node
 {
     Dictionary<string, States> _states = new();
+    Dictionary<string, Interrupt> _interrupts = new();
     States currentState;
     [Export] States startingState;
     public AnimatedSprite2D anim;
@@ -13,6 +14,12 @@ public partial class StateMachine : Node
     {
         foreach (Node child in GetChildren())
         {
+            if (child is Interrupt interrupt)
+            {
+                string interruptName = interrupt.Name.ToString().ToLower();
+                _interrupts.Add(interruptName, interrupt);
+                interrupt.Interrupted += OnInterruptTriggered;
+            }
             if (child is States state)
             {
                 string stateName = state.Name.ToString().ToLower();
@@ -44,9 +51,19 @@ public partial class StateMachine : Node
         currentState?.PhysicsUpdate(delta);
     }
 
+    private void OnInterruptTriggered(Interrupt interrupt, string interruptName)
+    {
+        ChangeState(interruptName);
+    }
+
     private void OnStateChanged(States callingState, string newStateName)
     {
         if (callingState != currentState) return;
+        ChangeState(newStateName);
+    }
+
+    private void ChangeState(string newStateName)
+    {
         string targetStateName = newStateName.ToLower();
         if (!_states.TryGetValue(targetStateName, out States newState))
         {
@@ -60,9 +77,13 @@ public partial class StateMachine : Node
 
     public override void _ExitTree()
     {
-        foreach (var state in _states.Values)
+        foreach (States state in _states.Values)
         {
             state.stateChanged -= OnStateChanged;
+        }
+        foreach (Interrupt interrupt in _interrupts.Values)
+        {
+            interrupt.Interrupted -= OnInterruptTriggered;
         }
     }
 }
