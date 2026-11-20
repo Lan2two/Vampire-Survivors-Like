@@ -28,7 +28,6 @@ public partial class WanderComponent : Node
         float distanceToOrigin = characterBody.GlobalPosition.DistanceTo(originPoint);
         if (distanceToOrigin > WanderRadius)
         {
-            GD.Print("return home");
             returnHome = true;
             targetPosition = originPoint;
         }
@@ -46,6 +45,5 @@ public partial class WanderComponent : Node
         float randAngle = GD.Randf() * Mathf.Tau;
         float randDistance = GD.Randf() * WanderRadius;
         targetPosition = originPoint + new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle)) * randDistance;
-        GD.Print("New wander point: ", targetPosition);
     }
 }
