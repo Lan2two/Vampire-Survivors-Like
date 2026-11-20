@@ -288,6 +288,7 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 [sub_resource type="Resource" id="Resource_i4ail"]
 script = ExtResource("15_60mlk")
 UpgradeKnockback = 100.0
+upgradeType = 1
 metadata/_custom_type_script = "uid://ddu5sx4am1lol"
 
 [sub_resource type="Resource" id="Resource_a38lo"]

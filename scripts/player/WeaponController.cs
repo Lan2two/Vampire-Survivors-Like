@@ -17,7 +17,7 @@ public partial class WeaponController : Node2D
     public override void _Process(double delta)
     {
         AimRotationCursor();
-        if (Input.IsActionJustPressed("m1"))
+        if (Input.IsActionPressed("m1"))
         {
             TryForAttack();
         }
