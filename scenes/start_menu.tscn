@@ -668,7 +668,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="MainMenuContainer" type="Node2D" parent="MainMenuMotion" unique_id=421222010 node_paths=PackedStringArray("PositionOffsetNode")]
-position = Vector2(919, 339)
+position = Vector2(943, 375)
 script = ExtResource("3_egh8s")
 Spacing = 100.0
 SmoothingSpeed = 8.0
@@ -689,7 +689,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 
 [node name="StatsButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1070812510]
-modulate = Color(1, 1, 1, 0.39999992)
+modulate = Color(1, 1, 1, 0.39999998)
 z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -702,7 +702,6 @@ grow_vertical = 2
 rotation = -0.0715585
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(300, 56.25006)
-pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 2
@@ -720,7 +719,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1329301000]
-modulate = Color(1, 1, 1, 0.6999999)
+modulate = Color(1, 1, 1, 0.7)
 z_index = -1
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -734,7 +733,6 @@ grow_vertical = 2
 rotation = -0.06981317
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(300, 56.25)
-pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 2
@@ -769,7 +767,6 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.073303826
 pivot_offset = Vector2(300, 56.250008)
-pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -785,7 +782,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="ShopButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=645824201]
-modulate = Color(1, 1, 1, 0.6999999)
+modulate = Color(1, 1, 1, 0.7)
 z_index = -1
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -799,7 +796,6 @@ grow_vertical = 2
 rotation = -0.0715585
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(300, 56.25006)
-pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 2
@@ -817,7 +813,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1415925070]
-modulate = Color(1, 1, 1, 0.39999992)
+modulate = Color(1, 1, 1, 0.39999998)
 z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -835,7 +831,6 @@ grow_vertical = 2
 rotation = -0.06632251
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(300, 56.25)
-pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 2

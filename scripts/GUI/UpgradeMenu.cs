@@ -148,7 +148,16 @@ namespace SurvivorsGame
         private void DisplayUpgrades()
         {
             RandUpgrade();
+
+            //Pop in
+            Scale = new Vector2(.95f, .95f);
             Visible = true;
+            Tween tween = CreateTween();
+            tween.TweenProperty(this, "scale", new Vector2(1, 1), .12f)
+                .SetTrans(Tween.TransitionType.Sine)
+                .SetEase(Tween.EaseType.InOut);
+
+
             if (Rerolls > 0)
             {
                 _rerollButton.Visible = true;

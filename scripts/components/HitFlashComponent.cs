@@ -8,7 +8,8 @@ namespace SurvivorsGame
         [Export] AnimatedSprite2D Sprite;
         [Export] HealthComponent healthComponent;
         [Export] Color flashColor = new Color(1, 0, 0); // Red flash color
-        [Export] float flashDuration = 0.1f; // Duration of the flash effect
+        [Export] float hitFlashDuration = 0.1f;
+        [Export] float healFlashDuartion = 0.3f;
         private Tween _flashTween;
         public override void _Ready()
         {
@@ -36,30 +37,34 @@ namespace SurvivorsGame
 
         private void Flash(Attack attackData)
         {
-            if (attackData.Damage <= 0)
-            {
-                return;
-            }
+            Color _targetColor;
+            float _targetDuration;
             if (Sprite == null)
             {
                 return;
             }
-
             if (_flashTween != null)
             {
-                _flashTween.Kill();
-                _flashTween = null;
+                return;
             }
-
+            if (attackData.Damage <= 0)
+            {
+                _targetColor = Colors.LightGreen;
+                _targetDuration = healFlashDuartion;
+            }
+            else
+            {
+                _targetColor = flashColor;
+                _targetDuration = hitFlashDuration;
+            }
             Sprite.Modulate = Colors.White;
             _flashTween = CreateTween();
-            _flashTween.TweenProperty(Sprite, "modulate", flashColor, flashDuration)
+            _flashTween.TweenProperty(Sprite, "modulate", _targetColor, _targetDuration)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut);
-            _flashTween.TweenProperty(Sprite, "modulate", Colors.White, flashDuration)
+            _flashTween.TweenProperty(Sprite, "modulate", Colors.White, _targetDuration)
                 .SetTrans(Tween.TransitionType.Sine)
-                .SetEase(Tween.EaseType.InOut)
-                .SetDelay(flashDuration);
+                .SetEase(Tween.EaseType.InOut);
 
             _flashTween.Finished += () =>
             {

@@ -5,17 +5,21 @@ namespace SurvivorsGame
 
     public partial class EnemySpawner : Path2D
     {
-        [Export] public Array<PackedScene> EnemySceneArray;
-        [Export] public double spawnInterval = 1;
-        [Export] private int _maxEnemies = 300;
+        [Export] private Array<Array<PackedScene>> EnemyTable;
+        [Export] private double PatternTime = 90;
+        [Export] private bool LoopPattern = false;
+        [Export] private double spawnInterval = 1;
+        [Export] private int MaxEnemies = 300;
 
         private PathFollow2D pathFollow;
-        private double spawnTimer;
+        private double _spawnTimer;
+        private int pattern = 0;
+        private double _patternTimer;
 
         public override void _Ready()
         {
             pathFollow = GetNodeOrNull<PathFollow2D>("PathFollow2D");
-            if (EnemySceneArray.Count == 0)
+            if (EnemyTable.Count == 0)
             {
                 GD.PrintErr("No EnemyScene is not assigned in EnemySpawner.");
                 SetPhysicsProcess(false);
@@ -35,33 +39,45 @@ namespace SurvivorsGame
                 SetPhysicsProcess(false);
                 return;
             }
-
+            _patternTimer = PatternTime;
             pathFollow.Loop = true;
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            spawnTimer -= delta;
-            if (spawnTimer > 0)
+            _spawnTimer -= delta;
+            _patternTimer -= delta;
+            if (_patternTimer < 0)
             {
-                return;
+                if (pattern < EnemyTable.Count)
+                {
+                    pattern++;
+                }
+                if (LoopPattern && pattern == EnemyTable.Count)
+                {
+                    pattern = 0;
+                }
+                GD.Print(pattern);
+                _patternTimer = PatternTime;
             }
-            if (Enemy.Alive >= _maxEnemies)
+            if (_spawnTimer > 0) return;
+
+            if (Enemy.Alive >= MaxEnemies)
             {
                 //GD.Print("Cap Reached");
                 return;
             }
-            spawnTimer = spawnInterval / ((Stats.data.Seconds + 10) / 10);
+            _spawnTimer = spawnInterval / ((Stats.data.Seconds + 10) / 10);
             SpawnEnemy();
         }
 
         private void SpawnEnemy()
         {
             float randomRatio = (float)GD.RandRange(0.0, 1.0);
-            int randEnemy = GD.RandRange(0, EnemySceneArray.Count - 1);
+            int randEnemy = GD.RandRange(0, EnemyTable[pattern].Count - 1);
             pathFollow.ProgressRatio = randomRatio;
 
-            Node2D enemyInstance = EnemySceneArray[randEnemy].Instantiate<Node2D>();
+            Node2D enemyInstance = EnemyTable[pattern][randEnemy].Instantiate<Node2D>();
             if (enemyInstance == null)
             {
                 GD.PrintErr("EnemySpawner could not instantiate a Node2D enemy.");

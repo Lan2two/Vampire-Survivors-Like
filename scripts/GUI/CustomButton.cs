@@ -17,6 +17,7 @@ namespace SurvivorsGame
 
         private void OnButtonPressed()
         {
+            AnimateButtonScale(new Vector2(.9f, .9f));
             CustomButtonPressed?.Invoke(this);
         }
 

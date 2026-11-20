@@ -1370,8 +1370,9 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Node2D" parent="PlayerPlacement/Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
-EnemySceneArray = Array[PackedScene]([ExtResource("5_y5y3l"), ExtResource("7_7ua8r"), ExtResource("8_r7sob")])
-_maxEnemies = 150
+EnemyTable = Array[Array]([[ExtResource("8_r7sob")], [ExtResource("5_y5y3l")], [ExtResource("7_7ua8r")]])
+PatternTime = 10.0
+LoopPattern = true
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerPlacement/Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)
