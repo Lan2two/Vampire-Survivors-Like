@@ -40,7 +40,7 @@ public partial class VelocityComponent : Node2D
     public void Decelerate()
     {
         float step = Mathf.Clamp(acceleration * (float)GetProcessDeltaTime(), 0f, 1f);
-        Velocity = Velocity.MoveToward(Vector2.Zero, step * maxSpeed);
+        Velocity = Velocity.MoveToward(Vector2.Zero, step * acceleration);
     }
 
     public void Stop()
@@ -70,7 +70,12 @@ public partial class VelocityComponent : Node2D
         }
 
         characterBody.Velocity = Velocity;
+    }
+    public override void _PhysicsProcess(double delta)
+    {
+        characterBody.Velocity = Velocity;
         characterBody.MoveAndSlide();
+        Decelerate();
     }
 
 

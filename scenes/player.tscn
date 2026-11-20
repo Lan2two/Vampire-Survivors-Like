@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://dlmrtl8or42r4" path="res://scripts/player/InventoryManager.cs" id="14_f1ej7"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/DamageStrategy.cs" id="15_a8ls1"]
 [ext_resource type="Script" uid="uid://b2smhlmvtllwm" path="res://scripts/player/UpgradeManager.cs" id="15_oprun"]
+[ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="17_qfm1y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -311,10 +312,8 @@ hitboxComponent = NodePath("../../HitboxComponent")
 velocityComponent = NodePath("../../VelocityComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1660121276 node_paths=PackedStringArray("velocityComponent", "characterBody")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1660121276]
 script = ExtResource("8_ur7pv")
-velocityComponent = NodePath("../VelocityComponent")
-characterBody = NodePath("..")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=473269241 node_paths=PackedStringArray("healthComponent")]
 visible = false
@@ -352,3 +351,10 @@ Upgrades = Array[Object]([SubResource("Resource_qfm1y"), SubResource("Resource_a
 [node name="UpgradeManager" type="Node" parent="." unique_id=1180921809 node_paths=PackedStringArray("inventoryManager")]
 script = ExtResource("15_oprun")
 inventoryManager = NodePath("../InventoryManager")
+
+[node name="KnockbackComponent" type="Node" parent="." unique_id=2000839814 node_paths=PackedStringArray("healthComponent", "velocityComponent", "characterBody")]
+script = ExtResource("17_qfm1y")
+healthComponent = NodePath("../HealthComponent")
+velocityComponent = NodePath("../VelocityComponent")
+characterBody = NodePath("..")
+metadata/_custom_type_script = "uid://dnk7siajx4ooa"
