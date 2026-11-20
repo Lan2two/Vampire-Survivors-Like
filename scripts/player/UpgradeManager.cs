@@ -2,7 +2,6 @@ namespace SurvivorsGame
 {
     using Godot;
     using System.Collections.Generic;
-    using System;
 
     public partial class UpgradeManager : Node
     {
@@ -11,13 +10,13 @@ namespace SurvivorsGame
 
         public void ApplyUpgrades(Resource config, UpgradeType targetType)
         {
-            Dictionary<Type, StatUpgradeTotal> statUpgrades = new();
+            List<StatUpgradeTotal> statUpgrades = new();
             foreach (Strategy strategy in inventoryManager.Upgrades)
             {
                 ApplyStrategy(strategy, config, targetType, 0, statUpgrades);
             }
 
-            foreach (StatUpgradeTotal total in statUpgrades.Values)
+            foreach (StatUpgradeTotal total in statUpgrades)
             {
                 total.Upgrade.ApplyUpgrade(config, total.Amount);
             }
@@ -28,7 +27,7 @@ namespace SurvivorsGame
             Resource config,
             UpgradeType targetType,
             int depth,
-            Dictionary<Type, StatUpgradeTotal> statUpgrades)
+            List<StatUpgradeTotal> statUpgrades)
         {
             if (strategy == null)
             {
@@ -36,15 +35,7 @@ namespace SurvivorsGame
             }
             if (strategy is CompositeStrategy composite)
             {
-                if (depth >= CompositeDepth)
-                {
-                    GD.PrintErr($"{composite.ItemName} is nested too deeply");
-                    return;
-                }
-                foreach (Strategy child in composite.Children)
-                {
-                    ApplyStrategy(child, config, targetType, depth + 1, statUpgrades);
-                }
+                ApplyComposite(composite, config, targetType, depth, statUpgrades);
                 return;
             }
             if (strategy.upgradeType != targetType)
@@ -54,22 +45,48 @@ namespace SurvivorsGame
 
             if (strategy is IStatUpgrade statUpgrade)
             {
-                Type upgradeType = statUpgrade.GetType();
-                if (statUpgrades.TryGetValue(upgradeType, out StatUpgradeTotal existing))
-                {
-                    existing.Amount += statUpgrade.Amount;
-                }
-                else
-                {
-                    statUpgrades.Add(
-                        upgradeType,
-                        new StatUpgradeTotal(statUpgrade, statUpgrade.Amount));
-                }
+                AccumulateStatUpgrade(statUpgrade, statUpgrades);
             }
             else if (strategy is IStrategy upgrade)
             {
                 upgrade.ApplyUpgrade(config);
             }
+        }
+
+        private void ApplyComposite(
+            CompositeStrategy composite,
+            Resource config,
+            UpgradeType targetType,
+            int depth,
+            List<StatUpgradeTotal> statUpgrades)
+        {
+            if (depth >= CompositeDepth)
+            {
+                GD.PrintErr($"{composite.ItemName} is nested too deeply");
+                return;
+            }
+
+            foreach (Strategy child in composite.Children)
+            {
+                ApplyStrategy(child, config, targetType, depth + 1, statUpgrades);
+            }
+        }
+
+        private static void AccumulateStatUpgrade(
+            IStatUpgrade upgrade,
+            List<StatUpgradeTotal> statUpgrades)
+        {
+            foreach (StatUpgradeTotal total in statUpgrades)
+            {
+                if (total.Upgrade.GetType() == upgrade.GetType()
+                    && total.Upgrade.CalculationMode == upgrade.CalculationMode)
+                {
+                    total.Amount += upgrade.Amount;
+                    return;
+                }
+            }
+
+            statUpgrades.Add(new StatUpgradeTotal(upgrade, upgrade.Amount));
         }
 
         private sealed class StatUpgradeTotal

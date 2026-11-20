@@ -6,6 +6,7 @@ namespace SurvivorsGame
     public partial class MeleeKnockbackStrategy : Strategy, IStrategy, IStatUpgrade
     {
         [Export] float UpgradeKnockback { get; set; } = 10f;
+        [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
         public float Amount => UpgradeKnockback;
 
         public MeleeKnockbackStrategy()
@@ -23,7 +24,10 @@ namespace SurvivorsGame
         {
             if (config is IDamageDealing damageable)
             {
-                damageable.Knockback += totalAmount;
+                damageable.Knockback = CalculateStatUpgrade(
+                    damageable.Knockback,
+                    totalAmount,
+                    CalculationMode);
             }
         }
     }

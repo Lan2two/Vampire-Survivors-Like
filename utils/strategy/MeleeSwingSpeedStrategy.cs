@@ -6,6 +6,7 @@ namespace SurvivorsGame
     public partial class MeleeSwingSpeedStrategy : Strategy, IStrategy, IStatUpgrade
     {
         [Export] float UpgradeSwingSpeed { get; set; } = 1f;
+        [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
         public float Amount => UpgradeSwingSpeed;
 
         public MeleeSwingSpeedStrategy()
@@ -23,7 +24,10 @@ namespace SurvivorsGame
         {
             if (config is MeleeWeaponBase swingSpeedMultiplier)
             {
-                swingSpeedMultiplier.SwingSpeedMultiplier += totalAmount;
+                swingSpeedMultiplier.SwingSpeedMultiplier = CalculateStatUpgrade(
+                    swingSpeedMultiplier.SwingSpeedMultiplier,
+                    totalAmount,
+                    CalculationMode);
             }
         }
     }

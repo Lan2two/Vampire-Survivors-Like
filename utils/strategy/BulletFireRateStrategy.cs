@@ -3,9 +3,11 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletFireRateStrategy : Strategy, IStrategy
+    public partial class BulletFireRateStrategy : Strategy, IStrategy, IStatUpgrade
     {
         [Export] float UpgradeCooldown { get; set; } = 0.15f;
+        [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
+        public float Amount => UpgradeCooldown;
 
         public BulletFireRateStrategy()
         {
@@ -16,9 +18,26 @@ namespace SurvivorsGame
 
         public void ApplyUpgrade(Resource config)
         {
+            ApplyUpgrade(config, UpgradeCooldown);
+        }
+
+        public void ApplyUpgrade(Resource config, float totalAmount)
+        {
             if (config is BulletData bulletData)
             {
-                bulletData.GunCooldown = Mathf.Max(0.05f, bulletData.GunCooldown - UpgradeCooldown);
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    float rateMultiplier = Mathf.Max(0.01f, 1f + totalAmount / 100f);
+                    bulletData.GunCooldown = Mathf.Max(
+                        0.05f,
+                        bulletData.GunCooldown / rateMultiplier);
+                }
+                else
+                {
+                    bulletData.GunCooldown = Mathf.Max(
+                        0.05f,
+                        bulletData.GunCooldown - totalAmount);
+                }
             }
         }
     }
