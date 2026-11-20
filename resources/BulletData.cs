@@ -5,7 +5,6 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletData : Resource, IDamageDealing
     {
-        // --- INHERITED IDAMAGEDEALING CORE COMBAT FIELDS ---
         [ExportGroup("Damage Dealing")]
         [Export] public float DamageBase = 10f;
         public float DamageAdditive;
@@ -27,6 +26,7 @@ namespace SurvivorsGame
         public float SpeedAdditive;
         public float SpeedPercent;
 
+        [ExportGroup("Gun Stats")]
         [Export] public float MaxTravelDistanceBase = 500f;
         public float MaxTravelDistanceAdditive;
         public float MaxTravelDistancePercent;
