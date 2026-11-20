@@ -19,7 +19,6 @@ namespace SurvivorsGame
             }
             CycleTimeSeconds *= 2;
             _currentSeconds = StartingTime / 24.0f * CycleTimeSeconds;
-            GD.Print(CycleTimeSeconds);
         }
 
         public override void _Process(double delta)
