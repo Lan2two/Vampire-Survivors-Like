@@ -7,16 +7,20 @@ using System.Linq;
 public partial class GunComponent : Area2D
 {
     [Export] float gunTimer = 1;
+    UpgradeManager upgradeManager;
     Timer timer;
     Marker2D ShootPoint;
     Array<Node2D> enemiesInRange;
+    PackedScene BULLET;
 
     public override void _Ready()
     {
         timer = GetNode<Timer>("Timer");
         ShootPoint = GetNode<Marker2D>("%ShootPoint");
+        upgradeManager = GetParent().GetNode<UpgradeManager>("UpgradeManager");
         timer.WaitTime = gunTimer;
         timer.Timeout += Shoot;
+        BULLET = GD.Load<PackedScene>("uid://d1ufo1hep2ntf");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -33,11 +37,12 @@ public partial class GunComponent : Area2D
     {
         if (enemiesInRange.Count > 0)
         {
-            PackedScene BULLET = GD.Load<PackedScene>("uid://d1ufo1hep2ntf");
-            Bullet newBullet = BULLET.Instantiate() as Bullet;
+            Bullet newBullet = BULLET.Instantiate<Bullet>();
+            newBullet.config = (BulletData)newBullet.config.Duplicate();
             newBullet.GlobalPosition = ShootPoint.GlobalPosition;
             newBullet.GlobalRotation = ShootPoint.GlobalRotation;
             ShootPoint.AddChild(newBullet);
+            upgradeManager.UpgradeBullet(newBullet);
         }
     }
 }
