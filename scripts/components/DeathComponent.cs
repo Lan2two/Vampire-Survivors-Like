@@ -4,6 +4,7 @@ using System;
 [GlobalClass]
 public partial class DeathComponent : Node
 {
+    [Export] CharacterBody2D characterBody;
     [Export] HealthComponent healthComponent;
     [Export] AnimatedSprite2D Sprite;
 
@@ -17,24 +18,25 @@ public partial class DeathComponent : Node
         {
             GD.PrintErr("HealthComponent not assigned in DeathComponent.");
         }
-        healthComponent.Damage += Die;
     }
-    public override void _ExitTree()
+    public override void _PhysicsProcess(double delta)
     {
-        healthComponent.Damage -= Die;
+        if (healthComponent.currentHealth <= 0)
+            Die();
     }
 
     private async void Die()
     {
+        if (characterBody != null)
+        {
+            characterBody.SetDeferred("collision_layer", 0);
+            characterBody.SetDeferred("collision_mask", 0);
+        }
         if (Sprite.SpriteFrames.HasAnimation("die"))
         {
             Sprite.Play("die");
             await ToSignal(Sprite, AnimatedSprite2D.SignalName.AnimationFinished);
-            GetParent().QueueFree();
         }
-        else
-        {
-            GetParent().QueueFree();
-        }
+        GetParent().QueueFree();
     }
 }

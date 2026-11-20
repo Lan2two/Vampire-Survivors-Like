@@ -1,20 +1,23 @@
 using Godot;
 using System;
 
-public partial class Bullet : Area2D
+public partial class Bullet : Node2D
 {
-    [Export] int Damage = 10;
-    public override void _Ready()
+    [Export] float speed = 700f;
+    [Export] float range = 500f;
+    private float traveledDistance = 0;
+
+    public override void _PhysicsProcess(double delta)
     {
-        //connect the area entered signal to a function
-        Connect(Area2D.SignalName.AreaEntered, new Callable(this, nameof(OnAreaEntered)));
-    }
-    private void OnAreaEntered(Area2D area)
-    {
-        if (area is HitboxComponent hitbox)
+        Vector2 direction = Vector2.Left.Rotated(Rotation);
+        Position += direction * speed * (float)delta;
+        traveledDistance += speed * (float)delta;
+        if (range < traveledDistance)
         {
-            hitbox.TakeDamage(Damage);
-            GD.Print("hit");
+            QueueFree();
         }
     }
+
+
+
 }

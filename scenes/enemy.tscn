@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="12_wtq4b"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_wtq4b"]
 [ext_resource type="Script" uid="uid://dxtpj8xqemmqm" path="res://scripts/components/DeathComponent.cs" id="14_j0cyh"]
+[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="15_g0wcc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -159,7 +160,11 @@ radius = 6.0827627
 [sub_resource type="CircleShape2D" id="CircleShape2D_md484"]
 radius = 57.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_s1ycm"]
+radius = 7.0
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1010643694]
+collision_layer = 3
 script = ExtResource("1_nenq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532282420]
@@ -198,6 +203,7 @@ maxHealth = 10
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
+collision_layer = 3
 script = ExtResource("8_otmr2")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://0ucn25ndx6bw"
@@ -234,7 +240,17 @@ script = ExtResource("13_wtq4b")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 
-[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("healthComponent", "Sprite")]
+[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "healthComponent", "Sprite")]
 script = ExtResource("14_j0cyh")
+characterBody = NodePath("..")
 healthComponent = NodePath("../HealthComponent")
 Sprite = NodePath("../AnimatedSprite2D")
+
+[node name="DamageComponent" type="Area2D" parent="." unique_id=1858224252]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("15_g0wcc")
+metadata/_custom_type_script = "uid://be1ra4a5fewk7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent" unique_id=1330584947]
+shape = SubResource("CircleShape2D_s1ycm")

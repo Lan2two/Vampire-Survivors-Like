@@ -6,8 +6,7 @@ public partial class HealthComponent : Node
 {
     [Export] int maxHealth = 100;
     [Signal] public delegate void DamageEventHandler();
-    [Signal] public delegate void DeathEventHandler();
-    int currentHealth;
+    public int currentHealth;
 
     public override void _Ready()
     {
@@ -19,9 +18,5 @@ public partial class HealthComponent : Node
         currentHealth -= damage;
         EmitSignal(SignalName.Damage);
         GD.Print("Took damage: " + damage + ", Current Health: " + currentHealth);
-        if (currentHealth <= 0)
-        {
-            EmitSignal(SignalName.Death);
-        }
     }
 }

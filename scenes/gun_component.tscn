@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cwdcoscao12ve"]
+
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_4ctwc"]
+[ext_resource type="Script" uid="uid://b76tv0e0dtjl8" path="res://scripts/components/GunComponent.cs" id="1_eb11s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eb11s"]
+radius = 86.0
+
+[node name="GunComponent" type="Area2D" unique_id=1673118753]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_eb11s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2095139427]
+shape = SubResource("CircleShape2D_eb11s")
+
+[node name="WeaponPivot" type="Marker2D" parent="." unique_id=588346685]
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponPivot" unique_id=2147348239]
+position = Vector2(15, 0)
+scale = Vector2(-0.08138493, -0.042989153)
+texture = ExtResource("1_4ctwc")
+
+[node name="ShootPoint" type="Marker2D" parent="WeaponPivot/Sprite2D" unique_id=836309297]
+unique_name_in_owner = true
+position = Vector2(-61.43639, 23.26168)
+
+[node name="Timer" type="Timer" parent="." unique_id=1966034696]
+autostart = true

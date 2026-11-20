@@ -18,6 +18,7 @@ public partial class WanderComponent : Node
         if (characterBody == null)
             GD.PrintErr("CharacterBody not set");
         PickNewWanderPoint();
+        originPoint = characterBody.GlobalPosition;
     }
 
     public void Wander()
