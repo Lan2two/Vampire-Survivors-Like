@@ -1359,51 +1359,53 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AADr/wkAAAAAAAgAAADz//z/AAAAAAgAAADw/wYAAAAAAAgAAAARAAUAAAAAAAgAAAAfAPf/AAAAAAgAAAD1//D/AAAAAAgAAADa//P/AAAAAAgAAADR/wMAAAAAAAgAAADT/w0AAAAAAAgAAADc/xIAAAAAAAgAAAD0/xIAAAAAAAgAAAARABIAAAAAAAgAAAAwAP7/AAAAAAgAAAApAPH/AAAAAAgAAADo/+z/AAAAAAgAAAAMAPH/AAAAAAgAAADl//z/AAAAAAgAAAAtABQAAAAAAAgAAADc/xkAAAAAAAgAAAAcABsAAAAAAAgAAAA=")
 tile_set = SubResource("TileSet_mcffj")
 
-[node name="Player" parent="." unique_id=1724972010 instance=ExtResource("2_2rd6h")]
+[node name="PlayerPlacement" type="Node2D" parent="."]
 position = Vector2(-86, -17)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1308932069]
+[node name="Player" parent="PlayerPlacement" unique_id=1724972010 instance=ExtResource("2_2rd6h")]
+
+[node name="Camera2D" type="Camera2D" parent="PlayerPlacement/Player" unique_id=1308932069]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="Node2D" parent="Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
+[node name="Node2D" parent="PlayerPlacement/Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
 EnemySceneArray = Array[PackedScene]([ExtResource("5_y5y3l"), ExtResource("7_7ua8r"), ExtResource("8_r7sob")])
 _maxEnemies = 150
 
-[node name="PointLight2D" type="PointLight2D" parent="Player" unique_id=1815498478]
+[node name="PointLight2D" type="PointLight2D" parent="PlayerPlacement/Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)
 scale = Vector2(5.732422, 6.0349936)
 color = Color(0.87775594, 0.94410115, 0.76046246, 1)
 texture = SubResource("GradientTexture2D_2rd6h")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1750514284]
-
-[node name="Coin" parent="Node2D" unique_id=579653615 instance=ExtResource("6_vjgi4")]
+[node name="CoinPlacement" type="Node2D" parent="."]
 position = Vector2(-190, -19)
+
+[node name="Coin" parent="CoinPlacement" unique_id=579653615 instance=ExtResource("6_vjgi4")]
 ItemData = SubResource("Resource_choun")
 
 [node name="Objects" type="Node" parent="." unique_id=1707808884]
 
-[node name="Node2D" type="Node2D" parent="Objects" unique_id=1786930220]
-
-[node name="Campfire" parent="Objects/Node2D" unique_id=1670016202 instance=ExtResource("13_2rd6h")]
+[node name="Campfire1Placement" type="Node2D" parent="Objects"]
 position = Vector2(-229, -62)
 
-[node name="Node2D2" type="Node2D" parent="Objects" unique_id=1884004080]
+[node name="Campfire" parent="Objects/Campfire1Placement" unique_id=1670016202 instance=ExtResource("13_2rd6h")]
 
-[node name="Campfire2" parent="Objects/Node2D2" unique_id=240434088 instance=ExtResource("13_2rd6h")]
+[node name="Campfire2Placement" type="Node2D" parent="Objects"]
 position = Vector2(-361, 184)
 
-[node name="Node2D3" type="Node2D" parent="Objects" unique_id=2018912647]
+[node name="Campfire2" parent="Objects/Campfire2Placement" unique_id=240434088 instance=ExtResource("13_2rd6h")]
 
-[node name="Campfire3" parent="Objects/Node2D3" unique_id=1965595540 instance=ExtResource("13_2rd6h")]
+[node name="Campfire3Placement" type="Node2D" parent="Objects"]
 position = Vector2(33, 194)
 
-[node name="Node2D4" type="Node2D" parent="Objects" unique_id=1624468965]
+[node name="Campfire3" parent="Objects/Campfire3Placement" unique_id=1965595540 instance=ExtResource("13_2rd6h")]
 
-[node name="Campfire4" parent="Objects/Node2D4" unique_id=328187902 instance=ExtResource("13_2rd6h")]
+[node name="Campfire4Placement" type="Node2D" parent="Objects"]
 position = Vector2(-717, -7)
+
+[node name="Campfire4" parent="Objects/Campfire4Placement" unique_id=328187902 instance=ExtResource("13_2rd6h")]
 
 [node name="HUD" parent="." unique_id=1447957346 instance=ExtResource("12_mcffj")]
 
