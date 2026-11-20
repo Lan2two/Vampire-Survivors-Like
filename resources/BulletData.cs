@@ -50,7 +50,7 @@ namespace SurvivorsGame
             "Speed" => new StatModifier(SpeedBase, SpeedAdditive, SpeedPercent, CombatStatLimits.MinBulletSpeed, CombatStatLimits.MaxBulletSpeed),
             "MaxTravelDistance" => new StatModifier(MaxTravelDistanceBase, MaxTravelDistanceAdditive, MaxTravelDistancePercent),
             "PierceCount" => new StatModifier(PierceCountBase, PierceCountAdditive, PierceCountPercent, 0f, float.MaxValue),
-            "GunCooldown" => new StatModifier(GunCooldownBase, GunCooldownAdditive, GunCooldownPercent, 0.001f, float.MaxValue),
+            "GunCooldown" => new StatModifier(GunCooldownBase, GunCooldownAdditive, GunCooldownPercent, 0.05f, float.MaxValue),
             _ => default
         };
     }

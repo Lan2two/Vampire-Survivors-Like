@@ -103,6 +103,7 @@ namespace SurvivorsGame
             if (gameOverNode != null)
             {
                 gameOverNode.Visible = true;
+                SaveData();
             }
             GD.Print("GameOver");
             GetTree().CreateTimer(.1).Timeout += PauseGame;
@@ -119,6 +120,18 @@ namespace SurvivorsGame
             Stats.ResetValues();
             Enemy.Alive = 0;
             GetTree().Paused = false;
+        }
+
+        private void SaveData()
+        {
+            SaveSystem saveSystem = new SaveSystem();
+            GameSaveData data = saveSystem.LoadData();
+            data.TotalSeconds += Stats.data.Seconds;
+            data.TotalKills += Stats.data.EnemiesKilled;
+            data.TotalDamageDealt += (int)Stats.data.DamageDealt;
+            data.TotalDamageTaken += (int)Stats.data.DamageTaken;
+            data.TotalHealthHealed += (int)Stats.data.HealthHealed;
+            saveSystem.SaveData(data);
         }
     }
 }

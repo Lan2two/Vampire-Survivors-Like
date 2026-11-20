@@ -76,5 +76,6 @@ texture = SubResource("GradientTexture2D_d33pk")
 script = ExtResource("6_x08h0")
 characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
-threshold = 1.0
+threshold = 0.0
+pathUpdateInterval = 0.1
 metadata/_custom_type_script = "uid://bbw06doqvj4pd"

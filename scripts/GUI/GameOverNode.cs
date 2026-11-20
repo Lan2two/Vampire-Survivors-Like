@@ -53,21 +53,9 @@ namespace SurvivorsGame
 
         private void MainMenuButton()
         {
-            SaveData();
             CallDeferred(nameof(DeferredChangeScene));
         }
 
-        private void SaveData()
-        {
-            SaveSystem saveSystem = new SaveSystem();
-            GameSaveData data = saveSystem.LoadData();
-            data.TotalSeconds += Stats.data.Seconds;
-            data.TotalKills += Stats.data.EnemiesKilled;
-            data.TotalDamageDealt += (int)Stats.data.DamageDealt;
-            data.TotalDamageTaken += (int)Stats.data.DamageTaken;
-            data.TotalHealthHealed += (int)Stats.data.HealthHealed;
-            saveSystem.SaveData(data);
-        }
         private void DeferredChangeScene()
         {
             if (IsInstanceValid(this) && IsInsideTree())
