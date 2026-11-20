@@ -3,16 +3,16 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletBurstStrategy : Strategy
+    public partial class ProjectileDamageStrategy : Strategy
     {
-        [Export] int BurstAmount { get; set; } = 3;
+        [Export] float UpgradeDamage { get; set; } = 5f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
-        public BulletBurstStrategy()
+        public ProjectileDamageStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
-            ItemName = "Burst shots";
-            ItemDescription = "Bullet bursts";
+            upgradeType = UpgradeType.Gun;
+            ItemName = "Better bullets";
+            ItemDescription = "Bullet deals more damage";
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
@@ -22,11 +22,11 @@ namespace SurvivorsGame
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    damageable.BurstPercent += BurstAmount;
+                    damageable.DamagePercent += UpgradeDamage;
                 }
                 else
                 {
-                    damageable.BurstAdditive += BurstAmount;
+                    damageable.DamageAdditive += UpgradeDamage;
                 }
             }
         }

@@ -3,16 +3,16 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletKnockbackStrategy : Strategy
+    public partial class ProjectileSpreadStrategy : Strategy
     {
-        [Export] float UpgradeKnockback { get; set; } = 10f;
+        [Export] float AddSpread { get; set; } = .3f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
-        public BulletKnockbackStrategy()
+        public ProjectileSpreadStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
-            ItemName = "Heavier bullets";
-            ItemDescription = "Bullet deals more knockback";
+            upgradeType = UpgradeType.Gun;
+            ItemName = "Inaccuracy";
+            ItemDescription = "Bullet Spread";
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
@@ -22,11 +22,11 @@ namespace SurvivorsGame
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    bulletData.KnockbackPercent += UpgradeKnockback;
+                    bulletData.SpreadPercent += AddSpread;
                 }
                 else
                 {
-                    bulletData.KnockbackAdditive += UpgradeKnockback;
+                    bulletData.SpreadAdditive += AddSpread;
                 }
             }
         }

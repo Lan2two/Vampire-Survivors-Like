@@ -3,30 +3,30 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletDamageStrategy : Strategy
+    public partial class ProjectileKnockbackStrategy : Strategy
     {
-        [Export] float UpgradeDamage { get; set; } = 5f;
+        [Export] float UpgradeKnockback { get; set; } = 10f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
-        public BulletDamageStrategy()
+        public ProjectileKnockbackStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
-            ItemName = "Better bullets";
-            ItemDescription = "Bullet deals more damage";
+            upgradeType = UpgradeType.Gun;
+            ItemName = "Heavier bullets";
+            ItemDescription = "Bullet deals more knockback";
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is ProjectileData damageable)
+            if (config is ProjectileData bulletData)
             {
                 if (CalculationMode == UpgradeCalculationMode.Percentage)
                 {
-                    damageable.DamagePercent += UpgradeDamage;
+                    bulletData.KnockbackPercent += UpgradeKnockback;
                 }
                 else
                 {
-                    damageable.DamageAdditive += UpgradeDamage;
+                    bulletData.KnockbackAdditive += UpgradeKnockback;
                 }
             }
         }

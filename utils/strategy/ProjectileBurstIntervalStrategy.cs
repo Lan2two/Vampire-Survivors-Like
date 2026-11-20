@@ -3,14 +3,14 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletBurstIntervalStrategy : Strategy
+    public partial class ProjectileBurstIntervalStrategy : Strategy
     {
         [Export] float BurstTime { get; set; } = 0.05f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
-        public BulletBurstIntervalStrategy()
+        public ProjectileBurstIntervalStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
+            upgradeType = UpgradeType.Gun;
             ItemName = "Burst Interval";
             ItemDescription = "Affects time between shots in bursts";
         }

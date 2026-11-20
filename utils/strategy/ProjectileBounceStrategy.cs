@@ -3,11 +3,11 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletBounceStrategy : Strategy
+    public partial class ProjectileBounceStrategy : Strategy
     {
-        public BulletBounceStrategy()
+        public ProjectileBounceStrategy()
         {
-            upgradeType = UpgradeType.Projectile;
+            upgradeType = UpgradeType.Gun;
             ItemName = "Bullet Bounce";
             ItemDescription = "Bullet bounces between enemies";
             MaxStackSize = 1;

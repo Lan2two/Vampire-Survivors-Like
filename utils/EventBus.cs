@@ -32,7 +32,7 @@ namespace SurvivorsGame
                 MeleeUpgrade?.Invoke();
                 GD.Print("Melee upgrades invoked");
             }
-            if (strategy.upgradeType == UpgradeType.Projectile)
+            if (strategy.upgradeType == UpgradeType.Gun)
             {
                 BulletUpgrade?.Invoke();
                 GD.Print("Bullet upgrades invoked");
