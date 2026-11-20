@@ -1,7 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
 
     [GlobalClass]
     public partial class KnockbackComponent : Node
