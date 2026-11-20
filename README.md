@@ -3,6 +3,9 @@
 A top-down survivors-like built in Godot 4.6 with C#(.NET 9). Fight off waves of enemies with automatic firing weapons and less automatic ones. Kill loot and stack upgrades so you can kill even more.<br>
 Some weapons you can pickup and drop others you can't. <br>
 
+<img width="1296" height="818" alt="Screenshot 2026-11-01 154640" src="https://github.com/user-attachments/assets/03e1617f-b495-4226-9554-74518f50fc62" />
+
+
 # Controls
 ### Movement
 - Walking: WASD
