@@ -43,7 +43,6 @@ namespace SurvivorsGame
         {
             config = (MeleeWeaponBase)Baseconfig.Duplicate();
             upgradeManager.ApplyUpgrades(this, UpgradeType.Melee);
-            UpdateDamage(config, attackComponent);
         }
         public void Use()
         {
@@ -51,6 +50,7 @@ namespace SurvivorsGame
             {
                 return;
             }
+            UpdateDamage(config, attackComponent);
             Swing();
         }
 

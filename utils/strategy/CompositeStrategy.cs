@@ -10,6 +10,7 @@ namespace SurvivorsGame
 
         public CompositeStrategy()
         {
+            upgradeType = UpgradeType.Combo;
             ItemName = "Combo Upgrade";
         }
 
