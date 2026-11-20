@@ -58,6 +58,7 @@ public partial class Death : Interrupt
         {
             return;
         }
+        Enemy.EnemiesKilled++;
         characterBody.QueueFree();
     }
 }

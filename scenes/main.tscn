@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="8_choun"]
 [ext_resource type="PackedScene" uid="uid://f7c0v7jmqee1" path="res://scenes/still.tscn" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://rou1io4c6lci" path="res://scenes/enemy.tscn" id="10_choun"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="12_eb6dy"]
+[ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="13_trceg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -272,3 +274,17 @@ position = Vector2(-190, -19)
 ItemData = SubResource("Resource_choun")
 
 [node name="Enemy" parent="." unique_id=1010643694 instance=ExtResource("9_85g3d")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1051653456]
+
+[node name="KillsCounter" type="Label" parent="CanvasLayer" unique_id=1827946337]
+offset_left = 22.0
+offset_top = 19.0
+offset_right = 243.0
+offset_bottom = 117.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("12_eb6dy")
+theme_override_font_sizes/font_size = 50
+text = "0"
+script = ExtResource("13_trceg")
