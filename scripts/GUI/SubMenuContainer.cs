@@ -1,8 +1,9 @@
 namespace SurvivorsGame
 {
     using Godot;
-    public partial class OptionsContainer : Control
+    public partial class SubMenuContainer : Control
     {
+        [Export] private string animName;
         private Button _backButton;
         private AnimationPlayer _menuAnimation;
         private AnimationPlayer _optionAnimations;
@@ -16,7 +17,7 @@ namespace SurvivorsGame
 
         private void BackButton()
         {
-            _optionAnimations.PlayBackwards("options");
+            _optionAnimations.PlayBackwards(animName);
             _menuAnimation.Play("fade");
         }
 

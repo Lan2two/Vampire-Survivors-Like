@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_m7x51"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/CustomButton.cs" id="4_h61rw"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
-[ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/OptionsContainer.cs" id="6_4v6gu"]
+[ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/SubMenuContainer.cs" id="6_nxjfj"]
 
 [sub_resource type="Animation" id="Animation_h61rw"]
 length = 0.001
@@ -24,7 +24,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2.1, 6.1, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-0.06981317, -0.07330382858376164, -0.06632251157578473, -0.06981317]
+"values": [-0.06806784082777846, -0.07330382858376164, -0.06632251157578473, -0.06981317]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -36,7 +36,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2.2, 6.2, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-0.06981317, -0.05585053606381834, -0.08377580409572802, -0.06981317]
+"values": [-0.07330382858376164, -0.05585053606381834, -0.08377580409572802, -0.06981317]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -60,7 +60,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 2.5, 6.5, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-0.06981317, -0.08377580409572802, -0.05585053606381834, -0.06981317]
+"values": [-0.06632251157578473, -0.08377580409572802, -0.05585053606381834, -0.06981317]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -72,7 +72,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 2.4, 6.4, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-0.06981317, -0.05585053606381834, -0.08377580409572802, -0.06981317]
+"values": [-0.0715584993317679, -0.05585053606381834, -0.08377580409572802, -0.06981317]
 }
 
 [sub_resource type="Animation" id="Animation_apowk"]
@@ -97,10 +97,10 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.42, 0.43333334, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.42, 0.75),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nxjfj"]
@@ -127,14 +127,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../StatsContainer:position")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StatsMotion:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [Vector2(2000, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../StatsMotion:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5byqq"]
@@ -152,20 +176,45 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(2000, 0), Vector2(0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.42, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vnuwp"]
 resource_name = "stats"
+length = 0.75
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../StatsContainer:position")
-tracks/0/interp = 2
+tracks/0/path = NodePath("../StatsMotion:position")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.033333335),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(2000, 0)]
+"values": [Vector2(2000, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StatsMotion:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.42, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58y3"]
@@ -429,7 +478,7 @@ offset_right = -8.372559
 offset_bottom = 59.18315
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.06981317
+rotation = -0.06806784
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -457,7 +506,7 @@ offset_right = -4.2573853
 offset_bottom = 28.085266
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.06981317
+rotation = -0.073303826
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -514,7 +563,7 @@ offset_right = -4.2573853
 offset_bottom = 28.085266
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.06981317
+rotation = -0.0715585
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -540,7 +589,7 @@ offset_right = -4.257324
 offset_bottom = 28.085236
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.06981317
+rotation = -0.06632251
 pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_vertical = 3
 theme = SubResource("Theme_m7x51")
@@ -569,6 +618,7 @@ script = ExtResource("5_fcv5n")
 FadeInOnReady = false
 
 [node name="OptionsMotion" type="Control" parent="." unique_id=1789880918]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -585,7 +635,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_4v6gu")
+script = ExtResource("6_nxjfj")
+animName = "options"
 
 [node name="BackButton" type="Button" parent="OptionsMotion/OptionsContainer" unique_id=1330685163]
 custom_minimum_size = Vector2(400, 75)
@@ -642,19 +693,28 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="StatsContainer" type="Control" parent="." unique_id=183224552]
+[node name="StatsMotion" type="Control" parent="." unique_id=486094606]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2000.0
-offset_right = 2000.0112
+offset_right = 2000.0015
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_4v6gu")
 
-[node name="BackButton" type="Button" parent="StatsContainer" unique_id=2143976137]
+[node name="StatsContainer" type="Control" parent="StatsMotion" unique_id=1550386823]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_nxjfj")
+animName = "stats"
+
+[node name="BackButton" type="Button" parent="StatsMotion/StatsContainer" unique_id=496644077]
 custom_minimum_size = Vector2(400, 75)
 layout_mode = 1
 anchors_preset = -1
@@ -682,7 +742,7 @@ script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="StatsContainer" unique_id=554229234]
+[node name="Panel" type="Panel" parent="StatsMotion/StatsContainer" unique_id=2099854996]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05234372
@@ -693,7 +753,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="StatsContainer/Panel" unique_id=1045647611]
+[node name="Label" type="Label" parent="StatsMotion/StatsContainer/Panel" unique_id=229856279]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.39103323
@@ -704,7 +764,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_m7x51")
 theme_override_font_sizes/font_size = 128
-text = "Options"
+text = "Stats"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
