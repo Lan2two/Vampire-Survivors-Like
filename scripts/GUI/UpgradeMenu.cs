@@ -76,10 +76,14 @@ namespace SurvivorsGame
             {
                 int randIndex = GD.RandRange(0, Strategies.Count - 1);
                 Strategy randStrategy = Strategies[randIndex];
-
+                randStrategy.UpgradePool--;
                 _RandUpgrades.Add(randStrategy);
                 button.Icon = randStrategy.ItemIcon;
                 button.Text = $"{randStrategy.ItemName}\n{randStrategy.ItemDescription}";
+                if (randStrategy.UpgradePool <= 0)
+                {
+                    Strategies.Remove(randStrategy);
+                }
             }
 
         }
