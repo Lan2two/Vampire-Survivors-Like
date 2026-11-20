@@ -9,6 +9,7 @@
 bg_color = Color(0.6, 0.6, 0.6, 0)
 skew = Vector2(0.8, 0)
 border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thu50"]
 content_margin_bottom = 8.0
@@ -43,7 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.93, 0, 0, 1)
+color = Color(0, 0.93, 0.5735001, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="ColorRect" unique_id=1771668290]
 layout_mode = 1
@@ -57,7 +58,7 @@ offset_bottom = -338.66937
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
-color = Color(0.73, 0.13870001, 0.13870001, 1)
+color = Color(0, 0, 0, 0.23529412)
 
 [node name="ColorRect" type="ColorRect" parent="ColorRect" unique_id=1514780747]
 layout_mode = 1
@@ -71,7 +72,7 @@ offset_bottom = 81.10669
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
-color = Color(0.73, 0.13870001, 0.13870001, 1)
+color = Color(0, 0, 0, 0.23529412)
 
 [node name="ColorRect3" type="ColorRect" parent="ColorRect" unique_id=1439734713]
 layout_mode = 1
@@ -85,7 +86,7 @@ offset_bottom = -571.58966
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
-color = Color(0.73, 0.13870001, 0.13870001, 1)
+color = Color(0, 0, 0, 0.23529412)
 
 [node name="ColorRect4" type="ColorRect" parent="ColorRect" unique_id=1369208247]
 layout_mode = 1
@@ -99,7 +100,7 @@ offset_bottom = -169.31311
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.12217305
-color = Color(0.73, 0.13870001, 0.13870001, 1)
+color = Color(0, 0, 0, 0.23529412)
 
 [node name="Label" type="Label" parent="." unique_id=1957911604]
 layout_mode = 1
@@ -116,8 +117,10 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6862745)
-theme_override_constants/shadow_offset_x = 7
-theme_override_constants/shadow_offset_y = 7
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 9
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_m7x51")
 theme_override_font_sizes/font_size = 125
 theme_override_styles/normal = SubResource("StyleBoxFlat_fcv5n")
