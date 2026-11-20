@@ -4,12 +4,12 @@ A top-down survivors-like built in Godot 4.6 with C#(.NET 8). Fight off waves of
 Some weapons you can pickup and drop others you can't
 ```Demo Note: the player has god mode, the only interactable weapon is the coin at spawn. The run ends after 20 kills. Demo is still underbaked so you don't have upgrades and enemies don't drop loot```
 # Controls
-**Movement**
+### Movement
 - Walking: WASD
 - Roll: Spacebar <br>
-**Attack**
+### Attack
 - Melee: Hold Left Click <br>
-**Items**
+### Items
 - Interact: F
 - Drop: G <br>
 The gun fires automatically hence no input needed
