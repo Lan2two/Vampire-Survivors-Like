@@ -11,4 +11,9 @@ public partial class States : Node
     public virtual void Exit() { }
     public virtual void Update(double delta) { }
     public virtual void PhysicsUpdate(double delta) { }
+
+    protected void ChangeState(string newStateName)
+    {
+        EmitSignal(nameof(StateChanged), newStateName);
+    }
 }
