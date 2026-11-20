@@ -11,8 +11,14 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
-            Connect(Area2D.SignalName.BodyEntered, new Callable(this, nameof(OnBodyEntered)));
-            Connect(Area2D.SignalName.BodyExited, new Callable(this, nameof(OnBodyExit)));
+            BodyEntered += OnBodyEntered;
+            BodyExited += OnBodyExit;
+        }
+
+        public override void _ExitTree()
+        {
+            BodyEntered -= OnBodyEntered;
+            BodyExited -= OnBodyExit;
         }
 
         public bool IsPlayerInRange()

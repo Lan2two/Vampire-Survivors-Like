@@ -8,9 +8,10 @@ namespace SurvivorsGame
     {
         [Export] RigidBody2D characterBody;
         [Export] VelocityComponent velocityComponent;
+        [Export] private float threshold = 3.0f;
         private float distanceToTarget;
         private bool targetReached = false;
-        private float threshold = 3.0f;
+
 
         public void PathfindToPlayer()
         {

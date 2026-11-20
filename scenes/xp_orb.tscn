@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cu1txkretppd7"]
+
+[ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="1_7dfxl"]
+[ext_resource type="Script" uid="uid://dsqdebiaedyd1" path="res://scripts/items/XpOrb.cs" id="1_me6n8"]
+[ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="1_pkphv"]
+[ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="2_me6n8"]
+[ext_resource type="Texture2D" uid="uid://0y4pcug51h6r" path="res://assets/sprites/fruit.png" id="3_hluwh"]
+[ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="6_x08h0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hluwh"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_me6n8"]
+radius = 42.047592
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dfxl"]
+atlas = ExtResource("3_hluwh")
+region = Rect2(31.693398, 47.284496, 16.963913, 16.963902)
+
+[node name="XpOrb" type="RigidBody2D" unique_id=740080798]
+collision_layer = 0
+physics_material_override = ExtResource("1_7dfxl")
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 20
+script = ExtResource("1_me6n8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599445404]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_hluwh")
+
+[node name="DetectionComponent" type="Area2D" parent="." unique_id=1291011737]
+script = ExtResource("1_pkphv")
+metadata/_custom_type_script = "uid://d1r007g1n2ewk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=1415189767]
+shape = SubResource("CircleShape2D_me6n8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2011534936]
+position = Vector2(0, -1)
+texture = SubResource("AtlasTexture_7dfxl")
+
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=403826576 node_paths=PackedStringArray("rigidBody")]
+script = ExtResource("2_me6n8")
+rigidBody = NodePath("..")
+maxSpeed = 200.0
+acceleration = 50.0
+metadata/_custom_type_script = "uid://bi226kkohh0fe"
+
+[node name="PathfindComponent" type="Node" parent="." unique_id=1346423230 node_paths=PackedStringArray("characterBody", "velocityComponent")]
+script = ExtResource("6_x08h0")
+characterBody = NodePath("..")
+velocityComponent = NodePath("../VelocityComponent")
+threshold = 1.0
+metadata/_custom_type_script = "uid://bbw06doqvj4pd"

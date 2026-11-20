@@ -11,6 +11,8 @@ namespace SurvivorsGame
         [Export] VelocityComponent velocityComponent;
         [Export] AttackComponent attackComponent;
         [Export] AnimatedSprite2D Sprite;
+
+        public event Action OnDeath;
         public override void _Ready()
         {
             if (Sprite == null)
@@ -61,6 +63,7 @@ namespace SurvivorsGame
             {
                 return;
             }
+            OnDeath?.Invoke();
             characterBody.QueueFree();
         }
     }
