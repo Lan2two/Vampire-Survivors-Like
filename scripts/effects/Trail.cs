@@ -7,6 +7,7 @@ namespace SurvivorsGame
 
     public partial class Trail : Line2D
     {
+        [Export] bool Fade = true;
         [Export] float TrailDuration = .5f;
         [Export] int TrailPoints = 20;
         private float _StartingModulateA;
@@ -21,12 +22,15 @@ namespace SurvivorsGame
 
         public override void _Process(double delta)
         {
-            Color currentModulate = SelfModulate;
-            currentModulate.A = Mathf.Max(0, currentModulate.A - (float)(_StartingModulateA / TrailDuration * delta));
-            SelfModulate = currentModulate;
-            if (SelfModulate.A <= 0)
+            if (Fade)
             {
-                QueueFree();
+                Color currentModulate = SelfModulate;
+                currentModulate.A = Mathf.Max(0, currentModulate.A - (float)(_StartingModulateA / TrailDuration * delta));
+                SelfModulate = currentModulate;
+                if (SelfModulate.A <= 0)
+                {
+                    QueueFree();
+                }
             }
             if (IsInstanceValid(bullet))
             {

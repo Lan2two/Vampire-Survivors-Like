@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_4ctwc"]
 [ext_resource type="Script" uid="uid://b76tv0e0dtjl8" path="res://scripts/components/GunComponent.cs" id="1_eb11s"]
 [ext_resource type="Resource" uid="uid://1467mnywj4s3" path="res://resources/BulletConfig.tres" id="2_bullet_config"]
+[ext_resource type="PackedScene" uid="uid://d1ufo1hep2ntf" path="res://scenes/bullet.tscn" id="3_nnmho"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb11s"]
 radius = 150.0
@@ -13,6 +14,7 @@ collision_mask = 2
 monitorable = false
 script = ExtResource("1_eb11s")
 bulletConfig = ExtResource("2_bullet_config")
+BULLET = ExtResource("3_nnmho")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2095139427]
 shape = SubResource("CircleShape2D_eb11s")
