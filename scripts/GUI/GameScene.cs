@@ -21,6 +21,8 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
+            Reset();
+
             HUD = GetNodeOrNull<CanvasLayer>("HUD");
             if (HUD != null)
             {
@@ -58,11 +60,7 @@ namespace SurvivorsGame
                 return;
             }
             player.PlayerDead += PlayerDeath;
-        }
-
-        public override void _EnterTree()
-        {
-            Reset();
+            GetTree().Paused = true;
         }
 
         public override void _ExitTree()
