@@ -35,6 +35,8 @@ namespace SurvivorsGame
         public int TotalDamageDealt { get; set; }
         public int TotalDamageTaken { get; set; }
         public int TotalHealthHealed { get; set; }
+        public int TotalCampfiresLit { get; set; }
+        public int TotalTotalXp { get; set; }
         public Dictionary<string, int> Inventory { get; set; } = new();
     }
 

@@ -15,10 +15,10 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             _fadeRect = GetNodeOrNull<Fade>("Fade");
-            _startButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/StartButton");
-            _optionsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/OptionsButton");
-            _statsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/StatsButton");
-            _exitButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/ExitButton");
+            _startButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StartButton");
+            _optionsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/OptionsButton");
+            _statsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StatsButton");
+            _exitButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/ExitButton");
             _menuAnimation = GetNodeOrNull<AnimationPlayer>("MainMenu");
             _optionAnimations = GetNodeOrNull<AnimationPlayer>("Menus");
 
