@@ -20,6 +20,7 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
+            Monitorable = false;
             AreaEntered += OnAreaEntered;
             AreaExited += OnAreaExited;
         }

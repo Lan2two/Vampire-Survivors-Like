@@ -298,9 +298,10 @@ script = ExtResource("3_qhqgy")
 script = ExtResource("4_qlg0r")
 Velocity = NodePath("../../VelocityComponent")
 
-[node name="roll" type="Node" parent="StateMachine" unique_id=2059469671 node_paths=PackedStringArray("hitboxComponent", "velocityComponent")]
+[node name="roll" type="Node" parent="StateMachine" unique_id=2059469671 node_paths=PackedStringArray("hitboxComponent", "_hurtboxShape", "velocityComponent")]
 script = ExtResource("8_3v2ag")
 hitboxComponent = NodePath("../../HitboxComponent")
+_hurtboxShape = NodePath("../../HitboxComponent/CollisionShape2D")
 velocityComponent = NodePath("../../VelocityComponent")
 rollCooldown = 2.0
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
