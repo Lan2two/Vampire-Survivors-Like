@@ -8,6 +8,7 @@ namespace SurvivorsGame
         public static event Action AddButton;
         public static event Action MoratoriumEvent;
         public static event Action WorldSlashEvent;
+        public static event Action AddRerollEvent;
         public static event Action PlayerUpgrade;
         public static event Action MeleeUpgrade;
         public static event Action GunUpgrade;
@@ -30,6 +31,12 @@ namespace SurvivorsGame
         {
             WorldSlashEvent?.Invoke();
             GD.Print("World Slash event invoked");
+        }
+
+        public static void InvokeAddReroll()
+        {
+            AddRerollEvent?.Invoke();
+            GD.Print("Add Reroll event invoked");
         }
 
         public static void InvokeUpgrades(Strategy strategy)

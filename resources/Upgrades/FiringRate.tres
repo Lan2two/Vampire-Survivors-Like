@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 [resource]
 script = ExtResource("4_4jxeu")
 Children = Array[ExtResource("1_kra76")]([SubResource("Resource_1b0wd"), SubResource("Resource_kra76")])
-MaxStackSize = 2
+MaxStackSize = 3
 ItemName = "Firing Rate"
 ItemDescription = "Ranged  Weapons fire 5% faster"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
