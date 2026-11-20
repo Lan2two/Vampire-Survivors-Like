@@ -9,12 +9,6 @@ public partial class Move : States
     {
         player.anim.Play("move");
     }
-    public override void Exit()
-    {
-    }
-    public override void Update(double delta)
-    {
-    }
     public override void PhysicsUpdate(double delta)
     {
         Vector2 velocity = player.Velocity;

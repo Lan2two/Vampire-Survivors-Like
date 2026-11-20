@@ -8,12 +8,6 @@ public partial class Idle : States
     {
         player.anim.Play("idle");
     }
-    public override void Exit()
-    {
-    }
-    public override void Update(double delta)
-    {
-    }
     public override void PhysicsUpdate(double delta)
     {
         Vector2 direction = Input.GetVector("left", "right", "up", "down");
