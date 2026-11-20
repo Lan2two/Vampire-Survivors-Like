@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://cxan2tnlrsr4k" path="res://scripts/components/WanderComponent.cs" id="10_j0cyh"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="12_wtq4b"]
+[ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_wtq4b"]
+[ext_resource type="Script" uid="uid://dxtpj8xqemmqm" path="res://scripts/components/DeathComponent.cs" id="14_j0cyh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -31,6 +33,22 @@ region = Rect2(48, 24, 24, 24)
 [sub_resource type="AtlasTexture" id="AtlasTexture_md484"]
 atlas = ExtResource("1_7p1mj")
 region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pwtc"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rogs8"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrm80"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6awcb"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_otmr2"]
 atlas = ExtResource("1_7p1mj")
@@ -85,6 +103,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2pwtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rogs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrm80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6awcb")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_otmr2")
 }, {
 "duration": 1.0,
@@ -133,8 +168,7 @@ shape = SubResource("CircleShape2D_8qclf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=773545573]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_nenq2")
-animation = &"chase"
-frame_progress = 0.52492183
+animation = &"die"
 
 [node name="StateMachine" type="Node" parent="." unique_id=144124137 node_paths=PackedStringArray("startingState")]
 script = ExtResource("2_4ra3w")
@@ -160,10 +194,9 @@ detectionComponent = NodePath("../../DetectionComponent")
 pathfindComponent = NodePath("../../PathfindComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1925952333 node_paths=PackedStringArray("Sprite")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1925952333]
 script = ExtResource("7_w8i8w")
 maxHealth = 10
-Sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
@@ -197,3 +230,11 @@ velocityComponent = NodePath("../VelocityComponent")
 script = ExtResource("10_j0cyh")
 characterBody = NodePath("..")
 pathfindComponent = NodePath("../PathfindComponent")
+
+[node name="HitFlashComponent" type="Node" parent="." unique_id=452125329 node_paths=PackedStringArray("Sprite", "healthComponent")]
+script = ExtResource("13_wtq4b")
+Sprite = NodePath("../AnimatedSprite2D")
+healthComponent = NodePath("../HealthComponent")
+
+[node name="DeathComponent" type="Node" parent="." unique_id=352155415]
+script = ExtResource("14_j0cyh")
