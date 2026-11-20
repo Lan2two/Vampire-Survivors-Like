@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dv0kpnk2i0gq5"]
+
+[ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="1_6gmg1"]
+[ext_resource type="Script" uid="uid://cowl2xhf7hloc" path="res://scripts/items/ShopItem.cs" id="1_xcw7k"]
+[ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="2_xcw7k"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="3_1d7d6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goysm"]
+atlas = ExtResource("2_xcw7k")
+region = Rect2(3, 3, 10, 10)
+
+[node name="ShopItem" type="Control" unique_id=233906624]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xcw7k")
+
+[node name="Panel" type="Panel" parent="." unique_id=129349704]
+layout_mode = 1
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="Panel" type="Panel" parent="Panel" unique_id=1931962879]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = ExtResource("1_6gmg1")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Panel" unique_id=1631977774]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_goysm")
+
+[node name="Label" type="Label" parent="Panel/Panel/TextureRect" unique_id=1290503302]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.2222214
+offset_top = 25.277782
+offset_right = 13.333336
+offset_bottom = 40.000004
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_1d7d6")
+theme_override_font_sizes/font_size = 24
+text = "000"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Panel/TextureRect/Label" unique_id=848362868]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.888916
+offset_top = -18.888885
+offset_right = 1.111084
+offset_bottom = 21.111115
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_goysm")
