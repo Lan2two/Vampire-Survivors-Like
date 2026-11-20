@@ -51,6 +51,7 @@ namespace SurvivorsGame
             {
                 Player player = (Player)body;
                 player.playerXP += XPAmount;
+                player.totalXP += XPAmount;
                 CallDeferred(MethodName.QueueFree);
             }
         }
