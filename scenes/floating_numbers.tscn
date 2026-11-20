@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bip5ogwimo5xy"]
 
-[ext_resource type="Script" uid="uid://flm7flobxbjd" path="res://scripts/components/FloatingNumbers.cs" id="1_hy2wj"]
+[ext_resource type="Script" uid="uid://qq2gu5tk5fap" path="res://scripts/components/FloatingNumbers.cs" id="1_hy2wj"]
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_lx4wv"]
 
 [node name="FloatingNumbers" type="Node2D" unique_id=1945746572]
