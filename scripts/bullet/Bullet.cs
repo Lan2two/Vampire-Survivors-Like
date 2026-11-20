@@ -8,6 +8,10 @@ public partial class Bullet : Node2D
     private float traveledDistance = 0;
     public override void _Ready()
     {
+        if (damageComponent == null)
+        {
+            GD.Print("DamageComponent unassigned in Bullet");
+        }
         if (damageComponent != null && config.PierceCount > 0)
         {
             damageComponent.SingleHit = false;

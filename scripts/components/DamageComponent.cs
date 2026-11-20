@@ -13,10 +13,28 @@ public partial class DamageComponent : Area2D
 
     private double damageTimer;
     private readonly HashSet<Area2D> hitboxes = new();
+    private readonly HashSet<Area2D> damagedHitboxes = new();
     public int UniqueHitboxesEntered;
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Ready()
     {
+        AreaEntered += OnAreaEntered;
+        AreaExited += OnAreaExited;
+    }
+
+    public override void _ExitTree()
+    {
+        AreaEntered -= OnAreaEntered;
+        AreaExited -= OnAreaExited;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!Monitoring)
+        {
+            return;
+        }
+
         damageTimer -= delta;
         if (damageTimer > 0)
         {
@@ -25,24 +43,18 @@ public partial class DamageComponent : Area2D
 
         damageTimer = DamageInterval;
 
-        Array<Area2D> areas = GetOverlappingAreas();
-        foreach (Area2D area in areas)
+        foreach (Area2D area in new List<Area2D>(hitboxes))
         {
             if (area is not HitboxComponent hitbox)
             {
                 continue;
             }
 
-            bool isNewHitbox = hitboxes.Add(area);
-            if (isNewHitbox)
-            {
-                UniqueHitboxesEntered = hitboxes.Count;
-            }
-
-            if (SingleHit && !isNewHitbox)
+            if (SingleHit && damagedHitboxes.Contains(area))
             {
                 continue;
             }
+
             Attack attack = new Attack
             {
                 Damage = damage,
@@ -50,6 +62,42 @@ public partial class DamageComponent : Area2D
                 KnockbackForce = knockback
             };
             hitbox.TakeDamage(attack);
+
+            if (SingleHit)
+            {
+                damagedHitboxes.Add(area);
+            }
         }
+    }
+
+    private void OnAreaEntered(Area2D area)
+    {
+        if (area is not HitboxComponent)
+        {
+            return;
+        }
+
+        if (SingleHit && damagedHitboxes.Contains(area))
+        {
+            return;
+        }
+
+        bool isNewHitbox = hitboxes.Add(area);
+        if (isNewHitbox)
+        {
+            UniqueHitboxesEntered = hitboxes.Count;
+        }
+    }
+
+    private void OnAreaExited(Area2D area)
+    {
+        if (area is not HitboxComponent)
+        {
+            return;
+        }
+
+        hitboxes.Remove(area);
+        damagedHitboxes.Remove(area);
+        UniqueHitboxesEntered = hitboxes.Count;
     }
 }

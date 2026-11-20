@@ -14,9 +14,5 @@ public partial class Idle : States
         {
             ChangeState("Move");
         }
-        else if (Input.IsActionPressed("m1"))
-        {
-            ChangeState("Attack");
-        }
     }
 }

@@ -12,10 +12,11 @@ metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 4.0
 
-[node name="Bullet" type="Node2D" unique_id=943851556]
+[node name="Bullet" type="Node2D" unique_id=943851556 node_paths=PackedStringArray("damageComponent")]
 top_level = true
 script = ExtResource("1_y25gk")
 config = SubResource("Resource_qncy5")
+damageComponent = NodePath("DamageComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028173980]
 scale = Vector2(0.057799753, 0.057799753)
@@ -25,7 +26,6 @@ texture = ExtResource("1_mkf8s")
 collision_mask = 6
 script = ExtResource("3_l5glv")
 DamageInterval = 0.0
-SingleHit = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent" unique_id=1681927426]
 shape = SubResource("CircleShape2D_h1aey")
