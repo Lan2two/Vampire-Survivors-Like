@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public PlayerHealthStrategy()
         {
             upgradeType = UpgradeType.Player;
-            ItemName = "Max Hp";
+            ItemName = "Big Boi";
             ItemDescription = "More Hp";
         }
         public void ApplyUpgrade(Resource config)

@@ -10,6 +10,7 @@ namespace SurvivorsGame
         {
             public float DamageDealt;
             public float DamageTaken;
+            public float HealthHealed;
             public int _enemiesKilled;
             public int EnemiesKilled
             {

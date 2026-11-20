@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public BulletKnockbackStrategy()
         {
             upgradeType = UpgradeType.Bullet;
-            ItemName = "Bullet Knockback";
+            ItemName = "Heavier bullets";
             ItemDescription = "Bullet deals more knockback";
         }
         public void ApplyUpgrade(Resource config)

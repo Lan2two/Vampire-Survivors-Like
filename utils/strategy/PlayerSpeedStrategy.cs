@@ -12,7 +12,7 @@ namespace SurvivorsGame
         public PlayerSpeedStrategy()
         {
             upgradeType = UpgradeType.Player;
-            ItemName = "Max Speed";
+            ItemName = "Agility";
             ItemDescription = "More speed";
         }
         public void ApplyUpgrade(Resource config)
