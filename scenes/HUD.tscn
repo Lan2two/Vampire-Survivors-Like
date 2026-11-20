@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="16_5eteg"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
 [ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
+[ext_resource type="Script" uid="uid://di31h4p0cxet7" path="res://scripts/GUI/GameTime.cs" id="21_t8u3o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -426,3 +427,35 @@ step = 0.001
 fill_mode = 4
 texture_progress = ExtResource("16_8fbvn")
 script = ExtResource("18_rq3sv")
+
+[node name="GameTime" type="Control" parent="." unique_id=360503079]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("21_t8u3o")
+
+[node name="TimeLabel" type="Label" parent="GameTime" unique_id=1773697990]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 40
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameTimer" type="Timer" parent="GameTime" unique_id=1329525926]
+autostart = true
