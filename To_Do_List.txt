@@ -4,8 +4,15 @@ Menus:
     Done -Function to pause the game
     DOne -Upgrade cards
     -Settings
+        -Volume sliders
+        -Toggle damage numbers
+        -Key rebinding
     -Audio or something
-
+    -Game Over with stats(time survived, kills, level, upgrades picked)
+        -Replace the 3sec back to menu with a menu with retry and menu buttons
+    -Save best time, total time, most kills, total kills saved in a file
+    -Show upgrade levels on the level up cards
+    -Reroll or skip button on level up cards
 In-Game Features:
     -Weapon variety
         -More models

@@ -7,8 +7,9 @@ namespace SurvivorsGame
     public partial class GameScene : Node2D
     {
         [Export] private int _absorbXpInterval = 100;
+        private Control gameOverNode;
         private Label gameOverLabel;
-        private CanvasLayer GUI;
+        private CanvasLayer HUD;
         private Player player;
         private ColorRect Dim;
         private bool _isChangingScene = false;
@@ -16,25 +17,34 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
-            GUI = GetNodeOrNull<CanvasLayer>("GUI");
-            if (GUI != null)
+            HUD = GetNodeOrNull<CanvasLayer>("HUD");
+            if (HUD != null)
             {
-                gameOverLabel = GUI.GetNodeOrNull<Label>("GameOver");
-                Dim = GUI.GetNodeOrNull<ColorRect>("Dim");
+                gameOverNode = HUD.GetNodeOrNull<Control>("GameOverNode");
+                Dim = HUD.GetNodeOrNull<ColorRect>("Dim");
             }
-            if (GUI == null)
+            if (gameOverNode != null)
             {
-                GD.PrintErr("GUI not found in GameScene");
+                gameOverLabel = gameOverNode.GetNodeOrNull<Label>("GameOverLabel");
+            }
+            if (HUD == null)
+            {
+                GD.PrintErr("HUD not found in GameScene");
+                return;
+            }
+            if (gameOverNode == null)
+            {
+                GD.PrintErr("GameOverNode not found in HUD");
                 return;
             }
             if (gameOverLabel == null)
             {
-                GD.PrintErr("gameOverLabel not found in GUI");
+                GD.PrintErr("gameOverLabel not found in GameOverNode");
                 return;
             }
             if (Dim == null)
             {
-                GD.PrintErr("Dim not found in GUI");
+                GD.PrintErr("Dim not found in HUD");
                 return;
             }
             player = this.GetPlayer();
@@ -81,10 +91,9 @@ namespace SurvivorsGame
             {
                 Dim.Visible = true;
                 gameOverLabel.Text = message;
-                gameOverLabel.Visible = true;
+                gameOverNode.Visible = true;
             }
             GetTree().CreateTimer(.1).Timeout += PauseGame;
-            GetTree().CreateTimer(3).Timeout += ReturnToMenu;
         }
 
         private void PauseGame()
@@ -92,19 +101,6 @@ namespace SurvivorsGame
             GetTree().Paused = true;
         }
 
-        private void ReturnToMenu()
-        {
-            Enemy.EnemiesKilled = 0;
-            GetTree().Paused = false;
-            CallDeferred(nameof(DeferredChangeScene));
-        }
 
-        private void DeferredChangeScene()
-        {
-            if (IsInstanceValid(this) && IsInsideTree())
-            {
-                GetTree().ChangeSceneToFile("res://scenes/start_menu.tscn");
-            }
-        }
     }
 }
