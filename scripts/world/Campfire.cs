@@ -1,8 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
-
     public partial class Campfire : StaticBody2D
     {
         [Export] private float Duration = 60;
@@ -101,6 +99,7 @@ namespace SurvivorsGame
             interactableComponent.isInteractable = false;
             _durationTimer.Start();
             _cooldownTimer.Start();
+            Stats.data.CampfiresLit++;
         }
 
         private void OnCooldownTimeout()
