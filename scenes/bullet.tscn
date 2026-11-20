@@ -2,12 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://iyr5qtuxsa2s" path="res://scripts/bullet/Bullet.cs" id="1_y25gk"]
-[ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/BulletData.cs" id="2_eoqba"]
-
-[sub_resource type="Resource" id="Resource_qncy5"]
-script = ExtResource("2_eoqba")
-PierceCount = 1
-metadata/_custom_type_script = "uid://de57a3gqbkhhn"
+[ext_resource type="Resource" path="res://resources/BulletConfig.tres" id="2_bullet_config"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 4.0
@@ -17,7 +12,7 @@ top_level = true
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_y25gk")
-config = SubResource("Resource_qncy5")
+config = ExtResource("2_bullet_config")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028173980]
 scale = Vector2(0.057799753, 0.057799753)

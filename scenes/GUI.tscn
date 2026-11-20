@@ -6,7 +6,14 @@
 [ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="6_dcyui"]
+[ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="7_8inel"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
+[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="8_vjrnn"]
+[ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/BulletSpeedStrategy.cs" id="9_8fbvn"]
+[ext_resource type="Script" uid="uid://db4vbufj1pkwa" path="res://utils/strategy/MeleeKnockbackStrategy.cs" id="10_ajyu1"]
+[ext_resource type="Script" uid="uid://chck2eeaeerer" path="res://utils/strategy/MeleeSwingSpeedStrategy.cs" id="11_m8p4d"]
+[ext_resource type="Script" uid="uid://bp8ndd1bodxe" path="res://utils/strategy/MeleeDamageStrategy.cs" id="12_gm6g3"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="13_fire_rate"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -17,11 +24,37 @@ bg_color = Color(0, 0, 0, 0.39215687)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
-[sub_resource type="Resource" id="Resource_cws7i"]
+[sub_resource type="Resource" id="Resource_dcyui"]
 script = ExtResource("6_dcyui")
-ItemName = "Idwfegr"
-ItemDescription = "dwfa"
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_8inel"]
+script = ExtResource("7_8inel")
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[sub_resource type="Resource" id="Resource_vjrnn"]
+script = ExtResource("8_vjrnn")
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[sub_resource type="Resource" id="Resource_8fbvn"]
+script = ExtResource("9_8fbvn")
+metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
+
+[sub_resource type="Resource" id="Resource_ajyu1"]
+script = ExtResource("12_gm6g3")
+metadata/_custom_type_script = "uid://bp8ndd1bodxe"
+
+[sub_resource type="Resource" id="Resource_m8p4d"]
+script = ExtResource("10_ajyu1")
+metadata/_custom_type_script = "uid://db4vbufj1pkwa"
+
+[sub_resource type="Resource" id="Resource_gm6g3"]
+script = ExtResource("11_m8p4d")
+metadata/_custom_type_script = "uid://chck2eeaeerer"
+
+[sub_resource type="Resource" id="Resource_fire_rate"]
+script = ExtResource("13_fire_rate")
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
 content_margin_left = 10.0
@@ -117,7 +150,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 script = ExtResource("4_shsct")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_dcyui"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_fire_rate")])
 xpBar = NodePath("../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=1828415791]

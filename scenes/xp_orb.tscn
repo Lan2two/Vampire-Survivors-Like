@@ -17,7 +17,7 @@ radius = 42.047592
 atlas = ExtResource("3_hluwh")
 region = Rect2(31.693398, 47.284496, 16.963913, 16.963902)
 
-[node name="XpOrb" type="RigidBody2D" unique_id=740080798]
+[node name="XpOrb" type="RigidBody2D" unique_id=740080798 groups=["XpOrbs"]]
 collision_layer = 0
 physics_material_override = ExtResource("1_7dfxl")
 lock_rotation = true

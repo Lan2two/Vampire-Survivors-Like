@@ -7,12 +7,12 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class GunComponent : Area2D
     {
-        [Export] float gunTimer = 1;
         UpgradeManager upgradeManager;
         Timer timer;
         Marker2D ShootPoint;
         Array<Node2D> enemiesInRange;
         PackedScene BULLET;
+        [Export] BulletData bulletConfig;
 
 
         public override void _Ready()
@@ -20,9 +20,18 @@ namespace SurvivorsGame
             timer = GetNode<Timer>("Timer");
             ShootPoint = GetNode<Marker2D>("%ShootPoint");
             upgradeManager = GetParent().GetNode<UpgradeManager>("UpgradeManager");
-            timer.WaitTime = gunTimer;
-            timer.Timeout += Shoot;
             BULLET = GD.Load<PackedScene>("uid://d1ufo1hep2ntf");
+
+            if (bulletConfig == null)
+            {
+                GD.PushError("GunComponent requires a BulletData resource.");
+                return;
+            }
+
+            timer.Stop();
+            timer.WaitTime = GetFiringConfig().GunCooldown;
+            timer.Timeout += Shoot;
+            timer.Start();
         }
 
         public override void _PhysicsProcess(double delta)
@@ -47,6 +56,8 @@ namespace SurvivorsGame
 
         private void Shoot()
         {
+            timer.WaitTime = GetFiringConfig().GunCooldown;
+
             if (enemiesInRange.Count > 0)
             {
                 Bullet newBullet = BULLET.Instantiate<Bullet>();
@@ -55,6 +66,13 @@ namespace SurvivorsGame
                 newBullet.GlobalRotation = ShootPoint.GlobalRotation;
                 ShootPoint.AddChild(newBullet);
             }
+        }
+
+        private BulletData GetFiringConfig()
+        {
+            BulletData firingConfig = (BulletData)bulletConfig.Duplicate();
+            upgradeManager.ApplyUpgrades(firingConfig, UpgradeType.Bullet);
+            return firingConfig;
         }
     }
 }
