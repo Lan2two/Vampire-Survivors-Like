@@ -17,15 +17,16 @@ public partial class StateMachine : Node
                 string stateName = state.Name.ToString().ToLower();
                 _states.Add(stateName, state);
                 GD.Print("Registered State: " + stateName);
-                state.Connect(nameof(States.StateChanged), new Callable(this, nameof(OnStateChanged)));
+                state.Connect(nameof(States.StateChanged), Callable.From((string newState) => OnStateChanged(state, newState)));
             }
         }
         if (startingState != null)
         {
+            GD.Print("Current State: " + currentState.Name);
             currentState = startingState;
             currentState.Enter();
         }
-        GD.Print("Current State: " + currentState.Name);
+
     }
 
     public override void _Process(double delta)
@@ -38,9 +39,9 @@ public partial class StateMachine : Node
         currentState?.PhysicsUpdate(delta);
     }
 
-    private void OnStateChanged(string newStateName)
+    private void OnStateChanged(States callingState, string newStateName)
     {
-        if (currentState == null) return;
+        if (callingState != currentState) return;
         string targetStateName = newStateName.ToLower();
         if (!_states.TryGetValue(targetStateName, out States newState))
         {
@@ -50,6 +51,6 @@ public partial class StateMachine : Node
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
-        GD.Print("Changed State: " + currentState.Name);
+        GD.Print("New State: " + currentState.Name);
     }
 }
