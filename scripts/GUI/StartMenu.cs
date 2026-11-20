@@ -80,7 +80,7 @@ namespace SurvivorsGame
 
         private void ExitButton()
         {
-            if (OS.GetName() == "Web")
+            if (OS.HasFeature("web"))
             {
                 GD.Print("Exit ignored on Web platform.");
                 return;

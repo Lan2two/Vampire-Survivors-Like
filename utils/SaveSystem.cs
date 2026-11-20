@@ -7,11 +7,57 @@ namespace SurvivorsGame
     {
         private static string _savePath = "user://savegame.json";
         private static string _upgradesPath = "user://upgrades.json";
+        private JavaScriptObject _onWebExitCallback;
 
         private static readonly JsonSerializerOptions _jsonOptions = new()
         {
             WriteIndented = true
         };
+
+        public override void _Ready()
+        {
+            GetTree().AutoAcceptQuit = false;
+
+            if (OS.HasFeature("web"))
+            {
+                SetupWebExitHooks();
+            }
+        }
+
+        public override void _Notification(int what)
+        {
+            if (what == NotificationWMCloseRequest)
+            {
+                Stats.FlushToSave();
+                GetTree().Quit();
+            }
+        }
+
+        private void SetupWebExitHooks()
+        {
+            _onWebExitCallback = JavaScriptBridge.CreateCallback(
+                Callable.From<Godot.Collections.Array>(OnBrowserExit)
+            );
+
+            JavaScriptObject window = JavaScriptBridge.GetInterface("window");
+            JavaScriptObject document = JavaScriptBridge.GetInterface("document");
+
+            if (window != null)
+            {
+                window.Call("addEventListener", "beforeunload", _onWebExitCallback);
+                window.Call("addEventListener", "pagehide", _onWebExitCallback);
+            }
+
+            if (document != null)
+            {
+                document.Call("addEventListener", "visibilitychange", _onWebExitCallback);
+            }
+        }
+
+        private void OnBrowserExit(Godot.Collections.Array args)
+        {
+            Stats.FlushToSave();
+        }
 
         public static void SaveData(GameSaveData dataToSave)
         {

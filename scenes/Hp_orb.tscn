@@ -10,7 +10,7 @@
 radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_me6n8"]
-radius = 5.0
+radius = 7.0
 
 [sub_resource type="Gradient" id="Gradient_g3b8j"]
 interpolation_mode = 2
