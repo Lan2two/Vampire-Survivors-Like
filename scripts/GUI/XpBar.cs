@@ -40,7 +40,6 @@ namespace SurvivorsGame
             MaxValue += LevelIncrement;
             _currentLevel++;
             XpLabel.Text = $"Level: {_currentLevel}";
-            GD.Print($"Value: {(int)Value}, MaxValue: {(int)MaxValue}, Level: {_currentLevel}");
             LevelUpEvent?.Invoke();
         }
 

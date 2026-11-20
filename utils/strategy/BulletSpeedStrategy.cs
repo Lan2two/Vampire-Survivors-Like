@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletSpeedStrategy : Strategy, IStrategy
     {
-        [Export] float UpgradeSpeed { get; set; } = 20f;
+        [Export] float UpgradeSpeed { get; set; } = 25f;
         public BulletSpeedStrategy()
         {
             upgradeType = UpgradeType.Bullet;

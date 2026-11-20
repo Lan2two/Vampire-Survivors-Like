@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletFireRateStrategy : Strategy, IStrategy
     {
-        [Export] float UpgradeCooldown { get; set; } = 0.5f;
+        [Export] float UpgradeCooldown { get; set; } = 0.2f;
 
         public BulletFireRateStrategy()
         {
