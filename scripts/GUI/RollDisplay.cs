@@ -26,6 +26,7 @@ namespace SurvivorsGame
             {
                 return;
             }
+            roll.timer -= delta;
             Value = roll.timer;
         }
 
