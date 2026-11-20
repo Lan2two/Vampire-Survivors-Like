@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bub4440b8c76f"]
+
+[ext_resource type="Script" uid="uid://g80o8hshrv1n" path="res://scripts/player/StateMachine.cs" id="1_04s10"]
+
+[node name="StateMachine" type="Node" unique_id=1879212461 node_paths=PackedStringArray("startingState")]
+script = ExtResource("1_04s10")
+startingState = NodePath("")

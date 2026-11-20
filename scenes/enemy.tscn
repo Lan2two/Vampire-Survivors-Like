@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://b0pj8g5yl7jlm" path="res://scripts/enemy/EnemyFollow.cs" id="4_nenq2"]
 [ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/components/HealthComponent.cs" id="7_w8i8w"]
 [ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/components/HitboxComponent.cs" id="8_otmr2"]
-[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="9_ipns3"]
 [ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="9_wtq4b"]
 [ext_resource type="Script" uid="uid://cxan2tnlrsr4k" path="res://scripts/components/WanderComponent.cs" id="10_j0cyh"]
+[ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="11_w8i8w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -123,9 +123,6 @@ radius = 6.0827627
 [sub_resource type="CircleShape2D" id="CircleShape2D_md484"]
 radius = 35.35534
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ipns3"]
-radius = 35.014282
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1010643694]
 script = ExtResource("1_nenq2")
 
@@ -171,20 +168,18 @@ metadata/_custom_type_script = "uid://0ucn25ndx6bw"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=96188564]
 shape = SubResource("CircleShape2D_md0e3")
 
-[node name="DetectionComponent" type="Area2D" parent="." unique_id=1909743119]
+[node name="DetectionComponent" type="Area2D" parent="." unique_id=1909743119 node_paths=PackedStringArray("characterBody", "Velocity")]
 script = ExtResource("9_wtq4b")
+characterBody = NodePath("..")
+Velocity = NodePath("../VelocityComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=774907234]
 shape = SubResource("CircleShape2D_md484")
 
-[node name="WanderComponent" type="Area2D" parent="." unique_id=2027285715]
-top_level = true
+[node name="WanderComponent" type="Node" parent="." unique_id=1687195080]
 script = ExtResource("10_j0cyh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WanderComponent" unique_id=2114493120]
-shape = SubResource("CircleShape2D_ipns3")
-
-[node name="Sprite2D" type="Sprite2D" parent="WanderComponent" unique_id=581129280]
-z_index = -1
-scale = Vector2(0.55056334, 0.55056334)
-texture = ExtResource("9_ipns3")
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("characterBody")]
+script = ExtResource("11_w8i8w")
+characterBody = NodePath("..")
+metadata/_custom_type_script = "uid://bi226kkohh0fe"

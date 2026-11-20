@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
-public partial class WanderComponent : Area2D
+[GlobalClass]
+public partial class WanderComponent : Node
 {
 }

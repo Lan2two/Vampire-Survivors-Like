@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class VelocityComponent : Node2D
 {
     [Export] public CharacterBody2D characterBody;
