@@ -184,10 +184,10 @@ enemy = NodePath("../..")
 pathfindComponent = NodePath("../../PathfindComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "_hurtboxShape", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
+[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "_hurtbox", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
 script = ExtResource("7_50oie")
 characterBody = NodePath("../..")
-_hurtboxShape = NodePath("../../HurtboxComponent/CollisionShape2D")
+_hurtbox = NodePath("../../HurtboxComponent")
 healthComponent = NodePath("../../HealthComponent")
 velocityComponent = NodePath("../../VelocityComponent")
 attackComponent = NodePath("../../AttackComponent")

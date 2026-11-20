@@ -36,6 +36,13 @@
 [ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="35_mmorv"]
 [ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="36_n7bdd"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xtru"]
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.09803922, 0.09803922, 0.09803922, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(3, 3)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
@@ -278,31 +285,43 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="StatsLabel" type="Label" parent="GameOverNode/StatsDisplay" unique_id=151084098]
+[node name="ScrollContainer" type="ScrollContainer" parent="GameOverNode/StatsDisplay" unique_id=148109695]
+custom_minimum_size = Vector2(230, 443)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.10784314
-anchor_right = 0.89215684
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.0
+offset_top = -221.5
+offset_right = 121.0
+offset_bottom = 221.5
 grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="StatsLabel" type="Label" parent="GameOverNode/StatsDisplay/ScrollContainer" unique_id=151084098]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="XpBar" type="ProgressBar" parent="." unique_id=585847015]
+custom_minimum_size = Vector2(1267, 35)
 anchors_preset = -1
-anchor_left = 0.30703124
-anchor_top = 0.055555556
-anchor_right = 0.6929687
-anchor_bottom = 0.104166664
-offset_left = -393.0
-offset_top = -40.0
-offset_right = 394.0
-offset_bottom = -40.0
+anchor_left = 0.005078125
+anchor_right = 0.99492186
+anchor_bottom = 0.048611112
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/background = ExtResource("7_fuvlu")
+theme_override_styles/background = SubResource("StyleBoxFlat_3xtru")
 theme_override_styles/fill = SubResource("StyleBoxFlat_womn8")
 max_value = 3.0
 step = 0.001
@@ -310,6 +329,7 @@ allow_greater = true
 show_percentage = false
 script = ExtResource("3_womn8")
 LevelIncrement = 5.0
+metadata/_edit_use_anchors_ = true
 
 [node name="XpLabel" type="Label" parent="XpBar" unique_id=297221265]
 layout_mode = 1

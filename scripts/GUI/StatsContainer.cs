@@ -21,8 +21,8 @@ namespace SurvivorsGame
             SaveSystem saveSystem = new SaveSystem();
             GameSaveData data = saveSystem.LoadData();
             TimeSpan time = TimeSpan.FromSeconds(data.TotalSeconds);
-            string[] stats = new[]
-            {
+            string[] stats =
+            [
                 $"Time Played: {time.Hours:D2}:{time.Minutes:D2}:{time.Seconds:D2}",
                 $"Total Coins Collected: {data.TotalCoins}",
                 $"Total Kills: {data.TotalKills}",
@@ -31,7 +31,7 @@ namespace SurvivorsGame
                 $"Total Health Healed: {data.TotalHealthHealed}",
                 $"Total Campfires Lit: {data.TotalCampfiresLit}",
                 $"Total Xp Gained: {data.TotalTotalXp}"
-            };
+            ];
             _totalStatsLabel.Text = string.Join(System.Environment.NewLine, stats);
         }
     }

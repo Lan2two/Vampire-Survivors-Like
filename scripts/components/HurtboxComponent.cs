@@ -50,7 +50,7 @@ namespace SurvivorsGame
             _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, state);
         }
 
-        private void SetInvincibility(bool state)
+        public void SetInvincibility(bool state)
         {
             invincible = state;
             _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, state);
