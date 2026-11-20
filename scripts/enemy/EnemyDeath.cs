@@ -6,7 +6,7 @@ namespace SurvivorsGame
     public partial class EnemyDeath : Interrupt
     {
         [Export] RigidBody2D characterBody;
-        [Export] HitboxComponent hitboxComponent;
+        [Export] CollisionShape2D _hurtboxShape;
         [Export] HealthComponent healthComponent;
         [Export] VelocityComponent velocityComponent;
         [Export] AttackComponent attackComponent;
@@ -23,9 +23,9 @@ namespace SurvivorsGame
             {
                 GD.PrintErr("HealthComponent not assigned in DeathComponent.");
             }
-            if (hitboxComponent == null)
+            if (_hurtboxShape == null)
             {
-                GD.PrintErr("HitboxComponent not assigned in DeathComponent.");
+                GD.PrintErr("Hurtbox not assigned in DeathComponent.");
             }
             Sprite.AnimationFinished += OnAnimationFinished;
             healthComponent.Damage += CheckforDeath;
@@ -41,7 +41,7 @@ namespace SurvivorsGame
         public override void Enter()
         {
             Enemy.EnemiesKilled++;
-            hitboxComponent.IsInvincible = true;
+            _hurtboxShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
             attackComponent?.SetDeferred("collision_mask", 0);
             characterBody?.SetDeferred("collision_layer", 0);
             Sprite.Play("die");

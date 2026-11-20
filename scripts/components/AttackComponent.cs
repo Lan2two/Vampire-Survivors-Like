@@ -14,9 +14,9 @@ namespace SurvivorsGame
         [Export] public bool SingleHit = true;
 
         private double damageTimer;
-        private readonly HashSet<Area2D> hitboxes = new();
-        private readonly HashSet<Area2D> damagedHitboxes = new();
-        public int UniqueHitboxesEntered;
+        private readonly HashSet<Area2D> hurtboxes = new();
+        private readonly HashSet<Area2D> damagedHurtboxes = new();
+        public int UniqueHurtboxesEntered;
 
         public override void _Ready()
         {
@@ -60,7 +60,7 @@ namespace SurvivorsGame
             }
 
             damageTimer = DamageInterval;
-            foreach (Area2D area in new List<Area2D>(hitboxes))
+            foreach (Area2D area in new List<Area2D>(hurtboxes))
             {
                 ApplyDamage(area);
             }
@@ -70,12 +70,12 @@ namespace SurvivorsGame
 
         private void ApplyDamage(Area2D area)
         {
-            if (area is not HitboxComponent hitbox)
+            if (area is not HurtboxComponent hurtbox)
             {
                 return;
             }
 
-            if (SingleHit && damagedHitboxes.Contains(area))
+            if (SingleHit && damagedHurtboxes.Contains(area))
             {
                 return;
             }
@@ -89,22 +89,22 @@ namespace SurvivorsGame
 
             if (SingleHit)
             {
-                damagedHitboxes.Add(area);
+                damagedHurtboxes.Add(area);
             }
 
-            hitbox.TakeDamage(attack);
+            hurtbox.TakeDamage(attack);
         }
 
         public void ClearHash()
         {
-            hitboxes.Clear();
-            damagedHitboxes.Clear();
-            UniqueHitboxesEntered = hitboxes.Count;
+            hurtboxes.Clear();
+            damagedHurtboxes.Clear();
+            UniqueHurtboxesEntered = hurtboxes.Count;
         }
 
         private void OnAreaEntered(Area2D area)
         {
-            if (area is not HitboxComponent)
+            if (area is not HurtboxComponent)
             {
                 return;
             }
@@ -115,10 +115,10 @@ namespace SurvivorsGame
                 return;
             }
 
-            bool isNewHitbox = hitboxes.Add(area);
-            if (isNewHitbox)
+            bool isNewHurtbox = hurtboxes.Add(area);
+            if (isNewHurtbox)
             {
-                UniqueHitboxesEntered = hitboxes.Count;
+                UniqueHurtboxesEntered = hurtboxes.Count;
             }
         }
 
@@ -128,14 +128,14 @@ namespace SurvivorsGame
             {
                 return;
             }
-            if (area is not HitboxComponent)
+            if (area is not HurtboxComponent)
             {
                 return;
             }
 
-            hitboxes.Remove(area);
-            damagedHitboxes.Remove(area);
-            UniqueHitboxesEntered = hitboxes.Count;
+            hurtboxes.Remove(area);
+            damagedHurtboxes.Remove(area);
+            UniqueHurtboxesEntered = hurtboxes.Count;
         }
     }
 }

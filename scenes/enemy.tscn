@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://b0pj8g5yl7jlm" path="res://scripts/enemy/EnemyChase.cs" id="6_otmr2"]
 [ext_resource type="Script" uid="uid://dueqcebmrlxsg" path="res://scripts/enemy/EnemyDeath.cs" id="7_ile5s"]
 [ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/components/HealthComponent.cs" id="7_w8i8w"]
-[ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/components/HitboxComponent.cs" id="8_otmr2"]
+[ext_resource type="Script" uid="uid://7otgg0gqbqc5" path="res://scripts/components/HurtboxComponent.cs" id="8_otmr2"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="12_wtq4b"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_wtq4b"]
@@ -187,10 +187,10 @@ script = ExtResource("4_md484")
 enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "hitboxComponent", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
+[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "_hurtboxShape", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
 script = ExtResource("7_ile5s")
 characterBody = NodePath("../..")
-hitboxComponent = NodePath("../../HitboxComponent")
+_hurtboxShape = NodePath("../../HurtboxComponent/CollisionShape2D")
 healthComponent = NodePath("../../HealthComponent")
 velocityComponent = NodePath("../../VelocityComponent")
 attackComponent = NodePath("../../AttackComponent")
@@ -201,13 +201,13 @@ metadata/_custom_type_script = "uid://1pglkcxd7gg8"
 script = ExtResource("7_w8i8w")
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
 collision_layer = 3
 script = ExtResource("8_otmr2")
 healthComponent = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://0ucn25ndx6bw"
+metadata/_custom_type_script = "uid://7otgg0gqbqc5"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=96188564]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=96188564]
 shape = SubResource("CircleShape2D_md0e3")
 
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=2076654904 node_paths=PackedStringArray("rigidBody", "animatedSprite2D")]

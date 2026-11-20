@@ -38,7 +38,7 @@ namespace SurvivorsGame
 
         private void OnAreaEntered(Area2D area)
         {
-            if (area is HitboxComponent hitbox)
+            if (area is HurtboxComponent hurtbox)
             {
                 if (hitCount <= config.PierceCount)
                 {
@@ -48,7 +48,7 @@ namespace SurvivorsGame
                         GlobalPosition = GlobalPosition,
                         KnockbackForce = config.Knockback
                     };
-                    hitbox.TakeDamage(attack);
+                    hurtbox.TakeDamage(attack);
                     hitCount += 1;
                 }
             }
