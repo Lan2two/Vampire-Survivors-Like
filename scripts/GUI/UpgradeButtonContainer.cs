@@ -92,7 +92,7 @@ namespace SurvivorsGame
 
                 _RandUpgrades.Add(randStrategy);
                 button.Icon = randStrategy.ItemIcon;
-                button.Text = $"{randStrategy.ItemName}\n{randStrategy.GetDescription()}\n{randStrategy.Count}/{randStrategy.UpgradePool}";
+                button.Text = $"{randStrategy.ItemName}\n{randStrategy.GetDescription()}\n{randStrategy.Count}/{randStrategy.MaxStackSize}";
 
             }
 
@@ -108,7 +108,7 @@ namespace SurvivorsGame
             inventory.AddItem(chosenUpgrade);
             GD.Print(_RandUpgrades[i].ItemName);
             chosenUpgrade.Count++;
-            if (chosenUpgrade.Count >= chosenUpgrade.UpgradePool)
+            if (chosenUpgrade.Count >= chosenUpgrade.MaxStackSize)
             {
                 Strategies.Remove(chosenUpgrade);
                 GD.Print($"{chosenUpgrade.ItemName} has been removed from upgrade pool");
