@@ -18,7 +18,12 @@ namespace SurvivorsGame
 
         public override void _Ready()
         {
-            animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+            animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            if (animationPlayer == null)
+            {
+                GD.PrintErr("AnimationPlayer not found in MeleeWeapon");
+                return;
+            }
             animationPlayer.AnimationFinished += OnAnimationFinished;
             animationPlayer.AnimationStarted += OnAnimationStarted;
             SetDamageNodeEnabled(false);
@@ -26,8 +31,12 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            animationPlayer.AnimationFinished -= OnAnimationFinished;
-            animationPlayer.AnimationStarted -= OnAnimationStarted;
+            if (animationPlayer != null)
+            {
+                animationPlayer.AnimationFinished -= OnAnimationFinished;
+                animationPlayer.AnimationStarted -= OnAnimationStarted;
+            }
+
         }
         public void Use(UpgradeManager upgradeManager)
         {

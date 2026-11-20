@@ -16,10 +16,12 @@ namespace SurvivorsGame
             if (Sprite == null)
             {
                 GD.PrintErr("Sprite not assigned in HitFlashComponent.");
+                return;
             }
             if (healthComponent == null)
             {
                 GD.PrintErr("HealthComponent not assigned in HitFlashComponent.");
+                return;
             }
             healthComponent.Damage += Flash;
         }

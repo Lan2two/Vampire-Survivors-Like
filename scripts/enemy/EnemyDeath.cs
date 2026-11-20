@@ -18,14 +18,17 @@ namespace SurvivorsGame
             if (Sprite == null)
             {
                 GD.PrintErr("Sprite not assigned in DeathComponent.");
+                return;
             }
             if (healthComponent == null)
             {
                 GD.PrintErr("HealthComponent not assigned in DeathComponent.");
+                return;
             }
             if (_hurtboxShape == null)
             {
                 GD.PrintErr("Hurtbox not assigned in DeathComponent.");
+                return;
             }
             Sprite.AnimationFinished += OnAnimationFinished;
             healthComponent.Damage += CheckforDeath;
@@ -56,8 +59,14 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            Sprite.AnimationFinished -= OnAnimationFinished;
-            healthComponent.Damage -= CheckforDeath;
+            if (Sprite != null)
+            {
+                Sprite.AnimationFinished -= OnAnimationFinished;
+            }
+            if (healthComponent != null)
+            {
+                healthComponent.Damage -= CheckforDeath;
+            }
         }
         private void OnAnimationFinished()
         {
