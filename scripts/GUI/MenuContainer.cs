@@ -5,6 +5,7 @@ namespace SurvivorsGame
 
     public partial class MenuContainer : Control
     {
+        [Export] private Vector2 offset = new Vector2(80, 130);
         private Dictionary<string, Button> buttons = new();
         private Dictionary<ulong, Tween> activeTweens = new();
 
@@ -26,8 +27,18 @@ namespace SurvivorsGame
                     button.PivotOffsetRatio = new Vector2(0.5f, 0.5f);
                     button.CustomButtonHovered += OnHover;
                     button.MouseExited += ResetScale;
+
+                    var keysList = new List<string>(buttons.Keys);
+                    int buttonIndex = keysList.IndexOf(buttonName);
+                    Vector2 StartingPosition = buttons[keysList[0]].Position;
+
+                    for (int i = 1; i < keysList.Count; i++)
+                    {
+                        buttons[keysList[i]].Position = StartingPosition + offset * i;
+                    }
                 }
             }
+
         }
 
         private void OnHover(CustomButton button)
@@ -45,11 +56,11 @@ namespace SurvivorsGame
         {
             foreach (Button child in buttons.Values)
             {
-                AnimateButtonScale(child, new Vector2(1f, 1f));
+                AnimateButtonScale(child, new Vector2(1f, 1f), .12f);
             }
         }
 
-        private void AnimateButtonScale(Button target, Vector2 targetScale)
+        private void AnimateButtonScale(Button target, Vector2 targetScale, double duration = 0.085f)
         {
             if (target == null || !IsInstanceValid(target))
             {
@@ -72,7 +83,7 @@ namespace SurvivorsGame
                 Callable.From<Vector2>((currentScale) => target.Scale = currentScale),
                 initialScale,
                 targetScale,
-                0.085f
+                duration
             ).SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.Out);
         }
     }
