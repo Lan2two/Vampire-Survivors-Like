@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletPierceStrategy : Strategy, IStrategy
+    public partial class BulletPierceStrategy : Strategy, IStatStrategy
     {
         [Export] int UpgradePierce { get; set; } = 1;
 
