@@ -6,7 +6,6 @@ namespace SurvivorsGame
     public partial class XpBar : ProgressBar
     {
         [Export] private double LevelIncrement = 3;
-        [Export] private int AbsorbAllXpLevelInterval = 10;
         public Label XpLabel;
         private int _currentLevel = 0;
         private Player _player;
