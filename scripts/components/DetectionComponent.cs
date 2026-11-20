@@ -1,8 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
-    using System.Numerics;
 
     [GlobalClass]
     public partial class DetectionComponent : Area2D

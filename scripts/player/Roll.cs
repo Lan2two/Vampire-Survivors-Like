@@ -12,7 +12,6 @@ namespace SurvivorsGame
         [Export] float rollSpeed = 1.5f;
         private bool animationplaying;
         private double timer = 0; //internal timer for roll cooldown
-        Vector2 direction;
 
         public override void Enter()
         {
