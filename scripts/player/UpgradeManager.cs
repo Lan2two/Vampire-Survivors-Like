@@ -9,7 +9,7 @@ namespace SurvivorsGame
         public static UpgradeManager Instance { get; private set; }
         public InventoryManager inventoryManager;
         private Array<Strategy> ShopStrategies = new();
-        private Array<Strategy> Strategies => [.. inventoryManager.Upgrades, .. ShopStrategies];
+        private Array<Strategy> Strategies => [.. inventoryManager.UpgradesQueue, .. ShopStrategies];
         public override void _Ready()
         {
             Instance = this;
@@ -66,7 +66,7 @@ namespace SurvivorsGame
             {
                 strategy.ApplyUpgrade(upgradable);
                 ShopStrategies.Remove(strategy);
-                inventoryManager.Upgrades.Remove(strategy);
+                inventoryManager.UpgradesQueue.Remove(strategy);
             }
         }
 

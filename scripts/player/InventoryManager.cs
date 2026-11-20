@@ -5,7 +5,8 @@ namespace SurvivorsGame
 
     public partial class InventoryManager : Node
     {
-        [Export] public Array<Strategy> Upgrades = new();
+        [Export] public Array<Strategy> UpgradesQueue = new();
+        public Array<Strategy> Upgrades = new();
         [Export] public WeaponController weaponController;
         [Export] public PackedScene WorldItemScene;
         [Export] public Array<ItemData> Slots = new();
@@ -28,6 +29,7 @@ namespace SurvivorsGame
 
             if (itemData is Strategy strategy)
             {
+                UpgradesQueue.Add(strategy);
                 Upgrades.Add(strategy);
                 UpgradeManager.InvokeUpgrades(strategy);
                 return true;
