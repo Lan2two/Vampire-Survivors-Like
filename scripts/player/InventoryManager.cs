@@ -29,21 +29,7 @@ namespace SurvivorsGame
             if (itemData is Strategy strategy)
             {
                 Upgrades.Add(strategy);
-                if (strategy is IEventUpgrade eventUpgrade)
-                {
-                    eventUpgrade.ApplyUpgrade();
-                }
-                if (strategy is CompositeStrategy composite)
-                {
-                    foreach (Strategy child in composite.Children)
-                    {
-                        EventBus.InvokeUpgrades(child);
-                    }
-                }
-                else
-                {
-                    EventBus.InvokeUpgrades(strategy);
-                }
+                UpgradeManager.InvokeUpgrades(strategy);
                 return true;
             }
             if (Slots.Count >= MaxSlots)

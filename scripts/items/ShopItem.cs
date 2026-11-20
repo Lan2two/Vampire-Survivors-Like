@@ -5,24 +5,33 @@ namespace SurvivorsGame
 
     public partial class ShopItem : Control
     {
-        [Export]
-        public int cost { get; set; } = 10;
+        [Export] public int cost { get; set; } = 10;
+        [Export] public int count { get; set; } = 3;
+        [Export] public Strategy strategy;
         public event Action<ShopItem> ShowDetail;
         private bool hovering = false;
-        public Texture texture;
+        public TextureRect textureRect;
         private Label _priceLabel;
         private Panel _panel;
 
         public override void _Ready()
         {
-            texture = GetNodeOrNull<TextureRect>("Panel/Panel/TextureRect").Texture;
+            textureRect = GetNodeOrNull<TextureRect>("%TextureRect");
             _priceLabel = GetNodeOrNull<Label>("Panel/Panel/TextureRect/Label");
             _panel = GetNodeOrNull<Panel>("Panel");
-            if (texture == null)
+            if (textureRect == null)
             {
                 GD.Print("Texture not found");
             }
             _priceLabel.Text = $"{cost}";
+            if (strategy == null)
+            {
+                GD.PrintErr("Strategy unset in ShopItem");
+            }
+            if (strategy.ItemIcon != null)
+            {
+                textureRect.Texture = strategy.ItemIcon;
+            }
             MouseEntered += OnMouseEntered;
             MouseExited += OnMouseExited;
         }

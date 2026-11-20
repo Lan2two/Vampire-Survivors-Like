@@ -41,6 +41,8 @@ mouse_filter = 1
 theme_override_styles/panel = ExtResource("1_6gmg1")
 
 [node name="TextureRect" type="TextureRect" parent="Panel/Panel" unique_id=1631977774]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -56,6 +58,8 @@ grow_vertical = 2
 scale = Vector2(0.9, 0.9)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_goysm")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="Panel/Panel/TextureRect" unique_id=1290503302]
 layout_mode = 1
