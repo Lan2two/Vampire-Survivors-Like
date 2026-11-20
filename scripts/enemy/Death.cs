@@ -36,6 +36,7 @@ public partial class Death : Interrupt
 
     public override void Enter()
     {
+        Enemy.EnemiesKilled++;
         hitboxComponent.IsInvincible = true;
         attackComponent?.SetDeferred("collision_mask", 0);
         characterBody?.SetDeferred("collision_layer", 0);
@@ -58,7 +59,6 @@ public partial class Death : Interrupt
         {
             return;
         }
-        Enemy.EnemiesKilled++;
         characterBody.QueueFree();
     }
 }
