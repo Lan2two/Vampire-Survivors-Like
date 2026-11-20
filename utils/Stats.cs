@@ -24,7 +24,7 @@ namespace SurvivorsGame
                     }
                 }
             }
-            public int TotalSeconds;
+            public int Seconds;
             public int CampfiresLit;
             public int Level;
             public float totalXP;

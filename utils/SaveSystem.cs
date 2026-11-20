@@ -7,35 +7,35 @@ namespace SurvivorsGame
     {
         private string _savePath = "user://savegame.json";
 
-        public void SaveData(Dictionary<string, object> dataToSave)
+        public void SaveData(GameSaveData dataToSave)
         {
-            string jsonString = JsonSerializer.Serialize(dataToSave);
             using FileAccess file = FileAccess.Open(_savePath, FileAccess.ModeFlags.Write);
-
-            if (file == null)
-            {
-                GD.PrintErr($"Failed to open write file: {FileAccess.GetOpenError()}");
-                return;
-            }
-
-            file.StoreString(jsonString);
+            if (file == null) return;
+            byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(dataToSave);
+            file.StoreBuffer(jsonBytes);
         }
 
-        public Dictionary<string, object> LoadGame()
+        public GameSaveData LoadData()
         {
-            if (!FileAccess.FileExists(_savePath))
-            {
-                GD.Print("Save file not found");
-                return null;
-            }
+            if (!FileAccess.FileExists(_savePath)) return new GameSaveData();
+
             using FileAccess file = FileAccess.Open(_savePath, FileAccess.ModeFlags.Read);
-            if (file == null)
-            {
-                GD.Print($"Failed to open read file: {FileAccess.GetOpenError()}");
-                return null;
-            }
-            string jsonstring = file.GetAsText();
-            return JsonSerializer.Deserialize<Dictionary<string, object>>(jsonstring);
+            if (file == null) return new GameSaveData();
+
+            byte[] jsonBytes = file.GetBuffer((long)file.GetLength());
+            return JsonSerializer.Deserialize<GameSaveData>(jsonBytes);
         }
+
     }
+
+    public class GameSaveData
+    {
+        public int TotalSeconds { get; set; }
+        public int TotalKills { get; set; }
+        public int TotalDamageDealt { get; set; }
+        public int TotalDamageTaken { get; set; }
+        public int TotalHealthHealed { get; set; }
+        public Dictionary<string, int> Inventory { get; set; } = new();
+    }
+
 }

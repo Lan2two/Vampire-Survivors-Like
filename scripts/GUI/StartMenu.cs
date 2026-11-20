@@ -4,7 +4,6 @@ namespace SurvivorsGame
 {
     public partial class StartMenu : Control
     {
-        private Control _menuContainer;
         private Button _startButton;
         private Button _optionsButton;
         private Button _statsButton;
@@ -16,15 +15,14 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             _fadeRect = GetNodeOrNull<Fade>("Fade");
-            _menuContainer = GetNodeOrNull<Control>("MainMenuContainer");
-            _startButton = GetNodeOrNull<Button>("MainMenuContainer/StartButton");
-            _optionsButton = GetNodeOrNull<Button>("MainMenuContainer/OptionsButton");
-            _statsButton = GetNodeOrNull<Button>("MainMenuContainer/StatsButton");
-            _exitButton = GetNodeOrNull<Button>("MainMenuContainer/ExitButton");
-            _menuAnimation = GetNodeOrNull<AnimationPlayer>("AnimationPlayers/MainMenu");
-            _optionAnimations = GetNodeOrNull<AnimationPlayer>("AnimationPlayers/Options");
+            _startButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/StartButton");
+            _optionsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/OptionsButton");
+            _statsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/StatsButton");
+            _exitButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/ExitButton");
+            _menuAnimation = GetNodeOrNull<AnimationPlayer>("MainMenu");
+            _optionAnimations = GetNodeOrNull<AnimationPlayer>("Menus");
 
-            if (_menuContainer == null || _startButton == null || _exitButton == null)
+            if (_startButton == null || _exitButton == null)
             {
                 GD.PrintErr("Required UI components missing in StartMenu");
                 return;
@@ -34,13 +32,8 @@ namespace SurvivorsGame
             _optionsButton.Pressed += OptionsButton;
             _statsButton.Pressed += StatsButton;
             _exitButton.Pressed += ExitButton;
-            Ready += OnReady;
-        }
-
-        private void OnReady()
-        {
-            _menuAnimation.Play("bob");
             _menuAnimation.Play("fade");
+            _menuAnimation.AnimationFinished += Bob;
         }
 
         public override void _ExitTree()
@@ -48,6 +41,14 @@ namespace SurvivorsGame
             if (_startButton != null) _startButton.Pressed -= StartButton;
             if (_exitButton != null) _exitButton.Pressed -= ExitButton;
             if (_optionsButton != null) _optionsButton.Pressed -= OptionsButton;
+        }
+
+        public void Bob(StringName animName)
+        {
+            if (animName == "fade")
+            {
+                _menuAnimation.Play("bob");
+            }
         }
 
         private void StartButton()

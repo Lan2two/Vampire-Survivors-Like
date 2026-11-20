@@ -1,7 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
 
     public partial class GameOverNode : Control
     {
@@ -28,11 +27,11 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            if (_retryButton != null)
+            if (IsInstanceValid(_retryButton))
             {
                 _retryButton.Pressed -= RetryButton;
             }
-            if (_mainMenuButton != null)
+            if (IsInstanceValid(_mainMenuButton))
             {
                 _mainMenuButton.Pressed -= MainMenuButton;
             }
@@ -41,12 +40,33 @@ namespace SurvivorsGame
 
         private void RetryButton()
         {
-            GetTree().ReloadCurrentScene();
+            CallDeferred(nameof(DeferredReloadScene));
+        }
+
+        private void DeferredReloadScene()
+        {
+            if (IsInstanceValid(this) && IsInsideTree())
+            {
+                GetTree().ReloadCurrentScene();
+            }
         }
 
         private void MainMenuButton()
         {
+            SaveData();
             CallDeferred(nameof(DeferredChangeScene));
+        }
+
+        private void SaveData()
+        {
+            SaveSystem saveSystem = new SaveSystem();
+            GameSaveData data = saveSystem.LoadData();
+            data.TotalSeconds += Stats.data.Seconds;
+            data.TotalKills += Stats.data.EnemiesKilled;
+            data.TotalDamageDealt += (int)Stats.data.DamageDealt;
+            data.TotalDamageTaken += (int)Stats.data.DamageTaken;
+            data.TotalHealthHealed += (int)Stats.data.HealthHealed;
+            saveSystem.SaveData(data);
         }
         private void DeferredChangeScene()
         {
