@@ -13,6 +13,7 @@ namespace SurvivorsGame
         private AnimatedSprite2D animatedSprite2D;
         private Timer _cooldownTimer;
         private Timer _durationTimer;
+        private Label label;
 
         public override void _Ready()
         {
@@ -22,6 +23,7 @@ namespace SurvivorsGame
             animatedSprite2D = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
             _cooldownTimer = GetNodeOrNull<Timer>("CooldownTimer");
             _durationTimer = GetNodeOrNull<Timer>("DurationTimer");
+            label = GetNodeOrNull<Label>("Label");
             if (interactableComponent == null)
             {
                 GD.PrintErr("InteractableComponent not found in Campfire");
@@ -56,6 +58,12 @@ namespace SurvivorsGame
             _cooldownTimer.Timeout += OnCooldownTimeout;
             _durationTimer.Timeout += OnDurationTimeout;
         }
+
+        public override void _Process(double delta)
+        {
+            label.Text = $"{_durationTimer.TimeLeft}";
+        }
+
 
         public override void _ExitTree()
         {

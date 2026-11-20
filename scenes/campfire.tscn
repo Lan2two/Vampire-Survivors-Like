@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://yqp04a743l0o" path="res://scripts/components/InteractableComponent.cs" id="1_54scn"]
 [ext_resource type="Script" uid="uid://bwewa73y6r483" path="res://scripts/world/Campfire.cs" id="1_yfrnb"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="4_8pk5p"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="5_1v5ef"]
 [ext_resource type="Texture2D" uid="uid://sit3ejh2g124" path="res://assets/sprites/Campfire.png" id="5_m6xh0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8pk5p"]
@@ -124,7 +125,7 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ravfa")
 animation = &"lit"
 autoplay = "default"
-frame_progress = 0.9640328
+frame_progress = 0.516298
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=110549552]
 visible = false
@@ -159,3 +160,20 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1827930665]
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_m6xh0")
+
+[node name="Label" type="Label" parent="." unique_id=1711740116]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -33.5
+offset_right = 20.0
+offset_bottom = -10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_1v5ef")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
