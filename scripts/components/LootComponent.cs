@@ -7,6 +7,8 @@ namespace SurvivorsGame
         [Export] Enemy enemy;
         [Export] EnemyDeath deathState;
         [Export] PackedScene XpOrbScene;
+        [Export] PackedScene HpOrbScene;
+        private Node currentScene;
 
         public override void _Ready()
         {
@@ -25,6 +27,7 @@ namespace SurvivorsGame
                 GD.PrintErr("XpOrbScene unassigned in LootComponent.");
                 return;
             }
+            currentScene = GetTree().CurrentScene;
             deathState.OnDeath += _OnDeath;
         }
 
@@ -44,7 +47,24 @@ namespace SurvivorsGame
 
         private void DropLoot()
         {
-
+            int randInt = GD.RandRange(0, 10);
+            if (randInt == 10)
+            {
+                HpOrb HpInstance = HpOrbScene.Instantiate<HpOrb>();
+                if (HpInstance == null)
+                {
+                    GD.PrintErr("LootComponent failed to instantiate HpOrbScene.");
+                    return;
+                }
+                if (currentScene == null)
+                {
+                    HpInstance.Free();
+                    GD.PrintErr("LootComponent cannot drop loot because there is no current scene.");
+                    return;
+                }
+                currentScene.AddChild(HpInstance);
+                HpInstance.GlobalPosition = enemy.GlobalPosition;
+            }
         }
 
         private void DropXP()
@@ -55,7 +75,6 @@ namespace SurvivorsGame
                 GD.PrintErr("LootComponent failed to instantiate XpOrbScene.");
                 return;
             }
-            Node currentScene = GetTree().CurrentScene;
             if (currentScene == null)
             {
                 XpInstance.Free();
