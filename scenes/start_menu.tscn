@@ -4,7 +4,6 @@
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_m7x51"]
 [ext_resource type="Script" uid="uid://dm0ibj6ewsvk1" path="res://scripts/GUI/CarouselMenuContainer.cs" id="3_egh8s"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/CustomButton.cs" id="4_h61rw"]
-[ext_resource type="Script" uid="uid://dw5wip8wk4nw0" path="res://scripts/effects/Fade.cs" id="5_fcv5n"]
 [ext_resource type="Script" uid="uid://dg5bxmg21hgxp" path="res://scripts/GUI/SubMenuContainer.cs" id="6_nxjfj"]
 [ext_resource type="Script" uid="uid://b28q8smk74ucl" path="res://scripts/GUI/StatsContainer.cs" id="7_nxjfj"]
 [ext_resource type="Script" uid="uid://cv0v58q3c602y" path="res://scripts/GUI/ShopContainer.cs" id="8_apowk"]
@@ -634,13 +633,10 @@ libraries/ = SubResource("AnimationLibrary_5byqq")
 autoplay = &"new_animation"
 
 [node name="MainMenuMotion" type="Control" parent="." unique_id=1789880917]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2000.0
-offset_right = -2000.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -672,9 +668,10 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="MainMenuContainer" type="Node2D" parent="MainMenuMotion" unique_id=421222010 node_paths=PackedStringArray("PositionOffsetNode")]
-position = Vector2(919, 320)
+position = Vector2(919, 339)
 script = ExtResource("3_egh8s")
 Spacing = 100.0
+SmoothingSpeed = 8.0
 SelectedIndex = 2
 PositionOffsetNode = NodePath("Offset")
 
@@ -692,7 +689,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 
 [node name="StatsButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1070812510]
-modulate = Color(1, 1, 1, 0.39999998)
+modulate = Color(1, 1, 1, 0.39999992)
 z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -723,7 +720,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1329301000]
-modulate = Color(1, 1, 1, 0.7)
+modulate = Color(1, 1, 1, 0.6999999)
 z_index = -1
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -788,7 +785,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="ShopButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=645824201]
-modulate = Color(1, 1, 1, 0.7)
+modulate = Color(1, 1, 1, 0.6999999)
 z_index = -1
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -820,7 +817,7 @@ metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
 [node name="ExitButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1415925070]
-modulate = Color(1, 1, 1, 0.39999998)
+modulate = Color(1, 1, 1, 0.39999992)
 z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
@@ -855,20 +852,6 @@ text = "EXIT"
 script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
-
-[node name="Fade" type="ColorRect" parent="." unique_id=732324014]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-script = ExtResource("5_fcv5n")
-FadeInOnReady = false
 
 [node name="OptionsMotion" type="Control" parent="." unique_id=1789880918]
 modulate = Color(1, 1, 1, 0)

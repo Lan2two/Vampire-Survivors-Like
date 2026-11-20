@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SaveSystem="*uid://bved6ir5bfyx2"
+SceneLoader="*uid://rv0wgkrhdcmd"
 
 [display]
 

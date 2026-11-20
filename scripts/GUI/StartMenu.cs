@@ -9,13 +9,12 @@ namespace SurvivorsGame
         private Button _statsButton;
         private Button _exitButton;
         private Button _shopButton;
-        private Fade _fadeRect;
+
         private AnimationPlayer _menuAnimation;
         private AnimationPlayer _optionAnimations;
 
         public override void _Ready()
         {
-            _fadeRect = GetNodeOrNull<Fade>("%Fade");
             _startButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StartButton");
             _optionsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/OptionsButton");
             _statsButton = GetNodeOrNull<Button>("MainMenuMotion/MainMenuContainer/Offset/StatsButton");

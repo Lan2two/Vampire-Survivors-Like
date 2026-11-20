@@ -6,6 +6,7 @@ namespace SurvivorsGame
     {
         private Button _retryButton;
         private Button _mainMenuButton;
+        private bool _isTransitioning;
 
         public override void _Ready()
         {
@@ -37,33 +38,31 @@ namespace SurvivorsGame
             }
         }
 
-
         private void RetryButton()
         {
             if (!IsInsideTree())
             {
                 return;
             }
-
-            SaveSystem saveSystem = GetSaveSystem();
-            if (saveSystem != null)
-            {
-                saveSystem.ReloadCurrentSceneDeferred();
-            }
+            SceneLoader.Instance.LoadScene("res://scenes/Game.tscn");
         }
 
         private void MainMenuButton()
         {
-            if (!IsInsideTree())
+            if (!IsInsideTree() || _isTransitioning)
             {
                 return;
             }
 
             SaveSystem saveSystem = GetSaveSystem();
-            if (saveSystem != null)
+            if (saveSystem == null)
             {
-                saveSystem.ChangeSceneToFileDeferred("res://scenes/start_menu.tscn");
+                return;
             }
+
+            _isTransitioning = true;
+            _mainMenuButton.Disabled = true;
+            SceneLoader.Instance.LoadScene("res://scenes/start_menu.tscn");
         }
 
         private SaveSystem GetSaveSystem()
