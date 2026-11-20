@@ -105,10 +105,11 @@ height = 196.0
 radius = 6.0
 height = 28.0
 
-[node name="Campfire" type="StaticBody2D" unique_id=1670016202]
+[node name="Campfire" type="StaticBody2D" unique_id=1670016202 groups=["nav_geometry"]]
 script = ExtResource("1_yfrnb")
 
 [node name="InteractableComponent" type="Area2D" parent="." unique_id=33965412]
+visible = false
 collision_layer = 8
 collision_mask = 0
 monitoring = false
@@ -148,6 +149,7 @@ SingleHit = false
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent" unique_id=1807763055]
+visible = false
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_8pk5p")
 
@@ -158,6 +160,7 @@ one_shot = true
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1827930665]
+visible = false
 position = Vector2(0, -1)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_m6xh0")
@@ -179,3 +182,8 @@ theme_override_fonts/font = ExtResource("5_1v5ef")
 text = "12"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1857506655]
+vertices = PackedVector2Array(0, -7, 9, -7, 14, -4, 14, 1, 9, 5, 0, 5, -11, 5, -14, 1, -14, -4, -9, -7)
+affect_navigation_mesh = true
+avoidance_enabled = false

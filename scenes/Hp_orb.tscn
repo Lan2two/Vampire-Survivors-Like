@@ -68,13 +68,12 @@ maxSpeed = 200.0
 acceleration = 50.0
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
-[node name="PathfindComponent" type="Node" parent="." unique_id=1346423230 node_paths=PackedStringArray("characterBody", "velocityComponent")]
-script = ExtResource("5_gcww1")
-characterBody = NodePath("..")
-velocityComponent = NodePath("../VelocityComponent")
-threshold = 1.0
-metadata/_custom_type_script = "uid://bbw06doqvj4pd"
-
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=828657392]
 texture = SubResource("GradientTexture2D_d33pk")
 texture_scale = 0.5
+
+[node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=737352457 node_paths=PackedStringArray("characterBody", "velocityComponent")]
+script = ExtResource("5_gcww1")
+characterBody = NodePath("..")
+velocityComponent = NodePath("../VelocityComponent")
+metadata/_custom_type_script = "uid://bbw06doqvj4pd"

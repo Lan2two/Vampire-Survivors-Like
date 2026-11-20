@@ -222,12 +222,14 @@ acceleration = 10.0
 SpeedVariation = true
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
-[node name="PathfindComponent" type="Node" parent="." unique_id=324770547 node_paths=PackedStringArray("characterBody", "velocityComponent")]
+[node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=561468925 node_paths=PackedStringArray("characterBody", "velocityComponent")]
+debug_enabled = true
 script = ExtResource("11_j8bqn")
 characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
+metadata/_custom_type_script = "uid://bbw06doqvj4pd"
 
-[node name="HitFlashComponent" type="Node" parent="." unique_id=452125329 node_paths=PackedStringArray("Sprite", "healthComponent")]
+[node name="HitFlashComponent" type="Node" parent="." unique_id=1715292759 node_paths=PackedStringArray("Sprite", "healthComponent")]
 script = ExtResource("12_xlv4v")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")

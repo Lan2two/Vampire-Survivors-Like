@@ -33,7 +33,7 @@ namespace SurvivorsGame
                 targetPosition = originPoint;
             }
             pathfindComponent.PathfindToPoint(targetPosition);
-            if (pathfindComponent.TargetReached())
+            if (pathfindComponent.ReachedTarget())
             {
                 if (returnHome)
                     returnHome = false;
