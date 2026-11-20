@@ -65,7 +65,7 @@ namespace SurvivorsGame
             if (events.Count > 0)
             {
                 Text = events[0].AsText().Replace(" - Physical", "").Capitalize();
-                GD.Print(events[0].AsText());
+                //GD.Print(events[0].AsText());
             }
             else
             {
