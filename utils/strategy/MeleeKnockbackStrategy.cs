@@ -17,10 +17,10 @@ namespace SurvivorsGame
         }
         public void ApplyUpgrade(Resource config)
         {
-            ApplyUpgrade(config, UpgradeKnockback);
+            ApplyStat(config, UpgradeKnockback);
         }
 
-        public void ApplyUpgrade(Resource config, float totalAmount)
+        public void ApplyStat(Resource config, float totalAmount)
         {
             if (config is IDamageDealing damageable)
             {

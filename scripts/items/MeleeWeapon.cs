@@ -41,7 +41,7 @@ namespace SurvivorsGame
         private void OnUpgrade()
         {
             config = (MeleeWeaponBase)Baseconfig.Duplicate();
-            upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
+            upgradeManager.ApplyUpgrades(this, config, UpgradeType.Melee);
             UpdateDamage(config, attackComponent);
         }
         public void Use()
