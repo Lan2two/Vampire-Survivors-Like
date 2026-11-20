@@ -2,11 +2,10 @@ using Godot;
 using System;
 
 
-public partial class MeleeWeapon : Node2D
+public partial class MeleeWeapon : Node2D, IWeapon
 {
     [Export] public MeleeWeaponData config;
     [Export] DamageComponent damageComponent;
-    [Export] UpgradeManager upgradeManager;
     AnimationPlayer animationPlayer;
     private double timer = 0;
     private bool swingForward = true;
@@ -32,20 +31,21 @@ public partial class MeleeWeapon : Node2D
         animationPlayer.AnimationFinished -= OnAnimationFinished;
         animationPlayer.AnimationStarted -= OnAnimationStarted;
     }
-
+    public void Use()
+    {
+        Swing();
+    }
 
     public override void _PhysicsProcess(double delta)
     {
         timer -= delta;
-
-        if (Input.IsActionJustPressed("m1") && timer < 0)
-        {
-            upgradeManager.UpgradeMelee(this);
-            Swing();
-        }
     }
     private void Swing()
     {
+        if (timer > 0)
+        {
+            return;
+        }
         float speedMultiplier = Math.Abs(config.SwingSpeedMultiplier);
         timer = config.swingCooldown / speedMultiplier;
         animationPlayer.SpeedScale = speedMultiplier;

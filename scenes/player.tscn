@@ -274,6 +274,10 @@ radius = 5.0
 script = ExtResource("15_a8ls1")
 metadata/_custom_type_script = "uid://cpak5en4g7h1h"
 
+[sub_resource type="Resource" id="Resource_a8ls1"]
+script = ExtResource("15_a8ls1")
+metadata/_custom_type_script = "uid://cpak5en4g7h1h"
+
 [node name="Player" type="CharacterBody2D" unique_id=1724972010 groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_ur7pv")
@@ -331,18 +335,18 @@ Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cewm15wxhuelr"
 
-[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638 node_paths=PackedStringArray("stateMachine")]
+[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638 node_paths=PackedStringArray("stateMachine", "upgradeManager")]
 script = ExtResource("12_jej6c")
 stateMachine = NodePath("../StateMachine")
+upgradeManager = NodePath("../UpgradeManager")
 
 [node name="HandPosition" type="Marker2D" parent="WeaponController" unique_id=1586711627]
 
-[node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 node_paths=PackedStringArray("upgradeManager") instance=ExtResource("13_f1ej7")]
-upgradeManager = NodePath("../../../UpgradeManager")
+[node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 instance=ExtResource("13_f1ej7")]
 
 [node name="InventoryManager" type="Node" parent="." unique_id=1110935275]
 script = ExtResource("14_f1ej7")
-Upgrades = Array[Object]([SubResource("Resource_qfm1y")])
+Upgrades = Array[Object]([SubResource("Resource_qfm1y"), SubResource("Resource_a8ls1")])
 
 [node name="UpgradeManager" type="Node" parent="." unique_id=1180921809 node_paths=PackedStringArray("inventoryManager")]
 script = ExtResource("15_oprun")
