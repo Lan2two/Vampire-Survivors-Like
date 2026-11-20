@@ -19,6 +19,7 @@ namespace SurvivorsGame
                         continue;
                     }
                     buttons.Add(buttonName, button);
+                    button.PivotOffset = button.Size / 2;
                     button.CustomButtonHovered += OnHover;
                     button.MouseExited += ResetScale;
                 }
@@ -27,7 +28,6 @@ namespace SurvivorsGame
 
         private void OnHover(CustomButton button)
         {
-            button.PivotOffset = button.Size / 2;
             Tween Hovertween = CreateTween();
             Hovertween.TweenProperty(button, "scale", new Vector2(1.2f, 1.2f), .05f);
             foreach (Button child in buttons.Values)
@@ -39,7 +39,6 @@ namespace SurvivorsGame
                 child.PivotOffset = child.Size / 2;
                 Tween tween = CreateTween();
                 tween.TweenProperty(child, "scale", new Vector2(.8f, .8f), .05f);
-                child.Scale = new Vector2(.8f, .8f);
             }
         }
 
@@ -47,7 +46,6 @@ namespace SurvivorsGame
         {
             foreach (Button child in buttons.Values)
             {
-                child.PivotOffset = child.Size / 2;
                 Tween Hovertween = CreateTween();
                 Hovertween.TweenProperty(child, "scale", new Vector2(1f, 1f), .05f);
             }
