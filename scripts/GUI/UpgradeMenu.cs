@@ -5,9 +5,11 @@ namespace SurvivorsGame
 
     public partial class UpgradeMenu : Control
     {
+        [Export] public int Rerolls = 2;
         private UpgradeButtonContainer _upgradeButtonsContainer;
         private Button _rerollButton;
         private Button _skipButton;
+        private int _rerollCount;
 
         public override void _Ready()
         {
@@ -32,6 +34,9 @@ namespace SurvivorsGame
             _rerollButton.Pressed += RerollButton;
             _skipButton.Pressed += SkipButton;
             GameScene.GameOverEvent += Hide;
+            VisibilityChanged += SetReroll;
+            _rerollCount = Rerolls;
+            _rerollButton.Text = $"Reroll\n{_rerollCount}/{Rerolls}";
         }
 
         public override void _ExitTree()
@@ -46,10 +51,21 @@ namespace SurvivorsGame
             }
             GameScene.GameOverEvent -= Hide;
         }
+        private void SetReroll()
+        {
+            _rerollCount = Rerolls;
+        }
 
         private void RerollButton()
         {
+            if (_rerollCount <= 0)
+            {
+                return;
+            }
             _upgradeButtonsContainer.RandUpgrade();
+            _rerollCount--;
+            _rerollButton.Text = $"Reroll\n{_rerollCount}/{Rerolls}";
+
         }
 
         private void SkipButton()

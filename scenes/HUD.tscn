@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://c1jxa2l0e5qpd" path="res://utils/strategy/MeleeCritRateStrategy.cs" id="22_yy3iv"]
 [ext_resource type="Script" uid="uid://d27j145v6nms" path="res://utils/strategy/MeleeCritDamageStrategy.cs" id="23_7mxsn"]
 [ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="24_db6u7"]
+[ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="25_yy3iv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -38,25 +39,9 @@ bg_color = Color(0, 0, 0, 0.39215687)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
 
-[sub_resource type="Resource" id="Resource_cws7i"]
-script = ExtResource("6_dcyui")
-metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
-
-[sub_resource type="Resource" id="Resource_8inel"]
-script = ExtResource("13_fire_rate")
-metadata/_custom_type_script = "uid://oqh36h4jc3jy"
-
-[sub_resource type="Resource" id="Resource_vjrnn"]
-script = ExtResource("7_8inel")
-metadata/_custom_type_script = "uid://b62e4twpi050i"
-
 [sub_resource type="Resource" id="Resource_8fbvn"]
 script = ExtResource("8_vjrnn")
 metadata/_custom_type_script = "uid://cbifaria4lqs3"
-
-[sub_resource type="Resource" id="Resource_ajyu1"]
-script = ExtResource("9_8fbvn")
-metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
 
 [sub_resource type="Resource" id="Resource_m8p4d"]
 script = ExtResource("12_gm6g3")
@@ -200,6 +185,10 @@ script = ExtResource("24_db6u7")
 CalculationMode = 1
 ItemName = "HP %"
 metadata/_custom_type_script = "uid://1h87b88g3qhp"
+
+[sub_resource type="Resource" id="Resource_7tmnl"]
+script = ExtResource("25_yy3iv")
+metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
 content_margin_left = 10.0
@@ -482,7 +471,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
 xpBar = NodePath("../../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]

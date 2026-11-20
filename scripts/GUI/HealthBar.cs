@@ -21,7 +21,6 @@ namespace SurvivorsGame
         {
             Value = _player.healthComponent.currentHealth;
             MaxValue = _player.healthComponent.maxHealth;
-            GD.Print($"{MaxValue} {Value}");
         }
 
     }
