@@ -11,8 +11,8 @@ namespace SurvivorsGame
         [Export] VelocityComponent velocityComponent;
         [Export] AttackComponent attackComponent;
         [Export] AnimatedSprite2D Sprite;
-
         public event Action OnDeath;
+        private bool _isDead;
         public override void _Ready()
         {
             if (Sprite == null)
@@ -32,10 +32,12 @@ namespace SurvivorsGame
         }
         private void CheckforDeath(Attack attackData)
         {
-            if (healthComponent.currentHealth <= 0)
+            if (_isDead || healthComponent.currentHealth > 0)
             {
-                FireInterrupt();
+                return;
             }
+            _isDead = true;
+            FireInterrupt();
         }
 
         public override void Enter()
