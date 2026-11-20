@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="13_fire_rate"]
 [ext_resource type="Script" uid="uid://1mmaum2i8n02" path="res://scripts/GUI/HealthBar.cs" id="15_vjrnn"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
+[ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -170,6 +171,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/background = SubResource("StyleBoxFlat_shsct")
 theme_override_styles/fill = SubResource("StyleBoxFlat_womn8")
 max_value = 3.0
+step = 0.001
 allow_greater = true
 script = ExtResource("3_womn8")
 
@@ -292,12 +294,14 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.11764706)
 
 [node name="RollDisplay" type="TextureProgressBar" parent="." unique_id=937364242]
+visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -128.0
 offset_right = 128.0
 grow_vertical = 0
-value = 10.0
+step = 0.001
 fill_mode = 4
 texture_progress = ExtResource("16_8fbvn")
+script = ExtResource("18_rq3sv")

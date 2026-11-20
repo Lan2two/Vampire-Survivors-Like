@@ -5,12 +5,12 @@ namespace SurvivorsGame
     public partial class Roll : States
     {
         //highkey a redundant state as it used to overwite player movement, but now just added speed and i frames
-        [Export] CollisionShape2D _hurtboxShape;
-        [Export] VelocityComponent velocityComponent;
-        [Export] double rollCooldown = 3f;
-        [Export] float rollSpeed = 1.5f;
+        [Export] private CollisionShape2D _hurtboxShape;
+        [Export] private VelocityComponent velocityComponent;
+        [Export] public double rollCooldown = 3f;
+        [Export] public float rollSpeed = 1.5f;
         private bool animationplaying;
-        private double timer = 0; //internal timer for roll cooldown
+        public double timer = 0; //internal timer for roll cooldown
 
         public override void Enter()
         {
