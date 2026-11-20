@@ -5,7 +5,6 @@ public partial class Idle : States
 {
     public override void Enter()
     {
-        ChangeState("attack");
     }
     public override void Exit()
     {

@@ -17,7 +17,8 @@ public partial class StateMachine : Node
                 string stateName = state.Name.ToString().ToLower();
                 _states.Add(stateName, state);
                 GD.Print("Registered State: " + stateName);
-                state.Connect(nameof(States.StateChanged), Callable.From((string newState) => OnStateChanged(state, newState)));
+                //signal
+                state.stateChanged += OnStateChanged;
             }
         }
         if (startingState != null)
@@ -53,4 +54,13 @@ public partial class StateMachine : Node
         currentState.Enter();
         GD.Print("New State: " + currentState.Name);
     }
+
+    public override void _ExitTree()
+    {
+        foreach (var state in _states.Values)
+        {
+            state.stateChanged -= OnStateChanged;
+        }
+    }
 }
+

@@ -4,8 +4,7 @@ using System;
 public partial class States : Node
 {
     //Big signal action
-    [Signal]
-    public delegate void StateChangedEventHandler(string newState);
+    public event Action<States, string> stateChanged;
     //functions for states
     public virtual void Enter() { }
     public virtual void Exit() { }
@@ -14,6 +13,6 @@ public partial class States : Node
 
     protected void ChangeState(string newStateName)
     {
-        EmitSignal(nameof(StateChanged), newStateName);
+        stateChanged?.Invoke(this, newStateName);
     }
 }
