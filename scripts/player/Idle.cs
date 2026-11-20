@@ -3,10 +3,9 @@ using System;
 
 public partial class Idle : States
 {
-    [Export] Player player;
     public override void Enter()
     {
-        player.anim.Play("idle");
+        this.GetPlayer().anim.Play("idle");
     }
     public override void PhysicsUpdate(double delta)
     {

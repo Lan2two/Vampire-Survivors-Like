@@ -6,8 +6,11 @@
 [ext_resource type="Script" uid="uid://cuvm8u6e4qrwf" path="res://scripts/enemy/EnemyIdle.cs" id="3_xwavj"]
 [ext_resource type="Script" uid="uid://dkq1ef6bp4d3r" path="res://scripts/enemy/EnemySpawn.cs" id="4_md484"]
 [ext_resource type="Script" uid="uid://b0pj8g5yl7jlm" path="res://scripts/enemy/EnemyFollow.cs" id="4_nenq2"]
-[ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/player/HealthComponent.cs" id="5_md484"]
-[ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/player/HitboxComponent.cs" id="6_ipns3"]
+[ext_resource type="Script" uid="uid://b2lcgoxd6ttm2" path="res://scripts/components/HealthComponent.cs" id="7_w8i8w"]
+[ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/components/HitboxComponent.cs" id="8_otmr2"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="9_ipns3"]
+[ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="9_wtq4b"]
+[ext_resource type="Script" uid="uid://cxan2tnlrsr4k" path="res://scripts/components/WanderComponent.cs" id="10_j0cyh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 5.0
@@ -120,6 +123,9 @@ radius = 6.0827627
 [sub_resource type="CircleShape2D" id="CircleShape2D_md484"]
 radius = 35.35534
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ipns3"]
+radius = 35.014282
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1010643694]
 script = ExtResource("1_nenq2")
 
@@ -153,18 +159,32 @@ script = ExtResource("4_nenq2")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1925952333 node_paths=PackedStringArray("Sprite")]
-script = ExtResource("5_md484")
+script = ExtResource("7_w8i8w")
 Sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=1738169847]
-script = ExtResource("6_ipns3")
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
+script = ExtResource("8_otmr2")
+healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://0ucn25ndx6bw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=96188564]
 shape = SubResource("CircleShape2D_md0e3")
 
 [node name="DetectionComponent" type="Area2D" parent="." unique_id=1909743119]
+script = ExtResource("9_wtq4b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=774907234]
 shape = SubResource("CircleShape2D_md484")
+
+[node name="WanderComponent" type="Area2D" parent="." unique_id=2027285715]
+top_level = true
+script = ExtResource("10_j0cyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WanderComponent" unique_id=2114493120]
+shape = SubResource("CircleShape2D_ipns3")
+
+[node name="Sprite2D" type="Sprite2D" parent="WanderComponent" unique_id=581129280]
+z_index = -1
+scale = Vector2(0.55056334, 0.55056334)
+texture = ExtResource("9_ipns3")
