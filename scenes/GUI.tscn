@@ -3,6 +3,16 @@
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="1_5j4t3"]
 [ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="2_womn8"]
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
+[ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
+[ext_resource type="Texture2D" uid="uid://bijshq8x3pr5y" path="res://assets/sprites/slime_green.png" id="6_u3xxf"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/DamageStrategy.cs" id="7_cekc3"]
+[ext_resource type="Script" uid="uid://c3leaqfncc7tu" path="res://utils/strategy/SwingSpeedMultiplierStrategy.cs" id="8_1i4pd"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="8_tyhcs"]
+[ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
+[ext_resource type="Script" uid="uid://ddu5sx4am1lol" path="res://utils/strategy/KnockbackStrategy.cs" id="9_y0luo"]
+[ext_resource type="Texture2D" uid="uid://lecvx5cxppu6" path="res://builds/web/index.png" id="10_dcyui"]
+[ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="12_dcyui"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -12,6 +22,65 @@ bg_color = Color(0, 0, 0, 0.39215687)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_womn8"]
 bg_color = Color(0, 0.71092594, 0.46788698, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i4pd"]
+atlas = ExtResource("6_u3xxf")
+region = Rect2(4.156418, 9.192756, 16.823708, 16.568802)
+
+[sub_resource type="Resource" id="Resource_y0luo"]
+script = ExtResource("7_cekc3")
+ItemName = "Bullet Damage"
+ItemDescription = "Increases bullet damage by 5"
+ItemIcon = SubResource("AtlasTexture_1i4pd")
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_tyhcs"]
+script = ExtResource("8_1i4pd")
+UpgradeSwingSpeed = 1.0
+upgradeType = 1
+ItemName = "Swing Speed"
+ItemDescription = "Hit faster with melee weapons"
+ItemIcon = ExtResource("8_tyhcs")
+metadata/_custom_type_script = "uid://c3leaqfncc7tu"
+
+[sub_resource type="Resource" id="Resource_dcyui"]
+script = ExtResource("9_y0luo")
+ItemName = "Bullet Knockback"
+ItemDescription = "Make bullets knock enemies harder"
+ItemIcon = ExtResource("10_dcyui")
+metadata/_custom_type_script = "uid://ddu5sx4am1lol"
+
+[sub_resource type="Resource" id="Resource_1i4pd"]
+script = ExtResource("9_y0luo")
+upgradeType = 1
+ItemName = "Melee Knockback"
+ItemDescription = "Make melee knock enemies harder"
+ItemIcon = ExtResource("10_dcyui")
+metadata/_custom_type_script = "uid://ddu5sx4am1lol"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8inel"]
+atlas = ExtResource("12_dcyui")
+region = Rect2(0, 0, 16.494774, 16)
+
+[sub_resource type="Resource" id="Resource_vjrnn"]
+script = ExtResource("7_cekc3")
+upgradeType = 1
+ItemName = "Melee Damage"
+ItemDescription = "Increases melee damage by 5"
+ItemIcon = SubResource("AtlasTexture_8inel")
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 50.0
+bg_color = Color(0, 0, 0, 0.39215687)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cekc3"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 50.0
+bg_color = Color(0, 0, 0, 0.2509804)
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1447957346]
 
@@ -80,8 +149,8 @@ text = "Level: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=991177710]
-process_mode = 2
+[node name="UpgradeMenu" type="HBoxContainer" parent="." unique_id=991177710 node_paths=PackedStringArray("xpBar")]
+process_mode = 3
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -95,18 +164,48 @@ offset_bottom = 122.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+script = ExtResource("4_shsct")
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_y0luo"), SubResource("Resource_tyhcs"), SubResource("Resource_dcyui"), SubResource("Resource_1i4pd"), SubResource("Resource_vjrnn")])
+xpBar = NodePath("../XpBar")
 
-[node name="Button" type="Button" parent="HBoxContainer" unique_id=1828415791]
+[node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=1828415791]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("8_u3xxf")
 
-[node name="Button2" type="Button" parent="HBoxContainer" unique_id=923443406]
+[node name="Upgrade2" type="Button" parent="UpgradeMenu" unique_id=2077758267]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("8_u3xxf")
 
-[node name="Button3" type="Button" parent="HBoxContainer" unique_id=947369443]
+[node name="Upgrade3" type="Button" parent="UpgradeMenu" unique_id=1793732285]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("8_u3xxf")
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1674504300]
 visible = false
