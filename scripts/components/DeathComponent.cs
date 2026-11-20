@@ -11,11 +11,11 @@ public partial class DeathComponent : Node
     {
         if (Sprite == null)
         {
-            GD.PrintErr("Sprite not assigned in HitFlashComponent.");
+            GD.PrintErr("Sprite not assigned in DeathComponent.");
         }
         if (healthComponent == null)
         {
-            GD.PrintErr("HealthComponent not assigned in HitFlashComponent.");
+            GD.PrintErr("HealthComponent not assigned in DeathComponent.");
         }
         healthComponent.Damage += Die;
     }
