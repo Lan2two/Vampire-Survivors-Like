@@ -8,7 +8,7 @@ namespace SurvivorsGame
 		public AnimatedSprite2D anim;
 		public InventoryManager inventoryManager;
 
-		public static float playerXP = 0.0f;
+		[Export] public float playerXP = 0.0f;
 		public override void _Ready()
 		{
 			anim = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");

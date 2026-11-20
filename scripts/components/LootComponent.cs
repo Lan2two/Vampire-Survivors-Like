@@ -61,6 +61,7 @@ namespace SurvivorsGame
                 return;
             }
             currentScene.AddChild(XpInstance);
+            GD.Print("SetXPAmount");
             XpInstance.SetXPAmount(enemy.XpAmount);
             XpInstance.GlobalPosition = enemy.GlobalPosition;
         }

@@ -5,7 +5,7 @@ namespace SurvivorsGame
 
     public partial class Enemy : RigidBody2D
     {
-        [Export] public float XpAmount = 1.0f;
+        public float XpAmount = 1f;
         public AnimatedSprite2D anim;
         public CollisionShape2D collisionbox;
         public static event Action<Enemy> EnemyDied;
