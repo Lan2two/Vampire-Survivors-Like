@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://s4y52thg26e5" path="res://assets/sprites/Untitled113.png" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cvkgnts3tn6n0" path="res://assets/sprites/Untitled115_20260604221553.png" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://rou1io4c6lci" path="res://scenes/enemy.tscn" id="4_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="4_tbgi4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -236,13 +236,27 @@ tile_map_data = PackedByteArray("AAD2/wQAAAADAAEAACABAP//AAADAAEAACD4/wEAAAADAAE
 tile_set = SubResource("TileSet_tefeu")
 
 [node name="Player" parent="." unique_id=1724972010 instance=ExtResource("1_o5qli")]
-position = Vector2(-63, -1)
+position = Vector2(-86, -17)
+
+[node name="GunComponent" parent="Player" unique_id=1673118753 instance=ExtResource("4_tbgi4")]
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1308932069]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="MeleeWeapon" parent="Player" unique_id=100259256 instance=ExtResource("5_tefeu")]
-
 [node name="Enemy" parent="." unique_id=1010643694 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy2" parent="." unique_id=52228875 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy3" parent="." unique_id=1620787406 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy4" parent="." unique_id=93243186 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy5" parent="." unique_id=1728347007 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy6" parent="." unique_id=1123737872 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy7" parent="." unique_id=1957649051 instance=ExtResource("4_jyhfs")]
+
+[node name="Enemy8" parent="." unique_id=676310120 instance=ExtResource("4_jyhfs")]

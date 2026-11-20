@@ -77,5 +77,4 @@ public partial class MeleeWeapon : Node2D
         damageComponent.SetDeferred("monitoring", enabled);
         damageComponent.SetPhysicsProcess(enabled);
     }
-
 }

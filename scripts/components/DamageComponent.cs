@@ -6,14 +6,18 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class DamageComponent : Area2D
 {
+    [Signal] public delegate void HitLimitReachedEventHandler();
+
     [Export] public float damage = 10f;
     [Export] public float knockback = 100f;
     [Export] public float DamageInterval = .7f;
     [Export] public bool SingleHit = true;
+    [Export] public int MaxHits = 0;
 
     private double damageTimer;
     private readonly HashSet<Area2D> hitboxes = new();
     private readonly HashSet<Area2D> damagedHitboxes = new();
+    private int damageAppliedCount;
     public int UniqueHitboxesEntered;
 
     public override void _Ready()
@@ -62,6 +66,12 @@ public partial class DamageComponent : Area2D
                 KnockbackForce = knockback
             };
             hitbox.TakeDamage(attack);
+            damageAppliedCount++;
+
+            if (MaxHits > 0 && damageAppliedCount >= MaxHits)
+            {
+                EmitSignal(SignalName.HitLimitReached);
+            }
 
             if (SingleHit)
             {

@@ -28,7 +28,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -10), Vector2(7, -7), Vector2(10, 0), Vector2(7, 7), Vector2(0, 10)]
+"values": [Vector2(8, -12), Vector2(12, -10), Vector2(15, 0), Vector2(12, 10), Vector2(8, 12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -55,13 +55,14 @@ config = SubResource("Resource_xucw5")
 damageComponent = NodePath("Sprite2D/DamageComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=434499713]
-position = Vector2(0, 10)
-rotation = 0.7853982
+position = Vector2(8, -12)
+rotation = -0.7853982
 scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("2_io1w2")
 hframes = 12
 
 [node name="DamageComponent" type="Area2D" parent="Sprite2D" unique_id=275614870]
+visible = false
 rotation = 0.7853982
 scale = Vector2(1.0000001, 1.0000001)
 monitoring = false

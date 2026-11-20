@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/components/HitboxComponent.cs" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="10_y4r1p"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://ceegnlbuq4yyn" path="res://scripts/player/WeaponController.cs" id="12_jej6c"]
+[ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="13_f1ej7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -277,6 +279,7 @@ frame = 7
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
+visible = false
 scale = Vector2(0.15436426, 0.15436426)
 shape = SubResource("CircleShape2D_4dvvg")
 
@@ -300,6 +303,7 @@ metadata/_custom_type_script = "uid://77fm1np7g5nw"
 script = ExtResource("8_ur7pv")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=473269241 node_paths=PackedStringArray("healthComponent")]
+visible = false
 collision_layer = 4
 script = ExtResource("9_y4r1p")
 healthComponent = NodePath("../HealthComponent")
@@ -317,3 +321,10 @@ script = ExtResource("11_d2wvv")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cewm15wxhuelr"
+
+[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638]
+script = ExtResource("12_jej6c")
+
+[node name="HandPosition" type="Marker2D" parent="WeaponController" unique_id=1586711627]
+
+[node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 instance=ExtResource("13_f1ej7")]
