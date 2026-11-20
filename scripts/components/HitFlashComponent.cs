@@ -38,7 +38,7 @@ public partial class HitFlashComponent : Node
             return;
         }
 
-        if (_flashTween != null)
+        if (IsInstanceValid(_flashTween))
         {
             _flashTween.Kill();
             _flashTween = null;
@@ -56,7 +56,7 @@ public partial class HitFlashComponent : Node
 
         _flashTween.Finished += () =>
         {
-            if (_flashTween != null)
+            if (IsInstanceValid(_flashTween))
             {
                 _flashTween.Dispose();
                 _flashTween = null;
