@@ -331,12 +331,14 @@ Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cewm15wxhuelr"
 
-[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638]
+[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638 node_paths=PackedStringArray("stateMachine")]
 script = ExtResource("12_jej6c")
+stateMachine = NodePath("../StateMachine")
 
 [node name="HandPosition" type="Marker2D" parent="WeaponController" unique_id=1586711627]
 
-[node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 instance=ExtResource("13_f1ej7")]
+[node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 node_paths=PackedStringArray("upgradeManager") instance=ExtResource("13_f1ej7")]
+upgradeManager = NodePath("../../../UpgradeManager")
 
 [node name="InventoryManager" type="Node" parent="." unique_id=1110935275]
 script = ExtResource("14_f1ej7")

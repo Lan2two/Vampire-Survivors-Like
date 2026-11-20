@@ -6,11 +6,21 @@ public partial class MeleeWeapon : Node2D
 {
     [Export] public MeleeWeaponData config;
     [Export] DamageComponent damageComponent;
+    [Export] UpgradeManager upgradeManager;
     AnimationPlayer animationPlayer;
     private double timer = 0;
     private bool swingForward = true;
     public override void _Ready()
     {
+        if (config != null)
+        {
+            config = (MeleeWeaponData)config.Duplicate();
+        }
+        else
+        {
+            config = new MeleeWeaponData();
+        }
+
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         animationPlayer.AnimationFinished += OnAnimationFinished;
         animationPlayer.AnimationStarted += OnAnimationStarted;
@@ -30,24 +40,28 @@ public partial class MeleeWeapon : Node2D
 
         if (Input.IsActionJustPressed("m1") && timer < 0)
         {
-            float speedMultiplier = Math.Abs(config.SwingSpeedMultiplier);
-            timer = config.swingCooldown / speedMultiplier;
-            animationPlayer.SpeedScale = speedMultiplier;
-
-            if (swingForward)
-            {
-                animationPlayer.Play("swing");
-            }
-            else
-            {
-                animationPlayer.PlayBackwards("swing");
-            }
-
-            swingForward = !swingForward;
-            SetDamageNodeEnabled(true);
+            upgradeManager.UpgradeMelee(this);
+            Swing();
         }
     }
+    private void Swing()
+    {
+        float speedMultiplier = Math.Abs(config.SwingSpeedMultiplier);
+        timer = config.swingCooldown / speedMultiplier;
+        animationPlayer.SpeedScale = speedMultiplier;
 
+        if (swingForward)
+        {
+            animationPlayer.Play("swing");
+        }
+        else
+        {
+            animationPlayer.PlayBackwards("swing");
+        }
+
+        swingForward = !swingForward;
+        SetDamageNodeEnabled(true);
+    }
     private void OnAnimationFinished(StringName animName)
     {
         if (animName != "swing")
