@@ -35,10 +35,6 @@ region = Rect2(48, 24, 24, 24)
 atlas = ExtResource("1_7p1mj")
 region = Rect2(72, 24, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pwtc"]
-atlas = ExtResource("1_7p1mj")
-region = Rect2(72, 0, 24, 24)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_rogs8"]
 atlas = ExtResource("1_7p1mj")
 region = Rect2(48, 0, 24, 24)
@@ -104,9 +100,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2pwtc")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_rogs8")
 }, {
 "duration": 1.0,
@@ -117,7 +110,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"die",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -240,10 +233,11 @@ script = ExtResource("13_wtq4b")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 
-[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "healthComponent", "Sprite")]
+[node name="DeathComponent" type="Node" parent="." unique_id=352155415 node_paths=PackedStringArray("characterBody", "healthComponent", "velocityComponent", "Sprite")]
 script = ExtResource("14_j0cyh")
 characterBody = NodePath("..")
 healthComponent = NodePath("../HealthComponent")
+velocityComponent = NodePath("../VelocityComponent")
 Sprite = NodePath("../AnimatedSprite2D")
 
 [node name="DamageComponent" type="Area2D" parent="." unique_id=1858224252]

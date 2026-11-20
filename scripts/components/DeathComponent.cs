@@ -6,6 +6,8 @@ public partial class DeathComponent : Node
 {
     [Export] CharacterBody2D characterBody;
     [Export] HealthComponent healthComponent;
+    [Export] VelocityComponent velocityComponent;
+    [Export] DamageComponent damageComponent;
     [Export] AnimatedSprite2D Sprite;
 
     public override void _Ready()
@@ -27,11 +29,10 @@ public partial class DeathComponent : Node
 
     private async void Die()
     {
-        if (characterBody != null)
-        {
-            characterBody.SetDeferred("collision_layer", 0);
-            characterBody.SetDeferred("collision_mask", 0);
-        }
+        damageComponent?.SetDeferred("collision_mask", 0);
+        velocityComponent?.Stop();
+        characterBody?.SetDeferred("collision_layer", 0);
+
         if (Sprite.SpriteFrames.HasAnimation("die"))
         {
             Sprite.Play("die");

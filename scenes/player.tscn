@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://0ucn25ndx6bw" path="res://scripts/components/HitboxComponent.cs" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="10_y4r1p"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="11_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://cwdcoscao12ve" path="res://scenes/gun_component.tscn" id="13_jej6c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -322,6 +321,3 @@ script = ExtResource("11_d2wvv")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cewm15wxhuelr"
-
-[node name="GunComponent" parent="." unique_id=1673118753 instance=ExtResource("13_jej6c")]
-gunTimer = 0.3

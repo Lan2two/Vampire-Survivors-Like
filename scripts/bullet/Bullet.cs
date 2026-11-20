@@ -9,7 +9,7 @@ public partial class Bullet : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 direction = Vector2.Left.Rotated(Rotation);
+        Vector2 direction = Vector2.Left.Rotated(Rotation).Normalized();
         Position += direction * speed * (float)delta;
         traveledDistance += speed * (float)delta;
         if (range < traveledDistance)

@@ -19,6 +19,7 @@ texture = ExtResource("1_mkf8s")
 collision_mask = 6
 script = ExtResource("3_l5glv")
 DamageInterval = 0.0
+SingleHit = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent" unique_id=1681927426]
 shape = SubResource("CircleShape2D_h1aey")
