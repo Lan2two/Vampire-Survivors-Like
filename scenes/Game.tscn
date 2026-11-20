@@ -1193,3 +1193,12 @@ CycleTimeSeconds = 240.0
 
 [node name="Campfire" parent="." unique_id=436587811 instance=ExtResource("13_2rd6h")]
 position = Vector2(-229, -62)
+
+[node name="Campfire2" parent="." unique_id=1670016202 instance=ExtResource("13_2rd6h")]
+position = Vector2(-361, 184)
+
+[node name="Campfire3" parent="." unique_id=471189299 instance=ExtResource("13_2rd6h")]
+position = Vector2(33, 194)
+
+[node name="Campfire4" parent="." unique_id=2139778127 instance=ExtResource("13_2rd6h")]
+position = Vector2(-717, -7)
