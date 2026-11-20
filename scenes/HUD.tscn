@@ -4,9 +4,11 @@
 [ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="2_womn8"]
 [ext_resource type="Script" uid="uid://buj4yudf04fqf" path="res://scripts/GUI/GameOverNode.cs" id="3_wi42t"]
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
+[ext_resource type="Script" uid="uid://baai0rxjneanb" path="res://scripts/GUI/UpgradesDisplay.cs" id="4_pn61u"]
 [ext_resource type="Script" uid="uid://ct7frsulq8spk" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="6_dcyui"]
+[ext_resource type="Script" uid="uid://bagnvtmnb34fr" path="res://scripts/GUI/Stats.cs" id="6_rvumk"]
 [ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeButtonContainer.cs" id="6_u5cq1"]
 [ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="7_8inel"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
@@ -175,7 +177,7 @@ vertical_alignment = 1
 script = ExtResource("2_womn8")
 
 [node name="GameOverNode" type="Control" parent="." unique_id=1945052996]
-process_mode = 2
+process_mode = 3
 visible = false
 z_index = 1
 layout_mode = 3
@@ -236,6 +238,129 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Main Menu"
 
+[node name="UpgradesDisplay" type="ColorRect" parent="GameOverNode" unique_id=208435874]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -603.0
+offset_top = -175.0
+offset_right = -348.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+script = ExtResource("4_pn61u")
+
+[node name="GridContainer" type="GridContainer" parent="GameOverNode/UpgradesDisplay" unique_id=616568119]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -225.0
+offset_right = 115.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 30
+columns = 3
+
+[node name="TextureRect" type="TextureRect" parent="GameOverNode/UpgradesDisplay" unique_id=1141095997]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 9.5
+offset_top = 12.5
+offset_right = 59.5
+offset_bottom = 62.5
+texture = ExtResource("16_8fbvn")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="GameOverNode/UpgradesDisplay/TextureRect" unique_id=424533790]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = 12.0
+offset_right = 50.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_5j4t3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="GameOverNode/UpgradesDisplay" unique_id=277693478]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = -27.0
+offset_right = 72.0
+offset_bottom = -1.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+text = "Upgrades Picked"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats" type="ColorRect" parent="GameOverNode" unique_id=1876184234]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 350.0
+offset_top = -175.0
+offset_right = 605.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+script = ExtResource("6_rvumk")
+
+[node name="Label" type="Label" parent="GameOverNode/Stats" unique_id=1041667383]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = -27.0
+offset_right = 72.0
+offset_bottom = -1.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+text = "Stats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="GameOverNode/Stats" unique_id=151084098]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 475.0
+grow_horizontal = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="XpBar" type="ProgressBar" parent="." unique_id=585847015]
 anchors_preset = 5
 anchor_left = 0.5
@@ -272,6 +397,7 @@ vertical_alignment = 1
 
 [node name="UpgradeMenu" type="Control" parent="." unique_id=2142592123]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -306,8 +432,9 @@ custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/icon_max_width = 150
 theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
@@ -322,8 +449,9 @@ custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/icon_max_width = 150
 theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
@@ -338,8 +466,9 @@ custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/icon_max_width = 150
 theme_override_fonts/font = ExtResource("1_5j4t3")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
