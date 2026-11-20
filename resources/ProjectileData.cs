@@ -26,6 +26,11 @@ namespace SurvivorsGame
         [Export] public float SpeedBase = 300f;
         public float SpeedAdditive;
         public float SpeedPercent;
+
+        [Export] public float DetectionRangeBase;
+        public float DetectionRangeAdditive;
+        public float DetectionRangePercent;
+
         [Export] public float MaxTravelDistanceBase = 500f;
         public float MaxTravelDistanceAdditive;
         public float MaxTravelDistancePercent;
@@ -59,6 +64,7 @@ namespace SurvivorsGame
             "CritRate" => new StatModifier(CritRateBase, CritRateAdditive, CritRatePercent),
             "CritDamage" => new StatModifier(CritDamageBase, CritDamageAdditive, CritDamagePercent),
             "Speed" => new StatModifier(SpeedBase, SpeedAdditive, SpeedPercent, CombatStatLimits.MinBulletSpeed, CombatStatLimits.MaxBulletSpeed),
+            "DetectionRange" => new StatModifier(DetectionRangeBase, DetectionRangeAdditive, DetectionRangePercent, CombatStatLimits.MinDetectionRange, CombatStatLimits.MaxDetectionRange),
             "MaxTravelDistance" => new StatModifier(MaxTravelDistanceBase, MaxTravelDistanceAdditive, MaxTravelDistancePercent),
             "PierceCount" => new StatModifier(PierceCountBase, PierceCountAdditive, PierceCountPercent, 0f, float.MaxValue),
             "ProjectileCooldown" => new StatModifier(ProjectileCooldownBase, ProjectileCooldownAdditive, ProjectileCooldownPercent, CombatStatLimits.MinProjectileCooldown, float.MaxValue),

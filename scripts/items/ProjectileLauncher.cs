@@ -12,6 +12,7 @@ namespace SurvivorsGame
         [Export] Texture2D texture2D;
         public Timer timer;
         private Sprite2D sprite2D;
+        public CircleShape2D detectionRange;
         private Marker2D shootPoint;
         private Array<Node2D> enemiesInRange;
         public ProjectileData config;
@@ -24,6 +25,7 @@ namespace SurvivorsGame
             timer = GetNode<Timer>("Timer");
             shootPoint = GetNode<Marker2D>("%ShootPoint");
             sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
+            detectionRange = GetNodeOrNull<CollisionShape2D>("CollisionShape2D").Shape as CircleShape2D;
 
             if (startingConfig == null)
             {
@@ -40,9 +42,18 @@ namespace SurvivorsGame
                 GD.PrintErr("Sprite2D not found in Projectile Launcher.");
                 return;
             }
+            if (detectionRange == null)
+            {
+                GD.PrintErr("Collision shape not found in Projectile Launcher.");
+            }
             if (texture2D != null)
             {
                 sprite2D.Texture = texture2D;
+            }
+            if (startingConfig != null)
+            {
+                startingConfig.DetectionRangeBase = detectionRange.Radius;
+                GD.Print(startingConfig.DetectionRangeBase);
             }
             CallDeferred(MethodName.Onready);
             timer.Timeout += OnTimeout;
@@ -60,7 +71,6 @@ namespace SurvivorsGame
                 timer.Timeout -= OnTimeout;
             }
         }
-
 
         public override void _PhysicsProcess(double delta)
         {
@@ -114,6 +124,18 @@ namespace SurvivorsGame
                     };
                 }
             }
+        }
+
+        public void ApplyStrategy(UpgradeType upgradeType)
+        {
+            config = (ProjectileData)startingConfig.Duplicate();
+            if (upgradeManager == null)
+            {
+                upgradeManager = this.GetPlayer().upgradeManager;
+            }
+            upgradeManager.ApplyUpgrades(this, upgradeType);
+            detectionRange.Radius = config.GetStat("DetectionRange").CalculateFinal();
+            timer.WaitTime = config.GetStat("ProjectileCooldown").CalculateFinal();
         }
     }
 }

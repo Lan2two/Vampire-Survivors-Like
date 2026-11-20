@@ -7,6 +7,7 @@ script = ExtResource("1_td8c0")
 DamageBase = 5.0
 KnockbackBase = 50.0
 CritDamageBase = 100.0
+DetectionRangeBase = 85.0
 MaxTravelDistanceBase = 100.0
 ProjectileCooldownBase = 5.0
 BurstBase = 5

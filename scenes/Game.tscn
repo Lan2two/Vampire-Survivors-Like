@@ -1155,7 +1155,6 @@ shader_parameter/impact_flash = 1.0
 shader_parameter/invert_impact = false
 shader_parameter/speed_line_intensity = 0.0
 shader_parameter/bw_cutoff = 0.5
-shader_parameter/shake_offset = Vector2(0, 0)
 
 [sub_resource type="Animation" id="Animation_vjgi4"]
 resource_name = "RESET"
@@ -1359,7 +1358,8 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AADr/wkAAAAAAAgAAADz//z/AAAAAAgAAADw/wYAAAAAAAgAAAARAAUAAAAAAAgAAAAfAPf/AAAAAAgAAAD1//D/AAAAAAgAAADa//P/AAAAAAgAAADR/wMAAAAAAAgAAADT/w0AAAAAAAgAAADc/xIAAAAAAAgAAAD0/xIAAAAAAAgAAAARABIAAAAAAAgAAAAwAP7/AAAAAAgAAAApAPH/AAAAAAgAAADo/+z/AAAAAAgAAAAMAPH/AAAAAAgAAADl//z/AAAAAAgAAAAtABQAAAAAAAgAAADc/xkAAAAAAAgAAAAcABsAAAAAAAgAAAA=")
 tile_set = SubResource("TileSet_mcffj")
 
-[node name="PlayerPlacement" type="Node2D" parent="."]
+[node name="PlayerPlacement" type="Node2D" parent="." unique_id=1025430541]
+y_sort_enabled = true
 position = Vector2(-86, -17)
 
 [node name="Player" parent="PlayerPlacement" unique_id=1724972010 instance=ExtResource("2_2rd6h")]
@@ -1379,7 +1379,8 @@ scale = Vector2(5.732422, 6.0349936)
 color = Color(0.87775594, 0.94410115, 0.76046246, 1)
 texture = SubResource("GradientTexture2D_2rd6h")
 
-[node name="CoinPlacement" type="Node2D" parent="."]
+[node name="CoinPlacement" type="Node2D" parent="." unique_id=1009258527]
+y_sort_enabled = true
 position = Vector2(-190, -19)
 
 [node name="Coin" parent="CoinPlacement" unique_id=579653615 instance=ExtResource("6_vjgi4")]
@@ -1387,22 +1388,26 @@ ItemData = SubResource("Resource_choun")
 
 [node name="Objects" type="Node" parent="." unique_id=1707808884]
 
-[node name="Campfire1Placement" type="Node2D" parent="Objects"]
+[node name="Campfire1Placement" type="Node2D" parent="Objects" unique_id=25602486]
+y_sort_enabled = true
 position = Vector2(-229, -62)
 
 [node name="Campfire" parent="Objects/Campfire1Placement" unique_id=1670016202 instance=ExtResource("13_2rd6h")]
 
-[node name="Campfire2Placement" type="Node2D" parent="Objects"]
+[node name="Campfire2Placement" type="Node2D" parent="Objects" unique_id=1183056460]
+y_sort_enabled = true
 position = Vector2(-361, 184)
 
 [node name="Campfire2" parent="Objects/Campfire2Placement" unique_id=240434088 instance=ExtResource("13_2rd6h")]
 
-[node name="Campfire3Placement" type="Node2D" parent="Objects"]
+[node name="Campfire3Placement" type="Node2D" parent="Objects" unique_id=287000462]
+y_sort_enabled = true
 position = Vector2(33, 194)
 
 [node name="Campfire3" parent="Objects/Campfire3Placement" unique_id=1965595540 instance=ExtResource("13_2rd6h")]
 
-[node name="Campfire4Placement" type="Node2D" parent="Objects"]
+[node name="Campfire4Placement" type="Node2D" parent="Objects" unique_id=229954639]
+y_sort_enabled = true
 position = Vector2(-717, -7)
 
 [node name="Campfire4" parent="Objects/Campfire4Placement" unique_id=328187902 instance=ExtResource("13_2rd6h")]

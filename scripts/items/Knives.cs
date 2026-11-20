@@ -6,10 +6,6 @@ namespace SurvivorsGame
         {
             base._Ready();
             CallDeferred(MethodName.OnUpgrade);
-            if (upgradeManager == null)
-            {
-                upgradeManager = this.GetPlayer().upgradeManager;
-            }
             EventBus.KnivesUpgrade += OnUpgrade;
         }
 
@@ -21,9 +17,7 @@ namespace SurvivorsGame
 
         private void OnUpgrade()
         {
-            config = (ProjectileData)startingConfig.Duplicate();
-            upgradeManager.ApplyUpgrades(this, UpgradeType.Knives);
-            timer.WaitTime = config.GetStat("ProjectileCooldown").CalculateFinal();
+            ApplyStrategy(UpgradeType.Knives);
         }
     }
 }

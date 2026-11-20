@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://rliet5psgp0d"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_6eo2u"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_2gcx7"]
+[ext_resource type="Script" uid="uid://dso6a0mvhtl3o" path="res://utils/strategy/ProjectileDetectionRangeStrategy.cs" id="3_ch6ql"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="4_mw4vc"]
+
+[sub_resource type="Resource" id="Resource_eo1la"]
+script = ExtResource("3_ch6ql")
+upgradeType = 1
+metadata/_custom_type_script = "uid://dso6a0mvhtl3o"
+
+[sub_resource type="Resource" id="Resource_toxd1"]
+script = ExtResource("3_ch6ql")
+upgradeType = 2
+metadata/_custom_type_script = "uid://dso6a0mvhtl3o"
+
+[resource]
+script = ExtResource("4_mw4vc")
+Children = Array[ExtResource("1_6eo2u")]([SubResource("Resource_eo1la"), SubResource("Resource_toxd1")])
+MaxStackSize = 5
+ItemName = "Long Sight"
+ItemDescription = "Increases detection range of ranged weapons by 5%"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

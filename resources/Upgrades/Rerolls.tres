@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("2_40f6c")
+ItemDescription = "Adds 1 reroll to upgrades"
 metadata/_custom_type_script = "uid://bumipdbxnndnf"

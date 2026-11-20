@@ -14,6 +14,8 @@ namespace SurvivorsGame
         public const float MaxMeleeSwingSpeed = 5f;
         public const float MinProjectileCooldown = 0.05f;
         public const float MinSpread = 0f;
+        public const float MinDetectionRange = 0f;
+        public const float MaxDetectionRange = 500f;
     }
 
     public enum UpgradeCalculationMode { Additive, Percentage }

@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://dl2cs4wun551l" path="res://resources/Upgrades/FiringRate.tres" id="2_t4md6"]
 [ext_resource type="Resource" uid="uid://cfks73yne5k6b" path="res://resources/Upgrades/Magnet.tres" id="3_s53t2"]
 [ext_resource type="Resource" uid="uid://dgs1hrd8t4685" path="res://resources/Upgrades/Rerolls.tres" id="4_cimqq"]
+[ext_resource type="Resource" uid="uid://rliet5psgp0d" path="res://resources/Upgrades/ProjectileDetectionRange.tres" id="5_yltc6"]
 
 [node name="GridContainer" type="GridContainer" unique_id=1099827021]
 custom_minimum_size = Vector2(0, 650)
@@ -26,3 +27,7 @@ strategy = ExtResource("3_s53t2")
 [node name="ShopItem3" parent="." unique_id=1593920407 instance=ExtResource("1_p1p52")]
 layout_mode = 2
 strategy = ExtResource("4_cimqq")
+
+[node name="ShopItem4" parent="." unique_id=1102825313 instance=ExtResource("1_p1p52")]
+layout_mode = 2
+strategy = ExtResource("5_yltc6")

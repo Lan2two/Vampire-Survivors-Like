@@ -7,10 +7,11 @@
 
 [sub_resource type="Resource" id="Resource_eqrin"]
 script = ExtResource("2_6b133")
+DetectionRangeBase = 140.0
 metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb11s"]
-radius = 180.025
+radius = 140.0
 
 [node name="Gun" type="Area2D" unique_id=1673118753]
 collision_layer = 0
