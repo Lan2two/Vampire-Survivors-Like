@@ -41,11 +41,15 @@ namespace SurvivorsGame
         public override void _PhysicsProcess(double delta)
         {
             spawnTimer -= delta;
-            if (spawnTimer > 0 || Enemy.Alive >= _maxEnemies)
+            if (spawnTimer > 0)
             {
                 return;
             }
-
+            if (Enemy.Alive >= _maxEnemies)
+            {
+                GD.Print("Cap Reached");
+                return;
+            }
             spawnTimer = spawnInterval;
             SpawnEnemy();
         }
