@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://de57a3gqbkhhn" path="res://resources/BulletData.cs" id="2_qncy5"]
 [ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="4_eoqba"]
 [ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="5_qncy5"]
+[ext_resource type="Script" uid="uid://bk75c5phn8n71" path="res://scripts/bullet/RedirectBullet.cs" id="6_tamys"]
 
 [sub_resource type="Resource" id="Resource_tamys"]
 script = ExtResource("2_qncy5")
@@ -12,6 +13,9 @@ metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qncy5"]
+radius = 48.010414
 
 [node name="Bullet" type="Node2D" unique_id=327449615 node_paths=PackedStringArray("attackComponent")]
 top_level = true
@@ -31,6 +35,8 @@ TrailPoints = 20
 
 [node name="AttackComponent" type="Area2D" parent="." unique_id=1293582519]
 scale = Vector2(0.057799753, 0.057799753)
+collision_layer = 0
+collision_mask = 2
 monitorable = false
 script = ExtResource("5_qncy5")
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
@@ -38,3 +44,13 @@ metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent" unique_id=1681927426]
 scale = Vector2(17.301111, 17.301111)
 shape = SubResource("CircleShape2D_h1aey")
+
+[node name="RedirectBullet" type="Area2D" parent="." unique_id=1711551533 node_paths=PackedStringArray("attackComponent", "bullet")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_tamys")
+attackComponent = NodePath("../AttackComponent")
+bullet = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedirectBullet" unique_id=787686708]
+shape = SubResource("CircleShape2D_qncy5")

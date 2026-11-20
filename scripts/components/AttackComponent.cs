@@ -3,6 +3,7 @@ namespace SurvivorsGame
     using Godot;
     using Godot.Collections;
     using System.Collections.Generic;
+    using System;
 
     [GlobalClass]
     public partial class AttackComponent : Area2D
@@ -12,10 +13,10 @@ namespace SurvivorsGame
         [Export] public float DamageInterval = .7f;
         [Export] public bool SingleHit = true;
         public bool crit;
-
+        public event Action DamageApplied;
         private double damageTimer;
         private readonly HashSet<Area2D> hurtboxes = new();
-        private readonly HashSet<Area2D> damagedHurtboxes = new();
+        public readonly HashSet<Area2D> damagedHurtboxes = new();
         private int UniqueHurtboxesEntered;
 
         public override void _Ready()
@@ -66,7 +67,7 @@ namespace SurvivorsGame
             }
         }
 
-        public int GetDamagedHurtBoxes()
+        public int GetHurtBoxEntered()
         {
             return damagedHurtboxes.Count;
         }
@@ -97,6 +98,7 @@ namespace SurvivorsGame
             }
 
             hurtbox.TakeDamage(attack);
+            DamageApplied?.Invoke();
         }
 
         public void ClearHash()

@@ -5,10 +5,20 @@ namespace SurvivorsGame
     public partial class Bullet : Weapon
     {
         [Export] public BulletData config;
+        private RedirectBullet redirectBullet;
         private float traveledDistance = 0;
         private int hitCount = 0;
         private bool Crit;
         private float FinalDamage;
+
+        public override void _Ready()
+        {
+            redirectBullet = GetNodeOrNull<RedirectBullet>("RedirectBullet");
+            if (redirectBullet == null)
+            {
+                GD.PrintErr("RedirectBullet not found in Redirect Bullet");
+            }
+        }
 
         public void Fire()
         {
@@ -22,11 +32,15 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            Vector2 direction = Vector2.Left.Rotated(Rotation).Normalized();
+            if (config.BouncingBullets)
+            {
+                redirectBullet.Redirect = true;
+            }
+            Vector2 direction = Vector2.Right.Rotated(Rotation).Normalized();
             Position += direction * config.Speed * (float)delta;
             traveledDistance += config.Speed * (float)delta;
 
-            if (config.MaxTravelDistance < traveledDistance || attackComponent.GetDamagedHurtBoxes() > config.PierceCount)
+            if (config.MaxTravelDistance < traveledDistance || attackComponent.GetHurtBoxEntered() > config.PierceCount)
             {
                 QueueFree();
             }

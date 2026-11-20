@@ -12,6 +12,7 @@ namespace SurvivorsGame
         {
             upgradeType = UpgradeType.Combo;
             ItemName = "Combo Upgrade";
+            MaxStackSize = 1;
         }
 
         public override string GetDescription()
