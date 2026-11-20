@@ -2,133 +2,135 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
-    using System;
+    using System.Collections.Generic;
+
+    public enum Rarity { Common, Rare, Epic, Legendary }
 
     public partial class UpgradeMenu : Control
     {
         private const int MaxUpgradeButtons = 5;
+
+        [ExportGroup("Loot Table")]
+        [Export] private Array<Strategy> CommonTable = new();
+        [Export] private Array<Strategy> RareTable = new();
+        [Export] private Array<Strategy> EpicTable = new();
+        [Export] private Array<Strategy> LegendaryTable = new();
+
+        [Export] private int CommonWeight = 60;
+        [Export] private int RareWeight = 25;
+        [Export] private int EpicWeight = 12;
+        [Export] private int LegendaryWeight = 3;
+
+        [ExportGroup("Settings")]
         [Export] public int Rerolls = 2;
-        [Export] public Array<Strategy> Strategies = new();
+        [Export(PropertyHint.Range, "0, 5, 1")] private int StartingButtons { get; set; } = 3;
+
+        [ExportGroup("Scenes")]
         [Export] private XpBar xpBar;
-        [Export(PropertyHint.Range, "0,5,1")] private int StartingButtons { get; set; } = 3;
-        [Export] PackedScene button;
-        private Dictionary<string, CustomButton> _UpgradeButtons = new();
-        private Array<Strategy> _RandUpgrades = new();
+        [Export] private PackedScene button;
+
+        private List<CustomButton> _activeButtons = new();
+        private List<UpgradeChoiceData> _activeUpgrades = new();
+
         private InventoryManager inventory;
-        private int count;
         private HBoxContainer _upgradeButtonsContainer;
         private Button _rerollButton;
         private Button _skipButton;
         private int _rerollCount;
 
+        private struct UpgradeChoiceData
+        {
+            public Rarity RarityType;
+            public Strategy SelectedStrategy;
+        }
+
         public override void _Ready()
         {
-            inventory = this.GetPlayer().inventoryManager;
+            var player = this.GetPlayer();
+            if (player != null)
+            {
+                inventory = player.inventoryManager;
+            }
+
             _upgradeButtonsContainer = GetNodeOrNull<HBoxContainer>("UpgradeButtonContainer");
             _rerollButton = GetNodeOrNull<Button>("UpgradeMenuContainer/RerollButton");
             _skipButton = GetNodeOrNull<Button>("UpgradeMenuContainer/SkipButton");
-            if (xpBar == null)
+
+            if (xpBar == null || _upgradeButtonsContainer == null || _rerollButton == null || _skipButton == null)
             {
-                GD.PrintErr("XpBar unassigned in HBoxContainer");
+                GD.PrintErr("Missing critical node references in UpgradeMenu.");
                 return;
             }
-            if (Strategies.Count == 0)
-            {
-                GD.PrintErr("No upgrades assigned in UpgradesMenu");
-                return;
-            }
-            if (inventory == null)
-            {
-                GD.PrintErr("Inventory from player not found in GridContainer");
-            }
-            if (_upgradeButtonsContainer == null)
-            {
-                GD.PrintErr("HBoxContainer not found in UpgradeMenu");
-                return;
-            }
-            if (_rerollButton == null)
-            {
-                GD.PrintErr("RerollButton not found in UpgradeMenu");
-                return;
-            }
-            if (_skipButton == null)
-            {
-                GD.PrintErr("RerollButton not found in UpgradeMenu");
-                return;
-            }
+
             _rerollButton.Pressed += RerollButton;
             _skipButton.Pressed += SkipButton;
             GameScene.GameOverEvent += Hide;
             VisibilityChanged += SetReroll;
             xpBar.LevelUpEvent += DisplayUpgrades;
             EventBus.AddButton += AddButton;
+
             SetReroll();
             for (int i = 0; i < StartingButtons; i++)
             {
                 AddButton();
             }
+
             DisplayUpgrades();
         }
 
         public override void _ExitTree()
         {
-            if (_rerollButton != null)
-            {
-                _rerollButton.Pressed -= RerollButton;
-            }
-            if (_skipButton != null)
-            {
-                _skipButton.Pressed -= SkipButton;
-            }
+            if (_rerollButton != null) _rerollButton.Pressed -= RerollButton;
+            if (_skipButton != null) _skipButton.Pressed -= SkipButton;
             GameScene.GameOverEvent -= Hide;
             VisibilityChanged -= SetReroll;
-            if (xpBar != null)
-            {
-                xpBar.LevelUpEvent -= DisplayUpgrades;
-            }
+            if (xpBar != null) xpBar.LevelUpEvent -= DisplayUpgrades;
             EventBus.AddButton -= AddButton;
-            foreach (CustomButton button in _UpgradeButtons.Values)
-            {
-                button.CustomButtonPressed -= ButtonPressed;
-            }
+
+            UnbindButtonEvents();
         }
 
         public void AddButton()
         {
-            if (count >= MaxUpgradeButtons)
+            if (_activeButtons.Count >= MaxUpgradeButtons)
             {
-                GD.Print("Max Buttons");
+                GD.Print("Max Buttons reached");
                 return;
             }
-            count++;
+
             CustomButton buttonInstance = button.Instantiate<CustomButton>();
-            if (buttonInstance is not CustomButton)
+            if (buttonInstance == null)
             {
                 GD.PrintErr("Button instance is not of type CustomButton");
                 return;
             }
+
             buttonInstance.Visible = true;
-            buttonInstance.Name = $"{buttonInstance.Name}{count}";
             _upgradeButtonsContainer.AddChild(buttonInstance);
-            string buttonName = buttonInstance.Name.ToString();
-            if (_UpgradeButtons.ContainsKey(buttonName))
-            {
-                return;
-            }
-            _UpgradeButtons.Add(buttonName, buttonInstance);
+            _activeButtons.Add(buttonInstance);
+
             buttonInstance.CustomButtonPressed += ButtonPressed;
-            buttonInstance.PivotOffsetRatio = new Vector2(0.5f, 1f);
             buttonInstance.CustomButtonHovered += OnHover;
             buttonInstance.MouseExited += ResetScale;
         }
 
-        private void ButtonPressed(CustomButton button)
+        private void UnbindButtonEvents()
         {
-            string buttonName = button.Name.ToString();
-            var keysList = new System.Collections.Generic.List<string>(_UpgradeButtons.Keys);
-            int buttonIndex = keysList.IndexOf(buttonName);
+            foreach (CustomButton btn in _activeButtons)
+            {
+                if (IsInstanceValid(btn))
+                {
+                    btn.CustomButtonPressed -= ButtonPressed;
+                    btn.CustomButtonHovered -= OnHover;
+                    btn.MouseExited -= ResetScale;
+                }
+            }
+        }
 
-            if (buttonIndex >= 0 && buttonIndex < _RandUpgrades.Count)
+        private void ButtonPressed(CustomButton btn)
+        {
+            int buttonIndex = _activeButtons.IndexOf(btn);
+            if (buttonIndex >= 0 && buttonIndex < _activeUpgrades.Count)
             {
                 AddUpgrade(buttonIndex);
                 Visible = false;
@@ -136,94 +138,166 @@ namespace SurvivorsGame
             }
             else
             {
-                GD.PrintErr($"No upgrade is assigned to button '{buttonName}'");
+                GD.PrintErr($"No upgrade is assigned to button index: {buttonIndex}");
             }
         }
-
         private void DisplayUpgrades()
         {
-            if (Strategies is [])
-            {
-                GD.Print("No more upgrades");
-                return;
-            }
             RandUpgrade();
             Visible = true;
             GetTree().Paused = true;
         }
         public void RandUpgrade()
         {
-            _RandUpgrades.Clear();
-            foreach (CustomButton button in _UpgradeButtons.Values)
+            _activeUpgrades.Clear();
+            int totalWeight = CommonWeight + RareWeight + EpicWeight + LegendaryWeight;
+            HashSet<Strategy> pickedThisRoll = new();
+
+            for (int i = 0; i < _activeButtons.Count; i++)
             {
-                int randIndex = GD.RandRange(0, Strategies.Count - 1);
-                Strategy randStrategy = Strategies[randIndex];
+                CustomButton btn = _activeButtons[i];
+                Array<Strategy> table;
+                Rarity rarity = Rarity.Common;
+                Strategy randStrategy = null;
 
-                _RandUpgrades.Add(randStrategy);
-                button.Icon = randStrategy.ItemIcon;
-                button.Text = $"{randStrategy.ItemName}\n{randStrategy.GetDescription()}\n{randStrategy.Count}/{randStrategy.MaxStackSize}";
+                int attempts = 0;
+                const int maxAttempts = 50;
 
+                while (randStrategy == null && attempts < maxAttempts)
+                {
+                    attempts++;
+                    int randtable = GD.RandRange(1, totalWeight);
+
+                    if (randtable <= LegendaryWeight)
+                    {
+                        table = LegendaryTable;
+                        rarity = Rarity.Legendary;
+                    }
+                    else if (randtable <= LegendaryWeight + EpicWeight)
+                    {
+                        table = EpicTable;
+                        rarity = Rarity.Epic;
+                    }
+                    else if (randtable <= LegendaryWeight + EpicWeight + RareWeight)
+                    {
+                        table = RareTable;
+                        rarity = Rarity.Rare;
+                    }
+                    else
+                    {
+                        table = CommonTable;
+                        rarity = Rarity.Common;
+                    }
+
+                    if (table == null || table.Count == 0)
+                    {
+                        table = CommonTable;
+                        rarity = Rarity.Common;
+                    }
+
+                    if (table == null || table.Count == 0)
+                        break;
+
+                    int randIndex = GD.RandRange(0, table.Count - 1);
+                    Strategy candidate = table[randIndex];
+
+                    if (!pickedThisRoll.Contains(candidate))
+                    {
+                        randStrategy = candidate;
+                        pickedThisRoll.Add(randStrategy);
+                    }
+                }
+
+                if (randStrategy == null)
+                {
+                    table = CommonTable.Count > 0 ? CommonTable : RareTable.Count > 0 ? RareTable : EpicTable.Count > 0 ? EpicTable : LegendaryTable;
+                    if (table != null && table.Count > 0)
+                    {
+                        randStrategy = table[GD.RandRange(0, table.Count - 1)];
+                        rarity = table == CommonTable ? Rarity.Common : table == RareTable ? Rarity.Rare : table == EpicTable ? Rarity.Epic : Rarity.Legendary;
+                    }
+                }
+
+                if (randStrategy == null)
+                {
+                    btn.Visible = false;
+                    continue;
+                }
+
+                btn.Visible = true;
+
+                UpgradeChoiceData choice = new UpgradeChoiceData
+                {
+                    RarityType = rarity,
+                    SelectedStrategy = randStrategy
+                };
+                _activeUpgrades.Add(choice);
+
+                btn.Icon = randStrategy.ItemIcon;
+                btn.Text = $"{randStrategy.ItemName}\n{randStrategy.GetDescription()}\n{randStrategy.Count}/{randStrategy.MaxStackSize}";
             }
         }
+
         private void AddUpgrade(int i)
         {
-            if (i < 0 || i >= _RandUpgrades.Count)
+            if (i < 0 || i >= _activeUpgrades.Count) return;
+
+            Strategy chosenUpgrade = _activeUpgrades[i].SelectedStrategy;
+            if (inventory != null)
             {
-                GD.PrintErr($"Upgrade index {i} is out of range");
-                return;
+                inventory.AddItem(chosenUpgrade);
             }
-            Strategy chosenUpgrade = _RandUpgrades[i];
-            inventory.AddItem(chosenUpgrade);
-            //GD.Print(_RandUpgrades[i].ItemName);
+
             chosenUpgrade.Count++;
+
             if (chosenUpgrade.Count >= chosenUpgrade.MaxStackSize)
             {
-                Strategies.Remove(chosenUpgrade);
-                GD.Print($"{chosenUpgrade.ItemName} has been removed from upgrade pool");
+                Array<Strategy> table = _activeUpgrades[i].RarityType switch
+                {
+                    Rarity.Common => CommonTable,
+                    Rarity.Rare => RareTable,
+                    Rarity.Epic => EpicTable,
+                    Rarity.Legendary => LegendaryTable,
+                    _ => CommonTable
+                };
+                table.Remove(chosenUpgrade);
+                GD.Print($"{chosenUpgrade.ItemName} has been maxed out and removed from loot pool.");
             }
-
         }
-
         private void SetReroll()
         {
             _rerollCount = Rerolls;
-            _rerollButton.Text = $"Reroll {_rerollCount}/{Rerolls}";
+            if (_rerollButton != null)
+            {
+                _rerollButton.Text = $"Reroll {_rerollCount}/{Rerolls}";
+            }
         }
-
         private void RerollButton()
         {
-            if (_rerollCount <= 0)
-            {
-                return;
-            }
+            if (_rerollCount <= 0) return;
             RandUpgrade();
             _rerollCount--;
             _rerollButton.Text = $"Reroll {_rerollCount}/{Rerolls}";
-
         }
-
         private void SkipButton()
         {
             Visible = false;
             GetTree().Paused = false;
         }
-
-        private void OnHover(CustomButton button)
+        private void OnHover(CustomButton btn)
         {
-            button.AnimateButtonScale(new Vector2(1.1f, 1.1f));
-
-            foreach (CustomButton child in _UpgradeButtons.Values)
+            btn.AnimateButtonScale(new Vector2(1.1f, 1.1f));
+            foreach (CustomButton child in _activeButtons)
             {
-                if (child == button) { continue; }
+                if (child == btn) continue;
                 child.AnimateButtonScale(new Vector2(0.95f, 0.95f));
             }
         }
-
         private void ResetScale()
         {
-            foreach (CustomButton child in _UpgradeButtons.Values)
+            foreach (CustomButton child in _activeButtons)
             {
-                child.AnimateButtonScale(new Vector2(1f, 1f), .12f);
+                child.AnimateButtonScale(new Vector2(1f, 1f), 0.12f);
             }
         }
     }
