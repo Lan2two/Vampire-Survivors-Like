@@ -6,9 +6,11 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class DetectionComponent : Area2D
     {
+        public CollisionShape2D shape;
         private bool playerInRange = false;
         public override void _Ready()
         {
+            shape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
             BodyEntered += OnBodyEntered;
             BodyExited += OnBodyExit;
         }
