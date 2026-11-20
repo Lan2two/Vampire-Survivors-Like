@@ -118,10 +118,6 @@ region = Rect2(192, 96, 32, 32)
 atlas = ExtResource("1_fjrip")
 region = Rect2(224, 96, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
-atlas = ExtResource("1_fjrip")
-region = Rect2(0, 160, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
 atlas = ExtResource("1_fjrip")
 region = Rect2(32, 160, 32, 32)
@@ -241,9 +237,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gl8cc")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_487ah")
 }, {
 "duration": 1.0,
@@ -307,7 +300,7 @@ script = ExtResource("1_ur7pv")
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"roll"
-frame = 7
+frame = 6
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
