@@ -74,4 +74,5 @@ threshold = 1.0
 metadata/_custom_type_script = "uid://bbw06doqvj4pd"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=828657392]
+energy = 0.5
 texture = SubResource("GradientTexture2D_d33pk")

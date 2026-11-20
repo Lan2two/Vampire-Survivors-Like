@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2hdv4s8cdj6u"]
 
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="1_x1kkc"]
-[ext_resource type="Script" uid="uid://dsqdebiaedyd1" path="res://scripts/items/XpOrb.cs" id="2_wapkl"]
+[ext_resource type="Script" uid="uid://cncms052venbx" path="res://scripts/items/HpOrb.cs" id="2_x1kkc"]
 [ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="3_jae0q"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="4_homb0"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="5_gcww1"]
@@ -43,7 +43,7 @@ physics_material_override = ExtResource("1_x1kkc")
 lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 20
-script = ExtResource("2_wapkl")
+script = ExtResource("2_x1kkc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599445404]
 position = Vector2(0, -1)
