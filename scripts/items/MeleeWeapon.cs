@@ -6,14 +6,13 @@ namespace SurvivorsGame
 
     public partial class MeleeWeapon : Weapon, IWeapon, IWeaponConfigurable
     {
+        [Export] private bool SwingVariant;
         public MeleeWeaponBase Baseconfig;
-        [Export] bool SwingVariant;
-        AnimationPlayer animationPlayer;
+        private AnimationPlayer animationPlayer;
+        private UpgradeManager upgradeManager;
         public MeleeWeaponBase config;
         private double timer = 0;
         private bool swingForward = true;
-
-
 
         public override void _Ready()
         {
@@ -25,6 +24,12 @@ namespace SurvivorsGame
             }
             animationPlayer.AnimationFinished += OnAnimationFinished;
             animationPlayer.AnimationStarted += OnAnimationStarted;
+            EventBus.MeleeUpgrade += OnUpgrade;
+        }
+
+        public override void _EnterTree()
+        {
+            CallDeferred(MethodName.DeferredReady);
         }
 
         public override void _ExitTree()
@@ -34,18 +39,27 @@ namespace SurvivorsGame
                 animationPlayer.AnimationFinished -= OnAnimationFinished;
                 animationPlayer.AnimationStarted -= OnAnimationStarted;
             }
-
+            EventBus.MeleeUpgrade -= OnUpgrade;
         }
-        public void Use(UpgradeManager upgradeManager)
+
+        private void DeferredReady()
+        {
+            upgradeManager = this.GetPlayer().upgradeManager;
+        }
+
+        private void OnUpgrade()
+        {
+            config = (MeleeWeaponBase)Baseconfig.Duplicate();
+            upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
+            UpdateDamage(config, attackComponent);
+        }
+        public void Use()
         {
             if (timer > 0)
             {
                 return;
             }
-
-            config = (MeleeWeaponBase)Baseconfig.Duplicate();
-            upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
-            UpdateDamage(config, attackComponent);
+            OnUpgrade();
 
             Swing();
         }

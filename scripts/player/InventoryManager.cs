@@ -13,7 +13,6 @@ namespace SurvivorsGame
         [Export] public int MaxSlots = 8;
         public Node weaponInstance;
         public WeaponBase currentWeapon;
-        public event Action UpgradeAdded;
 
         public override void _Ready()
         {
@@ -39,10 +38,7 @@ namespace SurvivorsGame
                 {
                     strategy.ApplyUpgrade();
                 }
-                if (strategy.upgradeType == UpgradeType.Player)
-                {
-                    UpgradeAdded?.Invoke();
-                }
+                EventBus.InvokeUpgrades(strategy);
                 return true;
             }
             if (Slots.Count >= MaxSlots)
