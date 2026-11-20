@@ -26,7 +26,6 @@ namespace SurvivorsGame
             }
             animationPlayer.AnimationFinished += OnAnimationFinished;
             animationPlayer.AnimationStarted += OnAnimationStarted;
-            SetDamageNodeEnabled(false);
         }
 
         public override void _ExitTree()
@@ -99,7 +98,6 @@ namespace SurvivorsGame
             }
 
             swingForward = !swingForward;
-            SetDamageNodeEnabled(true);
         }
         private void OnAnimationFinished(StringName animName)
         {
@@ -107,8 +105,6 @@ namespace SurvivorsGame
             {
                 return;
             }
-
-            SetDamageNodeEnabled(false);
             attackComponent.ClearHash();
         }
         private void OnAnimationStarted(StringName animName)
@@ -117,18 +113,6 @@ namespace SurvivorsGame
             {
                 return;
             }
-
-            SetDamageNodeEnabled(true);
-        }
-
-        private void SetDamageNodeEnabled(bool enabled)
-        {
-            if (attackComponent == null)
-            {
-                return;
-            }
-
-            attackComponent.CallDeferred(nameof(AttackComponent.SetAttackMonitoring), enabled);
         }
     }
 }

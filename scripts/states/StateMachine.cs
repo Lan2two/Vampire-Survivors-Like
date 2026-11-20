@@ -10,7 +10,7 @@ namespace SurvivorsGame
         Dictionary<string, Interrupt> _interrupts = new(StringComparer.OrdinalIgnoreCase);
         States currentState;
         [Export] States startingState;
-        public AnimatedSprite2D anim;
+        public AnimatedSprite2D animatedSprite;
 
         public override void _Ready()
         {

@@ -65,7 +65,7 @@ metadata/_custom_type_script = "uid://chck2eeaeerer"
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
 content_margin_left = 10.0
 content_margin_right = 10.0
-content_margin_bottom = 50.0
+content_margin_bottom = 20.0
 bg_color = Color(0, 0, 0, 0.39215687)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cekc3"]
@@ -193,18 +193,19 @@ vertical_alignment = 1
 
 [node name="UpgradeMenu" type="HBoxContainer" parent="." unique_id=991177710 node_paths=PackedStringArray("xpBar")]
 process_mode = 2
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -25.0
-offset_right = 34.0
-offset_bottom = 25.0
+offset_left = -238.0
+offset_top = -122.5
+offset_right = 238.0
+offset_bottom = 122.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("4_shsct")
@@ -212,7 +213,7 @@ Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubRe
 xpBar = NodePath("../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=499441132]
-custom_minimum_size = Vector2(150, 245)
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -221,13 +222,14 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+autowrap_mode = 3
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
 [node name="Upgrade2" type="Button" parent="UpgradeMenu" unique_id=1355302840]
-custom_minimum_size = Vector2(150, 245)
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -236,13 +238,14 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+autowrap_mode = 3
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
 [node name="Upgrade3" type="Button" parent="UpgradeMenu" unique_id=212005698]
-custom_minimum_size = Vector2(150, 245)
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -251,6 +254,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u3xxf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cekc3")
+autowrap_mode = 3
 icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true

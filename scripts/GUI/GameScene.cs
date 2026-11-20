@@ -80,7 +80,7 @@ namespace SurvivorsGame
 
         private void PlayerDeath()
         {
-            CallDeferred(MethodName.GameOver, "You Died");
+            CallDeferred(MethodName.GameOver, $"You Died\nEnemies Killed: {Enemy.EnemiesKilled}");
         }
 
         private void GameOver(string message)
