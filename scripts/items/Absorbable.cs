@@ -11,12 +11,12 @@ namespace SurvivorsGame
         {
             if (detectionComponent == null)
             {
-                GD.PrintErr("DetectionComponent node not found in XpOrb");
+                GD.PrintErr("DetectionComponent node not found in Absorbable");
                 return;
             }
             if (pathfindComponent == null)
             {
-                GD.PrintErr("PathfindComponent not found in XpOrb");
+                GD.PrintErr("PathfindComponent not found in Absorbable");
                 return;
             }
             BodyEntered += OnBodyEntered;

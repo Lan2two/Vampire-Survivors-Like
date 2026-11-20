@@ -52,6 +52,7 @@ position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_hluwh")
 
 [node name="DetectionComponent" type="Area2D" parent="." unique_id=1291011737]
+monitorable = false
 script = ExtResource("1_pkphv")
 metadata/_custom_type_script = "uid://d1r007g1n2ewk"
 

@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="11_5o2ms"]
 [ext_resource type="Script" uid="uid://dogcuttfq7cgw" path="res://utils/strategy/ProjectileRangeStrategy.cs" id="12_ku635"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="12_thev7"]
+[ext_resource type="Script" uid="uid://cxijbyd0qif3" path="res://utils/strategy/ProjectileSpreadStrategy.cs" id="13_0cbad"]
 
 [sub_resource type="Resource" id="Resource_7tmnl"]
 resource_local_to_scene = true
@@ -32,23 +33,15 @@ metadata/_custom_type_script = "uid://dletf55xvu8sn"
 
 [sub_resource type="Resource" id="Resource_27n0u"]
 script = ExtResource("7_7cls8")
-BurstTime = 20.0
+BurstTime = 15.0
 CalculationMode = 1
 upgradeType = 2
 metadata/_custom_type_script = "uid://dvgounn1leqxm"
 
 [sub_resource type="Resource" id="Resource_nvp4l"]
 script = ExtResource("8_4gd0c")
-BurstAmount = 4
 upgradeType = 2
 metadata/_custom_type_script = "uid://bbhbxariivqbp"
-
-[sub_resource type="Resource" id="Resource_7p3oe"]
-script = ExtResource("9_b1tjy")
-UpgradeCooldown = 25.0
-CalculationMode = 1
-upgradeType = 2
-metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
 [sub_resource type="Resource" id="Resource_d5rnw"]
 script = ExtResource("10_3b6f2")
@@ -63,7 +56,7 @@ metadata/_custom_type_script = "uid://welqlf4pw7cn"
 
 [sub_resource type="Resource" id="Resource_0cbad"]
 script = ExtResource("12_ku635")
-UpgradeRange = 5.0
+UpgradeRange = 10.0
 CalculationMode = 1
 upgradeType = 2
 metadata/_custom_type_script = "uid://dogcuttfq7cgw"
@@ -75,9 +68,14 @@ CalculationMode = 1
 upgradeType = 2
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
+[sub_resource type="Resource" id="Resource_1u0lj"]
+script = ExtResource("13_0cbad")
+AddSpread = 0.2
+metadata/_custom_type_script = "uid://cxijbyd0qif3"
+
 [resource]
 script = ExtResource("12_thev7")
-Children = Array[ExtResource("1_d17i0")]([SubResource("Resource_7tmnl"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe"), SubResource("Resource_d5rnw"), SubResource("Resource_3eva0"), SubResource("Resource_0cbad"), SubResource("Resource_ku635")])
+Children = Array[ExtResource("1_d17i0")]([SubResource("Resource_7tmnl"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_d5rnw"), SubResource("Resource_3eva0"), SubResource("Resource_0cbad"), SubResource("Resource_ku635"), SubResource("Resource_1u0lj")])
 MaxStackSize = 5
 ItemName = "Knives"
 ItemDescription = "Short ranged projectile with a crit damage bonus"

@@ -9,7 +9,7 @@ namespace SurvivorsGame
         [Export] float XpDropRate = 100;
         [Export] float HealthDropRate = .1f;
         [Export] float CoinDroprate = 1f;
-        [Export] float LootDropRate = .1f;
+        [Export] float LootDropRate = .05f;
         [Export] Enemy enemy;
         [Export] EnemyDeath deathState;
         [Export] PackedScene XpOrbScene;
