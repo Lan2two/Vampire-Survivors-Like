@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class VelocityComponent : Node2D
+    public partial class VelocityComponent : Node
     {
         [Export] public RigidBody2D rigidBody;
         [Export] public AnimatedSprite2D animatedSprite2D;

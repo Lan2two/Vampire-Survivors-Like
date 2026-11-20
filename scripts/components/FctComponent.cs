@@ -6,7 +6,6 @@ namespace SurvivorsGame
     public partial class FctComponent : Node2D
     {
         [Export] private HealthComponent healthComponent;
-
         private PackedScene damageLabelScene;
         [Export] private double targetDuration = 0.7;
         [Export] private double fadeDuration = 0.6;

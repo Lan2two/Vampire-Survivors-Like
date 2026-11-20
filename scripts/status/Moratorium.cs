@@ -5,11 +5,14 @@ namespace SurvivorsGame
 
     public partial class Moratorium : Node2D
     {
-        [Export] double duration { get; set; } = 10;
+        [Export] private double duration { get; set; } = 10;
+        [Export] private float moratoriumMultiplier { get; set; } = 1.5f;
+        private const float _explosionOffsets = 0.01f;
         private Array<float> StoredDamage = new();
         private HealthComponent _healthComponent;
         private TextureProgressBar _progressBar;
         private AnimatedSprite2D _animatedSprite;
+        private Vector2 _progressbarOffset;
         private double timer;
         private bool triggered;
         public override void _Ready()
@@ -34,6 +37,7 @@ namespace SurvivorsGame
             _progressBar.Scale = ParentSize / _progressBar.Size;
             _progressBar.Step = 0.01;
             _progressBar.MaxValue = duration;
+            _progressbarOffset = _progressBar.Size * _progressBar.Scale / 2;
             _healthComponent.InitalDamageEvent += Effect;
         }
 
@@ -52,8 +56,7 @@ namespace SurvivorsGame
             {
                 Trigger();
             }
-            Vector2 offset = _progressBar.Size * _progressBar.Scale / 2;
-            _progressBar.GlobalPosition = GlobalPosition - offset;
+            _progressBar.GlobalPosition = GlobalPosition - _progressbarOffset;
             _progressBar.Value = timer;
         }
 
@@ -70,8 +73,9 @@ namespace SurvivorsGame
             triggered = true;
             for (int i = 0; i < StoredDamage.Count; i++)
             {
-                float damage = StoredDamage[i] * 1.5f;
-                GetTree().CreateTimer(0.01 * i).Timeout += () =>
+                if (!IsInstanceValid(this) || !IsInstanceValid(_healthComponent)) return;
+                float damage = StoredDamage[i] * moratoriumMultiplier;
+                GetTree().CreateTimer(_explosionOffsets * i).Timeout += () =>
                 {
                     Attack attack = new()
                     {
