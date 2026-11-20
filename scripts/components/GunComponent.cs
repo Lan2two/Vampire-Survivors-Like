@@ -38,7 +38,7 @@ public partial class GunComponent : Area2D
         if (enemiesInRange.Count > 0)
         {
             Bullet newBullet = BULLET.Instantiate<Bullet>();
-            newBullet.config = (BulletData)newBullet.config.Duplicate();
+
             newBullet.GlobalPosition = ShootPoint.GlobalPosition;
             newBullet.GlobalRotation = ShootPoint.GlobalRotation;
             ShootPoint.AddChild(newBullet);
