@@ -32,7 +32,7 @@ namespace SurvivorsGame
 
         private void OnGameOver()
         {
-            _statsLabel.Text = $"Enemies Killed: {(int)Stats.data.EnemiesKilled}\nTotal XP: {(int)_player.totalXP}\nDamage Dealt: {(int)Stats.data.DamageDealt}\nDamage Taken: {(int)Stats.data.DamageTaken}\nHealth Healed: {(int)Stats.data.HealthHealed}\nMax Health: {(int)_player.healthComponent.maxHealth}\nMax Speed: {(int)_player.velocityComponent.maxSpeed}";
+            _statsLabel.Text = $"Enemies Killed: {(int)Stats.data.EnemiesKilled}\nTotal XP: {(int)_player.totalXP}\nDamage Dealt: {(int)Stats.data.DamageDealt}\nDamage Taken: {(int)Stats.data.DamageTaken}\nHealth Healed: {(int)Stats.data.HealthHealed}\nMax Health: {(int)_player.healthComponent.maxHealth}\nMax Speed: {(int)_player.velocityComponent.maxSpeed}\nCampfires Lit: {Stats.data.CampfiresLit}";
         }
 
     }
