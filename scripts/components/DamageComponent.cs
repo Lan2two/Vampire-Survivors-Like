@@ -6,18 +6,14 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class DamageComponent : Area2D
 {
-    [Signal] public delegate void HitLimitReachedEventHandler();
-
     [Export] public float damage = 10f;
     [Export] public float knockback = 100f;
     [Export] public float DamageInterval = .7f;
     [Export] public bool SingleHit = true;
-    [Export] public int MaxHits = 0;
 
     private double damageTimer;
     private readonly HashSet<Area2D> hitboxes = new();
     private readonly HashSet<Area2D> damagedHitboxes = new();
-    private int damageAppliedCount;
     public int UniqueHitboxesEntered;
 
     public override void _Ready()
@@ -32,9 +28,9 @@ public partial class DamageComponent : Area2D
         AreaExited -= OnAreaExited;
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        if (!Monitoring)
+        if (!Monitoring || SingleHit)
         {
             return;
         }
@@ -46,37 +42,9 @@ public partial class DamageComponent : Area2D
         }
 
         damageTimer = DamageInterval;
-
         foreach (Area2D area in new List<Area2D>(hitboxes))
         {
-            if (area is not HitboxComponent hitbox)
-            {
-                continue;
-            }
-
-            if (SingleHit && damagedHitboxes.Contains(area))
-            {
-                continue;
-            }
-
-            Attack attack = new Attack
-            {
-                Damage = damage,
-                GlobalPosition = this.GlobalPosition,
-                KnockbackForce = knockback
-            };
-            hitbox.TakeDamage(attack);
-            damageAppliedCount++;
-
-            if (MaxHits > 0 && damageAppliedCount >= MaxHits)
-            {
-                EmitSignal(SignalName.HitLimitReached);
-            }
-
-            if (SingleHit)
-            {
-                damagedHitboxes.Add(area);
-            }
+            ApplyDamage(area);
         }
     }
 
@@ -87,8 +55,9 @@ public partial class DamageComponent : Area2D
             return;
         }
 
-        if (SingleHit && damagedHitboxes.Contains(area))
+        if (SingleHit)
         {
+            ApplyDamage(area);
             return;
         }
 
@@ -96,6 +65,33 @@ public partial class DamageComponent : Area2D
         if (isNewHitbox)
         {
             UniqueHitboxesEntered = hitboxes.Count;
+        }
+    }
+
+    private void ApplyDamage(Area2D area)
+    {
+        if (area is not HitboxComponent hitbox)
+        {
+            return;
+        }
+
+        if (SingleHit && damagedHitboxes.Contains(area))
+        {
+            return;
+        }
+
+        Attack attack = new Attack
+        {
+            Damage = damage,
+            GlobalPosition = GlobalPosition,
+            KnockbackForce = knockback
+        };
+
+        hitbox.TakeDamage(attack);
+
+        if (SingleHit)
+        {
+            damagedHitboxes.Add(area);
         }
     }
 

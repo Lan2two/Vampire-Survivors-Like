@@ -6,7 +6,7 @@ public partial class Bullet : Node2D
     [Export] BulletData config;
     [Export] DamageComponent damageComponent;
     private float traveledDistance = 0;
-    private float timer = 1;
+    private int hitCount = 0;
     public override void _Ready()
     {
         if (damageComponent == null)
@@ -15,20 +15,14 @@ public partial class Bullet : Node2D
             return;
         }
 
-        damageComponent.MaxHits = config.PierceCount + 1;
-        if (config.PierceCount > 0)
-        {
-            damageComponent.SingleHit = false;
-        }
-
-        damageComponent.HitLimitReached += OnHitLimitReached;
+        damageComponent.AreaEntered += OnAreaEntered;
     }
 
     public override void _ExitTree()
     {
         if (damageComponent != null)
         {
-            damageComponent.HitLimitReached -= OnHitLimitReached;
+            damageComponent.AreaEntered -= OnAreaEntered;
         }
     }
 
@@ -38,14 +32,17 @@ public partial class Bullet : Node2D
         Position += direction * config.Speed * (float)delta;
         traveledDistance += config.Speed * (float)delta;
 
-        if (config.MaxTravelDistance < traveledDistance)
+        if (config.MaxTravelDistance < traveledDistance || hitCount > config.PierceCount)
         {
             QueueFree();
         }
     }
 
-    private void OnHitLimitReached()
+    private void OnAreaEntered(Area2D area)
     {
-        QueueFree();
+        if (area is HitboxComponent)
+        {
+            hitCount += 1;
+        }
     }
 }
