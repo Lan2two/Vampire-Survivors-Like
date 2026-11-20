@@ -222,9 +222,9 @@ startingState = NodePath("idle")
 [node name="idle" type="Node" parent="StateMachine" unique_id=631768234]
 script = ExtResource("3_qhqgy")
 
-[node name="move" type="Node" parent="StateMachine" unique_id=359843175]
+[node name="move" type="Node" parent="StateMachine" unique_id=359843175 node_paths=PackedStringArray("Velocity")]
 script = ExtResource("4_qlg0r")
-Speed = 200.0
+Velocity = NodePath("../../VelocityComponent")
 
 [node name="attack" type="Node" parent="StateMachine" unique_id=1021731077]
 script = ExtResource("5_tuyoq")
@@ -240,5 +240,6 @@ healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=144013464]
 shape = SubResource("CircleShape2D_ur7pv")
 
-[node name="VelocityComponent" type="Node2D" parent="." unique_id=1509356134]
+[node name="VelocityComponent" type="Node2D" parent="." unique_id=1509356134 node_paths=PackedStringArray("characterBody")]
 script = ExtResource("10_y4r1p")
+characterBody = NodePath("..")
