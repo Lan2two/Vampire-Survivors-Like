@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://d27j145v6nms" path="res://utils/strategy/MeleeCritDamageStrategy.cs" id="23_7mxsn"]
 [ext_resource type="Script" uid="uid://1h87b88g3qhp" path="res://utils/strategy/PlayerHealthStrategy.cs" id="24_db6u7"]
 [ext_resource type="Script" uid="uid://bvmqx1qgbu7qg" path="res://utils/strategy/PlayerSpeedStrategy.cs" id="25_yy3iv"]
+[ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/MoreUpgradeStrategy.cs" id="27_vlu7s"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j4t3"]
@@ -202,6 +203,10 @@ metadata/_custom_type_script = "uid://1h87b88g3qhp"
 [sub_resource type="Resource" id="Resource_7tmnl"]
 script = ExtResource("25_yy3iv")
 metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
+
+[sub_resource type="Resource" id="Resource_du5ok"]
+script = ExtResource("27_vlu7s")
+metadata/_custom_type_script = "uid://pnm0lgg85gka"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy3iv"]
 bg_color = Color(0, 0, 0, 0.6627451)
@@ -502,7 +507,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_8fbvn"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o"), SubResource("Resource_72onm"), SubResource("Resource_jath5"), SubResource("Resource_n7bdd"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl"), SubResource("Resource_du5ok")])
 xpBar = NodePath("../../XpBar")
 button = NodePath("../Upgrade")
 

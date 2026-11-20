@@ -36,6 +36,10 @@ namespace SurvivorsGame
             if (itemData is Strategy strategy)
             {
                 Upgrades.Add(strategy);
+                if (strategy.upgradeType == UpgradeType.Event)
+                {
+                    strategy.ApplyUpgrade();
+                }
                 if (strategy.upgradeType == UpgradeType.Player)
                 {
                     UpgradeAdded?.Invoke();
