@@ -4,7 +4,7 @@ using System;
 
 public partial class MeleeWeapon : Node2D
 {
-    [Export] MeleeWeaponData config;
+    [Export] public MeleeWeaponData config;
     [Export] DamageComponent damageComponent;
     AnimationPlayer animationPlayer;
     private double timer = 0;

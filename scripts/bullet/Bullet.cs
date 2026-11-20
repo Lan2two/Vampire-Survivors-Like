@@ -1,29 +1,19 @@
 using Godot;
 using System;
 
-public partial class Bullet : Node2D
+public partial class Bullet : Area2D
 {
-    [Export] BulletData config;
-    [Export] DamageComponent damageComponent;
+    [Export] public BulletData config;
     private float traveledDistance = 0;
     private int hitCount = 0;
     public override void _Ready()
     {
-        if (damageComponent == null)
-        {
-            GD.Print("DamageComponent unassigned in Bullet");
-            return;
-        }
-
-        damageComponent.AreaEntered += OnAreaEntered;
+        AreaEntered += OnAreaEntered;
     }
 
     public override void _ExitTree()
     {
-        if (damageComponent != null)
-        {
-            damageComponent.AreaEntered -= OnAreaEntered;
-        }
+        AreaEntered -= OnAreaEntered;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -40,8 +30,15 @@ public partial class Bullet : Node2D
 
     private void OnAreaEntered(Area2D area)
     {
-        if (area is HitboxComponent)
+        if (area is HitboxComponent hitbox)
         {
+            Attack attack = new Attack
+            {
+                Damage = config.Damage,
+                GlobalPosition = GlobalPosition,
+                KnockbackForce = config.Knockback
+            };
+            hitbox.TakeDamage(attack);
             hitCount += 1;
         }
     }

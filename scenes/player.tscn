@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://ceegnlbuq4yyn" path="res://scripts/player/WeaponController.cs" id="12_jej6c"]
 [ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="13_f1ej7"]
+[ext_resource type="Script" uid="uid://dlmrtl8or42r4" path="res://scripts/player/InventoryManager.cs" id="14_f1ej7"]
+[ext_resource type="Script" uid="uid://b2smhlmvtllwm" path="res://scripts/player/UpgradeManager.cs" id="15_oprun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -330,3 +332,11 @@ script = ExtResource("12_jej6c")
 [node name="HandPosition" type="Marker2D" parent="WeaponController" unique_id=1586711627]
 
 [node name="MeleeWeapon" parent="WeaponController/HandPosition" unique_id=100259256 instance=ExtResource("13_f1ej7")]
+
+[node name="InventoryManager" type="Node" parent="." unique_id=1110935275]
+script = ExtResource("14_f1ej7")
+Upgrades = Array[Object]([null])
+
+[node name="UpgradeManager" type="Node" parent="." unique_id=1180921809 node_paths=PackedStringArray("inventoryManager")]
+script = ExtResource("15_oprun")
+inventoryManager = NodePath("../InventoryManager")

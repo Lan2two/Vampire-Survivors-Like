@@ -62,7 +62,6 @@ texture = ExtResource("2_io1w2")
 hframes = 12
 
 [node name="DamageComponent" type="Area2D" parent="Sprite2D" unique_id=275614870]
-visible = false
 rotation = 0.7853982
 scale = Vector2(1.0000001, 1.0000001)
 monitoring = false
