@@ -146,10 +146,6 @@ region = Rect2(192, 160, 32, 32)
 atlas = ExtResource("1_fjrip")
 region = Rect2(224, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
-atlas = ExtResource("1_fjrip")
-region = Rect2(0, 160, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_pf23h"]
 animations = [{
 "frames": [{
@@ -260,9 +256,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j2b1d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gl8cc")
 }],
 "loop": false,
 "name": &"roll",
