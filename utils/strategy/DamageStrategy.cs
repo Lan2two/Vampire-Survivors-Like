@@ -12,7 +12,7 @@ public partial class DamageStrategy : Strategy, IStrategy
         }
         if (node2D is MeleeWeapon meleeWeapon)
         {
-            meleeWeapon.config.Damage += UpgradeDamage;
+            meleeWeapon.config.BaseDamage += UpgradeDamage;
         }
     }
 

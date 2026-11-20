@@ -1,19 +1,20 @@
 using Godot;
 using System;
 
-public partial class Equipable : Node2D
+[GlobalClass]
+public partial class WorldItem : Node2D
 {
-    [Export] Texture2D texture;
-    [Export] PackedScene weapon;
+    [Export] ItemData ItemData;
     InteractableComponent interactableComponent;
     Sprite2D sprite2D;
 
     public override void _Ready()
     {
+        if (Engine.IsEditorHint()) return;
         interactableComponent = GetNode<InteractableComponent>("InteractableComponent");
         sprite2D = GetNode<Sprite2D>("Sprite2D");
-        sprite2D.Texture = texture;
         interactableComponent.Interact += OnInteract;
+        sprite2D.Texture = ItemData.ItemIcon;
     }
 
     public override void _ExitTree()
@@ -24,7 +25,7 @@ public partial class Equipable : Node2D
 
     private void OnInteract()
     {
-        this.GetPlayer().inventoryManager.SwitchWeapon(weapon);
+        this.GetPlayer().inventoryManager.AddItem(ItemData);
         QueueFree();
     }
 }

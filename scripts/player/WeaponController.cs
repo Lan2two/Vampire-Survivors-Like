@@ -6,14 +6,13 @@ public partial class WeaponController : Node2D
 {
     [Export] StateMachine stateMachine;
     [Export] UpgradeManager upgradeManager;
+    [Export] InventoryManager inventoryManager;
     public Marker2D handposition;
     public IWeapon weapon;
 
     public override void _Ready()
     {
         handposition = GetNode<Marker2D>("HandPosition");
-        weapon = handposition.GetChildren().OfType<IWeapon>().FirstOrDefault();
-
     }
     public override void _Process(double delta)
     {
@@ -30,11 +29,9 @@ public partial class WeaponController : Node2D
         {
             return;
         }
-        if (weapon is MeleeWeapon melee)
+        if (weapon is not IWeapon)
         {
-            melee.config = (MeleeWeaponData)melee.Baseconfig.Duplicate();
-            upgradeManager.UpgradeMelee(melee);
-            melee.UpdateDamage();
+            return;
         }
         weapon.Use();
     }

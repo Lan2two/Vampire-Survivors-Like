@@ -37,7 +37,7 @@ public partial class Interactions : Area2D
 
     public override void _Input(InputEvent @event)
     {
-        if (Input.IsActionJustPressed("interact"))
+        if (Input.IsActionJustPressed("interact") && IsInstanceValid(currentIntractable))
         {
             currentIntractable.EmitSignal(InteractableComponent.SignalName.Interact);
         }

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d1t24gaxw444e"]
+
+[ext_resource type="Script" uid="uid://bopor3xoj2tqc" path="res://scripts/items/WorldItem.cs" id="1_s8enn"]
+[ext_resource type="Script" uid="uid://yqp04a743l0o" path="res://scripts/components/InteractableComponent.cs" id="2_s8enn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6muww"]
+
+[node name="WorldItem" type="Node2D" unique_id=579653615]
+script = ExtResource("1_s8enn")
+
+[node name="InteractableComponent" type="Area2D" parent="." unique_id=1296161475]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_s8enn")
+metadata/_custom_type_script = "uid://yqp04a743l0o"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=798453403]
+shape = SubResource("CircleShape2D_6muww")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=957180505]

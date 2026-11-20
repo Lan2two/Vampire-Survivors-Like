@@ -284,6 +284,9 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 radius = 16.0
 
 [sub_resource type="FontFile" id="FontFile_qfm1y"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/variation_coordinates = {}
 cache/0/face_index = 0
 cache/0/embolden = 0.0
@@ -369,10 +372,11 @@ Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cewm15wxhuelr"
 
-[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638 node_paths=PackedStringArray("stateMachine", "upgradeManager")]
+[node name="WeaponController" type="Node2D" parent="." unique_id=1499152638 node_paths=PackedStringArray("stateMachine", "upgradeManager", "inventoryManager")]
 script = ExtResource("12_jej6c")
 stateMachine = NodePath("../StateMachine")
 upgradeManager = NodePath("../UpgradeManager")
+inventoryManager = NodePath("../InventoryManager")
 
 [node name="HandPosition" type="Marker2D" parent="WeaponController" unique_id=1586711627]
 

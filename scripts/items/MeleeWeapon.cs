@@ -4,16 +4,16 @@ using System;
 
 public partial class MeleeWeapon : Node2D, IWeapon
 {
-    [Export] public MeleeWeaponData Baseconfig;
+    public MeleeWeaponBase Baseconfig;
     [Export] DamageComponent damageComponent;
     [Export] bool SwingVariant;
     AnimationPlayer animationPlayer;
-    public MeleeWeaponData config;
+    public MeleeWeaponBase config;
     private double timer = 0;
     private bool swingForward = true;
     public override void _Ready()
     {
-        config = (MeleeWeaponData)Baseconfig.Duplicate();
+        config = (MeleeWeaponBase)Baseconfig.Duplicate();
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         animationPlayer.AnimationFinished += OnAnimationFinished;
         animationPlayer.AnimationStarted += OnAnimationStarted;
@@ -37,8 +37,8 @@ public partial class MeleeWeapon : Node2D, IWeapon
 
     public void UpdateDamage()
     {
-        damageComponent.damage = config.Damage;
-        damageComponent.knockback = config.Knockback;
+        damageComponent.damage = config.BaseDamage;
+        damageComponent.knockback = config.BaseKnockback;
     }
     private void Swing()
     {
