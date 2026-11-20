@@ -299,8 +299,10 @@ hitboxComponent = NodePath("../../HitboxComponent")
 velocityComponent = NodePath("../../VelocityComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1660121276]
+[node name="HealthComponent" type="Node" parent="." unique_id=1660121276 node_paths=PackedStringArray("velocityComponent", "characterBody")]
 script = ExtResource("8_ur7pv")
+velocityComponent = NodePath("../VelocityComponent")
+characterBody = NodePath("..")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=473269241 node_paths=PackedStringArray("healthComponent")]
 visible = false

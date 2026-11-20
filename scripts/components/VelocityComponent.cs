@@ -52,6 +52,7 @@ public partial class VelocityComponent : Node2D
         }
     }
 
+
     public void Move(Vector2 direction)
     {
         if (characterBody == null)
