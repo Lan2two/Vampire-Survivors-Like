@@ -17,6 +17,7 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            upgradeManager = this.GetPlayer().upgradeManager;
             if (animationPlayer == null)
             {
                 GD.PrintErr("AnimationPlayer not found in MeleeWeapon");
@@ -27,11 +28,6 @@ namespace SurvivorsGame
             EventBus.MeleeUpgrade += OnUpgrade;
         }
 
-        public override void _EnterTree()
-        {
-            CallDeferred(MethodName.DeferredReady);
-        }
-
         public override void _ExitTree()
         {
             if (animationPlayer != null)
@@ -40,11 +36,6 @@ namespace SurvivorsGame
                 animationPlayer.AnimationStarted -= OnAnimationStarted;
             }
             EventBus.MeleeUpgrade -= OnUpgrade;
-        }
-
-        private void DeferredReady()
-        {
-            upgradeManager = this.GetPlayer().upgradeManager;
         }
 
         private void OnUpgrade()
@@ -59,8 +50,6 @@ namespace SurvivorsGame
             {
                 return;
             }
-            OnUpgrade();
-
             Swing();
         }
 
@@ -70,8 +59,8 @@ namespace SurvivorsGame
             {
                 throw new ArgumentException("MeleeWeapon requires MeleeWeaponBase data.", nameof(weaponData));
             }
-
             Baseconfig = meleeWeaponData;
+            OnUpgrade();
         }
         public override void _PhysicsProcess(double delta)
         {
