@@ -15,10 +15,6 @@ run/main_scene="uid://cddh2vixop3f6"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-States="*uid://77fm1np7g5nw"
-
 [dotnet]
 
 project/assembly_name="Survivors"
@@ -62,4 +58,5 @@ m2={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
