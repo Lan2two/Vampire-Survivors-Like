@@ -36,7 +36,10 @@ namespace SurvivorsGame
             if (itemData is Strategy strategy)
             {
                 Upgrades.Add(strategy);
-                UpgradeAdded?.Invoke();
+                if (strategy.upgradeType == UpgradeType.Player)
+                {
+                    UpgradeAdded?.Invoke();
+                }
                 return true;
             }
             if (Slots.Count >= MaxSlots)
