@@ -9,12 +9,14 @@ namespace SurvivorsGame
         private Array<float> StoredDamage = new();
         private HealthComponent _healthComponent;
         private TextureProgressBar _progressBar;
+        private AnimatedSprite2D _animatedSprite;
         private double timer;
         private bool triggered;
         public override void _Ready()
         {
             _healthComponent = GetNodeOrNull<HealthComponent>("../HealthComponent");
             _progressBar = GetNodeOrNull<TextureProgressBar>("Display");
+            _animatedSprite = GetNodeOrNull<AnimatedSprite2D>("../AnimatedSprite2D");
             if (_healthComponent == null)
             {
                 GD.PrintErr("Moratorium couldn't find healthComponent");
@@ -25,6 +27,11 @@ namespace SurvivorsGame
                 GD.PrintErr("Moratorium couldn't find Display");
                 return;
             }
+
+            Texture2D texture = _animatedSprite.SpriteFrames.GetFrameTexture(_animatedSprite.Animation, _animatedSprite.Frame);
+            Vector2 ParentSize = texture.GetSize() * _animatedSprite.Scale;
+
+            _progressBar.Scale = ParentSize / _progressBar.Size;
             _progressBar.Step = 0.01;
             _progressBar.MaxValue = duration;
             _healthComponent.InitalDamageEvent += Effect;
