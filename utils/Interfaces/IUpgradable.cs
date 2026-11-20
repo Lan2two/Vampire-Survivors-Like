@@ -3,6 +3,6 @@ namespace SurvivorsGame
     using Godot;
     public interface IUpgradable
     {
-        Resource currentConfig { get; }
+        Resource currentConfig { get; set; }
     }
 }

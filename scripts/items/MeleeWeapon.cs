@@ -3,7 +3,6 @@ namespace SurvivorsGame
     using Godot;
     using System;
 
-
     public partial class MeleeWeapon : Weapon, IWeapon, IWeaponConfigurable, IUpgradable
     {
         [Export] private bool SwingVariant;
@@ -12,44 +11,67 @@ namespace SurvivorsGame
         private UpgradeManager upgradeManager;
         private double timer = 0;
         private bool swingForward = true;
-        public Resource currentConfig => Baseconfig;
+        public Resource currentConfig { get; set; }
 
         public override void _Ready()
         {
             animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
-            upgradeManager = this.GetPlayer().upgradeManager;
             if (animationPlayer == null)
             {
                 GD.PrintErr("AnimationPlayer not found in MeleeWeapon");
                 return;
             }
+
+            if (upgradeManager == null)
+            {
+                upgradeManager = this.GetPlayer()?.upgradeManager;
+            }
+
+            if (currentConfig == null && Baseconfig != null)
+            {
+                currentConfig = Baseconfig;
+            }
+
             animationPlayer.AnimationFinished += OnAnimationFinished;
-            animationPlayer.AnimationStarted += OnAnimationStarted;
             EventBus.MeleeUpgrade += OnUpgrade;
+
+            if (currentConfig != null && upgradeManager != null)
+            {
+                OnUpgrade();
+            }
         }
 
         public override void _ExitTree()
         {
-            if (animationPlayer != null)
+            if (IsInstanceValid(animationPlayer))
             {
                 animationPlayer.AnimationFinished -= OnAnimationFinished;
-                animationPlayer.AnimationStarted -= OnAnimationStarted;
             }
             EventBus.MeleeUpgrade -= OnUpgrade;
         }
 
         private void OnUpgrade()
         {
-            upgradeManager.ApplyUpgrades(this, UpgradeType.Melee);
+            if (upgradeManager == null)
+            {
+                upgradeManager = this.GetPlayer()?.upgradeManager;
+            }
+
+            if (upgradeManager != null && currentConfig != null)
+            {
+                upgradeManager.ApplyUpgrades(this, UpgradeType.Melee);
+            }
         }
+
         public void Use()
         {
-            if (timer > 0)
+            if (timer > 0 || currentConfig is not MeleeWeaponBase activeConfig)
             {
                 return;
             }
-            UpdateDamage(Baseconfig, attackComponent);
-            Swing();
+
+            UpdateDamage(activeConfig, attackComponent);
+            Swing(activeConfig);
         }
 
         public void Configure(WeaponBase weaponData)
@@ -58,23 +80,27 @@ namespace SurvivorsGame
             {
                 throw new ArgumentException("MeleeWeapon requires MeleeWeaponBase data.", nameof(weaponData));
             }
+
             Baseconfig = meleeWeaponData;
+            currentConfig = meleeWeaponData;
             OnUpgrade();
         }
+
         public override void _PhysicsProcess(double delta)
         {
             timer -= delta;
         }
-        private void Swing()
+
+        private void Swing(MeleeWeaponBase activeConfig)
         {
-            if (timer > 0)
+            if (timer > 0 || animationPlayer == null)
             {
                 return;
             }
-            float speedMultiplier = Baseconfig.GetStat("SwingSpeed").CalculateFinal();
-            timer = Baseconfig.GetStat("SwingCooldown").CalculateFinal() / speedMultiplier;
+
+            float speedMultiplier = activeConfig.GetStat("SwingSpeed").CalculateFinal();
+            timer = activeConfig.GetStat("SwingCooldown").CalculateFinal() / speedMultiplier;
             animationPlayer.SpeedScale = speedMultiplier;
-            //GD.Print($"Swinging weapon with speed multiplier: {(int)speedMultiplier}, cooldown: {(int)Baseconfig.swingCooldown}, timer set to: {(int)timer}");
 
             if (SwingVariant)
             {
@@ -94,6 +120,7 @@ namespace SurvivorsGame
 
             swingForward = !swingForward;
         }
+
         private void OnAnimationFinished(StringName animName)
         {
             if (animName != "swing")
@@ -101,13 +128,6 @@ namespace SurvivorsGame
                 return;
             }
             attackComponent.ClearHash();
-        }
-        private void OnAnimationStarted(StringName animName)
-        {
-            if (animName != "swing")
-            {
-                return;
-            }
         }
     }
 }

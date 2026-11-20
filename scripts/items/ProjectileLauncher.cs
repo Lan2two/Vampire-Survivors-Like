@@ -8,23 +8,31 @@ namespace SurvivorsGame
     {
         [ExportGroup("Projectile Launcher")]
         [Export] public ProjectileData startingConfig;
-        [Export] PackedScene Scene;
-        [Export] Texture2D texture2D;
+        [Export] private PackedScene Scene;
+        [Export] private Texture2D texture2D;
+
         public Timer timer;
         private Sprite2D sprite2D;
         public CircleShape2D detectionRange;
         private Marker2D shootPoint;
         private Array<Node2D> enemiesInRange;
-        public Resource currentConfig => startingConfig;
+
+        public Resource currentConfig { get; set; }
         public UpgradeManager upgradeManager;
         private bool shooting = true;
 
         public override void _Ready()
         {
-            timer = GetNode<Timer>("Timer");
-            shootPoint = GetNode<Marker2D>("%ShootPoint");
+            timer = GetNodeOrNull<Timer>("Timer");
+            shootPoint = GetNodeOrNull<Marker2D>("%ShootPoint");
             sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
-            detectionRange = GetNodeOrNull<CollisionShape2D>("CollisionShape2D").Shape as CircleShape2D;
+
+            var collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+            if (collisionShape?.Shape is CircleShape2D baseShape)
+            {
+                detectionRange = baseShape.Duplicate() as CircleShape2D;
+                collisionShape.Shape = detectionRange;
+            }
 
             if (startingConfig == null)
             {
@@ -43,29 +51,36 @@ namespace SurvivorsGame
             }
             if (detectionRange == null)
             {
-                GD.PrintErr("Collision shape not found in Projectile Launcher.");
+                GD.PrintErr("CircleShape2D not found in Projectile Launcher.");
+                return;
             }
+
             if (texture2D != null)
             {
                 sprite2D.Texture = texture2D;
             }
-            if (startingConfig != null)
+
+            startingConfig = (ProjectileData)startingConfig.Duplicate(true);
+            startingConfig.DetectionRangeBase = detectionRange.Radius;
+            currentConfig = (ProjectileData)startingConfig.Duplicate(true);
+
+            if (timer != null)
             {
-                startingConfig.DetectionRangeBase = detectionRange.Radius;
-                GD.Print(startingConfig.DetectionRangeBase);
+                timer.WaitTime = startingConfig.GetStat("ProjectileCooldown").CalculateFinal();
+                timer.Timeout += OnTimeout;
             }
+
             CallDeferred(MethodName.Onready);
-            timer.Timeout += OnTimeout;
         }
 
         private void Onready()
         {
-            upgradeManager = this.GetPlayer().upgradeManager;
+            upgradeManager = this.GetPlayer()?.upgradeManager;
         }
 
         public override void _ExitTree()
         {
-            if (timer != null)
+            if (IsInstanceValid(timer))
             {
                 timer.Timeout -= OnTimeout;
             }
@@ -76,8 +91,11 @@ namespace SurvivorsGame
             enemiesInRange = GetOverlappingBodies();
             Node2D closestEnemy = null;
             float closestDistSq = float.MaxValue;
+
             foreach (Node2D enemy in enemiesInRange)
             {
+                if (!IsInstanceValid(enemy)) continue;
+
                 float distSq = GlobalPosition.DistanceSquaredTo(enemy.GlobalPosition);
                 if (distSq < closestDistSq)
                 {
@@ -85,6 +103,7 @@ namespace SurvivorsGame
                     closestEnemy = enemy;
                 }
             }
+
             if (closestEnemy != null)
             {
                 LookAt(closestEnemy.GlobalPosition);
@@ -104,37 +123,73 @@ namespace SurvivorsGame
 
         public void Use()
         {
-            if (enemiesInRange.Count > 0)
+            if (enemiesInRange == null || enemiesInRange.Count == 0)
             {
-                int sign = 1;
-                for (int i = 0; i < startingConfig.GetStat("Burst").CalculateFinal(); i++)
+                return;
+            }
+
+            if (currentConfig is not ProjectileData activeConfig)
+            {
+                return;
+            }
+
+            int burstCount = Mathf.Max(1, (int)activeConfig.GetStat("Burst").CalculateFinal());
+            float burstInterval = activeConfig.GetStat("BurstInterval").CalculateFinal();
+            float halfSpreadRad = Mathf.DegToRad(activeConfig.GetStat("Spread").CalculateFinal() / 2f);
+
+            int sign = 1;
+            for (int i = 0; i < burstCount; i++)
+            {
+                int currentSign = sign;
+                sign *= -1;
+                float delay = burstInterval * i;
+
+                if (delay <= 0f)
                 {
-                    GetTree().CreateTimer(startingConfig.GetStat("BurstInterval").CalculateFinal() * i, false).Timeout += () =>
+                    SpawnBullet(activeConfig, halfSpreadRad, currentSign);
+                }
+                else
+                {
+                    GetTree().CreateTimer(delay, false).Timeout += () =>
                     {
                         if (!IsInstanceValid(this) || !IsInstanceValid(shootPoint)) return;
-                        sign *= -1;
-                        float spread = (float)GD.RandRange(0, startingConfig.GetStat("Spread").CalculateFinal() / 2);
-                        Bullet projectileInstance = Scene.Instantiate<Bullet>();
-                        projectileInstance.config = startingConfig;
-                        projectileInstance.Fire();
-                        projectileInstance.GlobalPosition = shootPoint.GlobalPosition;
-                        projectileInstance.GlobalRotation = shootPoint.GlobalRotation + spread * sign;
-                        shootPoint.AddChild(projectileInstance);
+                        SpawnBullet(activeConfig, halfSpreadRad, currentSign);
                     };
                 }
             }
         }
 
+        private void SpawnBullet(ProjectileData activeConfig, float halfSpreadRad, int sign)
+        {
+            float spread = (float)GD.RandRange(0.0, halfSpreadRad);
+            Bullet projectileInstance = Scene.Instantiate<Bullet>();
+            projectileInstance.config = activeConfig;
+            projectileInstance.GlobalPosition = shootPoint.GlobalPosition;
+            projectileInstance.GlobalRotation = shootPoint.GlobalRotation + (spread * sign);
+
+            Node spawnParent = GetTree().CurrentScene ?? GetParent();
+            spawnParent.AddChild(projectileInstance);
+            projectileInstance.Fire();
+        }
+
         public void ApplyStrategy(UpgradeType upgradeType)
         {
-            startingConfig = (ProjectileData)startingConfig.Duplicate();
+            if (startingConfig == null) return;
+
+            currentConfig = (ProjectileData)startingConfig.Duplicate(true);
+
             if (upgradeManager == null)
             {
-                upgradeManager = this.GetPlayer().upgradeManager;
+                upgradeManager = this.GetPlayer()?.upgradeManager;
             }
-            upgradeManager.ApplyUpgrades(this, upgradeType);
-            detectionRange.Radius = startingConfig.GetStat("DetectionRange").CalculateFinal();
-            timer.WaitTime = startingConfig.GetStat("ProjectileCooldown").CalculateFinal();
+
+            upgradeManager?.ApplyUpgrades(this, upgradeType);
+
+            if (currentConfig is ProjectileData activeConfig)
+            {
+                detectionRange.Radius = activeConfig.GetStat("DetectionRange").CalculateFinal();
+                timer.WaitTime = Mathf.Max(0.05f, activeConfig.GetStat("ProjectileCooldown").CalculateFinal());
+            }
         }
     }
 }

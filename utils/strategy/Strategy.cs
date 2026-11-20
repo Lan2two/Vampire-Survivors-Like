@@ -31,6 +31,7 @@ namespace SurvivorsGame
             get => string.IsNullOrEmpty(ResourcePath) ? _resourceFile : ResourcePath;
             set => _resourceFile = value;
         }
+        [Export] public bool OneShot { get; set; } = true;
         [Export] public virtual UpgradeType upgradeType { get; set; }
 
         protected static float CalculateStatUpgrade(

@@ -17,8 +17,7 @@ namespace SurvivorsGame
 		private bool DeathGuard = false;
 		private float _baseMaxHealth = 100f;
 		private float _baseMoveSpeed = 100f;
-		private PlayerStatsData config;
-		public Resource currentConfig => config;
+		public Resource currentConfig { get; set; }
 		public override void _Ready()
 		{
 			animatedSprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
@@ -59,7 +58,8 @@ namespace SurvivorsGame
 
 			_baseMaxHealth = healthComponent.maxHealth;
 			_baseMoveSpeed = velocityComponent.maxSpeed;
-			config = new PlayerStatsData
+
+			currentConfig = new PlayerStatsData
 			{
 				MaxHealthBase = _baseMaxHealth,
 				MoveSpeedBase = _baseMoveSpeed
@@ -84,17 +84,27 @@ namespace SurvivorsGame
 		}
 		private void CalculateStats()
 		{
-
 			upgradeManager.ApplyUpgrades(this, UpgradeType.Player);
-			float previousMaxhealth = healthComponent.maxHealth;
-			healthComponent.maxHealth = config.GetStat("MaxHealth").CalculateFinal();
-			GD.Print($"MaxHp: {(int)config.GetStat("MaxHealth").CalculateFinal()} Speed: {(int)config.GetStat("MoveSpeed").CalculateFinal()}");
+
+			if (currentConfig is not PlayerStatsData config)
+			{
+				return;
+			}
+
+			float previousMaxHealth = healthComponent.maxHealth;
+			float newMaxHealth = config.GetStat("MaxHealth").CalculateFinal();
+			float newMoveSpeed = config.GetStat("MoveSpeed").CalculateFinal();
+
+			healthComponent.maxHealth = newMaxHealth;
+			GD.Print($"MaxHp: {(int)newMaxHealth} Speed: {(int)newMoveSpeed}");
+
 			if (healthComponent.currentHealth > 0)
 			{
-				float heal = Mathf.Max(0f, config.GetStat("MaxHealth").CalculateFinal() - previousMaxhealth);
-				healthComponent.currentHealth = Mathf.Clamp(healthComponent.currentHealth + heal, 0f, config.GetStat("MaxHealth").CalculateFinal());
+				float heal = Mathf.Max(0f, newMaxHealth - previousMaxHealth);
+				healthComponent.currentHealth = Mathf.Clamp(healthComponent.currentHealth + heal, 0f, newMaxHealth);
 			}
-			velocityComponent.maxSpeed = config.GetStat("MoveSpeed").CalculateFinal();
+
+			velocityComponent.maxSpeed = newMoveSpeed;
 		}
 
 		private void TrackDamage(Attack attack)

@@ -37,7 +37,7 @@ namespace SurvivorsGame
         private Button _rerollButton;
         private Button _skipButton;
         private int _rerollCount;
-        public Resource currentConfig => null;
+        public Resource currentConfig { get; set; }
 
         private struct UpgradeChoiceData
         {

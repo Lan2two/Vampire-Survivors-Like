@@ -13,6 +13,7 @@ namespace SurvivorsGame
             upgradeType = UpgradeType.Absorbable;
             ItemName = "Magnet";
             ItemDescription = "Increases range of pickup";
+            OneShot = false;
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)

@@ -65,8 +65,11 @@ namespace SurvivorsGame
             else
             {
                 strategy.ApplyUpgrade(upgradable);
-                ShopStrategies.Remove(strategy);
-                inventoryManager.UpgradesQueue.Remove(strategy);
+                if (strategy.OneShot)
+                {
+                    ShopStrategies.Remove(strategy);
+                    inventoryManager.UpgradesQueue.Remove(strategy);
+                }
             }
         }
 

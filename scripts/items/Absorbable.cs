@@ -1,18 +1,21 @@
 namespace SurvivorsGame
 {
     using Godot;
+
     [GlobalClass]
     public partial class Absorbable : RigidBody2D, IUpgradable
     {
         [Export] private DetectionComponent detectionComponent;
         [Export] private PathfindComponent pathfindComponent;
         [Export] private VelocityComponent velocityComponent;
-        private AbsorbableData baseConfig = new();
-        public Resource currentConfig => baseConfig;
+
+        private AbsorbableData baseConfig;
+        public Resource currentConfig { get; set; }
+
         public bool SawPlayer;
         public float detectionRangePercent;
-        private UpgradeManager upgradeManager;
-        CircleShape2D shape;
+        private CircleShape2D shape;
+
         public override void _Ready()
         {
             if (detectionComponent == null)
@@ -30,20 +33,29 @@ namespace SurvivorsGame
                 GD.PrintErr("VelocityComponent not found in Absorbable");
                 return;
             }
-            upgradeManager = this.GetPlayer().upgradeManager;
+
             shape = detectionComponent.shape.Shape.Duplicate() as CircleShape2D;
             if (shape == null)
             {
                 GD.PrintErr("CircleShape2D not found in Absorbable detection component");
                 return;
             }
+
             detectionComponent.shape.Shape = shape;
+
             baseConfig = new AbsorbableData()
             {
                 RadiusBase = shape.Radius,
                 MoveSpeedBase = velocityComponent.maxSpeed
             };
+
+            if (currentConfig == null)
+            {
+                currentConfig = baseConfig;
+            }
+
             OnUpgrade();
+
             BodyEntered += OnBodyEntered;
             EventBus.AbsorbableUpgrade += OnUpgrade;
         }
@@ -56,9 +68,18 @@ namespace SurvivorsGame
 
         public void OnUpgrade()
         {
-            upgradeManager.ApplyUpgrades(this, UpgradeType.Absorbable);
-            shape.Radius = baseConfig.GetStat("Radius").CalculateFinal();
-            velocityComponent.maxSpeed = baseConfig.GetStat("MoveSpeed").CalculateFinal();
+            if (UpgradeManager.Instance == null || currentConfig == null)
+            {
+                return;
+            }
+
+            UpgradeManager.Instance.ApplyUpgrades(this, UpgradeType.Absorbable);
+
+            if (currentConfig is AbsorbableData activeConfig)
+            {
+                shape.Radius = activeConfig.GetStat("Radius").CalculateFinal();
+                velocityComponent.maxSpeed = activeConfig.GetStat("MoveSpeed").CalculateFinal();
+            }
         }
 
         public override void _PhysicsProcess(double delta)
@@ -78,6 +99,7 @@ namespace SurvivorsGame
         }
 
         public virtual void SetAmount(float amount)
-        { }
+        {
+        }
     }
 }
