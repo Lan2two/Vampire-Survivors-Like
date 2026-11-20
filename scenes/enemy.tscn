@@ -216,6 +216,7 @@ rigidBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
 maxSpeed = 30.0
 acceleration = 10.0
+SpeedVariation = true
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
 [node name="PathfindComponent" type="Node" parent="." unique_id=324770547 node_paths=PackedStringArray("characterBody", "velocityComponent")]

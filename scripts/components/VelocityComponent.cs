@@ -9,6 +9,7 @@ namespace SurvivorsGame
         [Export] public AnimatedSprite2D animatedSprite2D;
         [Export] public float maxSpeed = 100.0f;
         [Export] public float acceleration = 40.0f;
+        [Export] private bool SpeedVariation = false;
 
         public Vector2 Velocity;
 
@@ -23,6 +24,10 @@ namespace SurvivorsGame
 
             rigidBody.GravityScale = 0.0f;
             rigidBody.LockRotation = true;
+            if (SpeedVariation)
+            {
+                maxSpeed += (float)GD.RandRange(-.08f, .08f) * maxSpeed;
+            }
         }
 
         public void AccelerateToVelocity(Vector2 velocity)
