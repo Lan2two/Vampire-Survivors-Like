@@ -161,6 +161,30 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../ShopMotion:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2000, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../ShopMotion:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_5byqq"]
 resource_name = "options"
@@ -181,7 +205,35 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.42, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_egh8s"]
+resource_name = "shop"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ShopMotion:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2000, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ShopMotion:modulate")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.42, 0.75),
@@ -197,7 +249,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("../StatsMotion:position")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.75),
@@ -209,7 +261,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("../StatsMotion:modulate")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.42, 0.75),
@@ -222,6 +274,7 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_e58y3"),
 &"options": SubResource("Animation_5byqq"),
+&"shop": SubResource("Animation_egh8s"),
 &"stats": SubResource("Animation_vnuwp")
 }
 
@@ -447,10 +500,13 @@ libraries/ = SubResource("AnimationLibrary_5byqq")
 autoplay = &"new_animation"
 
 [node name="MainMenuMotion" type="Control" parent="." unique_id=1789880917]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2000.0
+offset_right = -2000.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -482,8 +538,9 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="MainMenuContainer" type="Node2D" parent="MainMenuMotion" unique_id=421222010 node_paths=PackedStringArray("PositionOffsetNode")]
-position = Vector2(919, 348)
+position = Vector2(919, 320)
 script = ExtResource("2_fcv5n")
+Spacing = 40.0
 OpacityStrength = 0.1
 ScaleStrength = 5.0
 SmoothingSpeed = 5.0
@@ -496,8 +553,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -381.2499
-offset_bottom = -381.2499
+offset_top = -361.25
+offset_bottom = -361.25
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -542,9 +599,9 @@ custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
 anchors_preset = -1
 offset_left = -300.0
-offset_top = 162.5
+offset_top = 152.5
 offset_right = 300.0
-offset_bottom = 275.0
+offset_bottom = 265.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06981317
@@ -578,9 +635,9 @@ anchor_top = 0.27603936
 anchor_right = 0.41422606
 anchor_bottom = 0.33923844
 offset_left = -300.0
-offset_top = 325.0
+offset_top = 305.0
 offset_right = 300.0
-offset_bottom = 437.5
+offset_bottom = 417.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.073303826
@@ -600,9 +657,41 @@ script = ExtResource("4_h61rw")
 metadata/_custom_type_script = "uid://c2qtgcffduvb"
 metadata/_edit_use_anchors_ = true
 
-[node name="ExitButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1415925070]
+[node name="ShopButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=645824201]
 modulate = Color(1, 1, 1, 0.97)
 z_index = -1
+custom_minimum_size = Vector2(600, 112.5)
+layout_mode = 1
+anchors_preset = -1
+offset_left = -300.0
+offset_top = 457.5
+offset_right = 300.0
+offset_bottom = 570.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0715585
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(300, 56.25006)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 113
+theme_override_styles/normal = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h61rw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h61rw")
+text = "SHOP"
+script = ExtResource("4_h61rw")
+metadata/_custom_type_script = "uid://c2qtgcffduvb"
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitButton" type="Button" parent="MainMenuMotion/MainMenuContainer/Offset" unique_id=1415925070]
+modulate = Color(1, 1, 1, 0.94)
+z_index = -2
 custom_minimum_size = Vector2(600, 112.5)
 layout_mode = 1
 anchors_preset = -1
@@ -611,9 +700,9 @@ anchor_top = 0.67407966
 anchor_right = 0.5453482
 anchor_bottom = 0.7411985
 offset_left = -300.0
-offset_top = 487.5
+offset_top = 610.0
 offset_right = 300.0
-offset_bottom = 600.0
+offset_bottom = 722.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.06632251
@@ -823,3 +912,79 @@ theme_override_fonts/mono_font = ExtResource("2_m7x51")
 theme_override_font_sizes/normal_font_size = 40
 fit_content = true
 horizontal_alignment = 1
+
+[node name="ShopMotion" type="Control" parent="." unique_id=1222192045]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2000.0
+offset_right = 2000.0022
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopContainer" type="Control" parent="ShopMotion" unique_id=1991458209]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_nxjfj")
+animName = "shop"
+
+[node name="BackButton" type="Button" parent="ShopMotion/ShopContainer" unique_id=1192280665]
+custom_minimum_size = Vector2(400, 75)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.037499767
+anchor_top = 0.8256944
+anchor_right = 0.35332632
+anchor_bottom = 0.8908537
+offset_right = -4.257324
+offset_bottom = 28.085236
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.06981317
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 3
+theme = SubResource("Theme_m7x51")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_thu50")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h61rw")
+text = "Back
+"
+script = ExtResource("4_h61rw")
+metadata/_custom_type_script = "uid://c2qtgcffduvb"
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="ShopMotion/ShopContainer" unique_id=5978258]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05234372
+anchor_top = 0.036111113
+anchor_right = 0.9414056
+anchor_bottom = 0.7722222
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="ShopMotion/ShopContainer/Panel" unique_id=1605231151]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39103323
+anchor_top = -0.034372266
+anchor_right = 0.6159875
+anchor_bottom = 0.15808056
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_m7x51")
+theme_override_font_sizes/font_size = 128
+text = "Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

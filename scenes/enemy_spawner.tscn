@@ -9,6 +9,8 @@ _data = {
 point_count = 5
 
 [node name="Node2D" type="Path2D" unique_id=423383647]
+position = Vector2(0, 24.682388)
+scale = Vector2(1, 0.88729507)
 curve = SubResource("Curve2D_devoi")
 script = ExtResource("1_ks1gq")
 
