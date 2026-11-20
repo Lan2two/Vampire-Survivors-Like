@@ -24,6 +24,7 @@ namespace SurvivorsGame
             string[] stats = new[]
             {
                 $"Time Played: {time.Hours:D2}:{time.Minutes:D2}:{time.Seconds:D2}",
+                $"Total Coins Collected: {data.TotalCoins}",
                 $"Total Kills: {data.TotalKills}",
                 $"Total Damage Dealt: {data.TotalDamageDealt}",
                 $"Total Damage Taken: {data.TotalDamageTaken}",

@@ -8,11 +8,13 @@ namespace SurvivorsGame
         [Export] Array<PackedScene> LootTable = new();
         [Export] float XpDropRate = 100;
         [Export] float HealthDropRate = .1f;
+        [Export] float CoinDroprate = 1f;
         [Export] float LootDropRate = .1f;
         [Export] Enemy enemy;
         [Export] EnemyDeath deathState;
         [Export] PackedScene XpOrbScene;
         [Export] PackedScene HpOrbScene;
+        [Export] PackedScene CoinScene;
         private Node currentScene;
         private PackedScene worldItem;
 
@@ -47,29 +49,26 @@ namespace SurvivorsGame
 
         private void _OnDeath()
         {
-            DropXP(XpDropRate);
-            DropHP(HealthDropRate);
+            DropAbsorbable(XpOrbScene, XpDropRate, enemy.XpAmount);
+            DropAbsorbable(HpOrbScene, HealthDropRate);
+            DropAbsorbable(CoinScene, CoinDroprate, enemy.CoinAmount);
             DropItem(LootDropRate);
         }
-        public void DropXP(float chance)
-        {
-            float XpChance = (float)GD.RandRange(0f, 100f);
-            if (XpChance > chance)
-            {
-                return;
-            }
-            XpOrb XpInstance = DropScene(XpOrbScene) as XpOrb;
-            XpInstance.SetXPAmount(enemy.XpAmount);
-        }
 
-        public void DropHP(float chance)
+        public void DropAbsorbable(PackedScene packedScene, float chance, float amount = 0)
         {
-            float HpChance = (float)GD.RandRange(0f, 100f);
-            if (HpChance > chance)
+            if (packedScene == null)
+            {
+                GD.PrintErr("Dropped scene is null");
+                return;
+            }
+            float Rand = (float)GD.RandRange(0f, 100f);
+            if (Rand > chance)
             {
                 return;
             }
-            DropScene(HpOrbScene);
+            Absorbable Instance = DropScene(packedScene) as Absorbable;
+            Instance.SetAmount(amount);
         }
 
         public void DropItem(float chance)

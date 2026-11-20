@@ -76,6 +76,6 @@ texture_scale = 0.5
 script = ExtResource("5_gcww1")
 characterBody = NodePath("..")
 velocityComponent = NodePath("../VelocityComponent")
-threshold = 0.0
 pathUpdateInterval = 0.1
+useNavigation = false
 metadata/_custom_type_script = "uid://bbw06doqvj4pd"

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d1ufo1hep2ntf" path="res://scenes/bullet.tscn" id="3_t62fl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb11s"]
-radius = 180.025
+radius = 94.02127
 
 [node name="Knives" type="Area2D" unique_id=1673118753]
 collision_layer = 0
@@ -26,7 +26,7 @@ scale = Vector2(0.1, 0.053)
 
 [node name="ShootPoint" type="Marker2D" parent="WeaponPivot" unique_id=836309297]
 unique_name_in_owner = true
-position = Vector2(8.1436615, 6.381848e-07)
+position = Vector2(0.1436615, 6.381848e-07)
 scale = Vector2(0.1, 0.053)
 
 [node name="Timer" type="Timer" parent="." unique_id=1966034696]

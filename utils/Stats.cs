@@ -8,6 +8,7 @@ namespace SurvivorsGame
 
         public class Data
         {
+            public int Coins;
             public float DamageDealt;
             public float DamageTaken;
             public float HealthHealed;

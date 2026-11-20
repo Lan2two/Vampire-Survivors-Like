@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_td8c0")
-DamageBase = 15.0
+DamageBase = 8.0
 KnockbackBase = 50.0
-MaxTravelDistanceBase = 80.0
-ProjectileCooldownBase = 4.0
-BurstBase = 2
-BurstIntervalBase = 0.3
+CritDamageBase = 100.0
+MaxTravelDistanceBase = 100.0
+ProjectileCooldownBase = 5.0
+BurstBase = 5
+BurstIntervalBase = 0.2
 SpreadBase = 2.0
 metadata/_custom_type_script = "uid://de57a3gqbkhhn"

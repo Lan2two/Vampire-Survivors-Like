@@ -132,6 +132,7 @@ namespace SurvivorsGame
             data.TotalHealthHealed += (int)Stats.data.HealthHealed;
             data.TotalCampfiresLit += Stats.data.CampfiresLit;
             data.TotalTotalXp += (int)Stats.data.totalXP;
+            data.TotalCoins += Stats.data.Coins;
             saveSystem.SaveData(data);
         }
     }

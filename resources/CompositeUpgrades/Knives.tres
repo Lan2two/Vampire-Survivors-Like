@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://47bdockur6jx"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_d17i0"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_ku635"]
+[ext_resource type="PackedScene" uid="uid://ddryjghlaviy6" path="res://scenes/knives.tscn" id="3_0cbad"]
+[ext_resource type="PackedScene" uid="uid://d1ufo1hep2ntf" path="res://scenes/bullet.tscn" id="4_1u0lj"]
+[ext_resource type="Resource" uid="uid://chmpvk2u7ljht" path="res://resources/Projectiles/Knives.tres" id="5_oeji3"]
+[ext_resource type="Script" uid="uid://dletf55xvu8sn" path="res://utils/strategy/NodeStrategy.cs" id="6_ds6sj"]
+[ext_resource type="Script" uid="uid://dvgounn1leqxm" path="res://utils/strategy/ProjectileBurstIntervalStrategy.cs" id="7_7cls8"]
+[ext_resource type="Script" uid="uid://bbhbxariivqbp" path="res://utils/strategy/ProjectileBurstStrategy.cs" id="8_4gd0c"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/ProjectileFireRateStrategy.cs" id="9_b1tjy"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/ProjectileDamageStrategy.cs" id="10_3b6f2"]
+[ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="11_5o2ms"]
+[ext_resource type="Script" uid="uid://dogcuttfq7cgw" path="res://utils/strategy/ProjectileRangeStrategy.cs" id="12_ku635"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="12_thev7"]
+
+[sub_resource type="Resource" id="Resource_7tmnl"]
+resource_local_to_scene = true
+script = ExtResource("6_ds6sj")
+_subsceneData = {
+"Scene": ExtResource("4_1u0lj"),
+"startingConfig": ExtResource("5_oeji3"),
+"texture2D": null
+}
+PackedScene = ExtResource("3_0cbad")
+"Subscene Configuration/startingConfig" = ExtResource("5_oeji3")
+"Subscene Configuration/Scene" = ExtResource("4_1u0lj")
+upgradeType = 4
+ItemName = "Add Node"
+ItemDescription = "Adds Node to Upgradable"
+metadata/_custom_type_script = "uid://dletf55xvu8sn"
+
+[sub_resource type="Resource" id="Resource_27n0u"]
+script = ExtResource("7_7cls8")
+BurstTime = 20.0
+CalculationMode = 1
+upgradeType = 2
+metadata/_custom_type_script = "uid://dvgounn1leqxm"
+
+[sub_resource type="Resource" id="Resource_nvp4l"]
+script = ExtResource("8_4gd0c")
+BurstAmount = 4
+upgradeType = 2
+metadata/_custom_type_script = "uid://bbhbxariivqbp"
+
+[sub_resource type="Resource" id="Resource_7p3oe"]
+script = ExtResource("9_b1tjy")
+UpgradeCooldown = 25.0
+CalculationMode = 1
+upgradeType = 2
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_d5rnw"]
+script = ExtResource("10_3b6f2")
+UpgradeDamage = 3.0
+upgradeType = 2
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_3eva0"]
+script = ExtResource("11_5o2ms")
+upgradeType = 2
+metadata/_custom_type_script = "uid://welqlf4pw7cn"
+
+[sub_resource type="Resource" id="Resource_0cbad"]
+script = ExtResource("12_ku635")
+UpgradeRange = 5.0
+CalculationMode = 1
+upgradeType = 2
+metadata/_custom_type_script = "uid://dogcuttfq7cgw"
+
+[sub_resource type="Resource" id="Resource_ku635"]
+script = ExtResource("9_b1tjy")
+UpgradeCooldown = -15.0
+CalculationMode = 1
+upgradeType = 2
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[resource]
+script = ExtResource("12_thev7")
+Children = Array[ExtResource("1_d17i0")]([SubResource("Resource_7tmnl"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_7p3oe"), SubResource("Resource_d5rnw"), SubResource("Resource_3eva0"), SubResource("Resource_0cbad"), SubResource("Resource_ku635")])
+MaxStackSize = 5
+ItemName = "Knives"
+ItemDescription = "Short ranged projectile with a crit damage bonus"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

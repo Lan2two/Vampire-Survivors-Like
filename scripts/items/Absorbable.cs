@@ -42,5 +42,8 @@ namespace SurvivorsGame
                 CallDeferred(Node.MethodName.QueueFree);
             }
         }
+
+        public virtual void SetAmount(float amount)
+        { }
     }
 }
