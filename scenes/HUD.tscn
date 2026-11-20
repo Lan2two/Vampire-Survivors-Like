@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="1_5j4t3"]
 [ext_resource type="Script" uid="uid://clfsp025vvfqn" path="res://scripts/GUI/KillsCounter.cs" id="2_womn8"]
+[ext_resource type="Script" uid="uid://buj4yudf04fqf" path="res://scripts/GUI/GameOverNode.cs" id="3_wi42t"]
 [ext_resource type="Script" uid="uid://dltf54yhruejt" path="res://scripts/GUI/XpBar.cs" id="3_womn8"]
 [ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
@@ -78,7 +79,7 @@ bg_color = Color(0.67754686, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjrnn"]
 bg_color = Color(0.18091199, 0.7145692, 0.26417047, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1447957346]
+[node name="HUD" type="CanvasLayer" unique_id=1447957346]
 
 [node name="KillsCounter" type="Label" parent="." unique_id=1656329884]
 offset_left = 24.0
@@ -93,25 +94,68 @@ text = "Kills: 0"
 vertical_alignment = 1
 script = ExtResource("2_womn8")
 
-[node name="GameOver" type="Label" parent="." unique_id=1051878861]
-visible = false
+[node name="GameOverNode" type="Control" parent="." unique_id=1945052996]
 z_index = 1
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -11.5
+offset_top = -20.0
 offset_right = 20.0
-offset_bottom = 11.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_wi42t")
+
+[node name="GameOverLabel" type="Label" parent="GameOverNode" unique_id=1051878861]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.0
+offset_top = -174.5
+offset_right = 229.0
+offset_bottom = -33.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_5j4t3")
-text = "You Win!!!
-Thanks for playing!"
+text = "Game Over"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverContainer" type="VBoxContainer" parent="GameOverNode" unique_id=1401898499]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.5
+offset_top = -3.5
+offset_right = 170.5
+offset_bottom = 163.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=491936703]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Retry"
+
+[node name="MainMenuButton" type="Button" parent="GameOverNode/GameOverContainer" unique_id=1576929851]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
 
 [node name="XpBar" type="ProgressBar" parent="." unique_id=585847015]
 anchors_preset = 5
@@ -148,25 +192,29 @@ vertical_alignment = 1
 
 [node name="UpgradeMenu" type="HBoxContainer" parent="." unique_id=991177710 node_paths=PackedStringArray("xpBar")]
 process_mode = 3
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -230.0
-offset_top = -122.0
-offset_right = 230.0
-offset_bottom = 122.0
+offset_left = -34.0
+offset_top = -25.0
+offset_right = 34.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("4_shsct")
 Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q")])
 xpBar = NodePath("../XpBar")
 
-[node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=1828415791]
+[node name="Upgrade1" type="Button" parent="UpgradeMenu" unique_id=499441132]
+custom_minimum_size = Vector2(150, 245)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
@@ -177,9 +225,11 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
-[node name="Upgrade2" type="Button" parent="UpgradeMenu" unique_id=2077758267]
+[node name="Upgrade2" type="Button" parent="UpgradeMenu" unique_id=1355302840]
+custom_minimum_size = Vector2(150, 245)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
@@ -190,9 +240,11 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("8_u3xxf")
 
-[node name="Upgrade3" type="Button" parent="UpgradeMenu" unique_id=1793732285]
+[node name="Upgrade3" type="Button" parent="UpgradeMenu" unique_id=212005698]
+custom_minimum_size = Vector2(150, 245)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_u3xxf")
@@ -240,12 +292,11 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.11764706)
 
 [node name="RollDisplay" type="TextureProgressBar" parent="." unique_id=937364242]
-visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_top = -128.0
+offset_right = 128.0
 grow_vertical = 0
 value = 10.0
 fill_mode = 4
