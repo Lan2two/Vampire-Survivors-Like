@@ -1,2 +1,15 @@
-# Repo-for-Stardance
-Stardance repo
+# Vampire-Survivors-Like
+
+Here be a vampire survivors like
+Some weapons you can pickup and drop others you can't
+In the demo the only interactable weapon is the coin at spawn
+
+# Controls
+    Movement
+        -Walking: WASD
+        -Roll: Spacebar
+    Attack:
+        -Melee: Hold Left Click
+    Items:
+        -Interact: F
+        -Drop: G
