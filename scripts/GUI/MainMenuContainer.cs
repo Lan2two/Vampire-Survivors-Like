@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
     using System.Collections.Generic;
 
-    public partial class MenuContainer : Control
+    public partial class MainMenuContainer : Control
     {
         [Export] private Vector2 offset = new Vector2(80, 130);
         private Dictionary<string, CustomButton> buttons = new();

@@ -7,19 +7,20 @@ namespace SurvivorsGame
         private Control _menuContainer;
         private Button _startButton;
         private Button _optionsButton;
+        private Button _statsButton;
         private Button _exitButton;
-        private System.Collections.Generic.List<Vector2> _originalPositions = new();
         private Fade _fadeRect;
-        private Vector2 _menuPosition;
-        private Tween _menuTween;
+        private AnimationPlayer _animationPlayer;
 
         public override void _Ready()
         {
             _fadeRect = GetNodeOrNull<Fade>("Fade");
-            _menuContainer = GetNodeOrNull<Control>("MenuContainer");
-            _startButton = GetNodeOrNull<Button>("MenuContainer/StartButton");
-            _optionsButton = GetNodeOrNull<Button>("MenuContainer/OptionsButton");
-            _exitButton = GetNodeOrNull<Button>("MenuContainer/ExitButton");
+            _menuContainer = GetNodeOrNull<Control>("MainMenuContainer");
+            _startButton = GetNodeOrNull<Button>("MainMenuContainer/StartButton");
+            _optionsButton = GetNodeOrNull<Button>("MainMenuContainer/OptionsButton");
+            _statsButton = GetNodeOrNull<Button>("MainMenuContainer/StatsButton");
+            _exitButton = GetNodeOrNull<Button>("MainMenuContainer/ExitButton");
+            _animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayers/MainMenu");
 
             if (_menuContainer == null || _startButton == null || _exitButton == null)
             {
@@ -28,38 +29,16 @@ namespace SurvivorsGame
             }
 
             _startButton.Pressed += StartButton;
-            _exitButton.Pressed += ExitButton;
             _optionsButton.Pressed += OptionsButton;
-
-            GetTree().ProcessFrame += OnFirstFrame;
+            _statsButton.Pressed += StatsButton;
+            _exitButton.Pressed += ExitButton;
+            Ready += OnReady;
         }
 
-        private void OnFirstFrame()
+        private void OnReady()
         {
-            GetTree().ProcessFrame -= OnFirstFrame;
-            InitializeMenuLayout();
-        }
-
-        private void InitializeMenuLayout()
-        {
-            if (_menuContainer == null || !IsInstanceValid(_menuContainer)) return;
-
-            _menuContainer.ForceUpdateTransform();
-            _menuPosition = _menuContainer.GlobalPosition;
-
-            foreach (Node child in _menuContainer.GetChildren())
-            {
-                if (child is Control controlChild)
-                {
-                    controlChild.ForceUpdateTransform();
-                    _originalPositions.Add(controlChild.Position);
-                }
-            }
-
-            _menuContainer.GlobalPosition = _menuPosition + new Vector2(-2500, 0);
-            _menuContainer.Modulate = new Color(1, 1, 1, 0);
-
-            AnimateMenu(fadeIn: true, durationMultiplier: 1.0f);
+            _animationPlayer.Play("bob");
+            _animationPlayer.Play("fade");
         }
 
         public override void _ExitTree()
@@ -69,42 +48,10 @@ namespace SurvivorsGame
             if (_optionsButton != null) _optionsButton.Pressed -= OptionsButton;
         }
 
-        private void AnimateMenu(bool fadeIn, float durationMultiplier = 1.0f)
-        {
-            if (_menuContainer == null || !IsInstanceValid(_menuContainer)) return;
-            if (_menuTween != null && IsInstanceValid(_menuTween))
-            {
-                _menuTween.Kill();
-            }
-            Vector2 currentPos = _menuContainer.GlobalPosition;
-            float currentAlpha = _menuContainer.Modulate.A;
-            _menuTween = GetTree().CreateTween();
-            _menuTween.SetParallel(true);
-            Vector2 targetPos = fadeIn ? _menuPosition : _menuPosition + new Vector2(-2500, 0);
-            float targetAlpha = fadeIn ? 1.0f : 0.0f;
-
-            Tween.TransitionType trans = Tween.TransitionType.Quad;
-            Tween.EaseType ease = fadeIn ? Tween.EaseType.Out : Tween.EaseType.In;
-            _menuTween.TweenMethod(
-                Callable.From<Vector2>(pos => _menuContainer.GlobalPosition = pos),
-                currentPos,
-                targetPos,
-                1.0f * durationMultiplier
-            ).SetTrans(trans).SetEase(ease);
-
-            _menuTween.TweenMethod(
-                Callable.From<float>(alpha => _menuContainer.Modulate = new Color(1, 1, 1, alpha)),
-                currentAlpha,
-                targetAlpha,
-                2.0f * durationMultiplier
-            ).SetTrans(trans).SetEase(ease);
-        }
-
         private void StartButton()
         {
             if (_fadeRect == null) return;
-
-            AnimateMenu(fadeIn: false, durationMultiplier: 0.5f);
+            _animationPlayer.PlayBackwards("fade");
             _fadeRect.FadeIn(false);
 
             GetTree().CreateTimer(0.5f).Timeout += () =>
@@ -116,12 +63,16 @@ namespace SurvivorsGame
 
         private void OptionsButton()
         {
-            AnimateMenu(false, durationMultiplier: 0.5f);
-            GetTree().CreateTimer(0.5f).Timeout += () =>
+            _animationPlayer.PlayBackwards("fade");
+
+            GetTree().CreateTimer(0.75f).Timeout += () =>
             {
-                if (!IsInstanceValid(this)) return;
-                AnimateMenu(true, durationMultiplier: 0.5f);
+                _animationPlayer.Play("fade");
             };
+        }
+
+        private void StatsButton()
+        {
         }
 
         private void ExitButton()
