@@ -5,16 +5,16 @@ namespace SurvivorsGame
     public partial class SubMenuContainer : Control
     {
         [Export] public string animName;
-        private Button _backButton;
+        public Button _backButton;
         private AnimationPlayer _menuAnimation;
         private AnimationPlayer _optionAnimations;
         private CarouselMenuContainer _mainMenuContainer;
         public override void _Ready()
         {
             _backButton = GetNodeOrNull<Button>("BackButton");
-            _menuAnimation = GetNodeOrNull<AnimationPlayer>("../../MainMenu");
-            _optionAnimations = GetNodeOrNull<AnimationPlayer>("../../Menus");
-            _mainMenuContainer = GetNode<CarouselMenuContainer>("../../MainMenuMotion/MainMenuContainer");
+            _menuAnimation = GetNodeOrNull<AnimationPlayer>("%MainMenu");
+            _optionAnimations = GetNodeOrNull<AnimationPlayer>("%Menus");
+            _mainMenuContainer = GetNode<CarouselMenuContainer>("%MainMenuContainer");
             _backButton.Pressed += BackButton;
         }
 

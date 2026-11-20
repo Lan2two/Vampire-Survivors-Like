@@ -411,9 +411,8 @@ script = ExtResource("14_f1ej7")
 weaponController = NodePath("../WeaponController")
 WorldItemScene = ExtResource("15_fulsm")
 
-[node name="UpgradeManager" type="Node" parent="." unique_id=1180921809 node_paths=PackedStringArray("inventoryManager")]
+[node name="UpgradeManager" type="Node" parent="." unique_id=1180921809]
 script = ExtResource("15_oprun")
-inventoryManager = NodePath("../InventoryManager")
 
 [node name="KnockbackComponent" type="Node" parent="." unique_id=2000839814 node_paths=PackedStringArray("healthComponent", "velocityComponent", "characterBody")]
 script = ExtResource("17_qfm1y")

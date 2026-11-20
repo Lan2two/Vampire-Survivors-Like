@@ -9,6 +9,7 @@ namespace SurvivorsGame
     {
         private static string _savePath = "user://savegame.json";
         private static string _upgradesPath = "user://upgrades.json";
+        private static string _keybindsPath = "user://keybinds.json";
         private JavaScriptObject _onWebExitCallback;
         private bool _sceneChangePending;
 
@@ -20,6 +21,8 @@ namespace SurvivorsGame
             {
                 SetupWebExitHooks();
             }
+
+            LoadAndApplyKeybinds();
         }
 
         public override void _Notification(int what)
@@ -114,6 +117,72 @@ namespace SurvivorsGame
                 return new T();
             }
         }
+
+        public static void SaveKeybinds()
+        {
+            var data = new KeybindSaveData();
+
+            foreach (StringName actionName in InputMap.GetActions())
+            {
+                string action = actionName.ToString();
+
+                if (action.StartsWith("ui_")) continue;
+
+                var events = InputMap.ActionGetEvents(actionName);
+
+                if (events.Count == 0)
+                {
+                    data.Bindings[action] = new SavedInput { IsMouse = false, Code = 0 };
+                }
+                else if (events[0] is InputEventKey keyEvent)
+                {
+                    long keyCode = keyEvent.Keycode != Key.None
+                        ? (long)keyEvent.Keycode
+                        : (long)keyEvent.PhysicalKeycode;
+
+                    data.Bindings[action] = new SavedInput { IsMouse = false, Code = keyCode };
+                }
+                else if (events[0] is InputEventMouseButton mouseEvent)
+                {
+                    data.Bindings[action] = new SavedInput { IsMouse = true, Code = (long)mouseEvent.ButtonIndex };
+                }
+            }
+
+            SaveToFile(_keybindsPath, data, SaveJsonContext.Default.KeybindSaveData);
+        }
+
+
+        public static void LoadAndApplyKeybinds()
+        {
+            InputMap.LoadFromProjectSettings();
+            if (!FileAccess.FileExists(_keybindsPath)) return;
+
+            KeybindSaveData data = LoadFromFile(_keybindsPath, SaveJsonContext.Default.KeybindSaveData);
+
+            foreach (var kvp in data.Bindings)
+            {
+                string action = kvp.Key;
+                SavedInput saved = kvp.Value;
+
+                if (!InputMap.HasAction(action)) continue;
+
+                InputEvent newEvent = saved.IsMouse
+                    ? new InputEventMouseButton { ButtonIndex = (MouseButton)saved.Code }
+                    : new InputEventKey { Keycode = (Key)saved.Code };
+
+                InputMap.ActionEraseEvents(action);
+                InputMap.ActionAddEvent(action, newEvent);
+            }
+        }
+
+        public static void ResetKeybinds()
+        {
+            if (FileAccess.FileExists(_keybindsPath))
+            {
+                DirAccess.RemoveAbsolute(_keybindsPath);
+            }
+            InputMap.LoadFromProjectSettings();
+        }
     }
 
     public class GameSaveData
@@ -135,9 +204,21 @@ namespace SurvivorsGame
         public Dictionary<string, int> PurchasedUpgrades { get; set; } = new();
     }
 
+    public class KeybindSaveData
+    {
+        public Dictionary<string, SavedInput> Bindings { get; set; } = new();
+    }
+
+    public class SavedInput
+    {
+        public bool IsMouse { get; set; }
+        public long Code { get; set; }
+    }
+
     [JsonSourceGenerationOptions(WriteIndented = true)]
     [JsonSerializable(typeof(GameSaveData))]
     [JsonSerializable(typeof(UpgradeSaveData))]
+    [JsonSerializable(typeof(KeybindSaveData))]
     internal partial class SaveJsonContext : JsonSerializerContext
     {
     }

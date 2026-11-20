@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://y4bavkj6i2a1"]
+
+[ext_resource type="Script" uid="uid://dw71e8m2ktbwc" path="res://RebindButton.cs" id="1_gn0r5"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="1_jbgo3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jbgo3"]
+content_margin_left = 5.0
+
+[node name="RebindKey" type="Button" unique_id=1163863864]
+custom_minimum_size = Vector2(200, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_jbgo3")
+theme_override_font_sizes/font_size = 32
+script = ExtResource("1_gn0r5")
+
+[node name="Label" type="Label" parent="." unique_id=731262537]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -25.0
+offset_right = 1.0
+offset_bottom = 25.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_jbgo3")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jbgo3")
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=2019685753]
+show_behind_parent = true
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.0
+offset_top = -25.0
+offset_right = 101.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

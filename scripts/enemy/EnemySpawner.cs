@@ -98,8 +98,8 @@ namespace SurvivorsGame
             }
             currentScene.AddChild(enemyInstance);
             enemyInstance.SetStats(_targetData.Health, _targetData.Defense, _targetData.Speed, _targetData.CoinAmount, _targetData.XpAmount, _targetData.Modulate);
-            GD.Print(_targetData.Modulate);
-            GD.Print(enemyInstance.Modulate);
+            //GD.Print(_targetData.Modulate);
+            //GD.Print(enemyInstance.Modulate);
             enemyInstance.GlobalPosition = pathFollow.GlobalPosition;
         }
     }
