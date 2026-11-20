@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
     using System;
 
-    public partial class Stats : ColorRect
+    public partial class StatsDisplay : ColorRect
     {
         private Label _statsLabel;
         private Player _player;
@@ -14,12 +14,12 @@ namespace SurvivorsGame
             _player = this.GetPlayer();
             if (_statsLabel == null)
             {
-                GD.PrintErr("StatsLabel not found in Stats");
+                GD.PrintErr("StatsLabel not found in StatsDisplay");
                 return;
             }
             if (_player == null)
             {
-                GD.PrintErr("Player not found in Stats");
+                GD.PrintErr("Player not found in StatsDisplay");
                 return;
             }
             GameScene.GameOverEvent += OnGameOver;
@@ -32,7 +32,7 @@ namespace SurvivorsGame
 
         private void OnGameOver()
         {
-            _statsLabel.Text = $"Max Health: {(int)_player.healthComponent.maxHealth}\nTotal XP: {(int)_player.totalXP}";
+            _statsLabel.Text = $"Enemies Killed: {(int)Stats.data.EnemiesKilled}\nTotal XP: {(int)_player.totalXP}\nDamage Dealt: {(int)Stats.data.DamageDealt}\nDamage Taken: {(int)Stats.data.DamageTaken}\nMax Health: {(int)_player.healthComponent.maxHealth}\nMax Speed: {(int)_player.velocityComponent.maxSpeed}";
         }
 
     }

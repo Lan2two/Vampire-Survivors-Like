@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://ct7frsulq8spk" path="res://scripts/GUI/UpgradeMenu.cs" id="4_shsct"]
 [ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="5_cws7i"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="6_dcyui"]
-[ext_resource type="Script" uid="uid://bagnvtmnb34fr" path="res://scripts/GUI/Stats.cs" id="6_rvumk"]
+[ext_resource type="Script" uid="uid://bagnvtmnb34fr" path="res://scripts/GUI/StatsDisplay.cs" id="6_rvumk"]
 [ext_resource type="Script" uid="uid://cfjr1wp8oywhr" path="res://scripts/GUI/UpgradeButtonContainer.cs" id="6_u5cq1"]
 [ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="7_8inel"]
 [ext_resource type="Script" uid="uid://c2qtgcffduvb" path="res://scripts/GUI/UpgradeButton.cs" id="8_u3xxf"]
@@ -317,7 +317,7 @@ text = "Upgrades Picked"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Stats" type="ColorRect" parent="GameOverNode" unique_id=1876184234]
+[node name="StatsDisplay" type="ColorRect" parent="GameOverNode" unique_id=1876184234]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -333,7 +333,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.39215687)
 script = ExtResource("6_rvumk")
 
-[node name="Label" type="Label" parent="GameOverNode/Stats" unique_id=1041667383]
+[node name="Label" type="Label" parent="GameOverNode/StatsDisplay" unique_id=1041667383]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -345,11 +345,11 @@ offset_bottom = -1.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_5j4t3")
 theme_override_font_sizes/font_size = 32
-text = "Stats"
+text = "StatsDisplay"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatsLabel" type="Label" parent="GameOverNode/Stats" unique_id=151084098]
+[node name="StatsLabel" type="Label" parent="GameOverNode/StatsDisplay" unique_id=151084098]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
