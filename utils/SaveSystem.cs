@@ -2,17 +2,15 @@ namespace SurvivorsGame
 {
     using System.Collections.Generic;
     using System.Text.Json;
+    using System.Text.Json.Serialization;
+    using System.Text.Json.Serialization.Metadata;
     using Godot;
     public partial class SaveSystem : Node
     {
         private static string _savePath = "user://savegame.json";
         private static string _upgradesPath = "user://upgrades.json";
         private JavaScriptObject _onWebExitCallback;
-
-        private static readonly JsonSerializerOptions _jsonOptions = new()
-        {
-            WriteIndented = true
-        };
+        private bool _sceneChangePending;
 
         public override void _Ready()
         {
@@ -61,25 +59,107 @@ namespace SurvivorsGame
 
         public static void SaveData(GameSaveData dataToSave)
         {
-            SaveToFile(_savePath, dataToSave);
+            SaveToFile(_savePath, dataToSave, SaveJsonContext.Default.GameSaveData);
         }
 
         public static GameSaveData LoadData()
         {
-            return LoadFromFile<GameSaveData>(_savePath);
+            return LoadFromFile(_savePath, SaveJsonContext.Default.GameSaveData);
         }
 
         public static void SaveUpgrades(UpgradeSaveData upgradesToSave)
         {
-            SaveToFile(_upgradesPath, upgradesToSave);
+            SaveToFile(_upgradesPath, upgradesToSave, SaveJsonContext.Default.UpgradeSaveData);
         }
 
         public static UpgradeSaveData LoadUpgrades()
         {
-            return LoadFromFile<UpgradeSaveData>(_upgradesPath);
+            return LoadFromFile(_upgradesPath, SaveJsonContext.Default.UpgradeSaveData);
         }
 
-        private static void SaveToFile<T>(string path, T data)
+        public void ReloadCurrentSceneDeferred()
+        {
+            if (!BeginSceneChange())
+            {
+                return;
+            }
+
+            CallDeferred(nameof(DeferredReloadCurrentScene));
+        }
+
+        public void ChangeSceneToFileDeferred(string scenePath)
+        {
+            if (!BeginSceneChange())
+            {
+                return;
+            }
+
+            CallDeferred(nameof(DeferredChangeSceneToFile), scenePath);
+        }
+
+        private bool BeginSceneChange()
+        {
+            if (_sceneChangePending)
+            {
+                return false;
+            }
+
+            _sceneChangePending = true;
+            GetTree().SceneChanged += OnSceneChanged;
+            return true;
+        }
+
+        private void OnSceneChanged()
+        {
+            SceneTree tree = GetTree();
+            tree.SceneChanged -= OnSceneChanged;
+            _sceneChangePending = false;
+            tree.Paused = false;
+        }
+
+        private void CancelSceneChange()
+        {
+            GetTree().SceneChanged -= OnSceneChanged;
+            _sceneChangePending = false;
+        }
+
+        private void DeferredReloadCurrentScene()
+        {
+            Node currentScene = GetTree().CurrentScene;
+            if (!GodotObject.IsInstanceValid(currentScene) || string.IsNullOrEmpty(currentScene.SceneFilePath))
+            {
+                CancelSceneChange();
+                GD.PrintErr("SaveSystem: Cannot reload the current scene because its scene path is unavailable.");
+                return;
+            }
+
+            DeferredChangeSceneToFile(currentScene.SceneFilePath);
+        }
+
+        private void DeferredChangeSceneToFile(string scenePath)
+        {
+            SceneTree tree = GetTree();
+            PackedScene scene = ResourceLoader.Load<PackedScene>(
+                scenePath,
+                "",
+                ResourceLoader.CacheMode.IgnoreDeep
+            );
+            if (scene == null)
+            {
+                CancelSceneChange();
+                GD.PrintErr($"SaveSystem: Failed to load scene at {scenePath}.");
+                return;
+            }
+
+            Error error = tree.ChangeSceneToPacked(scene);
+            if (error != Error.Ok)
+            {
+                CancelSceneChange();
+                GD.PrintErr($"SaveSystem: Failed to change to scene {scenePath}. Error: {error}");
+            }
+        }
+
+        private static void SaveToFile<T>(string path, T data, JsonTypeInfo<T> typeInfo)
         {
             using FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
             if (file == null)
@@ -88,11 +168,11 @@ namespace SurvivorsGame
                 return;
             }
 
-            byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(data, _jsonOptions);
+            byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(data, typeInfo);
             file.StoreBuffer(jsonBytes);
         }
 
-        private static T LoadFromFile<T>(string path) where T : new()
+        private static T LoadFromFile<T>(string path, JsonTypeInfo<T> typeInfo) where T : new()
         {
             if (!FileAccess.FileExists(path)) return new T();
 
@@ -108,7 +188,7 @@ namespace SurvivorsGame
 
             try
             {
-                return JsonSerializer.Deserialize<T>(jsonBytes, _jsonOptions) ?? new T();
+                return JsonSerializer.Deserialize(jsonBytes, typeInfo) ?? new T();
             }
             catch (JsonException ex)
             {
@@ -134,6 +214,13 @@ namespace SurvivorsGame
     public class UpgradeSaveData
     {
         public Dictionary<string, int> PurchasedUpgrades { get; set; } = new();
+    }
+
+    [JsonSourceGenerationOptions(WriteIndented = true)]
+    [JsonSerializable(typeof(GameSaveData))]
+    [JsonSerializable(typeof(UpgradeSaveData))]
+    internal partial class SaveJsonContext : JsonSerializerContext
+    {
     }
 
 }

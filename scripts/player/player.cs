@@ -65,11 +65,11 @@ namespace SurvivorsGame
 
 		public override void _ExitTree()
 		{
-			if (healthComponent != null)
+			if (GodotObject.IsInstanceValid(healthComponent))
 			{
 				healthComponent.FinalDamageEvent -= TrackDamage;
 			}
-			if (inventoryManager != null)
+			if (GodotObject.IsInstanceValid(inventoryManager))
 			{
 				EventBus.PlayerUpgrade -= CalculateStats;
 			}

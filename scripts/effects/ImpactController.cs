@@ -28,7 +28,7 @@ namespace SurvivorsGame
 
             ApplyShaderParameters();
 
-            GetTree().CreateTimer(1, false).Timeout += () => { Impact(new Vector2(0.5f, -0.5f)); };
+            //GetTree().CreateTimer(1, false).Timeout += () => { Impact(new Vector2(0.5f, -0.5f)); };
             EventBus.WorldSlashEvent += OnWorldSlash;
         }
 

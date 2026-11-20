@@ -48,7 +48,7 @@ namespace SurvivorsGame
 
         [Export] public Control PositionOffsetNode { get; set; }
 
-        public bool IsFocused => CurrentFocused == this;
+        public bool IsFocused => ReferenceEquals(CurrentFocused, this);
 
         private bool _ignoreMouseHover = false;
         private Vector2 _lastMousePos = Vector2.Zero;
@@ -58,7 +58,7 @@ namespace SurvivorsGame
             if (!Engine.IsEditorHint())
             {
                 _lastMousePos = GetViewport().GetMousePosition();
-                if (StartFocused || CurrentFocused == null)
+                if (StartFocused || !GodotObject.IsInstanceValid(CurrentFocused))
                 {
                     SetFocused();
                 }
@@ -67,7 +67,7 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            if (CurrentFocused == this)
+            if (ReferenceEquals(CurrentFocused, this))
             {
                 CurrentFocused = null;
             }
@@ -78,14 +78,14 @@ namespace SurvivorsGame
         /// </summary>
         public void SetFocused()
         {
-            if (CurrentFocused == this) return;
+            if (ReferenceEquals(CurrentFocused, this)) return;
 
             CarouselMenuContainer previous = CurrentFocused;
             CurrentFocused = this;
 
             ResetMouseHoverSuppression();
 
-            if (previous != null && IsInstanceValid(previous))
+            if (GodotObject.IsInstanceValid(previous))
             {
                 previous.ClearChildFocus();
             }

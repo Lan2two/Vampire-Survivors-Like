@@ -40,29 +40,41 @@ namespace SurvivorsGame
 
         private void RetryButton()
         {
-            CallDeferred(nameof(DeferredReloadScene));
-        }
-
-        private void DeferredReloadScene()
-        {
-            if (IsInstanceValid(this) && IsInsideTree())
+            if (!IsInsideTree())
             {
-                GetTree().ReloadCurrentScene();
+                return;
+            }
+
+            SaveSystem saveSystem = GetSaveSystem();
+            if (saveSystem != null)
+            {
+                saveSystem.ReloadCurrentSceneDeferred();
             }
         }
 
         private void MainMenuButton()
         {
-            CallDeferred(nameof(DeferredChangeScene));
+            if (!IsInsideTree())
+            {
+                return;
+            }
+
+            SaveSystem saveSystem = GetSaveSystem();
+            if (saveSystem != null)
+            {
+                saveSystem.ChangeSceneToFileDeferred("res://scenes/start_menu.tscn");
+            }
         }
 
-        private void DeferredChangeScene()
+        private SaveSystem GetSaveSystem()
         {
-            if (IsInstanceValid(this) && IsInsideTree())
+            SaveSystem saveSystem = GetNodeOrNull<SaveSystem>("/root/SaveSystem");
+            if (saveSystem == null)
             {
-                GetTree().Paused = false;
-                GetTree().ChangeSceneToFile("res://scenes/start_menu.tscn");
+                GD.PrintErr("SaveSystem autoload not found.");
             }
+
+            return saveSystem;
         }
     }
 }

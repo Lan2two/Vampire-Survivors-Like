@@ -12,7 +12,7 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            Coin.CoinPickup += UpdateCounter;
+            Coin.CoinPickup -= UpdateCounter;
         }
 
         private void UpdateCounter()

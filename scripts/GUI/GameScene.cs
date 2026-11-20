@@ -66,7 +66,7 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
-            if (player != null)
+            if (GodotObject.IsInstanceValid(player))
             {
                 player.PlayerDead -= PlayerDeath;
             }
@@ -95,7 +95,7 @@ namespace SurvivorsGame
         private void GameOver(string message)
         {
 
-            if (_isChangingScene || !IsInstanceValid(this)) return;
+            if (_isChangingScene || !IsInstanceValid(this) || !IsInsideTree()) return;
             _isChangingScene = true;
             if (gameOverLabel != null)
             {
