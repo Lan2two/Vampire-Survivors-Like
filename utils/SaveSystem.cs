@@ -5,35 +5,35 @@ namespace SurvivorsGame
     using Godot;
     public partial class SaveSystem : Node
     {
-        private string _savePath = "user://savegame.json";
-        private string _upgradesPath = "user://upgrades.json";
+        private static string _savePath = "user://savegame.json";
+        private static string _upgradesPath = "user://upgrades.json";
 
         private static readonly JsonSerializerOptions _jsonOptions = new()
         {
             WriteIndented = true
         };
 
-        public void SaveData(GameSaveData dataToSave)
+        public static void SaveData(GameSaveData dataToSave)
         {
             SaveToFile(_savePath, dataToSave);
         }
 
-        public GameSaveData LoadData()
+        public static GameSaveData LoadData()
         {
             return LoadFromFile<GameSaveData>(_savePath);
         }
 
-        public void SaveUpgrades(UpgradeSaveData upgradesToSave)
+        public static void SaveUpgrades(UpgradeSaveData upgradesToSave)
         {
             SaveToFile(_upgradesPath, upgradesToSave);
         }
 
-        public UpgradeSaveData LoadUpgrades()
+        public static UpgradeSaveData LoadUpgrades()
         {
             return LoadFromFile<UpgradeSaveData>(_upgradesPath);
         }
 
-        private void SaveToFile<T>(string path, T data)
+        private static void SaveToFile<T>(string path, T data)
         {
             using FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
             if (file == null)
@@ -46,7 +46,7 @@ namespace SurvivorsGame
             file.StoreBuffer(jsonBytes);
         }
 
-        private T LoadFromFile<T>(string path) where T : new()
+        private static T LoadFromFile<T>(string path) where T : new()
         {
             if (!FileAccess.FileExists(path)) return new T();
 

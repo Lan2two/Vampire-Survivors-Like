@@ -32,8 +32,6 @@ namespace SurvivorsGame
 
         public void ToggleBox(int i, bool state = true)
         {
-            GD.Print(i);
-            GD.Print(CheckBoxes);
             CheckBoxes[i].ButtonPressed = state;
         }
 
