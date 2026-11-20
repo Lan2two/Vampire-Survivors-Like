@@ -21,7 +21,6 @@ namespace SurvivorsGame
 
         public bool AddItem(ItemData itemData)
         {
-
             if (itemData == null)
             {
                 return false;
