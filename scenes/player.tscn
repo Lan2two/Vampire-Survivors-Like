@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ch5qbeiukyfd0"]
 
 [ext_resource type="Texture2D" uid="uid://davyudedmf2dw" path="res://assets/sprites/knight.png" id="1_fjrip"]
-[ext_resource type="Script" uid="uid://bhbq8p8gic681" path="res://scripts/player/Player.cs" id="1_smehm"]
+[ext_resource type="Script" uid="uid://dy1y6286kr37h" path="res://scripts/player/Player.cs" id="1_smehm"]
 [ext_resource type="Script" uid="uid://g80o8hshrv1n" path="res://scripts/player/StateMachine.cs" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bijshq8x3pr5y" path="res://assets/sprites/slime_green.png" id="2_ur7pv"]
 [ext_resource type="Script" uid="uid://0c8vpks0a618" path="res://scripts/player/Idle.cs" id="3_qhqgy"]
@@ -197,16 +197,16 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dvvg"]
-radius = 45.347282
+radius = 38.8691
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ur7pv"]
-radius = 9.0
+radius = 5.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1724972010]
 script = ExtResource("1_smehm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1701228797]
-position = Vector2(0, -1)
+position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"idle"
 
@@ -231,9 +231,8 @@ Speed = 200.0
 script = ExtResource("5_tuyoq")
 player = NodePath("../..")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1660121276 node_paths=PackedStringArray("playerSprite")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1660121276]
 script = ExtResource("6_fjrip")
-playerSprite = NodePath("../AnimatedSprite2D")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=473269241 node_paths=PackedStringArray("healthComponent")]
 script = ExtResource("7_smehm")

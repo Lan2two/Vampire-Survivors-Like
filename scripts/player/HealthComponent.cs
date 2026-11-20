@@ -5,7 +5,7 @@ using System;
 public partial class HealthComponent : Node
 {
     [Export] int maxHealth = 100;
-    [Export] AnimatedSprite2D playerSprite; // Reference to the player's sprite for flashing effect
+    [Export] AnimatedSprite2D Sprite;
     [Export] Color flashColor = new Color(1, 0, 0); // Red flash color
     [Export] float flashDuration = 0.1f; // Duration of the flash effect
 
@@ -15,9 +15,9 @@ public partial class HealthComponent : Node
 
     public override void _Ready()
     {
-        if (playerSprite == null)
+        if (Sprite == null)
         {
-            GD.PrintErr("Player Sprite not assigned in HealthComponent.");
+            GD.PrintErr("Sprite not assigned in HealthComponent.");
         }
         currentHealth = maxHealth;
     }
@@ -42,8 +42,8 @@ public partial class HealthComponent : Node
         else
         {
             _flashTween = CreateTween();
-            _flashTween.TweenProperty(playerSprite, "modulate", flashColor, flashDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-            _flashTween.TweenProperty(playerSprite, "modulate", Colors.White, flashDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut).SetDelay(flashDuration);
+            _flashTween.TweenProperty(Sprite, "modulate", flashColor, flashDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+            _flashTween.TweenProperty(Sprite, "modulate", Colors.White, flashDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut).SetDelay(flashDuration);
         }
     }
 
