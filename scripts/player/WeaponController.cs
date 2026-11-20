@@ -21,6 +21,10 @@ public partial class WeaponController : Node2D
         {
             TryForAttack();
         }
+        if (Input.IsActionJustPressed("drop_weapon"))
+        {
+            inventoryManager.DropWeapon();
+        }
     }
 
     private void TryForAttack()
@@ -29,17 +33,7 @@ public partial class WeaponController : Node2D
         {
             return;
         }
-        if (weapon is not IWeapon)
-        {
-            return;
-        }
-        if (weapon is MeleeWeapon meleeWeapon)
-        {
-            meleeWeapon.config = (MeleeWeaponBase)meleeWeapon.Baseconfig.Duplicate();
-            upgradeManager.UpgradeMelee(meleeWeapon);
-            meleeWeapon.UpdateDamage();
-        }
-        weapon.Use();
+        weapon.Use(upgradeManager);
     }
 
     private void AimRotationCursor()

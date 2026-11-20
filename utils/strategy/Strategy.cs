@@ -8,10 +8,9 @@ public enum UpgradeType
     Melee
 }
 [GlobalClass]
-public partial class Strategy : Resource
+public partial class Strategy : ItemData
 {
     [Export] public UpgradeType upgradeType { get; set; }
-    [Export] Texture2D Texture { get; set; }
     [Export] string UpgradeText { get; set; } = "Damage";
 
 }

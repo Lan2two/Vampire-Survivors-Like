@@ -2,5 +2,5 @@ using Godot;
 
 public interface IWeapon
 {
-    void Use();
+    void Use(UpgradeManager upgradeManager);
 }

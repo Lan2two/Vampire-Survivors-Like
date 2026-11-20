@@ -4,16 +4,11 @@ using Godot;
 public partial class DamageStrategy : Strategy, IStrategy
 {
     [Export] float UpgradeDamage { get; set; } = 5f;
-    public void ApplyUpgrade(Node2D node2D)
+    public void ApplyUpgrade(Resource config)
     {
-        if (node2D is Bullet bullet)
+        if (config is IDamageDealing damageable)
         {
-            bullet.config.Damage += UpgradeDamage;
-        }
-        if (node2D is MeleeWeapon meleeWeapon)
-        {
-            meleeWeapon.config.BaseDamage += UpgradeDamage;
+            damageable.Damage += UpgradeDamage;
         }
     }
-
 }

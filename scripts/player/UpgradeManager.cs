@@ -5,24 +5,13 @@ public partial class UpgradeManager : Node
 {
     [Export] InventoryManager inventoryManager;
 
-    public void UpgradeBullet(Bullet spawnedBullet)
+    public void ApplyUpgrades(Resource config, UpgradeType targetType)
     {
         foreach (Strategy strategy in inventoryManager.Upgrades)
         {
-            if (strategy.upgradeType == UpgradeType.Bullet && strategy is IStrategy bulletStrategy)
+            if (strategy.upgradeType == targetType && strategy is IStrategy s)
             {
-                bulletStrategy.ApplyUpgrade(spawnedBullet);
-            }
-        }
-    }
-
-    public void UpgradeMelee(MeleeWeapon meleeWeapon)
-    {
-        foreach (Strategy strategy in inventoryManager.Upgrades)
-        {
-            if (strategy.upgradeType == UpgradeType.Melee && strategy is IStrategy meleeStrategy)
-            {
-                meleeStrategy.ApplyUpgrade(meleeWeapon);
+                s.ApplyUpgrade(config);
             }
         }
     }

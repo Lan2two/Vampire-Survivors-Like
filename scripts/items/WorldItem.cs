@@ -4,7 +4,7 @@ using System;
 [GlobalClass]
 public partial class WorldItem : Node2D
 {
-    [Export] ItemData ItemData;
+    [Export] public ItemData ItemData;
     InteractableComponent interactableComponent;
     Sprite2D sprite2D;
 
@@ -14,7 +14,10 @@ public partial class WorldItem : Node2D
         interactableComponent = GetNode<InteractableComponent>("InteractableComponent");
         sprite2D = GetNode<Sprite2D>("Sprite2D");
         interactableComponent.Interact += OnInteract;
-        sprite2D.Texture = ItemData.ItemIcon;
+        if (ItemData != null)
+        {
+            sprite2D.Texture = ItemData.ItemIcon;
+        }
     }
 
     public override void _ExitTree()
@@ -25,7 +28,10 @@ public partial class WorldItem : Node2D
 
     private void OnInteract()
     {
-        this.GetPlayer().inventoryManager.AddItem(ItemData);
-        QueueFree();
+        bool picked = this.GetPlayer().inventoryManager.AddItem(ItemData);
+        if (picked)
+        {
+            QueueFree();
+        }
     }
 }

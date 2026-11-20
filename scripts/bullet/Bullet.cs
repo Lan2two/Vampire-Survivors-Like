@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Bullet : Area2D
+public partial class Bullet : Area2D, IWeapon
 {
     [Export] public BulletData config;
     private float traveledDistance = 0;
@@ -9,6 +9,12 @@ public partial class Bullet : Area2D
     public override void _Ready()
     {
         AreaEntered += OnAreaEntered;
+    }
+
+    public void Use(UpgradeManager upgradeManager)
+    {
+        config = config != null ? (BulletData)config.Duplicate() : new BulletData();
+        upgradeManager.ApplyUpgrades(config, UpgradeType.Bullet);
     }
 
     public override void _ExitTree()

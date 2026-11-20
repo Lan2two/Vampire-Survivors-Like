@@ -13,7 +13,6 @@ public partial class MeleeWeapon : Node2D, IWeapon
     private bool swingForward = true;
     public override void _Ready()
     {
-        config = (MeleeWeaponBase)Baseconfig.Duplicate();
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         animationPlayer.AnimationFinished += OnAnimationFinished;
         animationPlayer.AnimationStarted += OnAnimationStarted;
@@ -25,8 +24,17 @@ public partial class MeleeWeapon : Node2D, IWeapon
         animationPlayer.AnimationFinished -= OnAnimationFinished;
         animationPlayer.AnimationStarted -= OnAnimationStarted;
     }
-    public void Use()
+    public void Use(UpgradeManager upgradeManager)
     {
+        if (timer > 0)
+        {
+            return;
+        }
+
+        config = (MeleeWeaponBase)Baseconfig.Duplicate();
+        upgradeManager.ApplyUpgrades(config, UpgradeType.Melee);
+        UpdateDamage();
+
         Swing();
     }
 
