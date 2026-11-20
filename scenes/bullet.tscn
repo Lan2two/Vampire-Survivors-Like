@@ -4,15 +4,14 @@
 [ext_resource type="Script" uid="uid://iyr5qtuxsa2s" path="res://scripts/bullet/Bullet.cs" id="1_y25gk"]
 [ext_resource type="Resource" uid="uid://1467mnywj4s3" path="res://resources/BulletConfig.tres" id="2_bullet_config"]
 [ext_resource type="PackedScene" uid="uid://culrqwnv7cjpj" path="res://scenes/Trail.tscn" id="4_eoqba"]
+[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="5_qncy5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h1aey"]
 radius = 4.0
 
-[node name="Bullet" type="Area2D" unique_id=575893659]
+[node name="Bullet" type="Node2D" unique_id=327449615]
 top_level = true
 y_sort_enabled = true
-collision_layer = 0
-collision_mask = 2
 script = ExtResource("1_y25gk")
 config = ExtResource("2_bullet_config")
 
@@ -22,5 +21,12 @@ texture = ExtResource("1_mkf8s")
 
 [node name="Line2D" parent="Sprite2D" unique_id=400137548 instance=ExtResource("4_eoqba")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1681927426]
+[node name="AttackComponent" type="Area2D" parent="." unique_id=1293582519]
+scale = Vector2(0.057799753, 0.057799753)
+monitorable = false
+script = ExtResource("5_qncy5")
+metadata/_custom_type_script = "uid://be1ra4a5fewk7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent" unique_id=1681927426]
+scale = Vector2(17.301111, 17.301111)
 shape = SubResource("CircleShape2D_h1aey")

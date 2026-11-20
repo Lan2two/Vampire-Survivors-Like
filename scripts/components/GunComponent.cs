@@ -59,11 +59,13 @@ namespace SurvivorsGame
 
         private void Shoot()
         {
-            timer.WaitTime = GetFiringConfig().GunCooldown;
+            BulletData currentData = GetFiringConfig();
+            timer.WaitTime = currentData.GunCooldown;
 
             if (enemiesInRange.Count > 0)
             {
                 Bullet newBullet = BULLET.Instantiate<Bullet>();
+                newBullet.config = currentData;
                 newBullet.Use(upgradeManager);
                 newBullet.GlobalPosition = ShootPoint.GlobalPosition;
                 newBullet.GlobalRotation = ShootPoint.GlobalRotation;
