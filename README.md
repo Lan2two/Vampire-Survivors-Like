@@ -6,18 +6,18 @@ Some weapons you can pickup and drop others you can't
 # Controls
 **Movement**
 - Walking: WASD
-- Roll: Spacebar
+- Roll: Spacebar <br>
 **Attack**
-- Melee: Hold Left Click
+- Melee: Hold Left Click <br>
 **Items**
 - Interact: F
-- Drop: G
+- Drop: G <br>
 The gun fires automatically hence no input needed
 
 # Playing The Demo
 A prebuilt Windows demo is in the builds folder or in https://github.com/Lan2two/Vampire-Survivors-Like/releases <br>
 Requirements
-- Windows, 64-bit (x86_64). This is the only platform included in demo 1 <br>
+Windows, 64-bit (x86_64). This is the only platform included in demo 1 <br>
 **To Run** <br>
 Unzip the files inside the same folder and run the executable <br>
 Yea that's about it, the project is in compatibility mode so you can run it with a potato (only reason it's not in web is because godot 4 hates me and doesn't have web exports for C#)
