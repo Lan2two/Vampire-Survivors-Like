@@ -2,7 +2,6 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
-    using System;
 
     public partial class InventoryManager : Node
     {
@@ -11,13 +10,8 @@ namespace SurvivorsGame
         [Export] public PackedScene WorldItemScene;
         [Export] public Array<ItemData> Slots = new();
         [Export] public int MaxSlots = 8;
-        public Array<Strategy> NodeQueue = new();
         public Node weaponInstance;
         public WeaponBase currentWeapon;
-
-        public override void _Ready()
-        {
-        }
 
         public bool AddItem(ItemData itemData)
         {
@@ -35,13 +29,9 @@ namespace SurvivorsGame
             if (itemData is Strategy strategy)
             {
                 Upgrades.Add(strategy);
-                if (strategy is IAttachment)
+                if (strategy is IEventUpgrade eventUpgrade)
                 {
-                    NodeQueue.Add(strategy);
-                }
-                if (strategy.upgradeType == UpgradeType.Event)
-                {
-                    strategy.ApplyUpgrade();
+                    eventUpgrade.ApplyUpgrade();
                 }
                 EventBus.InvokeUpgrades(strategy);
                 return true;

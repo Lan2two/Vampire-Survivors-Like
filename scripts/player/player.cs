@@ -3,7 +3,7 @@ namespace SurvivorsGame
 	using Godot;
 	using System;
 
-	public partial class Player : RigidBody2D
+	public partial class Player : RigidBody2D, IUpgradable
 	{
 		[Export] public float playerXP = 0.0f;
 		public AnimatedSprite2D animatedSprite;
@@ -17,6 +17,8 @@ namespace SurvivorsGame
 		private bool DeathGuard = false;
 		private float _baseMaxHealth = 100f;
 		private float _baseMoveSpeed = 100f;
+		private PlayerStatsData config;
+		public Resource currentConfig => config;
 		public override void _Ready()
 		{
 			animatedSprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
@@ -74,21 +76,21 @@ namespace SurvivorsGame
 		}
 		private void CalculateStats()
 		{
-			PlayerStatsData stats = new PlayerStatsData
+			config = new PlayerStatsData
 			{
 				MaxHealth = _baseMaxHealth,
 				MoveSpeed = _baseMoveSpeed
 			};
-			upgradeManager.ApplyUpgrades(this, stats, UpgradeType.Player);
+			upgradeManager.ApplyUpgrades(this, UpgradeType.Player);
 			float previousMaxhealth = healthComponent.maxHealth;
-			healthComponent.maxHealth = stats.MaxHealth;
-			GD.Print($"MaxHp: {(int)stats.MaxHealth} Speed: {(int)stats.MoveSpeed}");
+			healthComponent.maxHealth = config.MaxHealth;
+			GD.Print($"MaxHp: {(int)config.MaxHealth} Speed: {(int)config.MoveSpeed}");
 			if (healthComponent.currentHealth > 0)
 			{
-				float heal = Mathf.Max(0f, stats.MaxHealth - previousMaxhealth);
-				healthComponent.currentHealth = Mathf.Clamp(healthComponent.currentHealth + heal, 0f, stats.MaxHealth);
+				float heal = Mathf.Max(0f, config.MaxHealth - previousMaxhealth);
+				healthComponent.currentHealth = Mathf.Clamp(healthComponent.currentHealth + heal, 0f, config.MaxHealth);
 			}
-			velocityComponent.maxSpeed = stats.MoveSpeed;
+			velocityComponent.maxSpeed = config.MoveSpeed;
 		}
 
 		private void TrackDamage(Attack attack)

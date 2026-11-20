@@ -4,7 +4,7 @@ namespace SurvivorsGame
     using Godot.Collections;
 
     [GlobalClass]
-    public partial class Gun : Area2D, IWeapon
+    public partial class Gun : Area2D, IWeapon, IUpgradable
     {
         [Export] private UpgradeManager upgradeManager;
         Timer timer;
@@ -12,7 +12,8 @@ namespace SurvivorsGame
         Array<Node2D> enemiesInRange;
         [Export] BulletData startingConfig;
         [Export] PackedScene BULLET;
-        private BulletData currentConfig;
+        private BulletData config;
+        public Resource currentConfig => config;
 
         public override void _Ready()
         {
@@ -76,7 +77,7 @@ namespace SurvivorsGame
             if (enemiesInRange.Count > 0)
             {
                 Bullet newBullet = BULLET.Instantiate<Bullet>();
-                newBullet.config = currentConfig;
+                newBullet.config = config;
                 newBullet.Fire();
                 newBullet.GlobalPosition = ShootPoint.GlobalPosition;
                 newBullet.GlobalRotation = ShootPoint.GlobalRotation;
@@ -86,15 +87,9 @@ namespace SurvivorsGame
 
         private void OnUpgrade()
         {
-            currentConfig = GetFiringConfig();
-            timer.WaitTime = currentConfig.GunCooldown;
-        }
-
-        private BulletData GetFiringConfig()
-        {
-            BulletData firingConfig = (BulletData)startingConfig.Duplicate();
-            upgradeManager.ApplyUpgrades(this, firingConfig, UpgradeType.Bullet);
-            return firingConfig;
+            config = (BulletData)startingConfig.Duplicate();
+            upgradeManager.ApplyUpgrades(this, UpgradeType.Bullet);
+            timer.WaitTime = config.GunCooldown;
         }
     }
 }

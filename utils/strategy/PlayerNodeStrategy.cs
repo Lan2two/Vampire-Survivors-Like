@@ -5,9 +5,10 @@ namespace SurvivorsGame
 
     [Tool] // Required to process inspector rendering in-editor
     [GlobalClass]
-    public partial class PlayerNodeStrategy : Strategy, IAttachment
+    public partial class PlayerNodeStrategy : Strategy
     {
         private PackedScene _packedScene;
+        private bool called = false;
 
         // Fully serialized dictionary tracking dynamic configurations
         [Export] private Dictionary _subsceneData = new();
@@ -35,8 +36,13 @@ namespace SurvivorsGame
             MaxStackSize = 1;
         }
 
-        public void ApplyUpgrade(Node2D node)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
+            if (upgradable is not Node || called == true)
+            {
+                return;
+            }
+            Node node = upgradable as Node;
             if (_packedScene == null || node == null)
             {
                 return;
@@ -52,7 +58,9 @@ namespace SurvivorsGame
             }
 
             node.AddChild(sceneInstance);
+            called = true;
         }
+
 
         // 1. Tell Godot's inspector what properties to display dynamically
         public override Array<Dictionary> _GetPropertyList()

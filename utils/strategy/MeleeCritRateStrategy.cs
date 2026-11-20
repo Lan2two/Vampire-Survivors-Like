@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class MeleeCritRateStrategy : Strategy, IStatStrategy
+    public partial class MeleeCritRateStrategy : Strategy
     {
         [Export] float UpgradeCritRate { get; set; } = 5;
 
@@ -14,8 +14,9 @@ namespace SurvivorsGame
             ItemDescription = "Increase Melee Crit Rate";
         }
 
-        public void ApplyUpgrade(Resource config)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
+            Resource config = upgradable.currentConfig;
             if (config is MeleeWeaponBase damageable)
             {
                 damageable.CritRate += UpgradeCritRate;

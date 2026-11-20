@@ -3,7 +3,7 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class PlayerSpeedStrategy : Strategy, IStatStrategy, IStatUpgrade
+    public partial class PlayerSpeedStrategy : Strategy, IStatUpgrade
     {
         [Export] float UpgradeSpeed { get; set; } = 10f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
@@ -15,13 +15,10 @@ namespace SurvivorsGame
             ItemName = "Agility";
             ItemDescription = "More speed";
         }
-        public void ApplyUpgrade(Resource config)
-        {
-            ApplyStat(config, UpgradeSpeed);
-        }
 
-        public void ApplyStat(Resource config, float totalAmount)
+        public void ApplyStat(IUpgradable upgradable, float totalAmount)
         {
+            Resource config = upgradable.currentConfig;
             if (config is PlayerStatsData stats)
             {
                 stats.MoveSpeed = CalculateStatUpgrade(

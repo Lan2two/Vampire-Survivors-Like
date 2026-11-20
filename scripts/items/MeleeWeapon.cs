@@ -4,7 +4,7 @@ namespace SurvivorsGame
     using System;
 
 
-    public partial class MeleeWeapon : Weapon, IWeapon, IWeaponConfigurable
+    public partial class MeleeWeapon : Weapon, IWeapon, IWeaponConfigurable, IUpgradable
     {
         [Export] private bool SwingVariant;
         public MeleeWeaponBase Baseconfig;
@@ -13,6 +13,7 @@ namespace SurvivorsGame
         public MeleeWeaponBase config;
         private double timer = 0;
         private bool swingForward = true;
+        public Resource currentConfig => config;
 
         public override void _Ready()
         {
@@ -41,7 +42,7 @@ namespace SurvivorsGame
         private void OnUpgrade()
         {
             config = (MeleeWeaponBase)Baseconfig.Duplicate();
-            upgradeManager.ApplyUpgrades(this, config, UpgradeType.Melee);
+            upgradeManager.ApplyUpgrades(this, UpgradeType.Melee);
             UpdateDamage(config, attackComponent);
         }
         public void Use()
