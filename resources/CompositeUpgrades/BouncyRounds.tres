@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://be0heed8e2y54"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_k1ruo"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_5vm0l"]
+[ext_resource type="Script" uid="uid://dqow2p6kmk3sg" path="res://utils/strategy/BulletBounceStrategy.cs" id="3_ojss3"]
+[ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/BulletPierceStrategy.cs" id="4_ao04r"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="5_kk1ms"]
+
+[sub_resource type="Resource" id="Resource_n7bdd"]
+script = ExtResource("3_ojss3")
+metadata/_custom_type_script = "uid://dqow2p6kmk3sg"
+
+[sub_resource type="Resource" id="Resource_yy1yx"]
+script = ExtResource("4_ao04r")
+metadata/_custom_type_script = "uid://cbifaria4lqs3"
+
+[resource]
+script = ExtResource("5_kk1ms")
+Children = Array[ExtResource("1_k1ruo")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx")])
+ItemName = "Bouncy Rounds"
+ItemDescription = "Bullets bounce between nearby enemies"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://mnxbouc6padw"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_oewko"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_iynn3"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="3_nscgy"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="4_qfwcc"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="5_lstt8"]
+
+[sub_resource type="Resource" id="Resource_d5rnw"]
+script = ExtResource("3_nscgy")
+UpgradeCooldown = 0.15
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_yy3iv"]
+script = ExtResource("4_qfwcc")
+UpgradeDamage = -15.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[resource]
+script = ExtResource("5_lstt8")
+Children = Array[ExtResource("1_oewko")]([SubResource("Resource_d5rnw"), SubResource("Resource_yy3iv")])
+MaxStackSize = 2
+ItemName = "Light Rounds"
+ItemDescription = "Weaker but faster shots"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

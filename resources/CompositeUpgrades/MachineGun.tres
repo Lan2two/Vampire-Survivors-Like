@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="CompositeStrategy" format=3 uid="uid://b6uud03qfm4ro"]
+
+[ext_resource type="Script" uid="uid://b3kvltg1cnv" path="res://utils/strategy/Strategy.cs" id="1_kgg2c"]
+[ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_iq32u"]
+[ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/BulletDamageStrategy.cs" id="3_4o4af"]
+[ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="4_patyk"]
+[ext_resource type="Script" uid="uid://b62e4twpi050i" path="res://utils/strategy/BulletKnockbackStrategy.cs" id="5_a2a7i"]
+[ext_resource type="Script" uid="uid://bbhbxariivqbp" path="res://utils/strategy/BulletBurstStrategy.cs" id="6_gqqfq"]
+[ext_resource type="Script" uid="uid://ccvfk48q4yhoh" path="res://utils/strategy/BulletSpreadStrategy.cs" id="7_upnqo"]
+[ext_resource type="Script" uid="uid://dvgounn1leqxm" path="res://utils/strategy/BulletBurstIntervalStrategy.cs" id="8_4wp4q"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="9_n1m6p"]
+
+[sub_resource type="Resource" id="Resource_fuvlu"]
+script = ExtResource("3_4o4af")
+UpgradeDamage = -100.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_2jdyx"]
+script = ExtResource("4_patyk")
+UpgradeCooldown = -250.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_q1xwu"]
+script = ExtResource("5_a2a7i")
+UpgradeKnockback = -70.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[sub_resource type="Resource" id="Resource_f6cyg"]
+script = ExtResource("6_gqqfq")
+BurstAmount = 15
+metadata/_custom_type_script = "uid://bbhbxariivqbp"
+
+[sub_resource type="Resource" id="Resource_ajpna"]
+script = ExtResource("7_upnqo")
+AddSpread = 0.8
+metadata/_custom_type_script = "uid://ccvfk48q4yhoh"
+
+[sub_resource type="Resource" id="Resource_fs073"]
+script = ExtResource("8_4wp4q")
+metadata/_custom_type_script = "uid://dvgounn1leqxm"
+
+[resource]
+script = ExtResource("9_n1m6p")
+Children = Array[ExtResource("1_kgg2c")]([SubResource("Resource_fuvlu"), SubResource("Resource_2jdyx"), SubResource("Resource_q1xwu"), SubResource("Resource_f6cyg"), SubResource("Resource_ajpna"), SubResource("Resource_fs073")])
+MaxStackSize = 2
+ItemName = "Machine Gun Fire"
+ItemDescription = "Weak but fast shots"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

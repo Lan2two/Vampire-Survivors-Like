@@ -245,12 +245,12 @@ namespace SurvivorsGame
             if (i < 0 || i >= _activeUpgrades.Count) return;
 
             Strategy chosenUpgrade = _activeUpgrades[i].SelectedStrategy;
+            chosenUpgrade.Count++;
+
             if (inventory != null)
             {
                 inventory.AddItem(chosenUpgrade);
             }
-
-            chosenUpgrade.Count++;
 
             if (chosenUpgrade.Count >= chosenUpgrade.MaxStackSize)
             {

@@ -1,5 +1,6 @@
 namespace SurvivorsGame
 {
+    using System.Collections.Generic;
     using Godot;
     using Godot.Collections;
 
@@ -8,8 +9,7 @@ namespace SurvivorsGame
     public partial class NodeStrategy : Strategy
     {
         private PackedScene _packedScene;
-        Node2D sceneInstance;
-        Node currentNode;
+        private readonly System.Collections.Generic.Dictionary<ulong, List<Node2D>> _sceneInstancesByNode = new();
 
         [Export] private Dictionary _subsceneData = new();
 
@@ -32,6 +32,7 @@ namespace SurvivorsGame
             }
         }
         [Export] public override UpgradeType upgradeType { get; set; }
+        [Export] public bool UniqueScenePerStack { get; set; }
 
         public NodeStrategy()
         {
@@ -42,25 +43,53 @@ namespace SurvivorsGame
 
         public override void ApplyUpgrade(IUpgradable upgradable)
         {
-            if (upgradable is not Node) return;
+            GD.Print("Node Upgrade");
+            if (upgradable is not Node node || _packedScene == null) return;
 
-            Node node = upgradable as Node;
-            if (_packedScene == null || node == null) return;
-
-            if (sceneInstance == null || currentNode != node)
+            if (UniqueScenePerStack)
             {
-                sceneInstance = _packedScene.Instantiate<Node2D>();
-                currentNode = node;
+                ApplyUniqueStackScenes(node);
             }
-            if (node.GetChildren().Contains(sceneInstance)) return;
-
-            // Reapply stored values safely via Godot's reflection API
-            foreach (var key in _subsceneData.Keys)
+            else
             {
-                string propName = key.AsString();
-                sceneInstance.Set(propName, _subsceneData[propName]);
+                ApplySingleScene(node);
             }
-            node.AddChild(sceneInstance);
+        }
+
+        private void ApplyUniqueStackScenes(Node node)
+        {
+            EnsureSceneInstanceCount(node, Mathf.Max(1, Count));
+        }
+
+        private void ApplySingleScene(Node node)
+        {
+            EnsureSceneInstanceCount(node, 1);
+        }
+
+        private void EnsureSceneInstanceCount(Node node, int desiredCount)
+        {
+            ulong nodeId = node.GetInstanceId();
+            if (!_sceneInstancesByNode.TryGetValue(nodeId, out List<Node2D> sceneInstances))
+            {
+                sceneInstances = new List<Node2D>();
+                _sceneInstancesByNode.Add(nodeId, sceneInstances);
+            }
+
+            sceneInstances.RemoveAll(instance =>
+                !IsInstanceValid(instance) || instance.GetParent() != node);
+
+            while (sceneInstances.Count < desiredCount)
+            {
+                Node2D sceneInstance = _packedScene.Instantiate<Node2D>();
+                foreach (var key in _subsceneData.Keys)
+                {
+                    string propName = key.AsString();
+                    sceneInstance.Set(propName, _subsceneData[propName]);
+                }
+
+                node.AddChild(sceneInstance);
+                sceneInstances.Add(sceneInstance);
+            }
         }
 
         // ==========================================
