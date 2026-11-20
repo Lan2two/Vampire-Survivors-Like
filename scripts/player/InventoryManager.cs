@@ -9,6 +9,7 @@ public partial class InventoryManager : Node
     [Export] public Array<Strategy> Upgrades;
     [Export] public WeaponController weaponController;
     public Node weaponInstance;
+    public WeaponBase currentWeapon;
     [Export] public ItemData[] Slots = System.Array.Empty<ItemData>();
 
     public override void _Ready()

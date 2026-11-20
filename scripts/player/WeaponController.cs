@@ -33,6 +33,12 @@ public partial class WeaponController : Node2D
         {
             return;
         }
+        if (weapon is MeleeWeapon meleeWeapon)
+        {
+            meleeWeapon.config = (MeleeWeaponBase)meleeWeapon.Baseconfig.Duplicate();
+            upgradeManager.UpgradeMelee(meleeWeapon);
+            meleeWeapon.UpdateDamage();
+        }
         weapon.Use();
     }
 
