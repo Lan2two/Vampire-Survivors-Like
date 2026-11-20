@@ -16,7 +16,7 @@ namespace SurvivorsGame
             Enemy.EnemyDied -= UpdateCounter;
         }
 
-        private void UpdateCounter(Enemy enemy)
+        private void UpdateCounter()
         {
             Text = $"Kills: {Enemy.EnemiesKilled}";
         }
