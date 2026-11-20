@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 [GlobalClass]
-public partial class DamageComponent : Area2D
+public partial class AttackComponent : Area2D
 {
     [Export] public float damage = 10f;
     [Export] public float knockback = 100f;

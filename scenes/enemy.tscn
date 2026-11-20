@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="12_wtq4b"]
 [ext_resource type="Script" uid="uid://cewm15wxhuelr" path="res://scripts/components/HitFlashComponent.cs" id="13_wtq4b"]
-[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="15_g0wcc"]
+[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="15_g0wcc"]
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="16_s1ycm"]
 [ext_resource type="Script" uid="uid://cdw8gc8lrtxck" path="res://scripts/components/FctComponent.cs" id="17_shcg2"]
 
@@ -194,13 +194,13 @@ script = ExtResource("4_md484")
 enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "hitboxComponent", "healthComponent", "velocityComponent", "damageComponent", "Sprite")]
+[node name="Death" type="Node" parent="StateMachine" unique_id=925956279 node_paths=PackedStringArray("characterBody", "hitboxComponent", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
 script = ExtResource("7_ile5s")
 characterBody = NodePath("../..")
 hitboxComponent = NodePath("../../HitboxComponent")
 healthComponent = NodePath("../../HealthComponent")
 velocityComponent = NodePath("../../VelocityComponent")
-damageComponent = NodePath("../../DamageComponent")
+attackComponent = NodePath("../../AttackComponent")
 Sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://1pglkcxd7gg8"
 
@@ -246,14 +246,14 @@ script = ExtResource("13_wtq4b")
 Sprite = NodePath("../AnimatedSprite2D")
 healthComponent = NodePath("../HealthComponent")
 
-[node name="DamageComponent" type="Area2D" parent="." unique_id=1858224252]
+[node name="AttackComponent" type="Area2D" parent="." unique_id=1858224252]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("15_g0wcc")
 SingleHit = false
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent" unique_id=1330584947]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent" unique_id=1330584947]
 shape = SubResource("CircleShape2D_s1ycm")
 
 [node name="KnockbackComponent" type="Node" parent="." unique_id=247361539 node_paths=PackedStringArray("healthComponent", "velocityComponent", "characterBody")]

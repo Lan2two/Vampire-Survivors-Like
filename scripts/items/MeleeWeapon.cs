@@ -5,7 +5,7 @@ using System;
 public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
 {
     public MeleeWeaponBase Baseconfig;
-    [Export] DamageComponent damageComponent;
+    [Export] AttackComponent attackComponent;
     [Export] bool SwingVariant;
     AnimationPlayer animationPlayer;
     public MeleeWeaponBase config;
@@ -57,8 +57,8 @@ public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
 
     public void UpdateDamage()
     {
-        damageComponent.damage = config.BaseDamage;
-        damageComponent.knockback = config.BaseKnockback;
+        attackComponent.damage = config.BaseDamage;
+        attackComponent.knockback = config.BaseKnockback;
     }
     private void Swing()
     {
@@ -98,7 +98,7 @@ public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
         }
 
         SetDamageNodeEnabled(false);
-        damageComponent.ClearHash();
+        attackComponent.ClearHash();
     }
     private void OnAnimationStarted(StringName animName)
     {
@@ -112,12 +112,12 @@ public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
 
     private void SetDamageNodeEnabled(bool enabled)
     {
-        if (damageComponent == null)
+        if (attackComponent == null)
         {
             return;
         }
 
-        damageComponent.SetDeferred("monitoring", enabled);
-        damageComponent.SetPhysicsProcess(enabled);
+        attackComponent.SetDeferred("monitoring", enabled);
+        attackComponent.SetPhysicsProcess(enabled);
     }
 }

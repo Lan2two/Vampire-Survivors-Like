@@ -177,13 +177,13 @@ script = ExtResource("6_xnead")
 enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Death" type="Node" parent="StateMachine" unique_id=478835176 node_paths=PackedStringArray("characterBody", "hitboxComponent", "healthComponent", "velocityComponent", "damageComponent", "Sprite")]
+[node name="Death" type="Node" parent="StateMachine" unique_id=478835176 node_paths=PackedStringArray("characterBody", "hitboxComponent", "healthComponent", "velocityComponent", "attackComponent", "Sprite")]
 script = ExtResource("7_umyb8")
 characterBody = NodePath("../..")
 hitboxComponent = NodePath("../../HitboxComponent")
 healthComponent = NodePath("../../HealthComponent")
 velocityComponent = NodePath("../../VelocityComponent")
-damageComponent = NodePath("")
+attackComponent = NodePath("")
 Sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://1pglkcxd7gg8"
 

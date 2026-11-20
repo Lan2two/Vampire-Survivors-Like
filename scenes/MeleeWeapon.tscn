@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://wh1c8bo3o6q8" path="res://scripts/items/MeleeWeapon.cs" id="1_io1w2"]
 [ext_resource type="Script" uid="uid://dywixrbgtp314" path="res://resources/MeleeWeaponBase.cs" id="2_77l1b"]
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="2_io1w2"]
-[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/DamageComponent.cs" id="3_77l1b"]
+[ext_resource type="Script" uid="uid://be1ra4a5fewk7" path="res://scripts/components/AttackComponent.cs" id="3_77l1b"]
 
 [sub_resource type="Resource" id="Resource_xucw5"]
 script = ExtResource("2_77l1b")
@@ -51,10 +51,10 @@ _data = {
 &"swing": SubResource("Animation_t7crx")
 }
 
-[node name="MeleeWeapon" type="Node2D" unique_id=100259256 node_paths=PackedStringArray("damageComponent")]
+[node name="MeleeWeapon" type="Node2D" unique_id=100259256 node_paths=PackedStringArray("attackComponent")]
 script = ExtResource("1_io1w2")
 Baseconfig = SubResource("Resource_xucw5")
-damageComponent = NodePath("Sprite2D/DamageComponent")
+attackComponent = NodePath("Sprite2D/AttackComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=434499713]
 position = Vector2(8, -12)
@@ -63,7 +63,7 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("2_io1w2")
 hframes = 12
 
-[node name="DamageComponent" type="Area2D" parent="Sprite2D" unique_id=275614870]
+[node name="AttackComponent" type="Area2D" parent="Sprite2D" unique_id=275614870]
 rotation = 0.7853982
 scale = Vector2(1.0000001, 1.0000001)
 monitoring = false
@@ -71,7 +71,7 @@ script = ExtResource("3_77l1b")
 DamageInterval = 0.2
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/DamageComponent" unique_id=742652395]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/AttackComponent" unique_id=742652395]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_2dcma")
 
