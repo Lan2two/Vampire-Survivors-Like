@@ -19,7 +19,7 @@ namespace SurvivorsGame
         public float CritRateAdditive;
         public float CritRatePercent;
 
-        [Export] public float CritDamageBase = 1.3f;
+        [Export] public float CritDamageBase = 30f;
         public float CritDamageAdditive;
         public float CritDamagePercent;
 
