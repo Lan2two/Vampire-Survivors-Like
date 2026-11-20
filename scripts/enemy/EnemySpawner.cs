@@ -2,10 +2,9 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
-
     public partial class EnemySpawner : Path2D
     {
-        [Export] private Array<Array<PackedScene>> EnemyTable;
+        [Export] private Array<EnemyRow> EnemyTable = new();
         [Export] private double PatternTime = 90;
         [Export] private bool LoopPattern = false;
         [Export] private double spawnInterval = 1;
@@ -19,9 +18,9 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             pathFollow = GetNodeOrNull<PathFollow2D>("PathFollow2D");
-            if (EnemyTable.Count == 0)
+            if (EnemyTable == null || EnemyTable.Count == 0)
             {
-                GD.PrintErr("No EnemyScene is not assigned in EnemySpawner.");
+                GD.PrintErr("No EnemyTable is assigned in EnemySpawner.");
                 SetPhysicsProcess(false);
                 return;
             }
@@ -49,11 +48,11 @@ namespace SurvivorsGame
             _patternTimer -= delta;
             if (_patternTimer < 0)
             {
-                if (pattern < EnemyTable.Count)
+                if (pattern < EnemyTable.Count - 1)
                 {
                     pattern++;
                 }
-                if (LoopPattern && pattern == EnemyTable.Count)
+                else if (LoopPattern)
                 {
                     pattern = 0;
                 }
@@ -73,14 +72,20 @@ namespace SurvivorsGame
 
         private void SpawnEnemy()
         {
-            float randomRatio = (float)GD.RandRange(0.0, 1.0);
-            int randEnemy = GD.RandRange(0, EnemyTable[pattern].Count - 1);
-            pathFollow.ProgressRatio = randomRatio;
+            if (pattern >= EnemyTable.Count || EnemyTable[pattern] == null || EnemyTable[pattern].Enemies.Count == 0)
+            {
+                return;
+            }
 
-            Node2D enemyInstance = EnemyTable[pattern][randEnemy].Instantiate<Node2D>();
+            float randomRatio = (float)GD.RandRange(0.0, 1.0);
+            int randEnemy = GD.RandRange(0, EnemyTable[pattern].Enemies.Count - 1);
+            pathFollow.ProgressRatio = randomRatio;
+            EnemyData _targetData = EnemyTable[pattern].Enemies[randEnemy];
+
+            Enemy enemyInstance = _targetData.EnemyScene.Instantiate<Enemy>();
             if (enemyInstance == null)
             {
-                GD.PrintErr("EnemySpawner could not instantiate a Node2D enemy.");
+                GD.PrintErr("EnemySpawner could not instantiate an Enemy.");
                 return;
             }
 
@@ -91,9 +96,13 @@ namespace SurvivorsGame
                 GD.PrintErr("EnemySpawner cannot spawn because there is no current scene.");
                 return;
             }
-
             currentScene.AddChild(enemyInstance);
+            enemyInstance.SetStats(_targetData.Health, _targetData.Defense, _targetData.Speed, _targetData.CoinAmount, _targetData.XpAmount, _targetData.Modulate);
+            GD.Print(_targetData.Modulate);
+            GD.Print(enemyInstance.Modulate);
             enemyInstance.GlobalPosition = pathFollow.GlobalPosition;
         }
     }
+
+
 }
