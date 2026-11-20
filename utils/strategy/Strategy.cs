@@ -11,6 +11,5 @@ public enum UpgradeType
 public partial class Strategy : ItemData
 {
     [Export] public UpgradeType upgradeType { get; set; }
-    [Export] string UpgradeText { get; set; } = "Damage";
 
 }

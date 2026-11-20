@@ -73,6 +73,10 @@ public partial class InventoryManager : Node
         weaponInstance = weapon.WeaponVisualScene.Instantiate();
         weaponController.handposition.AddChild(weaponInstance);
         weaponController.weapon = weaponInstance as IWeapon;
+        if (weaponInstance is IWeaponConfigurable configurableWeapon)
+        {
+            configurableWeapon.Configure(weapon);
+        }
         currentWeapon = weapon;
         GD.Print("Equipped: " + weapon.ItemName);
     }

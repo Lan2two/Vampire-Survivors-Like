@@ -34,7 +34,6 @@ public partial class KnockbackComponent : Node
         {
             velocityComponent.Velocity += knockbackVelocity;
         }
-        GD.Print($"Knockback applied: {knockbackVelocity}, New Velocity: {velocityComponent.Velocity}");
     }
 
 }

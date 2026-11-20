@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 
-public partial class MeleeWeapon : Node2D, IWeapon
+public partial class MeleeWeapon : Node2D, IWeapon, IWeaponConfigurable
 {
     public MeleeWeaponBase Baseconfig;
     [Export] DamageComponent damageComponent;
@@ -11,6 +11,9 @@ public partial class MeleeWeapon : Node2D, IWeapon
     public MeleeWeaponBase config;
     private double timer = 0;
     private bool swingForward = true;
+
+
+
     public override void _Ready()
     {
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -38,6 +41,15 @@ public partial class MeleeWeapon : Node2D, IWeapon
         Swing();
     }
 
+    public void Configure(WeaponBase weaponData)
+    {
+        if (weaponData is not MeleeWeaponBase meleeWeaponData)
+        {
+            throw new ArgumentException("MeleeWeapon requires MeleeWeaponBase data.", nameof(weaponData));
+        }
+
+        Baseconfig = meleeWeaponData;
+    }
     public override void _PhysicsProcess(double delta)
     {
         timer -= delta;
@@ -54,9 +66,10 @@ public partial class MeleeWeapon : Node2D, IWeapon
         {
             return;
         }
-        float speedMultiplier = Math.Abs(config.SwingSpeedMultiplier);
+        float speedMultiplier = config.SwingSpeedMultiplier;
         timer = config.swingCooldown / speedMultiplier;
         animationPlayer.SpeedScale = speedMultiplier;
+        GD.Print($"Swinging weapon with speed multiplier: {speedMultiplier}, cooldown: {config.swingCooldown}, timer set to: {timer}");
 
         if (SwingVariant)
         {
