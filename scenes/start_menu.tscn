@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cycqgne5vj7fw"]
+
+[ext_resource type="Script" uid="uid://c1ipng8lk3qou" path="res://scripts/GUI/StartMenu.cs" id="1_ouf4f"]
+
+[node name="Start Menu" type="Control" unique_id=1891589572]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ouf4f")
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=1968761746]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.5
+offset_top = -72.5
+offset_right = 170.5
+offset_bottom = 72.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="StartButton" type="Button" parent="MenuContainer" unique_id=1934616661]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="MenuContainer" unique_id=550946379]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Exit"
