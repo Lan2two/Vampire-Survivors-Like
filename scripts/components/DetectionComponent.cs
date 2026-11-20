@@ -1,12 +1,11 @@
 using Godot;
 using System;
+using System.Numerics;
 
 [GlobalClass]
 public partial class DetectionComponent : Area2D
 {
-    [Export] CharacterBody2D characterBody;
-    [Export] VelocityComponent Velocity;
-    Vector2 target;
+    bool playerInRange;
 
     public override void _Ready()
     {
@@ -14,20 +13,18 @@ public partial class DetectionComponent : Area2D
         Connect(Area2D.SignalName.BodyExited, new Callable(this, nameof(OnBodyExit)));
     }
 
+    public bool IsPlayerInRange()
+    {
+        return playerInRange;
+    }
+
     private void OnBodyEntered(Node body)
     {
-        if (body is Player)
-        {
-            target = GlobalPosition.DirectionTo(this.GetPlayer()?.GlobalPosition ?? GlobalPosition);
-            GD.Print(target);
-            Velocity.AccelerateToDirection(target);
-            Velocity.Move(target);
-
-        }
+        playerInRange = true;
     }
 
     private void OnBodyExit(Node body)
     {
-
+        playerInRange = false;
     }
 }
