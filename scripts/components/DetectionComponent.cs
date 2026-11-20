@@ -11,7 +11,6 @@ public partial class DetectionComponent : Area2D
     {
         Connect(Area2D.SignalName.BodyEntered, new Callable(this, nameof(OnBodyEntered)));
         Connect(Area2D.SignalName.BodyExited, new Callable(this, nameof(OnBodyExit)));
-
     }
 
     public bool IsPlayerInRange()

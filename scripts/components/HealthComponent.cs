@@ -47,9 +47,17 @@ public partial class HealthComponent : Node
         }
     }
 
-    private void Die()
+    private async void Die()
     {
-        // Handle death logic here (e.g., respawn, game over screen, etc.)
-
+        if (Sprite.SpriteFrames.HasAnimation("die"))
+        {
+            Sprite.Play("die");
+            await ToSignal(Sprite, AnimatedSprite2D.SignalName.AnimationFinished);
+            GetParent().QueueFree();
+        }
+        else
+        {
+            GetParent().QueueFree();
+        }
     }
 }

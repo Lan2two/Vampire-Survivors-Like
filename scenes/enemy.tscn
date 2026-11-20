@@ -162,6 +162,7 @@ metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1925952333 node_paths=PackedStringArray("Sprite")]
 script = ExtResource("7_w8i8w")
+maxHealth = 10
 Sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
@@ -183,7 +184,7 @@ shape = SubResource("CircleShape2D_md484")
 script = ExtResource("11_w8i8w")
 characterBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
-maxSpeed = 10.0
+maxSpeed = 30.0
 acceleration = 10.0
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
