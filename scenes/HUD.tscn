@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bp8ndd1bodxe" path="res://utils/strategy/MeleeDamageStrategy.cs" id="12_gm6g3"]
 [ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/BulletFireRateStrategy.cs" id="13_fire_rate"]
 [ext_resource type="Script" uid="uid://1mmaum2i8n02" path="res://scripts/GUI/HealthBar.cs" id="15_vjrnn"]
+[ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="16_5eteg"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="16_8fbvn"]
 [ext_resource type="Script" uid="uid://c4gx0wccn0h4a" path="res://scripts/GUI/RollDisplay.cs" id="18_rq3sv"]
 
@@ -61,6 +62,29 @@ metadata/_custom_type_script = "uid://db4vbufj1pkwa"
 [sub_resource type="Resource" id="Resource_adr5q"]
 script = ExtResource("11_m8p4d")
 metadata/_custom_type_script = "uid://chck2eeaeerer"
+
+[sub_resource type="Resource" id="Resource_5eteg"]
+script = ExtResource("6_dcyui")
+UpgradeDamage = 10.0
+metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
+
+[sub_resource type="Resource" id="Resource_pn61u"]
+script = ExtResource("13_fire_rate")
+UpgradeCooldown = -0.5
+metadata/_custom_type_script = "uid://oqh36h4jc3jy"
+
+[sub_resource type="Resource" id="Resource_rvumk"]
+script = ExtResource("7_8inel")
+UpgradeKnockback = 100.0
+metadata/_custom_type_script = "uid://b62e4twpi050i"
+
+[sub_resource type="Resource" id="Resource_t8u3o"]
+script = ExtResource("16_5eteg")
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_5eteg"), SubResource("Resource_pn61u"), SubResource("Resource_rvumk")])
+UpgradePool = 2
+ItemName = "Heavy Rounds"
+ItemDescription = "Bullets deal more damage and knockback but take longer to fire"
+metadata/_custom_type_script = "uid://dhp8m7anvq1lh"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3xxf"]
 content_margin_left = 10.0
@@ -219,7 +243,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 13
 alignment = 1
 script = ExtResource("6_u5cq1")
-Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q")])
+Strategies = Array[ExtResource("5_cws7i")]([SubResource("Resource_cws7i"), SubResource("Resource_8inel"), SubResource("Resource_vjrnn"), SubResource("Resource_8fbvn"), SubResource("Resource_ajyu1"), SubResource("Resource_m8p4d"), SubResource("Resource_gm6g3"), SubResource("Resource_adr5q"), SubResource("Resource_t8u3o")])
 xpBar = NodePath("../../XpBar")
 
 [node name="Upgrade1" type="Button" parent="UpgradeMenu/UpgradeButtonContainer" unique_id=499441132]

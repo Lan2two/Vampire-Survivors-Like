@@ -92,7 +92,7 @@ namespace SurvivorsGame
 
                 _RandUpgrades.Add(randStrategy);
                 button.Icon = randStrategy.ItemIcon;
-                button.Text = $"{randStrategy.ItemName}\n{randStrategy.ItemDescription}\n{randStrategy.Count}/{randStrategy.UpgradePool}";
+                button.Text = $"{randStrategy.ItemName}\n{randStrategy.GetDescription()}\n{randStrategy.Count}/{randStrategy.UpgradePool}";
 
             }
 

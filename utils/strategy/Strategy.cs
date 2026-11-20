@@ -18,5 +18,10 @@ namespace SurvivorsGame
         public int UpgradePool { get; set; } = 3;
         public int Count { get; set; }
         public UpgradeType upgradeType;
+
+        public virtual string GetDescription()
+        {
+            return ItemDescription;
+        }
     }
 }
