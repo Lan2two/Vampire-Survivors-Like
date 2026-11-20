@@ -15,15 +15,13 @@ public partial class FctComponent : Node2D
             GD.PrintErr("HealthComponent not assigned in FctComponent.");
             return;
         }
-
+        healthComponent.Damage += DisplayDamage;
+        damageLabelScene = GD.Load<PackedScene>("uid://bip5ogwimo5xy");
         if (damageLabelScene == null)
         {
             GD.PrintErr("Damage label scene not assigned in FctComponent.");
             return;
         }
-
-        healthComponent.Damage += DisplayDamage;
-        damageLabelScene = GD.Load<PackedScene>("uid://bip5ogwimo5xy");
     }
 
     public override void _ExitTree()

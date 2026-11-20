@@ -298,7 +298,6 @@ frame = 7
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1260947268]
-visible = false
 scale = Vector2(0.15436426, 0.15436426)
 shape = SubResource("CircleShape2D_4dvvg")
 
@@ -322,7 +321,6 @@ metadata/_custom_type_script = "uid://77fm1np7g5nw"
 script = ExtResource("8_ur7pv")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=473269241 node_paths=PackedStringArray("healthComponent")]
-visible = false
 collision_layer = 4
 script = ExtResource("9_y4r1p")
 healthComponent = NodePath("../HealthComponent")
