@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class MeleeCritRateStrategy : Strategy, IStrategy
     {
-        [Export] int UpgradeCritRate { get; set; } = 5;
+        [Export] float UpgradeCritRate { get; set; } = 5;
 
         public MeleeCritRateStrategy()
         {

@@ -81,13 +81,21 @@ namespace SurvivorsGame
                 return;
             }
 
+            int Randint = GD.RandRange(0, 100);
+            bool Crit = false;
+            float FinalDamage = damage;
+            if (Randint < critRate)
+            {
+                Crit = true;
+                FinalDamage *= critDamageMultiplier;
+            }
+
             Attack attack = new Attack
             {
-                BaseDamage = damage,
+                Damage = FinalDamage,
                 GlobalPosition = GlobalPosition,
                 KnockbackForce = knockback,
-                CritRate = critRate,
-                CritDamageMultiplier = critDamageMultiplier
+                Crit = Crit,
             };
 
             if (SingleHit)

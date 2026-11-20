@@ -27,7 +27,7 @@ namespace SurvivorsGame
             {
                 damageLabel.AddThemeColorOverride("font_color", Colors.Yellow);
             }
-            damageLabel.SetDeferred("text", FormatDamage(attackData.FinalDamage));
+            damageLabel.SetDeferred("text", FormatDamage(attackData.Damage));
             startPosition = Position;
             targetPosition = startPosition + new Vector2(GD.RandRange(-30, 30), -35);
             movementDuration = targetDuration;

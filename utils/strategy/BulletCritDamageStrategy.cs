@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletCritDamageStrategy : Strategy, IStrategy
     {
-        [Export] int UpgradeCritDamage { get; set; } = 5;
+        [Export] float UpgradeCritDamage { get; set; } = 5;
 
         public BulletCritDamageStrategy()
         {

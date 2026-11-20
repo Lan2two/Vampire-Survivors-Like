@@ -41,13 +41,21 @@ namespace SurvivorsGame
             {
                 if (hitCount <= config.PierceCount)
                 {
+                    int Randint = GD.RandRange(0, 100);
+                    bool Crit = false;
+                    float FinalDamage = config.Damage;
+                    if (Randint < config.CritRate)
+                    {
+                        Crit = true;
+                        FinalDamage *= config.CritDamageMultiplier;
+                    }
+
                     Attack attack = new Attack
                     {
-                        BaseDamage = config.Damage,
+                        Damage = FinalDamage,
                         GlobalPosition = GlobalPosition,
                         KnockbackForce = config.Knockback,
-                        CritRate = config.CritRate,
-                        CritDamageMultiplier = config.CritDamageMultiplier
+                        Crit = Crit,
                     };
                     hurtbox.TakeDamage(attack);
                     hitCount += 1;
