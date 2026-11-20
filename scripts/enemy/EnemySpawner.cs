@@ -57,7 +57,7 @@ namespace SurvivorsGame
                 {
                     pattern = 0;
                 }
-                GD.Print(pattern);
+                //GD.Print(pattern);
                 _patternTimer = PatternTime;
             }
             if (_spawnTimer > 0) return;
