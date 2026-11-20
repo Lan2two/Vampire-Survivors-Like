@@ -4,7 +4,7 @@ namespace SurvivorsGame
     using Godot.Collections;
 
     [GlobalClass]
-    public partial class GunComponent : Area2D
+    public partial class Gun : Area2D
     {
         [Export] private UpgradeManager upgradeManager;
         Timer timer;
@@ -21,17 +21,17 @@ namespace SurvivorsGame
 
             if (startingConfig == null)
             {
-                GD.PrintErr("GunComponent requires a BulletData resource.");
+                GD.PrintErr("Gun requires a BulletData resource.");
                 return;
             }
             if (BULLET == null)
             {
-                GD.PrintErr("GunComponent requires a Bullet Scene.");
+                GD.PrintErr("Gun requires a Bullet Scene.");
                 return;
             }
             if (upgradeManager == null)
             {
-                GD.PrintErr("GunComponent requires UpgradeManager.");
+                GD.PrintErr("Gun requires UpgradeManager.");
                 return;
             }
             OnUpgrade();
