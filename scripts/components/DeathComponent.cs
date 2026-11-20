@@ -33,7 +33,7 @@ public partial class DeathComponent : Node
         velocityComponent?.Stop();
         characterBody?.QueueFree();
 
-        if (Sprite.SpriteFrames.HasAnimation("die"))
+        if (Sprite?.SpriteFrames.HasAnimation("die") == true)
         {
             Sprite.Play("die");
             await ToSignal(Sprite, AnimatedSprite2D.SignalName.AnimationFinished);
