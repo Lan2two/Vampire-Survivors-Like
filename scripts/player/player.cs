@@ -14,6 +14,7 @@ namespace SurvivorsGame
 		public Roll rollState;
 		public float totalXP;
 		public event Action PlayerDead;
+		private bool DeathGuard = false;
 		public override void _Ready()
 		{
 			animatedSprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
@@ -60,7 +61,11 @@ namespace SurvivorsGame
 			Stats.data.DamageTaken += attack.Damage;
 			if (healthComponent.currentHealth <= 0)
 			{
-				PlayerDead?.Invoke();
+				if (!DeathGuard)
+				{
+					PlayerDead?.Invoke();
+				}
+				DeathGuard = true;
 			}
 		}
 	}

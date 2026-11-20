@@ -58,7 +58,14 @@ namespace SurvivorsGame
                 return;
             }
             player.PlayerDead += PlayerDeath;
+
         }
+
+        public override void _EnterTree()
+        {
+            Reset();
+        }
+
         public override void _ExitTree()
         {
             if (player != null)
@@ -90,6 +97,7 @@ namespace SurvivorsGame
 
         private void GameOver(string message)
         {
+
             if (_isChangingScene || !IsInstanceValid(this)) return;
             _isChangingScene = true;
             if (gameOverLabel != null)
@@ -108,6 +116,13 @@ namespace SurvivorsGame
         private void PauseGame()
         {
             GetTree().Paused = true;
+        }
+
+        private void Reset()
+        {
+            Stats.ResetValues();
+            Enemy.Alive = 0;
+            GetTree().Paused = false;
         }
 
 
