@@ -32,14 +32,17 @@ public partial class Bullet : Area2D
     {
         if (area is HitboxComponent hitbox)
         {
-            Attack attack = new Attack
+            if (hitCount <= config.PierceCount)
             {
-                Damage = config.Damage,
-                GlobalPosition = GlobalPosition,
-                KnockbackForce = config.Knockback
-            };
-            hitbox.TakeDamage(attack);
-            hitCount += 1;
+                Attack attack = new Attack
+                {
+                    Damage = config.Damage,
+                    GlobalPosition = GlobalPosition,
+                    KnockbackForce = config.Knockback
+                };
+                hitbox.TakeDamage(attack);
+                hitCount += 1;
+            }
         }
     }
 }
