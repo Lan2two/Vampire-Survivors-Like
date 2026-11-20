@@ -8,5 +8,13 @@ namespace SurvivorsGame
         [Export] public string interactName = "";
         [Export] public bool isInteractable = true;
         [Signal] public delegate void InteractEventHandler();
+
+        public InteractableComponent()
+        {
+            Monitoring = false;
+            CollisionLayer = 0;
+            CollisionMask = 0;
+            SetCollisionLayerValue(4, true);
+        }
     }
 }

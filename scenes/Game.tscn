@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dywixrbgtp314" path="res://resources/MeleeWeaponBase.cs" id="9_sv1m6"]
 [ext_resource type="Script" uid="uid://bjelyacmd4fh2" path="res://scripts/world/Cycle.cs" id="12_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://bqjqkebgwfpcu" path="res://scenes/HUD.tscn" id="12_mcffj"]
+[ext_resource type="PackedScene" uid="uid://cemr5n7iygx3r" path="res://scenes/campfire.tscn" id="13_2rd6h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2rd6h"]
 texture = ExtResource("1_mcffj")
@@ -1112,7 +1113,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2rd6h"]
 gradient = SubResource("Gradient_mcffj")
 width = 20
-height = 20
+height = 15
 fill = 1
 fill_from = Vector2(0.5017361, 0.4982639)
 
@@ -1189,3 +1190,6 @@ color = Color(0.16424277, 0.10368731, 0.11744278, 1)
 script = ExtResource("12_2rd6h")
 TimeGradient = SubResource("Gradient_7ua8r")
 CycleTimeSeconds = 120.0
+
+[node name="Campfire" parent="." unique_id=436587811 instance=ExtResource("13_2rd6h")]
+position = Vector2(-229, -62)

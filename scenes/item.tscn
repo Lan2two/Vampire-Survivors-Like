@@ -11,6 +11,7 @@ script = ExtResource("1_s8enn")
 [node name="InteractableComponent" type="Area2D" parent="." unique_id=1296161475]
 collision_layer = 8
 collision_mask = 0
+monitoring = false
 script = ExtResource("2_s8enn")
 metadata/_custom_type_script = "uid://yqp04a743l0o"
 
