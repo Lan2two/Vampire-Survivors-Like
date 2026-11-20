@@ -6,13 +6,13 @@ namespace SurvivorsGame
         {
             base._Ready();
             CallDeferred(MethodName.OnUpgrade);
-            EventBus.BulletUpgrade += OnUpgrade;
+            EventBus.GunUpgrade += OnUpgrade;
         }
 
         public override void _ExitTree()
         {
             base._ExitTree();
-            EventBus.BulletUpgrade -= OnUpgrade;
+            EventBus.GunUpgrade -= OnUpgrade;
         }
 
         private void OnUpgrade()
