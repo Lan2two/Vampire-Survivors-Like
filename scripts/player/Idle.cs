@@ -18,6 +18,5 @@ public partial class Idle : States
         {
             ChangeState("Attack");
         }
-
     }
 }

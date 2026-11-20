@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bpqkhhblg5qo2" path="res://assets/sprites/slime_purple.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://btg2p7gbok3fj" path="res://scripts/enemy/Enemy.cs" id="1_nenq2"]
-[ext_resource type="Script" uid="uid://g80o8hshrv1n" path="res://scripts/player/StateMachine.cs" id="2_4ra3w"]
+[ext_resource type="PackedScene" uid="uid://bub4440b8c76f" path="res://scenes/state_machine.tscn" id="3_j0cyh"]
 [ext_resource type="Script" uid="uid://cuvm8u6e4qrwf" path="res://scripts/enemy/EnemyIdle.cs" id="3_xwavj"]
 [ext_resource type="Script" uid="uid://dkq1ef6bp4d3r" path="res://scripts/enemy/EnemySpawn.cs" id="4_md484"]
 [ext_resource type="Script" uid="uid://b0pj8g5yl7jlm" path="res://scripts/enemy/EnemyChase.cs" id="6_otmr2"]
@@ -170,14 +170,14 @@ position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_nenq2")
 animation = &"die"
 
-[node name="StateMachine" type="Node" parent="." unique_id=144124137 node_paths=PackedStringArray("startingState")]
-script = ExtResource("2_4ra3w")
+[node name="StateMachine" parent="." unique_id=1879212461 node_paths=PackedStringArray("startingState") instance=ExtResource("3_j0cyh")]
 startingState = NodePath("Spawn")
-metadata/_custom_type_script = "uid://g80o8hshrv1n"
 
-[node name="Spawn" type="Node" parent="StateMachine" unique_id=2088072294 node_paths=PackedStringArray("enemy")]
-script = ExtResource("4_md484")
+[node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "detectionComponent", "pathfindComponent")]
+script = ExtResource("6_otmr2")
 enemy = NodePath("../..")
+detectionComponent = NodePath("../../DetectionComponent")
+pathfindComponent = NodePath("../../PathfindComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=1595408084 node_paths=PackedStringArray("enemy", "detectionComponent", "wanderComponent")]
@@ -187,11 +187,9 @@ detectionComponent = NodePath("../../DetectionComponent")
 wanderComponent = NodePath("../../WanderComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
-[node name="Chase" type="Node" parent="StateMachine" unique_id=202117626 node_paths=PackedStringArray("enemy", "detectionComponent", "pathfindComponent")]
-script = ExtResource("6_otmr2")
+[node name="Spawn" type="Node" parent="StateMachine" unique_id=2088072294 node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_md484")
 enemy = NodePath("../..")
-detectionComponent = NodePath("../../DetectionComponent")
-pathfindComponent = NodePath("../../PathfindComponent")
 metadata/_custom_type_script = "uid://77fm1np7g5nw"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1925952333]

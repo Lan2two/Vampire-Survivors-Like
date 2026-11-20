@@ -25,5 +25,9 @@ public partial class Move : States
         {
             ChangeState("Attack");
         }
+        else if (Input.IsActionPressed("roll"))
+        {
+            ChangeState("roll");
+        }
     }
 }
