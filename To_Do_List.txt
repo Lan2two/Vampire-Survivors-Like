@@ -1,0 +1,25 @@
+File to note stuff needed in game
+
+Menus:
+    -Function to pause the game
+    -Upgrade cards
+    -Settings
+    -Audio or something
+
+In-Game Features:
+    -Weapon variety
+        -More models
+        -More effects
+    -Enemy variety
+        -More models
+        -More effects
+        -Better Ai mayhaps
+        -More tracking variety?
+    -Build a bullet pattern system
+        -Make projectiles revolve around entities (easy)
+        -Make it recyclable (yo watdatmean)
+        -Object pooling might be a good idea (Godot so idk if needed but good practice)
+    -XP system so you can upgrade or something
+    -Enemies can drop items upon death (Drop component linked to the death component)
+    -System to actually spawn enemies randomly 
+    -
