@@ -1,14 +1,14 @@
 namespace SurvivorsGame
 {
     using Godot;
-    using System;
+    using Godot.Collections;
 
     public partial class Moratorium : Node2D
     {
         [Export] double duration { get; set; } = 10;
+        private Array<float> StoredDamage = new();
         private HealthComponent _healthComponent;
         private TextureProgressBar _progressBar;
-        private float StoredDamage;
         private double timer;
         private bool triggered;
         public override void _Ready()
@@ -54,20 +54,26 @@ namespace SurvivorsGame
         private void Effect(Attack attack)
         {
             if (triggered) return;
-            StoredDamage += attack.Damage;
+            StoredDamage.Add(attack.Damage);
             attack.Damage = 0;
-            GD.Print($"Stored Damage: {StoredDamage}");
         }
 
         private void Trigger()
         {
             triggered = true;
-            Attack attack = new Attack
+            for (int i = 0; i < StoredDamage.Count; i++)
             {
-                Damage = StoredDamage * 1.5f,
-                Crit = true
-            };
-            _healthComponent.TakeDamage(attack);
+                float damage = StoredDamage[i] * 1.5f;
+                GetTree().CreateTimer(0.01 * i).Timeout += () =>
+                {
+                    Attack attack = new()
+                    {
+                        Damage = damage,
+                        Crit = true
+                    };
+                    _healthComponent.TakeDamage(attack);
+                };
+            }
             QueueFree();
         }
     }
