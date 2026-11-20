@@ -28,7 +28,7 @@ public partial class Game : Node2D
         if (_isChangingScene || !IsInstanceValid(this)) return;
         GetTree().Paused = true;
         gameOverLabel.Visible = true;
-        GetTree().CreateTimer(3).Timeout += ReturnToMenu;
+        GetTree().CreateTimer(5).Timeout += ReturnToMenu;
     }
 
     private void ReturnToMenu()
