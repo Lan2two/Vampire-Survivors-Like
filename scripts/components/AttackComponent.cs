@@ -60,10 +60,11 @@ namespace SurvivorsGame
                 return;
             }
 
-            damageTimer = DamageInterval;
+
             foreach (Area2D area in new List<Area2D>(hurtboxes))
             {
                 ApplyDamage(area);
+                damageTimer = DamageInterval;
             }
         }
 
