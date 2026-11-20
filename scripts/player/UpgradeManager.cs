@@ -6,25 +6,13 @@ namespace SurvivorsGame
     public partial class UpgradeManager : Node
     {
         private const int CompositeDepth = 6;
-        private static readonly UpgradeCalculationMode[] ApplyOrder = { UpgradeCalculationMode.Additive, UpgradeCalculationMode.Percentage };
         [Export] InventoryManager inventoryManager;
 
         public void ApplyUpgrades(IUpgradable upgradable, UpgradeType targetType)
         {
-            List<StatUpgradeTotal> statUpgrades = new();
             foreach (Strategy strategy in inventoryManager.Upgrades)
             {
-                ApplyStrategy(strategy, upgradable, targetType, 0, statUpgrades);
-            }
-            foreach (UpgradeCalculationMode mode in ApplyOrder)
-            {
-                foreach (StatUpgradeTotal total in statUpgrades)
-                {
-                    if (total.Upgrade.CalculationMode == mode)
-                    {
-                        total.Upgrade.ApplyStat(upgradable, total.Amount);
-                    }
-                }
+                ApplyStrategy(strategy, upgradable, targetType, 0);
             }
         }
 
@@ -32,8 +20,7 @@ namespace SurvivorsGame
             Strategy strategy,
             IUpgradable upgradable,
             UpgradeType targetType,
-            int depth,
-            List<StatUpgradeTotal> statUpgrades)
+            int depth)
         {
             if (strategy == null)
             {
@@ -41,16 +28,12 @@ namespace SurvivorsGame
             }
             if (strategy is CompositeStrategy composite)
             {
-                ApplyComposite(composite, upgradable, targetType, depth, statUpgrades);
+                ApplyComposite(composite, upgradable, targetType, depth);
                 return;
             }
             if (strategy.upgradeType != targetType)
             {
                 return;
-            }
-            if (strategy is IStatUpgrade statUpgrade)
-            {
-                AccumulateStatUpgrade(statUpgrade, statUpgrades);
             }
             else
             {
@@ -62,8 +45,7 @@ namespace SurvivorsGame
             CompositeStrategy composite,
             IUpgradable upgradable,
             UpgradeType targetType,
-            int depth,
-            List<StatUpgradeTotal> statUpgrades)
+            int depth)
         {
             if (depth >= CompositeDepth)
             {
@@ -73,36 +55,8 @@ namespace SurvivorsGame
 
             foreach (Strategy child in composite.Children)
             {
-                ApplyStrategy(child, upgradable, targetType, depth + 1, statUpgrades);
+                ApplyStrategy(child, upgradable, targetType, depth + 1);
             }
-        }
-
-        private static void AccumulateStatUpgrade(
-            IStatUpgrade upgrade,
-            List<StatUpgradeTotal> statUpgrades)
-        {
-            foreach (StatUpgradeTotal total in statUpgrades)
-            {
-                if (total.Upgrade.GetType() == upgrade.GetType()
-                    && total.Upgrade.CalculationMode == upgrade.CalculationMode)
-                {
-                    total.Amount += upgrade.Amount;
-                    return;
-                }
-            }
-
-            statUpgrades.Add(new StatUpgradeTotal(upgrade, upgrade.Amount));
-        }
-
-        private sealed class StatUpgradeTotal
-        {
-            public StatUpgradeTotal(IStatUpgrade upgrade, float amount)
-            {
-                Upgrade = upgrade;
-                Amount = amount;
-            }
-            public IStatUpgrade Upgrade { get; }
-            public float Amount { get; set; }
         }
     }
 }

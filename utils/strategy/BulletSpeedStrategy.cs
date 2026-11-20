@@ -3,11 +3,10 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletSpeedStrategy : Strategy, IStatUpgrade
+    public partial class BulletSpeedStrategy : Strategy
     {
         [Export] float UpgradeSpeed { get; set; } = 25f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
-        public float Amount => UpgradeSpeed;
 
         public BulletSpeedStrategy()
         {
@@ -16,15 +15,19 @@ namespace SurvivorsGame
             ItemDescription = "Bullet travels faster";
         }
 
-        public void ApplyStat(IUpgradable upgradable, float totalAmount)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is BulletData damageable)
+            if (config is BulletData bulletData)
             {
-                damageable.Speed = CalculateStatUpgrade(
-                    damageable.Speed,
-                    totalAmount,
-                    CalculationMode);
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    bulletData.SpeedPercent += UpgradeSpeed;
+                }
+                else
+                {
+                    bulletData.SpeedAdditive += UpgradeSpeed;
+                }
             }
         }
     }

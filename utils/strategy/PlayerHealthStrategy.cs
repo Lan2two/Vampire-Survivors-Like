@@ -3,11 +3,10 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class PlayerHealthStrategy : Strategy, IStatUpgrade
+    public partial class PlayerHealthStrategy : Strategy
     {
         [Export] float UpgradeHealth { get; set; } = 10f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
-        public float Amount => UpgradeHealth;
 
         public PlayerHealthStrategy()
         {
@@ -21,11 +20,14 @@ namespace SurvivorsGame
             Resource config = upgradable.currentConfig;
             if (config is PlayerStatsData stats)
             {
-                stats.MaxHealth = CalculateStatUpgrade(
-                    stats.MaxHealth,
-                    totalAmount,
-                    CalculationMode
-                );
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    stats.MaxHealthPercent += UpgradeHealth;
+                }
+                else
+                {
+                    stats.MaxHealthPercent += UpgradeHealth;
+                }
             }
         }
     }

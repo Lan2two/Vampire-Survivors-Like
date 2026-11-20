@@ -4,34 +4,32 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class WeaponBase : ItemData, IDamageDealing
     {
-        private float _baseDamage = 10f;
-        private float _baseKnockback = 100f;
-        private float _critRate = 2;
-        private float _critDamageMultiplier = 1.3f;
         [Export] public PackedScene WeaponVisualScene;
-        [Export]
-        public float Damage
+
+        [ExportGroup("Damage Dealing")]
+        [Export] public float DamageBase = 10f;
+        public float DamageAdditive;
+        public float DamagePercent;
+
+        [Export] public float KnockbackBase = 100f;
+        public float KnockbackAdditive;
+        public float KnockbackPercent;
+
+        [Export] public float CritRateBase = 2f;
+        public float CritRateAdditive;
+        public float CritRatePercent;
+
+        [Export] public float CritDamageBase = 1.3f;
+        public float CritDamageAdditive;
+        public float CritDamagePercent;
+
+        public virtual StatModifier GetStat(string statName) => statName switch
         {
-            get => _baseDamage;
-            set => _baseDamage = Mathf.Clamp(value, CombatStatLimits.MinDamage, CombatStatLimits.MaxDamage);
-        }
-        [Export]
-        public float Knockback
-        {
-            get => _baseKnockback;
-            set => _baseKnockback = Mathf.Clamp(value, CombatStatLimits.MinKnockback, CombatStatLimits.MaxKnockback);
-        }
-        [Export]
-        public float CritRate
-        {
-            get => _critRate;
-            set => _critRate = value;
-        }
-        [Export]
-        public float CritDamageMultiplier
-        {
-            get => _critDamageMultiplier;
-            set => _critDamageMultiplier = value;
-        }
+            "Damage" => new StatModifier(DamageBase, DamageAdditive, DamagePercent, CombatStatLimits.MinDamage, CombatStatLimits.MaxDamage),
+            "Knockback" => new StatModifier(KnockbackBase, KnockbackAdditive, KnockbackPercent, CombatStatLimits.MinKnockback, CombatStatLimits.MaxKnockback),
+            "CritRate" => new StatModifier(CritRateBase, CritRateAdditive, CritRatePercent),
+            "CritDamage" => new StatModifier(CritDamageBase, CritDamageAdditive, CritDamagePercent),
+            _ => default
+        };
     }
 }

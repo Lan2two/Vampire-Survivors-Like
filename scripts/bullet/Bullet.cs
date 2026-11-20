@@ -37,10 +37,10 @@ namespace SurvivorsGame
                 redirectBullet.Redirect = true;
             }
             Vector2 direction = Vector2.Right.Rotated(Rotation).Normalized();
-            Position += direction * config.Speed * (float)delta;
-            traveledDistance += config.Speed * (float)delta;
+            Position += direction * config.GetStat("Speed").CalculateFinal() * (float)delta;
+            traveledDistance += config.GetStat("Speed").CalculateFinal() * (float)delta;
 
-            if (config.MaxTravelDistance < traveledDistance || attackComponent.GetHurtBoxEntered() > config.PierceCount)
+            if (config.GetStat("MaxTravelDistance").CalculateFinal() < traveledDistance || attackComponent.GetHurtBoxEntered() > config.GetStat("PierceCount").CalculateFinal())
             {
                 QueueFree();
             }

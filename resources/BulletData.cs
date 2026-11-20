@@ -5,57 +5,53 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class BulletData : Resource, IDamageDealing
     {
-        private float _damage = 10f;
-        private float _knockback = 100f;
-        private float _speed = 300f;
-        private int _pierceCount = 0;
-        private float _gunCooldown = 1f;
-        private float _critRate = 2;
-        private float _critDamageMultiplier = 1.3f;
-        [Export]
-        public float Damage
+        // --- INHERITED IDAMAGEDEALING CORE COMBAT FIELDS ---
+        [ExportGroup("Damage Dealing")]
+        [Export] public float DamageBase = 10f;
+        public float DamageAdditive;
+        public float DamagePercent;
+
+        [Export] public float KnockbackBase = 100f;
+        public float KnockbackAdditive;
+        public float KnockbackPercent;
+
+        [Export] public float CritRateBase = 2f;
+        public float CritRateAdditive;
+        public float CritRatePercent;
+
+        [Export] public float CritDamageBase = 1.3f;
+        public float CritDamageAdditive;
+        public float CritDamagePercent;
+
+        [Export] public float SpeedBase = 300f;
+        public float SpeedAdditive;
+        public float SpeedPercent;
+
+        [Export] public float MaxTravelDistanceBase = 500f;
+        public float MaxTravelDistanceAdditive;
+        public float MaxTravelDistancePercent;
+
+        [Export] public float PierceCountBase = 0f;
+        public float PierceCountAdditive;
+        public float PierceCountPercent;
+
+        [Export] public float GunCooldownBase = 1f;
+        public float GunCooldownAdditive;
+        public float GunCooldownPercent;
+
+        [Export] public bool BouncingBullets { get; set; } = false;
+
+        public StatModifier GetStat(string statName) => statName switch
         {
-            get => _damage;
-            set => _damage = Mathf.Clamp(value, CombatStatLimits.MinDamage, CombatStatLimits.MaxDamage);
-        }
-        [Export]
-        public float Knockback
-        {
-            get => _knockback;
-            set => _knockback = Mathf.Clamp(value, CombatStatLimits.MinKnockback, CombatStatLimits.MaxKnockback);
-        }
-        [Export]
-        public float Speed
-        {
-            get => _speed;
-            set => _speed = Mathf.Clamp(value, CombatStatLimits.MinBulletSpeed, CombatStatLimits.MaxBulletSpeed);
-        }
-        [Export] public float MaxTravelDistance { get; set; } = 500f;
-        [Export]
-        public int PierceCount
-        {
-            get => _pierceCount;
-            set => _pierceCount = Mathf.Max(value, 0);
-        }
-        [Export]
-        public float GunCooldown
-        {
-            get => _gunCooldown;
-            set => _gunCooldown = (float)Mathf.Max(value, 0.001);
-        }
-        [Export]
-        public float CritRate
-        {
-            get => _critRate;
-            set => _critRate = value;
-        }
-        [Export]
-        public float CritDamageMultiplier
-        {
-            get => _critDamageMultiplier;
-            set => _critDamageMultiplier = value;
-        }
-        [Export]
-        public bool BouncingBullets { get; set; } = false;
+            "Damage" => new StatModifier(DamageBase, DamageAdditive, DamagePercent, CombatStatLimits.MinDamage, CombatStatLimits.MaxDamage),
+            "Knockback" => new StatModifier(KnockbackBase, KnockbackAdditive, KnockbackPercent, CombatStatLimits.MinKnockback, CombatStatLimits.MaxKnockback),
+            "CritRate" => new StatModifier(CritRateBase, CritRateAdditive, CritRatePercent),
+            "CritDamage" => new StatModifier(CritDamageBase, CritDamageAdditive, CritDamagePercent),
+            "Speed" => new StatModifier(SpeedBase, SpeedAdditive, SpeedPercent, CombatStatLimits.MinBulletSpeed, CombatStatLimits.MaxBulletSpeed),
+            "MaxTravelDistance" => new StatModifier(MaxTravelDistanceBase, MaxTravelDistanceAdditive, MaxTravelDistancePercent),
+            "PierceCount" => new StatModifier(PierceCountBase, PierceCountAdditive, PierceCountPercent, 0f, float.MaxValue),
+            "GunCooldown" => new StatModifier(GunCooldownBase, GunCooldownAdditive, GunCooldownPercent, 0.001f, float.MaxValue),
+            _ => default
+        };
     }
 }

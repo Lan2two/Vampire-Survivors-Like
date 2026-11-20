@@ -3,11 +3,10 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class MeleeKnockbackStrategy : Strategy, IStatUpgrade
+    public partial class MeleeKnockbackStrategy : Strategy
     {
         [Export] float UpgradeKnockback { get; set; } = 10f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
-        public float Amount => UpgradeKnockback;
 
         public MeleeKnockbackStrategy()
         {
@@ -16,15 +15,19 @@ namespace SurvivorsGame
             ItemDescription = "Melee deals more knockback";
         }
 
-        public void ApplyStat(IUpgradable upgradable, float totalAmount)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is IDamageDealing damageable)
+            if (config is MeleeWeaponBase meleeWeapon)
             {
-                damageable.Knockback = CalculateStatUpgrade(
-                    damageable.Knockback,
-                    totalAmount,
-                    CalculationMode);
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    meleeWeapon.KnockbackPercent += UpgradeKnockback;
+                }
+                else
+                {
+                    meleeWeapon.KnockbackAdditive += UpgradeKnockback;
+                }
             }
         }
     }

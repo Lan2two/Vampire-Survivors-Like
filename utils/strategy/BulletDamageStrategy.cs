@@ -3,11 +3,10 @@ namespace SurvivorsGame
     using Godot;
 
     [GlobalClass]
-    public partial class BulletDamageStrategy : Strategy, IStatUpgrade
+    public partial class BulletDamageStrategy : Strategy
     {
         [Export] float UpgradeDamage { get; set; } = 5f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
-        public float Amount => UpgradeDamage;
 
         public BulletDamageStrategy()
         {
@@ -16,15 +15,19 @@ namespace SurvivorsGame
             ItemDescription = "Bullet deals more damage";
         }
 
-        public void ApplyStat(IUpgradable upgradable, float totalAmount)
+        public override void ApplyUpgrade(IUpgradable upgradable)
         {
             Resource config = upgradable.currentConfig;
-            if (config is IDamageDealing damageable)
+            if (config is BulletData damageable)
             {
-                damageable.Damage = CalculateStatUpgrade(
-                    damageable.Damage,
-                    totalAmount,
-                    CalculationMode);
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    damageable.DamagePercent += UpgradeDamage;
+                }
+                else
+                {
+                    damageable.DamageAdditive += UpgradeDamage;
+                }
             }
         }
     }

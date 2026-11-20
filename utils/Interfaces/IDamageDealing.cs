@@ -1,5 +1,7 @@
 namespace SurvivorsGame
 {
+    using Godot;
+
     public static class CombatStatLimits
     {
         public const float MinDamage = 1f;
@@ -12,11 +14,21 @@ namespace SurvivorsGame
         public const float MaxMeleeSwingSpeed = 5f;
     }
 
+    public enum UpgradeCalculationMode { Additive, Percentage }
+
     public interface IDamageDealing
     {
-        float Damage { get; set; }
-        float Knockback { get; set; }
-        float CritRate { get; set; }
-        float CritDamageMultiplier { get; set; }
+        StatModifier GetStat(string statName);
+    }
+
+    public readonly struct StatModifier(float @base, float additive, float percent, float min = float.MinValue, float max = float.MaxValue)
+    {
+        public readonly float Base = @base;
+        public readonly float Additive = additive;
+        public readonly float Percent = percent;
+        public readonly float Min = min;
+        public readonly float Max = max;
+
+        public float CalculateFinal() => Mathf.Clamp((Base + Additive) * (1 + (Percent / 100)), Min, Max);
     }
 }

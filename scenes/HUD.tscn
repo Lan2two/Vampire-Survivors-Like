@@ -189,25 +189,15 @@ UpgradeDamage = -85.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
-[sub_resource type="Resource" id="Resource_tbqba"]
-script = ExtResource("13_fire_rate")
-UpgradeCooldown = 0.65
-metadata/_custom_type_script = "uid://oqh36h4jc3jy"
-
 [sub_resource type="Resource" id="Resource_3eva0"]
 script = ExtResource("13_fire_rate")
-UpgradeCooldown = 125.0
+UpgradeCooldown = 90.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
-[sub_resource type="Resource" id="Resource_4q0sy"]
-script = ExtResource("6_dcyui")
-UpgradeDamage = -9.0
-metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
-
 [sub_resource type="Resource" id="Resource_3ugbd"]
 script = ExtResource("16_5eteg")
-Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_d5rnw"), SubResource("Resource_ah8js"), SubResource("Resource_tbqba"), SubResource("Resource_3eva0"), SubResource("Resource_4q0sy")])
+Children = Array[ExtResource("5_cws7i")]([SubResource("Resource_d5rnw"), SubResource("Resource_ah8js"), SubResource("Resource_3eva0")])
 ItemName = "Machine Gun Fire"
 ItemDescription = "Heavily nerfs the gun in all aspects except for firerate"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

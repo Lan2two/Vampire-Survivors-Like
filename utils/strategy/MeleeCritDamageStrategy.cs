@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class MeleeCritDamageStrategy : Strategy
     {
-        [Export] float UpgradeCritDamage { get; set; } = .2f;
+        [Export] float UpgradeCritDamage { get; set; } = 20f;
 
         public MeleeCritDamageStrategy()
         {
@@ -19,7 +19,7 @@ namespace SurvivorsGame
             Resource config = upgradable.currentConfig;
             if (config is MeleeWeaponBase damageable)
             {
-                damageable.CritDamageMultiplier += UpgradeCritDamage;
+                damageable.CritDamageAdditive += UpgradeCritDamage;
             }
         }
     }

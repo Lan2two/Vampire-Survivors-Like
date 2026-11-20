@@ -78,19 +78,19 @@ namespace SurvivorsGame
 		{
 			config = new PlayerStatsData
 			{
-				MaxHealth = _baseMaxHealth,
-				MoveSpeed = _baseMoveSpeed
+				MaxHealthBase = _baseMaxHealth,
+				MoveSpeedBase = _baseMoveSpeed
 			};
 			upgradeManager.ApplyUpgrades(this, UpgradeType.Player);
 			float previousMaxhealth = healthComponent.maxHealth;
-			healthComponent.maxHealth = config.MaxHealth;
-			GD.Print($"MaxHp: {(int)config.MaxHealth} Speed: {(int)config.MoveSpeed}");
+			healthComponent.maxHealth = config.GetStat("MaxHealth").CalculateFinal();
+			GD.Print($"MaxHp: {(int)config.GetStat("MaxHealth").CalculateFinal()} Speed: {(int)config.GetStat("MoveSpeed").CalculateFinal()}");
 			if (healthComponent.currentHealth > 0)
 			{
-				float heal = Mathf.Max(0f, config.MaxHealth - previousMaxhealth);
-				healthComponent.currentHealth = Mathf.Clamp(healthComponent.currentHealth + heal, 0f, config.MaxHealth);
+				float heal = Mathf.Max(0f, config.GetStat("MaxHealth").CalculateFinal() - previousMaxhealth);
+				healthComponent.currentHealth = Mathf.Clamp(healthComponent.currentHealth + heal, 0f, config.GetStat("MaxHealth").CalculateFinal());
 			}
-			velocityComponent.maxSpeed = config.MoveSpeed;
+			velocityComponent.maxSpeed = config.GetStat("MoveSpeed").CalculateFinal();
 		}
 
 		private void TrackDamage(Attack attack)
