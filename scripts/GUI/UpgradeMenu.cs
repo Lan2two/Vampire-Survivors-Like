@@ -88,9 +88,9 @@ namespace SurvivorsGame
                 xpBar.LevelUpEvent -= DisplayUpgrades;
             }
             EventBus.AddButton -= AddButton;
-            foreach (UpgradeButton button in _UpgradeButtons.Values)
+            foreach (CustomButton button in _UpgradeButtons.Values)
             {
-                button.UpgradeButtonPressed -= ButtonPressed;
+                button.CustomButtonPressed -= ButtonPressed;
             }
         }
 
@@ -108,7 +108,7 @@ namespace SurvivorsGame
             _upgradeButtonsContainer.AddChild(buttonInstance);
             foreach (Node child in _upgradeButtonsContainer.GetChildren())
             {
-                if (child is UpgradeButton button)
+                if (child is CustomButton button)
                 {
                     string buttonName = button.Name.ToString();
                     if (_UpgradeButtons.ContainsKey(buttonName))
@@ -116,12 +116,12 @@ namespace SurvivorsGame
                         continue;
                     }
                     _UpgradeButtons.Add(buttonName, button);
-                    button.UpgradeButtonPressed += ButtonPressed;
+                    button.CustomButtonPressed += ButtonPressed;
                 }
             }
         }
 
-        private void ButtonPressed(UpgradeButton button)
+        private void ButtonPressed(CustomButton button)
         {
             string buttonName = button.Name.ToString();
             var keysList = new System.Collections.Generic.List<string>(_UpgradeButtons.Keys);
@@ -153,7 +153,7 @@ namespace SurvivorsGame
         public void RandUpgrade()
         {
             _RandUpgrades.Clear();
-            foreach (UpgradeButton button in _UpgradeButtons.Values)
+            foreach (CustomButton button in _UpgradeButtons.Values)
             {
                 int randIndex = GD.RandRange(0, Strategies.Count - 1);
                 Strategy randStrategy = Strategies[randIndex];
