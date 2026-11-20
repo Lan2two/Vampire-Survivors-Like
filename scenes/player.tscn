@@ -14,9 +14,11 @@
 [ext_resource type="Script" uid="uid://ceegnlbuq4yyn" path="res://scripts/player/WeaponController.cs" id="12_jej6c"]
 [ext_resource type="Script" uid="uid://dlmrtl8or42r4" path="res://scripts/player/InventoryManager.cs" id="14_f1ej7"]
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/DamageStrategy.cs" id="15_a8ls1"]
+[ext_resource type="PackedScene" uid="uid://d1t24gaxw444e" path="res://scenes/item.tscn" id="15_fulsm"]
 [ext_resource type="Script" uid="uid://b2smhlmvtllwm" path="res://scripts/player/UpgradeManager.cs" id="15_oprun"]
 [ext_resource type="Script" uid="uid://dnk7siajx4ooa" path="res://scripts/components/KnockbackComponent.cs" id="17_qfm1y"]
 [ext_resource type="Script" uid="uid://dgy61lxty6j4q" path="res://scripts/player/Interactions.cs" id="18_fulsm"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="19_4r5pv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("2_ur7pv")
@@ -278,44 +280,11 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_a8ls1"]
 script = ExtResource("15_a8ls1")
+upgradeType = 1
 metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fulsm"]
 radius = 16.0
-
-[sub_resource type="FontFile" id="FontFile_qfm1y"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/5/0/ascent = 0.0
-cache/0/5/0/descent = 0.0
-cache/0/5/0/underline_position = 0.0
-cache/0/5/0/underline_thickness = 0.0
-cache/0/5/0/scale = 1.0
-cache/0/6/0/ascent = 0.0
-cache/0/6/0/descent = 0.0
-cache/0/6/0/underline_position = 0.0
-cache/0/6/0/underline_thickness = 0.0
-cache/0/6/0/scale = 1.0
-cache/0/7/0/ascent = 0.0
-cache/0/7/0/descent = 0.0
-cache/0/7/0/underline_position = 0.0
-cache/0/7/0/underline_thickness = 0.0
-cache/0/7/0/scale = 1.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1724972010 groups=["player"]]
 collision_layer = 5
@@ -384,6 +353,7 @@ inventoryManager = NodePath("../InventoryManager")
 script = ExtResource("14_f1ej7")
 Upgrades = Array[Object]([SubResource("Resource_qfm1y"), SubResource("Resource_a8ls1")])
 weaponController = NodePath("../WeaponController")
+WorldItemScene = ExtResource("15_fulsm")
 
 [node name="UpgradeManager" type="Node" parent="." unique_id=1180921809 node_paths=PackedStringArray("inventoryManager")]
 script = ExtResource("15_oprun")
@@ -417,8 +387,7 @@ offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = SubResource("FontFile_qfm1y")
-theme_override_font_sizes/font_size = 7
+theme_override_fonts/font = ExtResource("19_4r5pv")
 text = "Example"
 horizontal_alignment = 1
 vertical_alignment = 1

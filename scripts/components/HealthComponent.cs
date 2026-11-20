@@ -18,7 +18,6 @@ public partial class HealthComponent : Node
     {
         currentHealth -= attackData.Damage;
         Damage?.Invoke(attackData);
-        GD.Print("Took damage: " + attackData.Damage + ", Current Health: " + currentHealth);
     }
 
 

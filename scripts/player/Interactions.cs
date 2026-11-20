@@ -28,6 +28,7 @@ public partial class Interactions : Area2D
             {
                 interactLabel.Text = currentIntractable.interactName;
                 interactLabel.Show();
+                //GD.Print("Current Interactable: " + currentIntractable.interactName);
             }
             else
             {

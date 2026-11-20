@@ -17,6 +17,7 @@ public partial class WorldItem : Node2D
         if (ItemData != null)
         {
             sprite2D.Texture = ItemData.ItemIcon;
+            interactableComponent.interactName = "Pick up " + ItemData.ItemName;
         }
     }
 

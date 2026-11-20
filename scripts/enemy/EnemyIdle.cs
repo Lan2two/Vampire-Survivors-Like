@@ -13,10 +13,10 @@ public partial class EnemyIdle : States
 
     public override void PhysicsUpdate(double delta)
     {
-        if (detectionComponent.IsPlayerInRange())
+        if (detectionComponent?.IsPlayerInRange() == true)
         {
             ChangeState("Chase");
         }
-        wanderComponent.Wander();
+        wanderComponent?.Wander();
     }
 }

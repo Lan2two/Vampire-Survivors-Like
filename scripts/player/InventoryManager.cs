@@ -48,8 +48,6 @@ public partial class InventoryManager : Node
         return true;
     }
 
-    // Equips a new weapon. If one is already equipped, it is dropped
-    // into the world at the player's feet instead of being destroyed.
     public void SwapWeapon(WeaponBase newWeapon)
     {
         if (newWeapon == null)
@@ -79,8 +77,6 @@ public partial class InventoryManager : Node
         GD.Print("Equipped: " + weapon.ItemName);
     }
 
-    // Removes the current weapon from the hand and spawns it back into
-    // the world as a pickup, so it isn't lost.
     public void DropCurrentWeapon()
     {
         if (currentWeapon == null || weaponInstance == null)
@@ -98,7 +94,6 @@ public partial class InventoryManager : Node
         SpawnWorldItem(droppedWeapon);
     }
 
-    // Explicit "drop key" entry point — drops whatever is equipped.
     public void DropWeapon()
     {
         DropCurrentWeapon();

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bip5ogwimo5xy"]
+
+[ext_resource type="Script" uid="uid://flm7flobxbjd" path="res://scripts/components/FloatingNumbers.cs" id="1_hy2wj"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_lx4wv"]
+
+[node name="FloatingNumbers" type="Node2D" unique_id=1945746572]
+script = ExtResource("1_hy2wj")
+
+[node name="DamageLabel" type="Label" parent="." unique_id=137673224]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_lx4wv")
+horizontal_alignment = 1
+vertical_alignment = 1
