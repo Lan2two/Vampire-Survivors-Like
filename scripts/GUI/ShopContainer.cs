@@ -28,7 +28,7 @@ namespace SurvivorsGame
             _refundButton = GetNodeOrNull<Button>("%RefundButton");
             _checksContainer = GetNodeOrNull<ChecksContainer>("%ChecksContainer");
 
-            upgradeSaveData = SaveSystem.LoadUpgrades();
+            upgradeSaveData = SaveSystem.Load<UpgradeSaveData>();
 
             foreach (ShopItem item in _gridContainer.GetChildren())
             {
@@ -62,7 +62,7 @@ namespace SurvivorsGame
                 return;
             }
 
-            gameSaveData = SaveSystem.LoadData();
+            gameSaveData = SaveSystem.Load<GameSaveData>();
 
             if (gameSaveData.Coins < _currentItem.cost)
             {
@@ -70,7 +70,7 @@ namespace SurvivorsGame
                 return;
             }
 
-            upgradeSaveData = SaveSystem.LoadUpgrades();
+            upgradeSaveData = SaveSystem.Load<UpgradeSaveData>();
             string upgradeKey = _currentItem.strategy.ResourceFile;
             GD.Print($"path: {upgradeKey}");
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
@@ -87,8 +87,8 @@ namespace SurvivorsGame
 
             gameSaveData.Coins -= _currentItem.cost;
 
-            SaveSystem.SaveData(gameSaveData);
-            SaveSystem.SaveUpgrades(upgradeSaveData);
+            SaveSystem.Save(gameSaveData);
+            SaveSystem.Save(upgradeSaveData);
         }
 
 
@@ -99,8 +99,8 @@ namespace SurvivorsGame
                 GD.PrintErr("Refund failed: Current item or strategy is null.");
                 return;
             }
-            gameSaveData = SaveSystem.LoadData();
-            upgradeSaveData = SaveSystem.LoadUpgrades();
+            gameSaveData = SaveSystem.Load<GameSaveData>();
+            upgradeSaveData = SaveSystem.Load<UpgradeSaveData>();
             string upgradeKey = _currentItem.strategy.ResourceFile;
             GD.Print($"path: {upgradeKey}");
             upgradeSaveData.PurchasedUpgrades.TryGetValue(upgradeKey, out int currentCount);
@@ -114,8 +114,8 @@ namespace SurvivorsGame
             upgradeSaveData.PurchasedUpgrades[upgradeKey] = 0;
             _checksContainer.ToggleAllBoxes(false);
 
-            SaveSystem.SaveData(gameSaveData);
-            SaveSystem.SaveUpgrades(upgradeSaveData);
+            SaveSystem.Save(gameSaveData);
+            SaveSystem.Save(upgradeSaveData);
         }
 
     }

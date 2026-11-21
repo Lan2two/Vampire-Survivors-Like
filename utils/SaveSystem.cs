@@ -8,9 +8,16 @@ namespace SurvivorsGame
     using Godot;
     public partial class SaveSystem : Node
     {
-        private static string _savePath = "user://savegame.json";
-        private static string _upgradesPath = "user://upgrades.json";
-        private static string _keybindsPath = "user://keybinds.json";
+        private static string GetPath<T>()
+        {
+            return typeof(T) switch
+            {
+                Type t when t == typeof(GameSaveData) => "user://savegame.json",
+                Type t when t == typeof(UpgradeSaveData) => "user://upgrades.json",
+                Type t when t == typeof(KeybindSaveData) => "user://keybinds.json",
+                _ => throw new InvalidOperationException("")
+            };
+        }
         private JavaScriptObject _onWebExitCallback;
         private bool _sceneChangePending;
 
@@ -61,24 +68,20 @@ namespace SurvivorsGame
             Stats.FlushToSave();
         }
 
-        public static void SaveData(GameSaveData dataToSave)
+        public static bool Save<T>(T data)
         {
-            SaveToFile(_savePath, dataToSave, SaveJsonContext.Default.GameSaveData);
+            var typeInfo = (JsonTypeInfo<T>)SaveJsonContext.Default.GetTypeInfo(typeof(T))
+                ?? throw new InvalidOperationException($"Type {typeof(T).Name} is not registered in SaveJsonContext.");
+
+            return SaveToFile(GetPath<T>(), data, typeInfo);
         }
 
-        public static GameSaveData LoadData()
+        public static T Load<T>() where T : new()
         {
-            return LoadFromFile(_savePath, SaveJsonContext.Default.GameSaveData);
-        }
+            var typeInfo = (JsonTypeInfo<T>)SaveJsonContext.Default.GetTypeInfo(typeof(T))
+                ?? throw new InvalidOperationException($"Type {typeof(T).Name} is not registered in SaveJsonContext.");
 
-        public static void SaveUpgrades(UpgradeSaveData upgradesToSave)
-        {
-            SaveToFile(_upgradesPath, upgradesToSave, SaveJsonContext.Default.UpgradeSaveData);
-        }
-
-        public static UpgradeSaveData LoadUpgrades()
-        {
-            return LoadFromFile(_upgradesPath, SaveJsonContext.Default.UpgradeSaveData);
+            return LoadFromFile(GetPath<T>(), typeInfo);
         }
 
         private static bool SaveToFile<T>(string path, T data, JsonTypeInfo<T> typeInfo)
@@ -154,22 +157,22 @@ namespace SurvivorsGame
                 }
             }
 
-            return SaveToFile(_keybindsPath, data, SaveJsonContext.Default.KeybindSaveData);
+            return SaveToFile(GetPath<KeybindSaveData>(), data, SaveJsonContext.Default.KeybindSaveData);
         }
 
 
         public static void LoadAndApplyKeybinds()
         {
             InputMap.LoadFromProjectSettings();
-            bool hasSavedKeybinds = FileAccess.FileExists(_keybindsPath);
-            GD.Print($"SaveSystem: Keybind file { (hasSavedKeybinds ? "found" : "not found") } at {_keybindsPath}.");
+            bool hasSavedKeybinds = FileAccess.FileExists(GetPath<KeybindSaveData>());
+            GD.Print($"SaveSystem: Keybind file {(hasSavedKeybinds ? "found" : "not found")} at {GetPath<KeybindSaveData>()}.");
             if (!hasSavedKeybinds)
             {
                 GD.Print("SaveSystem: Using project keybind defaults.");
                 return;
             }
 
-            KeybindSaveData data = LoadFromFile(_keybindsPath, SaveJsonContext.Default.KeybindSaveData);
+            KeybindSaveData data = LoadFromFile(GetPath<KeybindSaveData>(), SaveJsonContext.Default.KeybindSaveData);
             GD.Print($"SaveSystem: Applying {data.Bindings.Count} saved keybinds.");
 
             foreach (var kvp in data.Bindings)
@@ -229,9 +232,9 @@ namespace SurvivorsGame
 
         public static void ResetKeybinds()
         {
-            if (FileAccess.FileExists(_keybindsPath))
+            if (FileAccess.FileExists(GetPath<KeybindSaveData>()))
             {
-                DirAccess.RemoveAbsolute(_keybindsPath);
+                DirAccess.RemoveAbsolute(GetPath<KeybindSaveData>());
             }
             InputMap.LoadFromProjectSettings();
         }

@@ -57,7 +57,7 @@ namespace SurvivorsGame
                 return;
             }
 
-            GameSaveData save = SaveSystem.LoadData();
+            GameSaveData save = SaveSystem.Load<GameSaveData>();
             save.TotalSeconds += deltaSeconds;
             save.TotalKills += deltaKills;
             save.TotalDamageDealt += deltaDamageDealt;
@@ -67,7 +67,7 @@ namespace SurvivorsGame
             save.TotalTotalXp += deltaTotalXp;
             save.Coins += deltaCoins;
             save.TotalCoins += deltaCoins;
-            SaveSystem.SaveData(save);
+            SaveSystem.Save(save);
 
             _savedData.Seconds += deltaSeconds;
             _savedData.EnemiesKilled += deltaKills;

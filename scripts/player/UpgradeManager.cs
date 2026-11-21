@@ -93,7 +93,7 @@ namespace SurvivorsGame
 
         private void CallUpgrades()
         {
-            foreach (System.Collections.Generic.KeyValuePair<string, int> pair in SaveSystem.LoadUpgrades().PurchasedUpgrades)
+            foreach (System.Collections.Generic.KeyValuePair<string, int> pair in SaveSystem.Load<UpgradeSaveData>().PurchasedUpgrades)
             {
                 if (pair.Value == 0) continue;
                 for (int i = 0; i < pair.Value; i++)

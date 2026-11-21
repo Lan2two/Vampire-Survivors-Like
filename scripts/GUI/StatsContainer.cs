@@ -17,7 +17,7 @@ namespace SurvivorsGame
 
         private void LoadTotalStats()
         {
-            GameSaveData data = SaveSystem.LoadData();
+            GameSaveData data = SaveSystem.Load<GameSaveData>();
             TimeSpan time = TimeSpan.FromSeconds(data.TotalSeconds);
             string[] stats =
             [

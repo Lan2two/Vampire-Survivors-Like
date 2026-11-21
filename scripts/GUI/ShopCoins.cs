@@ -6,13 +6,13 @@ namespace SurvivorsGame
     {
         public override void _Ready()
         {
-            SaveSystem.LoadData();
+            SaveSystem.Load<GameSaveData>();
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            SaveSystem.LoadData();
-            Text = $"{SaveSystem.LoadData().Coins}";
+            GameSaveData data = SaveSystem.Load<GameSaveData>();
+            Text = $"{data.Coins}";
         }
 
 
