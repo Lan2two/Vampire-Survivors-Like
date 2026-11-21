@@ -41,7 +41,7 @@ namespace SurvivorsGame
             {
                 if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
                 {
-                    GD.Print("Clicked");
+                    //GD.Print("Clicked");
                     ShowDetail?.Invoke(this);
                 }
             }
