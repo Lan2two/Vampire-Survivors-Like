@@ -6,16 +6,21 @@ namespace SurvivorsGame
     {
         public static Player GetPlayer(this Node node)
         {
-            SceneTree tree = node.GetTree();
-            Player player = tree.GetFirstNodeInGroup("player") as Player;
-            if (player != null)
+            for (Node current = node; GodotObject.IsInstanceValid(current); current = current.GetParent())
             {
-                return player;
+                if (current is Player player)
+                {
+                    return player;
+                }
             }
-            else
+
+            if (!GodotObject.IsInstanceValid(node) || !node.IsInsideTree())
             {
                 return null;
             }
+
+            SceneTree tree = node.GetTree();
+            return tree.GetFirstNodeInGroup("player") as Player;
         }
     }
 }

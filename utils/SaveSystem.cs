@@ -132,19 +132,23 @@ namespace SurvivorsGame
 
                 if (events.Count == 0)
                 {
-                    data.Bindings[action] = new SavedInput { IsMouse = false, Code = 0 };
+                    data.Bindings[action] = new SavedInput();
                 }
                 else if (events[0] is InputEventKey keyEvent)
                 {
-                    long keyCode = keyEvent.Keycode != Key.None
-                        ? (long)keyEvent.Keycode
-                        : (long)keyEvent.PhysicalKeycode;
-
-                    data.Bindings[action] = new SavedInput { IsMouse = false, Code = keyCode };
+                    data.Bindings[action] = new SavedInput
+                    {
+                        Keycode = (long)keyEvent.Keycode,
+                        PhysicalKeycode = (long)keyEvent.PhysicalKeycode
+                    };
                 }
                 else if (events[0] is InputEventMouseButton mouseEvent)
                 {
-                    data.Bindings[action] = new SavedInput { IsMouse = true, Code = (long)mouseEvent.ButtonIndex };
+                    data.Bindings[action] = new SavedInput
+                    {
+                        IsMouse = true,
+                        Code = (long)mouseEvent.ButtonIndex
+                    };
                 }
             }
 
@@ -155,20 +159,66 @@ namespace SurvivorsGame
         public static void LoadAndApplyKeybinds()
         {
             InputMap.LoadFromProjectSettings();
-            if (!FileAccess.FileExists(_keybindsPath)) return;
+            bool hasSavedKeybinds = FileAccess.FileExists(_keybindsPath);
+            GD.Print($"SaveSystem: Keybind file { (hasSavedKeybinds ? "found" : "not found") } at {_keybindsPath}.");
+            if (!hasSavedKeybinds)
+            {
+                GD.Print("SaveSystem: Using project keybind defaults.");
+                return;
+            }
 
             KeybindSaveData data = LoadFromFile(_keybindsPath, SaveJsonContext.Default.KeybindSaveData);
+            GD.Print($"SaveSystem: Applying {data.Bindings.Count} saved keybinds.");
 
             foreach (var kvp in data.Bindings)
             {
                 string action = kvp.Key;
                 SavedInput saved = kvp.Value;
 
-                if (!InputMap.HasAction(action)) continue;
+                if (!InputMap.HasAction(action))
+                {
+                    GD.PrintErr($"SaveSystem: Skipping saved keybind for unknown action '{action}'.");
+                    continue;
+                }
 
-                InputEvent newEvent = saved.IsMouse
-                    ? new InputEventMouseButton { ButtonIndex = (MouseButton)saved.Code }
-                    : new InputEventKey { Keycode = (Key)saved.Code };
+                InputEvent newEvent;
+                if (saved.IsMouse)
+                {
+                    long buttonIndex = saved.Code;
+                    if (buttonIndex == 0)
+                    {
+                        GD.Print($"SaveSystem: Skipping invalid mouse binding for '{action}'.");
+                        continue;
+                    }
+
+                    newEvent = new InputEventMouseButton { ButtonIndex = (MouseButton)buttonIndex };
+                    GD.Print($"SaveSystem: Loaded '{action}' as mouse button {buttonIndex}.");
+                }
+                else
+                {
+                    long keycode = saved.Keycode;
+                    long physicalKeycode = saved.PhysicalKeycode;
+
+                    // Older saves stored either keycode or physical keycode in Code.
+                    if (keycode == 0 && physicalKeycode == 0)
+                    {
+                        keycode = saved.Code;
+                    }
+
+                    if (keycode == 0 && physicalKeycode == 0)
+                    {
+                        InputMap.ActionEraseEvents(action);
+                        GD.Print($"SaveSystem: Loaded '{action}' as unassigned.");
+                        continue;
+                    }
+
+                    newEvent = new InputEventKey
+                    {
+                        Keycode = (Key)keycode,
+                        PhysicalKeycode = (Key)physicalKeycode
+                    };
+                    GD.Print($"SaveSystem: Loaded '{action}' with keycode {keycode} and physical keycode {physicalKeycode}.");
+                }
 
                 InputMap.ActionEraseEvents(action);
                 InputMap.ActionAddEvent(action, newEvent);
@@ -212,7 +262,12 @@ namespace SurvivorsGame
     public class SavedInput
     {
         public bool IsMouse { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public long Code { get; set; }
+
+        public long Keycode { get; set; }
+        public long PhysicalKeycode { get; set; }
     }
 
     [JsonSourceGenerationOptions(WriteIndented = true)]
