@@ -1,11 +1,14 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using Godot.Collections;
     public partial class SceneLoader : CanvasLayer
     {
         public static SceneLoader Instance { get; private set; }
         private AnimationPlayer _animationPlayer;
-        private Godot.Collections.Array _progress = new();
+        private AnimationPlayer _loadAnimation;
+        private ProgressBar _progressBar;
+        private Array<float> _progress = new();
         private bool _useSubThreads = false;
         private string _targetScenePath;
         private bool _isLoading = false;
@@ -14,6 +17,8 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             _animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+            _loadAnimation = GetNodeOrNull<AnimationPlayer>("LoadAnimation");
+            _progressBar = GetNodeOrNull<ProgressBar>("ProgressBar");
             if (_animationPlayer == null)
             {
                 GD.PrintErr("SceneLoader: AnimationPlayer not found.");
@@ -78,14 +83,18 @@ namespace SurvivorsGame
 
         public override void _Process(double delta)
         {
-            ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(_targetScenePath, _progress);
+            ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(_targetScenePath, (Array)_progress);
 
             switch (status)
             {
                 case ResourceLoader.ThreadLoadStatus.InProgress:
+                    var pct = _progress[0] * 100;
+                    _loadAnimation.Play("load");
+                    _progressBar.Value = pct;
                     break;
 
                 case ResourceLoader.ThreadLoadStatus.Loaded:
+                    _loadAnimation.PlayBackwards("load");
                     SetProcess(false);
                     _loadedScene = ResourceLoader.LoadThreadedGet(_targetScenePath) as PackedScene;
                     if (_loadedScene == null)
@@ -95,7 +104,7 @@ namespace SurvivorsGame
                         break;
                     }
 
-                    if (!_animationPlayer.IsPlaying())
+                    if (!_animationPlayer.IsPlaying() || !_loadAnimation.IsPlaying())
                     {
                         ChangeToLoadedScene();
                     }
@@ -105,6 +114,7 @@ namespace SurvivorsGame
                 case ResourceLoader.ThreadLoadStatus.InvalidResource:
                     GD.PrintErr($"SceneLoader: Failed to load scene '{_targetScenePath}'. Status: {status}");
                     CancelLoad();
+                    _progressBar.Visible = false;
                     break;
             }
         }

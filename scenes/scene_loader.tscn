@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://rv0wgkrhdcmd"]
 
 [ext_resource type="Script" uid="uid://djd8ih81l11i" path="res://scripts/GUI/SceneLoader.cs" id="1_m85m7"]
+[ext_resource type="FontFile" uid="uid://k7tamnst2vur" path="res://assets/at01.ttf" id="2_m85m7"]
 
 [sub_resource type="Animation" id="Animation_jtpn2"]
 length = 0.001
@@ -28,7 +29,7 @@ tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.8122524, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
@@ -37,6 +38,67 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_jtpn2"),
 &"fade": SubResource("Animation_m85m7")
+}
+
+[sub_resource type="Animation" id="Animation_js0ie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProgressBar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2hihr"]
+resource_name = "load"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(1.07, 1.07), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProgressBar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b7moh"]
+_data = {
+&"RESET": SubResource("Animation_js0ie"),
+&"load": SubResource("Animation_2hihr")
 }
 
 [node name="SceneLoader" type="CanvasLayer" unique_id=308270468]
@@ -53,5 +115,27 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1432875754]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = 252.5
+offset_right = 500.0
+offset_bottom = 307.50012
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_m85m7")
+theme_override_font_sizes/font_size = 64
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1116529394]
 libraries/ = SubResource("AnimationLibrary_js0ie")
+
+[node name="LoadAnimation" type="AnimationPlayer" parent="." unique_id=2133978418]
+libraries/ = SubResource("AnimationLibrary_b7moh")

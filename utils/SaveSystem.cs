@@ -1,5 +1,6 @@
 namespace SurvivorsGame
 {
+    using System;
     using System.Collections.Generic;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -80,17 +81,18 @@ namespace SurvivorsGame
             return LoadFromFile(_upgradesPath, SaveJsonContext.Default.UpgradeSaveData);
         }
 
-        private static void SaveToFile<T>(string path, T data, JsonTypeInfo<T> typeInfo)
+        private static bool SaveToFile<T>(string path, T data, JsonTypeInfo<T> typeInfo)
         {
             using FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
             if (file == null)
             {
                 GD.PrintErr($"SaveSystem: Failed to open file for writing at {path}. Error: {FileAccess.GetOpenError()}");
-                return;
+                return false;
             }
 
             byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(data, typeInfo);
             file.StoreBuffer(jsonBytes);
+            return true;
         }
 
         private static T LoadFromFile<T>(string path, JsonTypeInfo<T> typeInfo) where T : new()
@@ -118,7 +120,7 @@ namespace SurvivorsGame
             }
         }
 
-        public static void SaveKeybinds()
+        public static bool SaveKeybinds()
         {
             var data = new KeybindSaveData();
 
@@ -126,7 +128,7 @@ namespace SurvivorsGame
             {
                 string action = actionName.ToString();
 
-                if (action.StartsWith("ui_")) continue;
+                if (action.StartsWith("ui_", StringComparison.Ordinal)) continue;
 
                 var events = InputMap.ActionGetEvents(actionName);
 
@@ -152,7 +154,7 @@ namespace SurvivorsGame
                 }
             }
 
-            SaveToFile(_keybindsPath, data, SaveJsonContext.Default.KeybindSaveData);
+            return SaveToFile(_keybindsPath, data, SaveJsonContext.Default.KeybindSaveData);
         }
 
 

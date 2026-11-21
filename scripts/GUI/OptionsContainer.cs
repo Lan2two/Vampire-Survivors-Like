@@ -73,9 +73,12 @@ namespace SurvivorsGame
 
         private void SaveButton()
         {
-            SaveSystem.SaveKeybinds();
-            _saved = true;
-            ResetBackButtonState();
+            bool saved = SaveSystem.SaveKeybinds();
+            if (saved)
+            {
+                _saved = true;
+                ResetBackButtonState();
+            }
         }
 
         private void ResetBackButtonState()
