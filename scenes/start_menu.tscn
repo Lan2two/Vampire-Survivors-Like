@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://y4bavkj6i2a1" path="res://scenes/rebind_key.tscn" id="6_trkcg"]
 [ext_resource type="Script" uid="uid://b28q8smk74ucl" path="res://scripts/GUI/StatsContainer.cs" id="7_nxjfj"]
 [ext_resource type="Script" uid="uid://cv0v58q3c602y" path="res://scripts/GUI/ShopContainer.cs" id="8_apowk"]
+[ext_resource type="StyleBox" uid="uid://dj2n76ooq0fsw" path="res://resources/On_Hover.tres" id="8_fbjtm"]
 [ext_resource type="StyleBox" uid="uid://clqpef5ed4om" path="res://resources/new_style_box_flat.tres" id="9_e58y3"]
 [ext_resource type="PackedScene" uid="uid://o0j2gkjejn5w" path="res://scenes/Shop.tscn" id="9_egh8s"]
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="10_apowk"]
@@ -498,6 +499,8 @@ shadow_offset = Vector2(6, 6)
 
 [sub_resource type="Theme" id="Theme_m7x51"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_trkcg"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4qax"]
 content_margin_left = 30.0
 content_margin_right = 0.0
@@ -861,7 +864,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2000.0
-offset_right = 1999.9995
+offset_right = 1999.9998
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -912,13 +915,88 @@ anchor_left = 0.05234372
 anchor_top = 0.036111113
 anchor_right = 0.9414056
 anchor_bottom = 0.7722222
-offset_left = 1.5258789e-05
-offset_right = 0.00024414063
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="OptionsMotion/OptionsContainer/Panel" unique_id=1717931102]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.000053
+offset_top = 12.999998
+offset_right = -5.9989014
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_trkcg")
+current_tab = 0
+
+[node name="Rebind" type="Control" parent="OptionsMotion/OptionsContainer/Panel/TabContainer" unique_id=651551875]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind" unique_id=96245124]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 31.0
+offset_right = -761.99884
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="RebindContainer" type="VBoxContainer" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer" unique_id=1883577219]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="RebindKey" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer/RebindContainer" unique_id=1700098773 instance=ExtResource("6_trkcg")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+ActionName = "up"
+
+[node name="RebindKey2" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer/RebindContainer" unique_id=2019685753 instance=ExtResource("6_trkcg")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+ActionName = "down"
+
+[node name="RebindKey3" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer/RebindContainer" unique_id=2140435966 instance=ExtResource("6_trkcg")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+ActionName = "left"
+
+[node name="RebindKey4" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer/RebindContainer" unique_id=1468785925 instance=ExtResource("6_trkcg")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+ActionName = "right"
+
+[node name="RebindKey5" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer/RebindContainer" unique_id=1959432720 instance=ExtResource("6_trkcg")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+ActionName = "interact"
+
+[node name="RebindKey6" parent="OptionsMotion/OptionsContainer/Panel/TabContainer/Rebind/ScrollContainer/RebindContainer" unique_id=1163863864 instance=ExtResource("6_trkcg")]
+layout_mode = 2
+ActionName = "drop_weapon"
+
+[node name="Control" type="Control" parent="OptionsMotion/OptionsContainer/Panel/TabContainer" unique_id=1678962265]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Label" type="Label" parent="OptionsMotion/OptionsContainer/Panel" unique_id=1219577441]
 layout_mode = 1
@@ -935,63 +1013,6 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMotion/OptionsContainer/Panel" unique_id=96245124]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -568.9994
-offset_top = -198.0
-offset_right = -201.99994
-offset_bottom = 188.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-
-[node name="RebindContainer" type="VBoxContainer" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer" unique_id=1883577219]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_constants/separation = 12
-alignment = 2
-
-[node name="RebindKey" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer/RebindContainer" unique_id=1700098773 instance=ExtResource("6_trkcg")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-ActionName = "up"
-
-[node name="RebindKey2" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer/RebindContainer" unique_id=2019685753 instance=ExtResource("6_trkcg")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-ActionName = "down"
-
-[node name="RebindKey3" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer/RebindContainer" unique_id=2140435966 instance=ExtResource("6_trkcg")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-ActionName = "left"
-
-[node name="RebindKey4" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer/RebindContainer" unique_id=1468785925 instance=ExtResource("6_trkcg")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-ActionName = "right"
-
-[node name="RebindKey5" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer/RebindContainer" unique_id=1959432720 instance=ExtResource("6_trkcg")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-ActionName = "interact"
-
-[node name="RebindKey6" parent="OptionsMotion/OptionsContainer/Panel/ScrollContainer/RebindContainer" unique_id=1163863864 instance=ExtResource("6_trkcg")]
-layout_mode = 2
-ActionName = "drop_weapon"
 
 [node name="SaveButton" type="Button" parent="OptionsMotion/OptionsContainer/Panel" unique_id=1709088820]
 unique_name_in_owner = true
@@ -1012,6 +1033,7 @@ theme_override_fonts/font = ExtResource("2_m7x51")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("9_e58y3")
 theme_override_styles/pressed = ExtResource("9_e58y3")
+theme_override_styles/hover = ExtResource("8_fbjtm")
 text = "Save"
 
 [node name="DefaultButton" type="Button" parent="OptionsMotion/OptionsContainer/Panel" unique_id=1162780906]
@@ -1033,6 +1055,7 @@ theme_override_fonts/font = ExtResource("2_m7x51")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("9_e58y3")
 theme_override_styles/pressed = ExtResource("9_e58y3")
+theme_override_styles/hover = ExtResource("8_fbjtm")
 text = "Default"
 
 [node name="StatsMotion" type="Control" parent="." unique_id=486094606]
