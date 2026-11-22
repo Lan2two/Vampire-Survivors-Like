@@ -34,6 +34,7 @@ namespace SurvivorsGame
 
             traveledDistance = 0f;
             hitCount = 0;
+            attackComponent.ClearHash();
 
             Show();
             ProcessMode = ProcessModeEnum.Inherit;
@@ -42,6 +43,7 @@ namespace SurvivorsGame
 
             CallDeferred(Weapon.MethodName.UpdateDamage, config, attackComponent);
         }
+
 
         public override void _PhysicsProcess(double delta)
         {
