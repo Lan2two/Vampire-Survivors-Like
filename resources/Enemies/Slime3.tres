@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cwb78b13m34d"]
+
+[ext_resource type="Script" uid="uid://di7fvafw6ssl6" path="res://resources/EnemyData.cs" id="1_v7u5a"]
+
+[resource]
+script = ExtResource("1_v7u5a")
+Health = 20.0
+Defense = 20.0
+Speed = 20.0
+CoinAmount = 5.0
+XpAmount = 5.0
+Modulate = Color(0, 0.9647059, 0.77254903, 1)
+metadata/_custom_type_script = "uid://di7fvafw6ssl6"

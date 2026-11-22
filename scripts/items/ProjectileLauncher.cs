@@ -17,6 +17,7 @@ namespace SurvivorsGame
         private Marker2D shootPoint;
         private Array<Node2D> enemiesInRange;
 
+        private ObjectPool<Bullet> _bulletPool;
         public Resource currentConfig { get; set; }
         public UpgradeManager upgradeManager;
         private bool shooting = true;
@@ -60,9 +61,9 @@ namespace SurvivorsGame
                 sprite2D.Texture = texture2D;
             }
 
-            startingConfig = (ProjectileData)startingConfig.Duplicate(true);
+            startingConfig = startingConfig.Clone();
             startingConfig.DetectionRangeBase = detectionRange.Radius;
-            currentConfig = (ProjectileData)startingConfig.Duplicate(true);
+            currentConfig = startingConfig.Clone();
 
             if (timer != null)
             {
@@ -75,6 +76,7 @@ namespace SurvivorsGame
 
         private void Onready()
         {
+            _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, 100);
             upgradeManager = this.GetPlayer()?.upgradeManager;
         }
 
@@ -84,6 +86,7 @@ namespace SurvivorsGame
             {
                 timer.Timeout -= OnTimeout;
             }
+            _bulletPool?.Clear();
         }
 
         public override void _PhysicsProcess(double delta)
@@ -135,7 +138,7 @@ namespace SurvivorsGame
 
             int burstCount = Mathf.Max(1, (int)activeConfig.GetStat("Burst").CalculateFinal());
             float burstInterval = activeConfig.GetStat("BurstInterval").CalculateFinal();
-            float halfSpreadRad = Mathf.DegToRad(activeConfig.GetStat("Spread").CalculateFinal() / 2f);
+            float halfSpread = activeConfig.GetStat("Spread").CalculateFinal() / 2f;
 
             int sign = 1;
             for (int i = 0; i < burstCount; i++)
@@ -146,37 +149,38 @@ namespace SurvivorsGame
 
                 if (delay <= 0f)
                 {
-                    SpawnBullet(activeConfig, halfSpreadRad, currentSign);
+                    SpawnBullet(activeConfig, halfSpread, currentSign);
                 }
                 else
                 {
                     GetTree().CreateTimer(delay, false).Timeout += () =>
                     {
                         if (!IsInstanceValid(this) || !IsInstanceValid(shootPoint)) return;
-                        SpawnBullet(activeConfig, halfSpreadRad, currentSign);
+                        SpawnBullet(activeConfig, halfSpread, currentSign);
                     };
                 }
             }
         }
 
-        private void SpawnBullet(ProjectileData activeConfig, float halfSpreadRad, int sign)
+        private void SpawnBullet(ProjectileData activeConfig, float halfSpread, int sign)
         {
-            float spread = (float)GD.RandRange(0.0, halfSpreadRad);
-            Bullet projectileInstance = Scene.Instantiate<Bullet>();
+            if (_bulletPool == null) return;
+
+            float spread = (float)GD.RandRange(0.0, halfSpread);
+            //GD.Print($"{activeConfig.GetStat("Spread").CalculateFinal()}, {spread}");
+            Bullet projectileInstance = _bulletPool.Get();
             projectileInstance.config = activeConfig;
             projectileInstance.GlobalPosition = shootPoint.GlobalPosition;
             projectileInstance.GlobalRotation = shootPoint.GlobalRotation + (spread * sign);
-
-            Node spawnParent = GetTree().CurrentScene ?? GetParent();
-            spawnParent.AddChild(projectileInstance);
-            projectileInstance.Fire();
+            projectileInstance.ReturnToPool = _bulletPool.Return;
+            projectileInstance.OnSpawn();
         }
 
         public void ApplyStrategy(UpgradeType upgradeType)
         {
             if (startingConfig == null) return;
 
-            currentConfig = (ProjectileData)startingConfig.Duplicate(true);
+            currentConfig = startingConfig.Clone();
 
             if (upgradeManager == null)
             {
@@ -191,5 +195,7 @@ namespace SurvivorsGame
                 timer.WaitTime = Mathf.Max(0.05f, activeConfig.GetStat("ProjectileCooldown").CalculateFinal());
             }
         }
+
     }
+
 }

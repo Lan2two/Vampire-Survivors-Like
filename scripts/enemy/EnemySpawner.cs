@@ -2,6 +2,8 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
+    using System.Collections.Generic;
+
     public partial class EnemySpawner : Path2D
     {
         [Export] private Array<EnemyRow> EnemyTable = new();
@@ -9,11 +11,14 @@ namespace SurvivorsGame
         [Export] private bool LoopPattern = false;
         [Export] private double spawnInterval = 1;
         [Export] private int MaxEnemies = 300;
+        [Export] private int InitialPoolSizePerScene = 50;
 
         private PathFollow2D pathFollow;
         private double _spawnTimer;
         private int pattern = 0;
         private double _patternTimer;
+
+        private readonly System.Collections.Generic.Dictionary<PackedScene, ObjectPool<Enemy>> _enemyPools = new();
 
         public override void _Ready()
         {
@@ -38,8 +43,38 @@ namespace SurvivorsGame
                 SetPhysicsProcess(false);
                 return;
             }
+
             _patternTimer = PatternTime;
             pathFollow.Loop = true;
+            CallDeferred(MethodName.Onready);
+        }
+
+        private void Onready()
+        {
+            Node currentScene = GetTree().CurrentScene;
+            if (currentScene == null) return;
+
+            // Pre-warm pools for every unique EnemyScene in EnemyTable
+            foreach (EnemyRow row in EnemyTable)
+            {
+                if (row?.Enemies == null) continue;
+                foreach (EnemyData data in row.Enemies)
+                {
+                    if (data?.EnemyScene != null && !_enemyPools.ContainsKey(data.EnemyScene))
+                    {
+                        _enemyPools[data.EnemyScene] = new ObjectPool<Enemy>(data.EnemyScene, currentScene, InitialPoolSizePerScene);
+                    }
+                }
+            }
+        }
+
+        public override void _ExitTree()
+        {
+            foreach (var pool in _enemyPools.Values)
+            {
+                pool.Clear();
+            }
+            _enemyPools.Clear();
         }
 
         public override void _PhysicsProcess(double delta)
@@ -56,16 +91,15 @@ namespace SurvivorsGame
                 {
                     pattern = 0;
                 }
-                //GD.Print(pattern);
                 _patternTimer = PatternTime;
             }
             if (_spawnTimer > 0) return;
 
             if (Enemy.Alive >= MaxEnemies)
             {
-                //GD.Print("Cap Reached");
                 return;
             }
+
             _spawnTimer = spawnInterval / ((Stats.data.Seconds + 10) / 10);
             SpawnEnemy();
         }
@@ -82,27 +116,27 @@ namespace SurvivorsGame
             pathFollow.ProgressRatio = randomRatio;
             EnemyData _targetData = EnemyTable[pattern].Enemies[randEnemy];
 
-            Enemy enemyInstance = _targetData.EnemyScene.Instantiate<Enemy>();
+            if (_targetData?.EnemyScene == null) return;
+
+            if (!_enemyPools.TryGetValue(_targetData.EnemyScene, out ObjectPool<Enemy> pool))
+            {
+                Node currentScene = GetTree().CurrentScene;
+                if (currentScene == null) return;
+                pool = new ObjectPool<Enemy>(_targetData.EnemyScene, currentScene, InitialPoolSizePerScene);
+                _enemyPools[_targetData.EnemyScene] = pool;
+            }
+
+            Enemy enemyInstance = pool.Get();
             if (enemyInstance == null)
             {
-                GD.PrintErr("EnemySpawner could not instantiate an Enemy.");
+                GD.PrintErr("EnemySpawner could not get an Enemy from the pool.");
                 return;
             }
 
-            Node currentScene = GetTree().CurrentScene;
-            if (currentScene == null)
-            {
-                enemyInstance.Free();
-                GD.PrintErr("EnemySpawner cannot spawn because there is no current scene.");
-                return;
-            }
-            currentScene.AddChild(enemyInstance);
-            enemyInstance.SetStats(_targetData.Health, _targetData.Defense, _targetData.Speed, _targetData.CoinAmount, _targetData.XpAmount, _targetData.Modulate);
-            //GD.Print(_targetData.Modulate);
-            //GD.Print(enemyInstance.Modulate);
             enemyInstance.GlobalPosition = pathFollow.GlobalPosition;
+            enemyInstance.SetStats(_targetData.Health, _targetData.Defense, _targetData.Speed, _targetData.CoinAmount, _targetData.XpAmount, _targetData.Scale, _targetData.Modulate);
+            enemyInstance.ReturnToPool = pool.Return;
+            enemyInstance.OnSpawn();
         }
     }
-
-
 }

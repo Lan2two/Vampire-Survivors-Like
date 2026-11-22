@@ -2,6 +2,7 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
+    using System.Collections.Generic;
 
     public partial class LootComponent : Node
     {
@@ -15,8 +16,10 @@ namespace SurvivorsGame
         [Export] PackedScene XpOrbScene;
         [Export] PackedScene HpOrbScene;
         [Export] PackedScene CoinScene;
+
         private Node currentScene;
-        private PackedScene worldItem;
+        private static Node _cachedPoolScene;
+        private static readonly System.Collections.Generic.Dictionary<PackedScene, ObjectPool<Absorbable>> _sharedPools = new();
 
         public override void _Ready()
         {
@@ -35,8 +38,17 @@ namespace SurvivorsGame
                 GD.PrintErr("XpOrbScene unassigned in LootComponent.");
                 return;
             }
+
             currentScene = GetTree().CurrentScene;
             deathState.OnDeath += _OnDeath;
+            CallDeferred(MethodName.PrewarmPools);
+        }
+
+        private void PrewarmPools()
+        {
+            if (XpOrbScene != null) GetOrCreatePool(XpOrbScene, 300);
+            if (HpOrbScene != null) GetOrCreatePool(HpOrbScene, 30);
+            if (CoinScene != null) GetOrCreatePool(CoinScene, 100);
         }
 
         public override void _ExitTree()
@@ -45,6 +57,31 @@ namespace SurvivorsGame
             {
                 deathState.OnDeath -= _OnDeath;
             }
+        }
+
+        private ObjectPool<Absorbable> GetOrCreatePool(PackedScene scene, int initialSize = 100)
+        {
+            if (!IsInstanceValid(currentScene))
+            {
+                currentScene = GetTree().CurrentScene;
+            }
+            if (currentScene == null)
+            {
+                return null;
+            }
+            if (_cachedPoolScene != currentScene)
+            {
+                _sharedPools.Clear();
+                _cachedPoolScene = currentScene;
+            }
+
+            if (!_sharedPools.TryGetValue(scene, out ObjectPool<Absorbable> pool))
+            {
+                pool = new ObjectPool<Absorbable>(scene, currentScene, initialSize);
+                _sharedPools[scene] = pool;
+            }
+
+            return pool;
         }
 
         private void _OnDeath()
@@ -62,13 +99,31 @@ namespace SurvivorsGame
                 GD.PrintErr("Dropped scene is null");
                 return;
             }
-            float Rand = (float)GD.RandRange(0f, 100f);
-            if (Rand > chance)
+
+            float rand = (float)GD.RandRange(0f, 100f);
+            if (rand > chance)
             {
                 return;
             }
-            Absorbable Instance = DropScene(packedScene) as Absorbable;
-            Instance.SetAmount(amount);
+
+            ObjectPool<Absorbable> pool = GetOrCreatePool(packedScene);
+            if (pool == null)
+            {
+                GD.PrintErr("LootComponent cannot drop loot because there is no current scene.");
+                return;
+            }
+
+            Absorbable instance = pool.Get();
+            if (instance == null)
+            {
+                GD.PrintErr("LootComponent failed to get Absorbable from pool.");
+                return;
+            }
+
+            instance.GlobalPosition = enemy.GlobalPosition + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
+            instance.SetAmount(amount);
+            instance.ReturnToPool = pool.Return;
+            instance.OnSpawn();
         }
 
         public void DropItem(float chance)
@@ -77,11 +132,13 @@ namespace SurvivorsGame
             {
                 return;
             }
-            float LootChance = (float)GD.RandRange(0f, 100f);
-            if (LootChance > chance)
+
+            float lootChance = (float)GD.RandRange(0f, 100f);
+            if (lootChance > chance)
             {
                 return;
             }
+
             int randItemIndex = GD.RandRange(0, LootTable.Count - 1);
             DropScene(LootTable[randItemIndex]);
         }
@@ -94,14 +151,20 @@ namespace SurvivorsGame
                 GD.PrintErr("LootComponent failed to instantiate Scene.");
                 return null;
             }
+
+            if (!IsInstanceValid(currentScene))
+            {
+                currentScene = GetTree().CurrentScene;
+            }
             if (currentScene == null)
             {
                 sceneInstance.Free();
                 GD.PrintErr("LootComponent cannot drop loot because there is no current scene.");
                 return null;
             }
-            currentScene.AddChild(sceneInstance);
+
             sceneInstance.GlobalPosition = enemy.GlobalPosition + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
+            currentScene.CallDeferred(Node.MethodName.AddChild, sceneInstance);
             return sceneInstance;
         }
     }

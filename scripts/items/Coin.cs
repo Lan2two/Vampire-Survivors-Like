@@ -6,30 +6,13 @@ namespace SurvivorsGame
     {
         public int CoinAmount = 1;
         public static event Action CoinPickup;
-        public override void _Ready()
-        {
-            base._Ready();
-            BodyEntered += OnBodyEntered;
-        }
 
-        public override void _ExitTree()
-        {
-            base._ExitTree();
-            BodyEntered -= OnBodyEntered;
-        }
+        public override void SetAmount(float amount) => CoinAmount = (int)amount;
 
-        public override void SetAmount(float amount)
+        protected override void OnPickup(Player player)
         {
-            CoinAmount = (int)amount;
-        }
-
-        private void OnBodyEntered(Node body)
-        {
-            if (body is Player)
-            {
-                Stats.data.Coins += CoinAmount;
-                CoinPickup?.Invoke();
-            }
+            Stats.data.Coins += CoinAmount;
+            CoinPickup?.Invoke();
         }
     }
 }

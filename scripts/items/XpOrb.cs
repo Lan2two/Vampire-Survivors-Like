@@ -4,30 +4,13 @@ namespace SurvivorsGame
     public partial class XpOrb : Absorbable
     {
         public float XPAmount = 1.0f;
-        public override void _Ready()
-        {
-            base._Ready();
-            BodyEntered += OnBodyEntered;
-        }
 
-        public override void _ExitTree()
-        {
-            base._ExitTree();
-            BodyEntered -= OnBodyEntered;
-        }
+        public override void SetAmount(float amount) => XPAmount = amount;
 
-        public override void SetAmount(float amount)
+        protected override void OnPickup(Player player)
         {
-            XPAmount = amount;
-        }
-
-        private void OnBodyEntered(Node body)
-        {
-            if (body is Player player)
-            {
-                player.playerXP += XPAmount;
-                Stats.data.totalXP += XPAmount;
-            }
+            player.playerXP += XPAmount;
+            Stats.data.totalXP += XPAmount;
         }
     }
 }

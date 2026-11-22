@@ -26,7 +26,6 @@ namespace SurvivorsGame
                 {
                     string stateName = state.Name.ToString();
                     _states.Add(stateName, state);
-                    //signal
                     state.stateChanged += OnStateChanged;
                 }
             }
@@ -35,12 +34,19 @@ namespace SurvivorsGame
                 currentState = startingState;
                 CallDeferred(nameof(EnterCurrentState));
             }
-
         }
 
         private void EnterCurrentState()
         {
             currentState?.Enter();
+        }
+
+        public void Reset()
+        {
+            if (startingState == null) return;
+            currentState?.Exit();
+            currentState = startingState;
+            currentState.Enter();
         }
 
         public override void _Process(double delta)
@@ -88,5 +94,4 @@ namespace SurvivorsGame
             }
         }
     }
-
 }

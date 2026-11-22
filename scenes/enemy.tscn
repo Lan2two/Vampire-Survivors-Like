@@ -131,7 +131,9 @@ maxHealth = 15.0
 metadata/_custom_type_script = "uid://b2lcgoxd6ttm2"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1738169847 node_paths=PackedStringArray("healthComponent")]
-collision_layer = 3
+collision_layer = 2
+collision_mask = 0
+monitoring = false
 script = ExtResource("8_otmr2")
 healthComponent = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://7otgg0gqbqc5"
@@ -162,6 +164,7 @@ healthComponent = NodePath("../HealthComponent")
 [node name="AttackComponent" type="Area2D" parent="." unique_id=1858224252]
 collision_layer = 0
 collision_mask = 4
+monitorable = false
 script = ExtResource("15_g0wcc")
 SingleHit = false
 metadata/_custom_type_script = "uid://be1ra4a5fewk7"

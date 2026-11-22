@@ -110,6 +110,7 @@ pause={
 
 2d/physics_engine="GodotPhysics2D"
 3d/physics_engine="Jolt Physics"
+2d/solver/solver_iterations=4
 
 [rendering]
 

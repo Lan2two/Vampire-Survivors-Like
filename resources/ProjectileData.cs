@@ -73,5 +73,10 @@ namespace SurvivorsGame
             "Spread" => new StatModifier(SpreadBase, SpreadAdditive, SpreadPercent, CombatStatLimits.MinSpread, float.MaxValue),
             _ => default
         };
+
+        public ProjectileData Clone()
+        {
+            return (ProjectileData)Duplicate(true);
+        }
     }
 }

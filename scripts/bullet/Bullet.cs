@@ -1,18 +1,22 @@
 namespace SurvivorsGame
 {
+    using System;
     using Godot;
 
-    public partial class Bullet : Weapon
+    public partial class Bullet : Weapon, IPoolable
     {
         [Export] public ProjectileData config;
         private RedirectBullet redirectBullet;
-        private float traveledDistance = 0;
+        private float traveledDistance = 0f;
         private int hitCount = 0;
         private bool Crit;
         private float FinalDamage;
 
+        public Action<Bullet> ReturnToPool { get; set; }
+
         public override void _Ready()
         {
+            base._Ready();
             redirectBullet = GetNodeOrNull<RedirectBullet>("RedirectBullet");
             if (redirectBullet == null)
             {
@@ -20,13 +24,22 @@ namespace SurvivorsGame
             }
         }
 
-        public void Fire()
+        public void OnSpawn()
         {
             if (config == null || attackComponent == null)
             {
                 GD.PrintErr($"Cannot Use Bullet: config or attackComponent is null on {Name}!");
                 return;
             }
+
+            traveledDistance = 0f;
+            hitCount = 0;
+
+            Show();
+            ProcessMode = ProcessModeEnum.Inherit;
+            SetAreaActive(attackComponent, true);
+            SetAreaActive(redirectBullet, true);
+
             CallDeferred(Weapon.MethodName.UpdateDamage, config, attackComponent);
         }
 
@@ -42,8 +55,22 @@ namespace SurvivorsGame
 
             if (config.GetStat("MaxTravelDistance").CalculateFinal() < traveledDistance || attackComponent.GetHurtBoxEntered() > config.GetStat("PierceCount").CalculateFinal())
             {
-                QueueFree();
+                ReturnToPool?.Invoke(this);
             }
+        }
+
+        public void OnDespawn()
+        {
+            Hide();
+            ProcessMode = ProcessModeEnum.Disabled;
+            SetAreaActive(attackComponent, false);
+            SetAreaActive(redirectBullet, false);
+        }
+
+        private static void SetAreaActive(Area2D area, bool active)
+        {
+            if (area == null) return;
+            area.SetDeferred(Area2D.PropertyName.Monitoring, active);
         }
     }
 }

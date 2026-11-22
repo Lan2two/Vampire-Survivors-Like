@@ -11,8 +11,28 @@ namespace SurvivorsGame
         [Export] VelocityComponent velocityComponent;
         [Export] AttackComponent attackComponent;
         [Export] AnimatedSprite2D Sprite;
+
         public event Action OnDeath;
         private bool _isDead;
+
+        private uint _defaultBodyCollisionLayer;
+        private uint _defaultAttackCollisionMask;
+        private bool _defaultsCached = false;
+
+        private void CacheDefaults()
+        {
+            if (_defaultsCached) return;
+            if (characterBody != null)
+            {
+                _defaultBodyCollisionLayer = characterBody.CollisionLayer;
+            }
+            if (attackComponent != null)
+            {
+                _defaultAttackCollisionMask = attackComponent.CollisionMask;
+            }
+            _defaultsCached = true;
+        }
+
         public override void _Ready()
         {
             if (Sprite == null)
@@ -30,12 +50,37 @@ namespace SurvivorsGame
                 GD.PrintErr("Hurtbox not assigned in DeathComponent.");
                 return;
             }
+
+            CacheDefaults();
+
             Sprite.AnimationFinished += OnAnimationFinished;
             healthComponent.FinalDamageEvent += CheckforDeath;
         }
+
+        public void Reset()
+        {
+            CacheDefaults();
+            _isDead = false;
+            _hurtbox?.SetInvincibility(false);
+
+            if (Sprite != null && Sprite.Animation == "die")
+            {
+                Sprite.Stop();
+            }
+
+            if (attackComponent != null && _defaultAttackCollisionMask != 0)
+            {
+                attackComponent.CollisionMask = _defaultAttackCollisionMask;
+            }
+            if (characterBody != null && _defaultBodyCollisionLayer != 0)
+            {
+                characterBody.CollisionLayer = _defaultBodyCollisionLayer;
+            }
+        }
+
         private void CheckforDeath(Attack attackData)
         {
-            if (_isDead || healthComponent.currentHealth > 0)
+            if (_isDead || healthComponent.currentHealth > 0 || (characterBody is Enemy enemy && !enemy.IsActive))
             {
                 return;
             }
@@ -47,8 +92,8 @@ namespace SurvivorsGame
         {
             Stats.data.EnemiesKilled++;
             _hurtbox.SetInvincibility(true);
-            attackComponent?.SetDeferred("collision_mask", 0);
-            characterBody?.SetDeferred("collision_layer", 0);
+            attackComponent?.SetDeferred(CollisionObject2D.PropertyName.CollisionMask, 0);
+            characterBody?.SetDeferred(CollisionObject2D.PropertyName.CollisionLayer, 0);
             Sprite.Play("die");
         }
 
@@ -68,6 +113,7 @@ namespace SurvivorsGame
                 healthComponent.FinalDamageEvent -= CheckforDeath;
             }
         }
+
         private void OnAnimationFinished()
         {
             if (Sprite.Animation != "die")
@@ -75,7 +121,15 @@ namespace SurvivorsGame
                 return;
             }
             OnDeath?.Invoke();
-            characterBody.QueueFree();
+
+            if (characterBody is Enemy enemy)
+            {
+                enemy.Despawn();
+            }
+            else
+            {
+                characterBody?.QueueFree();
+            }
         }
     }
 }

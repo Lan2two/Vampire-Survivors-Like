@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 [ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="35_mmorv"]
+[ext_resource type="Script" uid="uid://cmfbr08yiy67l" path="res://scripts/GUI/EnemyCounter.cs" id="38_qxvih"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xtru"]
 content_margin_bottom = 8.0
@@ -531,3 +532,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("30_7mxsn")
 metadata/_edit_use_anchors_ = true
+
+[node name="EnemyCounter" type="Label" parent="." unique_id=65933947]
+offset_left = 227.0
+offset_top = 166.0
+offset_right = 267.0
+offset_bottom = 189.0
+theme_override_fonts/font = ExtResource("1_5j4t3")
+theme_override_font_sizes/font_size = 32
+text = "Enemies:"
+script = ExtResource("38_qxvih")

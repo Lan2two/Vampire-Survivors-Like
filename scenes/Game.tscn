@@ -7,10 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://x47ntiqsehf0" path="res://scenes/enemy_spawner.tscn" id="4_r7sob"]
 [ext_resource type="PackedScene" uid="uid://d1t24gaxw444e" path="res://scenes/item.tscn" id="6_vjgi4"]
 [ext_resource type="Script" uid="uid://5t4llywdgy6s" path="res://resources/EnemyRow.cs" id="6_y5y3l"]
+[ext_resource type="Resource" uid="uid://b71xfsntxlrnj" path="res://resources/Enemies/Slime1.tres" id="7_45i86"]
 [ext_resource type="Texture2D" uid="uid://owj6ckfathoo" path="res://assets/sprites/coin.png" id="7_kyk2p"]
 [ext_resource type="Script" uid="uid://di7fvafw6ssl6" path="res://resources/EnemyData.cs" id="7_vjgi4"]
 [ext_resource type="PackedScene" uid="uid://u3i2pnm8ccrf" path="res://scenes/MeleeWeapon.tscn" id="8_45i86"]
+[ext_resource type="Resource" uid="uid://ck8yjrt1hxfyu" path="res://resources/Enemies/BigSlime1.tres" id="8_kyk2p"]
+[ext_resource type="Resource" uid="uid://doh2x2q7n5xxn" path="res://resources/Enemies/Slime2.tres" id="9_45i86"]
 [ext_resource type="Script" uid="uid://dywixrbgtp314" path="res://resources/MeleeWeaponBase.cs" id="9_sv1m6"]
+[ext_resource type="Resource" uid="uid://cwb78b13m34d" path="res://resources/Enemies/Slime3.tres" id="10_sv1m6"]
+[ext_resource type="Resource" uid="uid://78wobfus0rnc" path="res://resources/Enemies/BigSlime2.tres" id="11_a8wo8"]
 [ext_resource type="Script" uid="uid://bjelyacmd4fh2" path="res://scripts/world/Cycle.cs" id="12_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://bqjqkebgwfpcu" path="res://scenes/HUD.tscn" id="12_mcffj"]
 [ext_resource type="PackedScene" uid="uid://cemr5n7iygx3r" path="res://scenes/campfire.tscn" id="13_2rd6h"]
@@ -1116,42 +1121,24 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3xj3m")
 
-[sub_resource type="Resource" id="Resource_kyk2p"]
-script = ExtResource("7_vjgi4")
-Health = 5.0
-Speed = 40.0
-CoinAmount = 1.0
-XpAmount = 1.0
-Modulate = Color(1, 0, 0.015686275, 1)
-metadata/_custom_type_script = "uid://di7fvafw6ssl6"
-
-[sub_resource type="Resource" id="Resource_45i86"]
+[sub_resource type="Resource" id="Resource_vjgi4"]
 script = ExtResource("6_y5y3l")
-Enemies = Array[ExtResource("7_vjgi4")]([SubResource("Resource_kyk2p")])
+Enemies = Array[ExtResource("7_vjgi4")]([ExtResource("7_45i86")])
 metadata/_custom_type_script = "uid://5t4llywdgy6s"
-
-[sub_resource type="Resource" id="Resource_sv1m6"]
-script = ExtResource("7_vjgi4")
-metadata/_custom_type_script = "uid://di7fvafw6ssl6"
 
 [sub_resource type="Resource" id="Resource_a8wo8"]
 script = ExtResource("6_y5y3l")
-Enemies = Array[ExtResource("7_vjgi4")]([SubResource("Resource_sv1m6")])
+Enemies = Array[ExtResource("7_vjgi4")]([ExtResource("9_45i86"), ExtResource("7_45i86")])
 metadata/_custom_type_script = "uid://5t4llywdgy6s"
-
-[sub_resource type="Resource" id="Resource_attvq"]
-script = ExtResource("7_vjgi4")
-Health = 20.0
-Defense = 20.0
-Speed = 20.0
-CoinAmount = 5.0
-XpAmount = 5.0
-Modulate = Color(0, 0.9647059, 0.77254903, 1)
-metadata/_custom_type_script = "uid://di7fvafw6ssl6"
 
 [sub_resource type="Resource" id="Resource_bneo8"]
 script = ExtResource("6_y5y3l")
-Enemies = Array[ExtResource("7_vjgi4")]([SubResource("Resource_attvq")])
+Enemies = Array[ExtResource("7_vjgi4")]([ExtResource("9_45i86"), ExtResource("8_kyk2p")])
+metadata/_custom_type_script = "uid://5t4llywdgy6s"
+
+[sub_resource type="Resource" id="Resource_45i86"]
+script = ExtResource("6_y5y3l")
+Enemies = Array[ExtResource("7_vjgi4")]([ExtResource("10_sv1m6"), ExtResource("9_45i86"), ExtResource("8_kyk2p"), ExtResource("11_a8wo8")])
 metadata/_custom_type_script = "uid://5t4llywdgy6s"
 
 [sub_resource type="Gradient" id="Gradient_mcffj"]
@@ -1407,9 +1394,10 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Node2D" parent="PlayerPlacement/Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
-EnemyTable = Array[ExtResource("6_y5y3l")]([SubResource("Resource_45i86"), SubResource("Resource_a8wo8"), SubResource("Resource_bneo8")])
-PatternTime = 10.0
+EnemyTable = Array[ExtResource("6_y5y3l")]([SubResource("Resource_vjgi4"), SubResource("Resource_a8wo8"), SubResource("Resource_bneo8"), SubResource("Resource_45i86")])
+PatternTime = 20.0
 LoopPattern = true
+spawnInterval = 0.1
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerPlacement/Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)

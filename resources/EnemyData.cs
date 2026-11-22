@@ -9,6 +9,7 @@ namespace SurvivorsGame
         [Export] public float Speed { get; set; } = 25f;
         [Export] public float CoinAmount { get; set; } = 2f;
         [Export] public float XpAmount { get; set; } = 2f;
+        [Export] public float Scale { get; set; } = 1f;
         [Export] public Color Modulate { get; set; } = Colors.White;
         private PackedScene _enemyScene;
         [Export]
