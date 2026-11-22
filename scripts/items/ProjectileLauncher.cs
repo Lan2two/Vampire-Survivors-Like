@@ -76,7 +76,7 @@ namespace SurvivorsGame
 
         private void Onready()
         {
-            _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, 100);
+            _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, 200);
             upgradeManager = this.GetPlayer()?.upgradeManager;
         }
 

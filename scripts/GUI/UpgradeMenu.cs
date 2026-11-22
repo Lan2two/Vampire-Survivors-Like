@@ -38,6 +38,7 @@ namespace SurvivorsGame
         private Button _skipButton;
         private int _rerollCount;
         public Resource currentConfig { get; set; }
+        private bool _gameactive = true;
 
         private struct UpgradeChoiceData
         {
@@ -65,7 +66,7 @@ namespace SurvivorsGame
 
             _rerollButton.Pressed += RerollButton;
             _skipButton.Pressed += SkipButton;
-            GameScene.GameOverEvent += Hide;
+            GameScene.GameOverEvent += OnGameOver;
             VisibilityChanged += SetReroll;
             xpBar.LevelUpEvent += DisplayUpgrades;
             EventBus.ShopUpgrade += OnUpgrade;
@@ -81,11 +82,17 @@ namespace SurvivorsGame
         {
             if (_rerollButton != null) _rerollButton.Pressed -= RerollButton;
             if (_skipButton != null) _skipButton.Pressed -= SkipButton;
-            GameScene.GameOverEvent -= Hide;
+            GameScene.GameOverEvent -= OnGameOver;
             VisibilityChanged -= SetReroll;
             if (xpBar != null) xpBar.LevelUpEvent -= DisplayUpgrades;
             EventBus.ShopUpgrade -= OnUpgrade;
             UnbindButtonEvents();
+        }
+
+        private void OnGameOver()
+        {
+            _gameactive = false;
+            Hide();
         }
 
         public void OnUpgrade()
@@ -147,6 +154,7 @@ namespace SurvivorsGame
         }
         private void DisplayUpgrades()
         {
+            if (!_gameactive) return;
             RandUpgrade();
 
             //Pop in

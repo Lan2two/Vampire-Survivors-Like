@@ -1396,8 +1396,6 @@ position_smoothing_speed = 10.0
 [node name="Node2D" parent="PlayerPlacement/Player" unique_id=423383647 instance=ExtResource("4_r7sob")]
 EnemyTable = Array[ExtResource("6_y5y3l")]([SubResource("Resource_vjgi4"), SubResource("Resource_a8wo8"), SubResource("Resource_bneo8"), SubResource("Resource_45i86")])
 PatternTime = 20.0
-LoopPattern = true
-spawnInterval = 0.1
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerPlacement/Player" unique_id=1815498478]
 position = Vector2(-1.0000057, 1.9999962)

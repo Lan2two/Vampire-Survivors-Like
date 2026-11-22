@@ -20,6 +20,7 @@ region = Rect2(3, 3, 10, 10)
 [node name="Coin" type="RigidBody2D" unique_id=740080798 node_paths=PackedStringArray("detectionComponent", "pathfindComponent", "velocityComponent")]
 y_sort_enabled = true
 collision_layer = 0
+collision_mask = 4
 physics_material_override = ExtResource("1_2du1a")
 lock_rotation = true
 contact_monitor = true
