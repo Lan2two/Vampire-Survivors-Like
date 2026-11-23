@@ -66,8 +66,8 @@ texture = SubResource("GradientTexture2D_x08h0")
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=403826576 node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("4_homb0")
 rigidBody = NodePath("..")
-maxSpeed = 200.0
-acceleration = 50.0
+maxSpeed = 300.0
+acceleration = 100.0
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=828657392]

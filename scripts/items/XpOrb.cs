@@ -12,5 +12,7 @@ namespace SurvivorsGame
             player.playerXP += XPAmount;
             Stats.data.totalXP += XPAmount;
         }
+
+        public override float GetAmount() => XPAmount;
     }
 }

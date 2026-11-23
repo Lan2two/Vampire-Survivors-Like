@@ -47,8 +47,8 @@ texture = SubResource("AtlasTexture_r2og0")
 [node name="VelocityComponent" type="Node2D" parent="." unique_id=403826576 node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("4_7om06")
 rigidBody = NodePath("..")
-maxSpeed = 200.0
-acceleration = 50.0
+maxSpeed = 300.0
+acceleration = 100.0
 metadata/_custom_type_script = "uid://bi226kkohh0fe"
 
 [node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=799893242 node_paths=PackedStringArray("characterBody", "velocityComponent")]

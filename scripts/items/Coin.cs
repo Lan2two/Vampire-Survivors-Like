@@ -14,5 +14,7 @@ namespace SurvivorsGame
             Stats.data.Coins += CoinAmount;
             CoinPickup?.Invoke();
         }
+
+        public override float GetAmount() => CoinAmount;
     }
 }

@@ -2,10 +2,13 @@ namespace SurvivorsGame
 {
     using Godot;
     using System;
+    using System.Collections.Generic;
+
 
     [GlobalClass]
     public partial class Absorbable : RigidBody2D, IUpgradable, IPoolable
     {
+        [Export] private float MergeRadius = 25f;
         [Export] private DetectionComponent detectionComponent;
         [Export] private PathfindComponent pathfindComponent;
         [Export] private VelocityComponent velocityComponent;
@@ -20,6 +23,8 @@ namespace SurvivorsGame
 
         protected bool _isActive = false;
         public Action<Absorbable> ReturnToPool { get; set; }
+
+        private static readonly List<Absorbable> _activeAbsorbables = new();
 
         public override void _Ready()
         {
@@ -75,7 +80,17 @@ namespace SurvivorsGame
 
         public virtual void OnSpawn()
         {
+            SawPlayer = false;
+            if (Merge())
+            {
+                ReturnToPool?.Invoke(this);
+                return;
+            }
             _isActive = true;
+            if (!_activeAbsorbables.Contains(this))
+            {
+                _activeAbsorbables.Add(this);
+            }
             SawPlayer = false;
             LinearVelocity = Vector2.Zero;
             AngularVelocity = 0f;
@@ -101,6 +116,7 @@ namespace SurvivorsGame
         public virtual void OnDespawn()
         {
             _isActive = false;
+            _activeAbsorbables.Remove(this);
             SawPlayer = false;
 
             Hide();
@@ -167,12 +183,42 @@ namespace SurvivorsGame
             }
         }
 
+        private bool Merge()
+        {
+            float MergeRadiusSq = MergeRadius * MergeRadius;
+            Type targetType = GetType();
+            for (int i = _activeAbsorbables.Count - 1; i >= 0; i--)
+            {
+                Absorbable other = _activeAbsorbables[i];
+                if (!IsInstanceValid(other))
+                {
+                    _activeAbsorbables.Remove(other);
+                    continue;
+                }
+                if (other == this || !other._isActive || other.SawPlayer || other.GetType() != targetType)
+                {
+                    continue;
+                }
+                if (GlobalPosition.DistanceSquaredTo(other.GlobalPosition) <= MergeRadiusSq)
+                {
+                    other.AddAmount(GetAmount());
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         protected virtual void OnPickup(Player player)
         {
         }
 
+        public virtual float GetAmount() => 0f;
+
         public virtual void SetAmount(float amount)
         {
         }
+
+        public virtual void AddAmount(float amount) => SetAmount(GetAmount() + amount);
     }
 }

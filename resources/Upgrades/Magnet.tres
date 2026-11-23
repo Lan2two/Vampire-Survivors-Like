@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_807wh")
-UpgradeRadius = 10.0
+UpgradeRadius = 70.0
+CalculationMode = 1
 MaxStackSize = 5
 metadata/_custom_type_script = "uid://by0fp6fn45eih"

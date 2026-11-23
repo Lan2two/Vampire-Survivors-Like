@@ -7,11 +7,12 @@ _data = [Vector2(0, 0.0140218735), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_eoqba"]
-colors = PackedColorArray(1, 0, 0, 1, 0.9219677, 0.0918156, 0.64312917, 1)
+colors = PackedColorArray(1, 0, 0, 0.50980395, 0.92, 0.09200002, 0.6439999, 0.3529412)
 
 [node name="Line2D" type="Line2D" unique_id=400137548]
 show_behind_parent = true
 z_index = -1
+points = PackedVector2Array(16, 10)
 width = 5.0
 width_curve = SubResource("Curve_eoqba")
 default_color = Color(1, 0, 0, 0.5686275)

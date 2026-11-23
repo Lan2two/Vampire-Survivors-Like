@@ -65,7 +65,7 @@ namespace SurvivorsGame
         {
             if (GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition) > DespawnRadius * DespawnRadius)
             {
-                GD.Print($"Despawned from distance, {GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition)}");
+                //GD.Print($"Despawned from distance, {GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition)}");
                 Despawn();
             }
         }
