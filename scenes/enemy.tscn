@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://w4av11tswr7n" path="res://scenes/Coin.tscn" id="18_1x4g4"]
 [ext_resource type="PackedScene" uid="uid://b2hdv4s8cdj6u" path="res://scenes/Hp_orb.tscn" id="18_ile5s"]
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="18_physics"]
-[ext_resource type="Script" uid="uid://de02lqul11e3y" path="res://scripts/enemy/VisibleOnScreenNotifier2d.cs" id="19_1x4g4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 4.0
@@ -191,7 +190,3 @@ deathState = NodePath("../StateMachine/Death")
 XpOrbScene = ExtResource("17_ile5s")
 HpOrbScene = ExtResource("18_ile5s")
 CoinScene = ExtResource("18_1x4g4")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=497895008 node_paths=PackedStringArray("Parent")]
-script = ExtResource("19_1x4g4")
-Parent = NodePath("..")

@@ -5,6 +5,7 @@ namespace SurvivorsGame
 
     public partial class Enemy : RigidBody2D, IPoolable
     {
+        [Export] float DespawnRadius { get; set; } = 420f;
         public float XpAmount = 1f;
         public float CoinAmount = 5f;
         public AnimatedSprite2D animatedSprite;
@@ -59,6 +60,16 @@ namespace SurvivorsGame
         {
             if (IsActive) ReturnToPool?.Invoke(this);
         }
+
+        public override void _PhysicsProcess(double delta)
+        {
+            if (GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition) > DespawnRadius * DespawnRadius)
+            {
+                GD.Print($"Despawned from distance, {GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition)}");
+                Despawn();
+            }
+        }
+
 
         private void SetActive(bool active)
         {
