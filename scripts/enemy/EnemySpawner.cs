@@ -1,10 +1,11 @@
 namespace SurvivorsGame
 {
-    using Godot;
-    using Godot.Collections;
     using System.Collections.Generic;
 
-    public partial class EnemySpawner : Path2D
+    using Godot;
+    using Godot.Collections;
+
+    public partial class EnemySpawner : Path2D, IPoolPrewarmer
     {
         [Export] private Array<EnemyRow> EnemyTable = new();
         [Export] private double PatternTime = 90;
@@ -138,5 +139,21 @@ namespace SurvivorsGame
             enemyInstance.ReturnToPool = pool.Return;
             enemyInstance.OnSpawn();
         }
+
+        public IEnumerable<(PackedScene scene, int count)> GetPoolRequirements()
+        {
+            if (EnemyTable == null) yield break;
+            foreach (EnemyRow row in EnemyTable)
+            {
+                if (row?.Enemies == null) continue;
+                foreach (EnemyData data in row.Enemies)
+                {
+                    if (data?.EnemyScene != null)
+                        yield return (data.EnemyScene, InitialPoolSizePerScene);
+                }
+            }
+        }
+
+
     }
 }

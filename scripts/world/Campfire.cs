@@ -50,6 +50,8 @@ namespace SurvivorsGame
             {
                 GD.PrintErr("DurationTimer not found in Campfire");
             }
+            string keyName = this.GetActionKeyName("interact");
+            interactableComponent.interactName = $"Light Campfire: [{keyName}]";
             _cooldownTimer.WaitTime = Cooldown + Duration;
             _durationTimer.WaitTime = Duration;
             interactableComponent.Interact += OnInteract;

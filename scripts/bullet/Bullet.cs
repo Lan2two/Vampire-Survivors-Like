@@ -18,7 +18,7 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             base._Ready();
-            trail = GetNodeOrNull<Line2D>("%Trail");
+            trail = GetNodeOrNull<Line2D>("Sprite2D/Trail");
             redirectBullet = GetNodeOrNull<RedirectBullet>("RedirectBullet");
             if (redirectBullet == null)
             {
@@ -33,7 +33,7 @@ namespace SurvivorsGame
                 GD.PrintErr($"Cannot Use Bullet: config or attackComponent is null on {Name}!");
                 return;
             }
-            trail.ClearPoints();
+            trail?.ClearPoints();
 
             traveledDistance = 0f;
             hitCount = 0;

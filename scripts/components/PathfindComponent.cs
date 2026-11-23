@@ -35,8 +35,14 @@ namespace SurvivorsGame
 
         public void PathfindToPlayer()
         {
-            if (characterBody == null || velocityComponent == null || player == null)
+            if (characterBody == null || velocityComponent == null)
                 return;
+
+            if (!IsInstanceValid(player))
+            {
+                player = this.GetPlayer();
+                if (player == null) return;
+            }
 
             if (useNavigation)
             {

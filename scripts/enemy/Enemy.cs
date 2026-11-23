@@ -23,6 +23,8 @@ namespace SurvivorsGame
         private uint _defaultMask;
         private float _baseRadius;
 
+        private double timer;
+
         public override void _Ready()
         {
             _defaultLayer = CollisionLayer;
@@ -63,6 +65,9 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
+            timer -= delta;
+            if (timer > 0) return;
+            timer = 1;
             if (GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition) > DespawnRadius * DespawnRadius)
             {
                 //GD.Print($"Despawned from distance, {GlobalPosition.DistanceSquaredTo(this.GetPlayer().GlobalPosition)}");

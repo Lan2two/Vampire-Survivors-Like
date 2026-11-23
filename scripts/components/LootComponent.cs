@@ -1,10 +1,11 @@
 namespace SurvivorsGame
 {
-    using Godot;
-    using Godot.Collections;
     using System.Collections.Generic;
 
-    public partial class LootComponent : Node
+    using Godot;
+    using Godot.Collections;
+
+    public partial class LootComponent : Node, IPoolPrewarmer
     {
         [Export] Array<PackedScene> LootTable = new();
         [Export] float XpDropRate = 100;
@@ -16,6 +17,10 @@ namespace SurvivorsGame
         [Export] PackedScene XpOrbScene;
         [Export] PackedScene HpOrbScene;
         [Export] PackedScene CoinScene;
+
+        private const int InitialXpPool = 300;
+        private const int InitialHpPool = 30;
+        private const int InitialCoinPool = 30;
 
         private Node currentScene;
         private static Node _cachedPoolScene;
@@ -46,9 +51,9 @@ namespace SurvivorsGame
 
         private void PrewarmPools()
         {
-            if (XpOrbScene != null) GetOrCreatePool(XpOrbScene, 300);
-            if (HpOrbScene != null) GetOrCreatePool(HpOrbScene, 30);
-            if (CoinScene != null) GetOrCreatePool(CoinScene, 100);
+            if (XpOrbScene != null) GetOrCreatePool(XpOrbScene, InitialXpPool);
+            if (HpOrbScene != null) GetOrCreatePool(HpOrbScene, InitialHpPool);
+            if (CoinScene != null) GetOrCreatePool(CoinScene, InitialCoinPool);
         }
 
         public override void _ExitTree()
@@ -167,5 +172,13 @@ namespace SurvivorsGame
             currentScene.CallDeferred(Node.MethodName.AddChild, sceneInstance);
             return sceneInstance;
         }
+
+        public IEnumerable<(PackedScene scene, int count)> GetPoolRequirements()
+        {
+            if (XpOrbScene != null) yield return (XpOrbScene, InitialXpPool);
+            if (HpOrbScene != null) yield return (HpOrbScene, InitialHpPool);
+            if (CoinScene != null) yield return (CoinScene, InitialCoinPool);
+        }
+
     }
 }

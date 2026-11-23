@@ -114,7 +114,6 @@ collision_layer = 8
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_54scn")
-interactName = "Campfire"
 metadata/_custom_type_script = "uid://yqp04a743l0o"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=484671731]

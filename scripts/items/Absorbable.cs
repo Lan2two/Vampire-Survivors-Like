@@ -4,12 +4,12 @@ namespace SurvivorsGame
     using System;
     using System.Collections.Generic;
 
-
     [GlobalClass]
     public partial class Absorbable : RigidBody2D, IUpgradable, IPoolable
     {
         [Export] private float MergeRadius = 25f;
-        [Export] private DetectionComponent detectionComponent;
+        [Export] private float CollectRadius = 12f;
+        [Export] private float BasePickupRadius = 10f;
         [Export] private PathfindComponent pathfindComponent;
         [Export] private VelocityComponent velocityComponent;
 
@@ -18,8 +18,9 @@ namespace SurvivorsGame
 
         public bool SawPlayer;
         public float detectionRangePercent;
-        private CircleShape2D shape;
+        private float _pickupRadius;
         private CollisionShape2D _collisionShape;
+        private Player _player;
 
         protected bool _isActive = false;
         public Action<Absorbable> ReturnToPool { get; set; }
@@ -30,11 +31,6 @@ namespace SurvivorsGame
         {
             _collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
 
-            if (detectionComponent == null)
-            {
-                GD.PrintErr("DetectionComponent node not found in Absorbable");
-                return;
-            }
             if (pathfindComponent == null)
             {
                 GD.PrintErr("PathfindComponent not found in Absorbable");
@@ -46,25 +42,15 @@ namespace SurvivorsGame
                 return;
             }
 
-            shape = detectionComponent.shape.Shape.Duplicate() as CircleShape2D;
-            if (shape == null)
-            {
-                GD.PrintErr("CircleShape2D not found in Absorbable detection component");
-                return;
-            }
-
-            detectionComponent.shape.Shape = shape;
+            _pickupRadius = BasePickupRadius;
 
             baseConfig = new AbsorbableData()
             {
-                RadiusBase = shape.Radius,
+                RadiusBase = BasePickupRadius,
                 MoveSpeedBase = velocityComponent.maxSpeed
             };
 
-            if (currentConfig == null)
-            {
-                currentConfig = baseConfig;
-            }
+            currentConfig ??= baseConfig;
 
             OnUpgrade();
 
@@ -74,31 +60,32 @@ namespace SurvivorsGame
 
         public override void _ExitTree()
         {
+            _activeAbsorbables.Remove(this);
             BodyEntered -= OnBodyEntered;
             EventBus.AbsorbableUpgrade -= OnUpgrade;
         }
 
         public virtual void OnSpawn()
         {
-            SawPlayer = false;
             if (Merge())
             {
                 ReturnToPool?.Invoke(this);
                 return;
             }
+            SawPlayer = false;
             _isActive = true;
             if (!_activeAbsorbables.Contains(this))
             {
                 _activeAbsorbables.Add(this);
             }
-            SawPlayer = false;
+
             LinearVelocity = Vector2.Zero;
             AngularVelocity = 0f;
 
             OnUpgrade();
 
             Show();
-            SetDeferred(Node.PropertyName.ProcessMode, (int)ProcessModeEnum.Inherit);
+            ProcessMode = ProcessModeEnum.Inherit;
             SetDeferred(RigidBody2D.PropertyName.Freeze, false);
             SetDeferred(RigidBody2D.PropertyName.ContactMonitor, true);
 
@@ -106,12 +93,7 @@ namespace SurvivorsGame
             {
                 _collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
             }
-            if (detectionComponent != null)
-            {
-                detectionComponent.SetDeferred(Area2D.PropertyName.Monitoring, true);
-            }
         }
-
 
         public virtual void OnDespawn()
         {
@@ -127,10 +109,6 @@ namespace SurvivorsGame
             if (_collisionShape != null)
             {
                 _collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-            }
-            if (detectionComponent != null)
-            {
-                detectionComponent.SetDeferred(Area2D.PropertyName.Monitoring, false);
             }
         }
 
@@ -160,16 +138,33 @@ namespace SurvivorsGame
 
             if (currentConfig is AbsorbableData activeConfig)
             {
-                shape.Radius = activeConfig.GetStat("Radius").CalculateFinal();
+                _pickupRadius = activeConfig.GetStat("Radius").CalculateFinal();
                 velocityComponent.maxSpeed = activeConfig.GetStat("MoveSpeed").CalculateFinal();
             }
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            if (detectionComponent.IsPlayerInRange() || SawPlayer)
+            if (!_isActive) return;
+
+            if (!IsInstanceValid(_player))
             {
+                _player = this.GetPlayer();
+                if (_player == null) return;
+            }
+
+            float distSq = GlobalPosition.DistanceSquaredTo(_player.GlobalPosition);
+
+            if (SawPlayer || distSq <= _pickupRadius * _pickupRadius)
+            {
+                SawPlayer = true;
                 pathfindComponent.PathfindToPlayer();
+            }
+
+            if (distSq <= CollectRadius * CollectRadius)
+            {
+                OnPickup(_player);
+                Despawn();
             }
         }
 
@@ -185,21 +180,21 @@ namespace SurvivorsGame
 
         private bool Merge()
         {
-            float MergeRadiusSq = MergeRadius * MergeRadius;
+            float mergeRadiusSq = MergeRadius * MergeRadius;
             Type targetType = GetType();
             for (int i = _activeAbsorbables.Count - 1; i >= 0; i--)
             {
                 Absorbable other = _activeAbsorbables[i];
                 if (!IsInstanceValid(other))
                 {
-                    _activeAbsorbables.Remove(other);
+                    _activeAbsorbables.RemoveAt(i);
                     continue;
                 }
                 if (other == this || !other._isActive || other.SawPlayer || other.GetType() != targetType)
                 {
                     continue;
                 }
-                if (GlobalPosition.DistanceSquaredTo(other.GlobalPosition) <= MergeRadiusSq)
+                if (GlobalPosition.DistanceSquaredTo(other.GlobalPosition) <= mergeRadiusSq)
                 {
                     other.AddAmount(GetAmount());
                     return true;

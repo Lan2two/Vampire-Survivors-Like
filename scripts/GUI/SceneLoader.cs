@@ -2,6 +2,10 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public partial class SceneLoader : CanvasLayer
     {
         public static SceneLoader Instance { get; private set; }
@@ -12,6 +16,8 @@ namespace SurvivorsGame
         private bool _useSubThreads = false;
         private string _targetScenePath;
         private bool _isLoading = false;
+        private bool _isPrewarming = false;
+        private bool _prewarmPools;
         private PackedScene _loadedScene;
 
         public override void _Ready()
@@ -43,12 +49,9 @@ namespace SurvivorsGame
             }
         }
 
-        public void LoadScene(string targetScene)
+        public void LoadScene(string targetScene, bool prewarmPools = false)
         {
-            if (_isLoading)
-            {
-                return;
-            }
+            if (_isLoading) return;
 
             if (string.IsNullOrWhiteSpace(targetScene))
             {
@@ -63,15 +66,20 @@ namespace SurvivorsGame
             }
 
             _targetScenePath = targetScene;
+            _prewarmPools = prewarmPools;
+
             Error err = ResourceLoader.LoadThreadedRequest(
                 _targetScenePath,
                 "",
                 _useSubThreads,
                 ResourceLoader.CacheMode.IgnoreDeep
             );
+
             if (err == Error.Ok)
             {
                 _isLoading = true;
+                _isPrewarming = false;
+                if (_progressBar != null) _progressBar.Value = 0;
                 _animationPlayer.Play("fade");
                 SetProcess(true);
             }
@@ -83,18 +91,21 @@ namespace SurvivorsGame
 
         public override void _Process(double delta)
         {
-            ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(_targetScenePath, (Array)_progress);
+            ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(_targetScenePath, (Godot.Collections.Array)_progress);
 
             switch (status)
             {
                 case ResourceLoader.ThreadLoadStatus.InProgress:
-                    var pct = _progress[0] * 100;
-                    _loadAnimation.Play("load");
-                    _progressBar.Value = pct;
+                    float rawPct = _progress.Count > 0 ? _progress[0] * 100f : 0f;
+                    float displayPct = _prewarmPools ? rawPct * 0.5f : rawPct;
+                    if (_loadAnimation != null && !_loadAnimation.IsPlaying())
+                    {
+                        _loadAnimation.Play("load");
+                    }
+                    if (_progressBar != null) _progressBar.Value = displayPct;
                     break;
 
                 case ResourceLoader.ThreadLoadStatus.Loaded:
-                    _loadAnimation.PlayBackwards("load");
                     SetProcess(false);
                     _loadedScene = ResourceLoader.LoadThreadedGet(_targetScenePath) as PackedScene;
                     if (_loadedScene == null)
@@ -104,24 +115,73 @@ namespace SurvivorsGame
                         break;
                     }
 
-                    if (!_animationPlayer.IsPlaying() || !_loadAnimation.IsPlaying())
-                    {
-                        ChangeToLoadedScene();
-                    }
+                    _ = FinishLoadingAsync();
                     break;
 
                 case ResourceLoader.ThreadLoadStatus.Failed:
                 case ResourceLoader.ThreadLoadStatus.InvalidResource:
                     GD.PrintErr($"SceneLoader: Failed to load scene '{_targetScenePath}'. Status: {status}");
                     CancelLoad();
-                    _progressBar.Visible = false;
+                    if (_progressBar != null) _progressBar.Visible = false;
                     break;
+            }
+        }
+
+        private async Task FinishLoadingAsync()
+        {
+            if (_prewarmPools && PoolManager.Instance != null)
+            {
+                _isPrewarming = true;
+                if (_progressBar != null) _progressBar.Value = 50f;
+
+                Node tempRoot = _loadedScene.Instantiate();
+                var requirements = new List<(PackedScene scene, int count)>();
+                CollectPrewarmRequirements(tempRoot, requirements);
+                tempRoot.QueueFree();
+
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+                double budgetMs = OS.HasFeature("web") ? 3.5 : 6.0;
+                await PoolManager.Instance.PrewarmAsync(requirements, ratio =>
+                {
+                    if (IsInstanceValid(_progressBar))
+                    {
+                        _progressBar.Value = 50f + (ratio * 50f);
+                    }
+                }, budgetMs);
+
+                _isPrewarming = false;
+            }
+            else if (!_prewarmPools)
+            {
+                PoolManager.Instance?.ClearAllPools();
+            }
+
+            if (_progressBar != null) _progressBar.Value = 100f;
+            _loadAnimation?.PlayBackwards("load");
+
+            if (!_animationPlayer.IsPlaying() || (_loadAnimation != null && !_loadAnimation.IsPlaying()))
+            {
+                ChangeToLoadedScene();
+            }
+        }
+
+        private static void CollectPrewarmRequirements(Node node, List<(PackedScene, int)> results)
+        {
+            if (node is IPoolPrewarmer prewarmer)
+            {
+                results.AddRange(prewarmer.GetPoolRequirements());
+            }
+
+            foreach (Node child in node.GetChildren())
+            {
+                CollectPrewarmRequirements(child, results);
             }
         }
 
         private void OnAnimationFinished(StringName animationName)
         {
-            if (animationName == "fade" && _isLoading && _loadedScene != null)
+            if (animationName == "fade" && _isLoading && !_isPrewarming && _loadedScene != null)
             {
                 ChangeToLoadedScene();
             }
@@ -147,6 +207,7 @@ namespace SurvivorsGame
             GetTree().SceneChanged -= OnSceneChanged;
             _loadedScene = null;
             _isLoading = false;
+            _isPrewarming = false;
             _animationPlayer.PlayBackwards("fade");
         }
 
@@ -155,6 +216,7 @@ namespace SurvivorsGame
             SetProcess(false);
             _loadedScene = null;
             _isLoading = false;
+            _isPrewarming = false;
             _animationPlayer.PlayBackwards("fade");
         }
     }

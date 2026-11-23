@@ -17,7 +17,7 @@ namespace SurvivorsGame
         private void OnPressed()
         {
             _optionAnimations.PlayBackwards("game");
-            SceneLoader.Instance.LoadScene(packedScene.ResourcePath);
+            SceneLoader.Instance.LoadScene(packedScene.ResourcePath, true);
         }
     }
 }

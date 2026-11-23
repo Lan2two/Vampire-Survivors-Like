@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 SaveSystem="*uid://bved6ir5bfyx2"
 SceneLoader="*uid://rv0wgkrhdcmd"
+PoolManager="*uid://bniga0o4uw12g"
 
 [display]
 

@@ -61,11 +61,10 @@ namespace SurvivorsGame
 
         public void UpdateButtonText()
         {
-            var events = InputMap.ActionGetEvents(ActionName);
+            Godot.Collections.Array<InputEvent> events = InputMap.ActionGetEvents(ActionName);
             if (events.Count > 0)
             {
                 Text = events[0].AsText().Replace(" - Physical", "").Capitalize();
-                //GD.Print(events[0].AsText());
             }
             else
             {

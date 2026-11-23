@@ -4,7 +4,7 @@ namespace SurvivorsGame
     using Godot.Collections;
 
     [GlobalClass]
-    public partial class ProjectileLauncher : Area2D, IWeapon, IUpgradable
+    public partial class ProjectileLauncher : Area2D, IWeapon, IUpgradable, IPoolPrewarmer
     {
         [ExportGroup("Projectile Launcher")]
         [Export] public ProjectileData startingConfig;
@@ -21,6 +21,8 @@ namespace SurvivorsGame
         public Resource currentConfig { get; set; }
         public UpgradeManager upgradeManager;
         private bool shooting = true;
+
+        private const int InitialPoolCount = 10;
 
         public override void _Ready()
         {
@@ -76,7 +78,7 @@ namespace SurvivorsGame
 
         private void Onready()
         {
-            _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, 10);
+            _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, InitialPoolCount);
             upgradeManager = this.GetPlayer()?.upgradeManager;
         }
 
@@ -196,6 +198,10 @@ namespace SurvivorsGame
             }
         }
 
+        System.Collections.Generic.IEnumerable<(PackedScene scene, int count)> IPoolPrewarmer.GetPoolRequirements()
+        {
+            if (Scene != null) yield return (Scene, InitialPoolCount);
+        }
     }
 
 }

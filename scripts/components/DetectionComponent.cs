@@ -8,6 +8,7 @@ namespace SurvivorsGame
     {
         public CollisionShape2D shape;
         private bool playerInRange = false;
+
         public override void _Ready()
         {
             shape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
@@ -19,6 +20,11 @@ namespace SurvivorsGame
         {
             BodyEntered -= OnBodyEntered;
             BodyExited -= OnBodyExit;
+        }
+
+        public void Reset()
+        {
+            playerInRange = false;
         }
 
         public bool IsPlayerInRange()

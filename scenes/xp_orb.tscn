@@ -2,15 +2,11 @@
 
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="1_7dfxl"]
 [ext_resource type="Script" uid="uid://dsqdebiaedyd1" path="res://scripts/items/XpOrb.cs" id="1_me6n8"]
-[ext_resource type="Script" uid="uid://d1r007g1n2ewk" path="res://scripts/components/DetectionComponent.cs" id="1_pkphv"]
 [ext_resource type="Script" uid="uid://bi226kkohh0fe" path="res://scripts/components/VelocityComponent.cs" id="2_me6n8"]
 [ext_resource type="Script" uid="uid://bbw06doqvj4pd" path="res://scripts/components/PathfindComponent.cs" id="6_x08h0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hluwh"]
 radius = 2.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_me6n8"]
-radius = 7.0
 
 [sub_resource type="Gradient" id="Gradient_g3b8j"]
 interpolation_mode = 2
@@ -45,21 +41,13 @@ lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 20
 script = ExtResource("1_me6n8")
-detectionComponent = NodePath("DetectionComponent")
+detectionComponent = NodePath("")
 pathfindComponent = NodePath("PathfindComponent")
 velocityComponent = NodePath("VelocityComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599445404]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_hluwh")
-
-[node name="DetectionComponent" type="Area2D" parent="." unique_id=1291011737]
-monitorable = false
-script = ExtResource("1_pkphv")
-metadata/_custom_type_script = "uid://d1r007g1n2ewk"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionComponent" unique_id=1415189767]
-shape = SubResource("CircleShape2D_me6n8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2011534936]
 texture = SubResource("GradientTexture2D_x08h0")

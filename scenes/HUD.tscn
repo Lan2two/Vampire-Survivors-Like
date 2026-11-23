@@ -535,6 +535,8 @@ script = ExtResource("30_7mxsn")
 metadata/_edit_use_anchors_ = true
 
 [node name="EnemyCounter" type="Label" parent="." unique_id=65933947]
+process_mode = 4
+visible = false
 offset_left = 227.0
 offset_top = 166.0
 offset_right = 267.0

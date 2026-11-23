@@ -25,7 +25,8 @@ namespace SurvivorsGame
             }
             interactableComponent.Interact += OnInteract;
             sprite2D.Texture = ItemData.ItemIcon;
-            interactableComponent.interactName = $"Pick up {ItemData.ItemName} [F]";
+            string keyName = this.GetActionKeyName("interact");
+            interactableComponent.interactName = $"Pick up {ItemData.ItemName} [{keyName}]";
 
         }
 
@@ -36,7 +37,6 @@ namespace SurvivorsGame
                 interactableComponent.Interact -= OnInteract;
             }
         }
-
 
         private void OnInteract()
         {
