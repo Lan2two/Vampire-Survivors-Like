@@ -10,11 +10,14 @@ namespace SurvivorsGame
         [Export] public ProjectileData startingConfig;
         [Export] private PackedScene Scene;
         [Export] private Texture2D texture2D;
+        [Export] private bool LookAtEnemy = true;
+        [Export] private bool AlwaysFire = false;
 
         public Timer timer;
         private Sprite2D sprite2D;
         public CircleShape2D detectionRange;
-        private Marker2D shootPoint;
+        private Marker2D WeaponPivot;
+        private Array<Marker2D> shootPoints = new();
         private Array<Node2D> enemiesInRange;
 
         private ObjectPool<Bullet> _bulletPool;
@@ -27,8 +30,8 @@ namespace SurvivorsGame
         public override void _Ready()
         {
             timer = GetNodeOrNull<Timer>("Timer");
-            shootPoint = GetNodeOrNull<Marker2D>("%ShootPoint");
             sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
+            WeaponPivot = GetNodeOrNull<Marker2D>("WeaponPivot");
 
             var collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
             if (collisionShape?.Shape is CircleShape2D baseShape)
@@ -56,6 +59,19 @@ namespace SurvivorsGame
             {
                 GD.PrintErr("CircleShape2D not found in Projectile Launcher.");
                 return;
+            }
+            if (WeaponPivot == null)
+            {
+                GD.PrintErr("WeaponPivot not found in Projectile Launcher.");
+                return;
+            }
+
+            foreach (Node node in WeaponPivot.GetChildren())
+            {
+                if (node is Marker2D marker)
+                {
+                    shootPoints.Add(marker);
+                }
             }
 
             if (texture2D != null)
@@ -93,31 +109,48 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            enemiesInRange = GetOverlappingBodies();
-            Node2D closestEnemy = null;
-            float closestDistSq = float.MaxValue;
-
-            foreach (Node2D enemy in enemiesInRange)
+            if (LookAtEnemy)
             {
-                if (!IsInstanceValid(enemy)) continue;
+                enemiesInRange = GetOverlappingBodies();
+                Node2D closestEnemy = null;
+                float closestDistSq = float.MaxValue;
 
-                float distSq = GlobalPosition.DistanceSquaredTo(enemy.GlobalPosition);
-                if (distSq < closestDistSq)
+                foreach (Node2D enemy in enemiesInRange)
                 {
-                    closestDistSq = distSq;
-                    closestEnemy = enemy;
+                    if (!IsInstanceValid(enemy)) continue;
+
+                    float distSq = GlobalPosition.DistanceSquaredTo(enemy.GlobalPosition);
+                    if (distSq < closestDistSq)
+                    {
+                        closestDistSq = distSq;
+                        closestEnemy = enemy;
+                    }
+                }
+
+                if (closestEnemy != null)
+                {
+                    LookAt(closestEnemy.GlobalPosition);
+                    AttempShoot();
+                }
+                else if (AlwaysFire)
+                {
+                    AttempShoot();
                 }
             }
-
-            if (closestEnemy != null)
+            else if (AlwaysFire || GetOverlappingBodies().Count > 0)
             {
-                LookAt(closestEnemy.GlobalPosition);
-                if (shooting)
-                {
-                    shooting = false;
-                    timer.Start();
-                    Use();
-                }
+                AttempShoot();
+            }
+
+        }
+
+        private void AttempShoot()
+        {
+            if (shooting)
+            {
+                shooting = false;
+                timer.Start();
+                Use();
             }
         }
 
@@ -145,26 +178,31 @@ namespace SurvivorsGame
             int sign = 1;
             for (int i = 0; i < burstCount; i++)
             {
-                int currentSign = sign;
-                sign *= -1;
-                float delay = burstInterval * i;
+                foreach (Marker2D shootpoint in shootPoints)
+                {
+                    int currentSign = sign;
+                    sign *= -1;
+                    float delay = burstInterval * i;
 
-                if (delay <= 0f)
-                {
-                    SpawnBullet(activeConfig, halfSpread, currentSign);
-                }
-                else
-                {
-                    GetTree().CreateTimer(delay, false).Timeout += () =>
+                    if (delay <= 0f)
                     {
-                        if (!IsInstanceValid(this) || !IsInstanceValid(shootPoint)) return;
-                        SpawnBullet(activeConfig, halfSpread, currentSign);
-                    };
+                        SpawnBullet(activeConfig, halfSpread, currentSign, shootpoint);
+                    }
+                    else
+                    {
+                        GetTree().CreateTimer(delay, false).Timeout += () =>
+                        {
+
+                            if (!IsInstanceValid(this) || !IsInstanceValid(shootpoint)) return;
+                            SpawnBullet(activeConfig, halfSpread, currentSign, shootpoint);
+
+                        };
+                    }
                 }
             }
         }
 
-        private void SpawnBullet(ProjectileData activeConfig, float halfSpread, int sign)
+        private void SpawnBullet(ProjectileData activeConfig, float halfSpread, int sign, Marker2D shootPoint)
         {
             if (_bulletPool == null) return;
 
