@@ -36,6 +36,10 @@ namespace SurvivorsGame
             {
                 return;
             }
+            if (bullet.config.GetStat("Bounce").CalculateFinal() < attackComponent.GetHurtBoxEntered())
+            {
+                Redirect = false;
+            }
             Array<Node2D> enemiesInRange = GetOverlappingBodies();
             foreach (Area2D area in attackComponent.damagedHurtboxes)
             {

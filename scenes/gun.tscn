@@ -7,6 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_eqrin"]
 script = ExtResource("2_6b133")
+SpeedBase = 220.0
 DetectionRangeBase = 140.0
 metadata/_custom_type_script = "uid://de57a3gqbkhhn"
 

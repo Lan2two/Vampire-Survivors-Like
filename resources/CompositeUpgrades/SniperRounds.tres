@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cy8djt3fj5e0h" path="res://utils/strategy/ProjectileDamageStrategy.cs" id="4_uvt5a"]
 [ext_resource type="Script" uid="uid://oqh36h4jc3jy" path="res://utils/strategy/ProjectileFireRateStrategy.cs" id="5_d2ptd"]
 [ext_resource type="Script" uid="uid://cbifaria4lqs3" path="res://utils/strategy/ProjectilePierceStrategy.cs" id="6_seulx"]
+[ext_resource type="Script" uid="uid://dw7ks12r5a3ff" path="res://utils/strategy/ProjectileSpeedStrategy.cs" id="7_c3ste"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="8_u51sn"]
 
 [sub_resource type="Resource" id="Resource_uvt5a"]
@@ -34,9 +35,15 @@ UpgradePierce = 3
 upgradeType = 1
 metadata/_custom_type_script = "uid://cbifaria4lqs3"
 
+[sub_resource type="Resource" id="Resource_c65qr"]
+script = ExtResource("7_c3ste")
+UpgradeSpeed = 15.0
+CalculationMode = 1
+metadata/_custom_type_script = "uid://dw7ks12r5a3ff"
+
 [resource]
 script = ExtResource("8_u51sn")
-Children = Array[ExtResource("1_c3ste")]([SubResource("Resource_uvt5a"), SubResource("Resource_d2ptd"), SubResource("Resource_seulx"), SubResource("Resource_c3ste")])
+Children = Array[ExtResource("1_c3ste")]([SubResource("Resource_uvt5a"), SubResource("Resource_d2ptd"), SubResource("Resource_seulx"), SubResource("Resource_c3ste"), SubResource("Resource_c65qr")])
 MaxStackSize = 2
 ItemName = "Sniper Rounds"
 ItemDescription = "Big but slow gun"

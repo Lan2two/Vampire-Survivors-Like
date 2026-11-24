@@ -5,12 +5,14 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class ProjectileBounceStrategy : Strategy
     {
+        [Export] int BounceCount { get; set; } = 1;
+        [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
+
         public ProjectileBounceStrategy()
         {
             upgradeType = UpgradeType.Gun;
-            ItemName = "Bullet Bounce";
-            ItemDescription = "Bullet bounces between enemies";
-            MaxStackSize = 1;
+            ItemName = "Bouncy Rounds";
+            ItemDescription = "Adds +1 to the amount of times bullets may bounce";
         }
 
         public override void ApplyUpgrade(IUpgradable upgradable)
@@ -18,9 +20,15 @@ namespace SurvivorsGame
             Resource config = upgradable.currentConfig;
             if (config is ProjectileData damageable)
             {
-                damageable.BouncingBullets = true;
+                if (CalculationMode == UpgradeCalculationMode.Percentage)
+                {
+                    damageable.BouncePercent += BounceCount;
+                }
+                else
+                {
+                    damageable.BounceAdditive += BounceCount;
+                }
             }
-
         }
     }
 }

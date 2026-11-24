@@ -45,15 +45,15 @@ namespace SurvivorsGame
             SetAreaActive(redirectBullet, true);
 
             CallDeferred(Weapon.MethodName.UpdateDamage, config, attackComponent);
+            if (config.GetStat("Bounce").CalculateFinal() > 0)
+            {
+                redirectBullet.Redirect = true;
+            }
         }
 
 
         public override void _PhysicsProcess(double delta)
         {
-            if (config.BouncingBullets)
-            {
-                redirectBullet.Redirect = true;
-            }
             Vector2 direction = Vector2.Right.Rotated(Rotation).Normalized();
             Position += direction * config.GetStat("Speed").CalculateFinal() * (float)delta;
             traveledDistance += config.GetStat("Speed").CalculateFinal() * (float)delta;

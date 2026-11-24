@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://cbifaria4lqs3"
 [resource]
 script = ExtResource("5_kk1ms")
 Children = Array[ExtResource("1_k1ruo")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx")])
+MaxStackSize = 3
 ItemName = "Bouncy Rounds"
-ItemDescription = "Bullets bounce between nearby enemies"
+ItemDescription = "Add +1 bounce between nearby enemies for bullets"
 metadata/_custom_type_script = "uid://dhp8m7anvq1lh"

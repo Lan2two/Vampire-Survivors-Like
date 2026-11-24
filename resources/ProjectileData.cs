@@ -55,7 +55,9 @@ namespace SurvivorsGame
         public float SpreadAdditive;
         public float SpreadPercent;
 
-        [Export] public bool BouncingBullets { get; set; } = false;
+        [Export] public int BounceBase { get; set; } = 0;
+        public int BounceAdditive;
+        public float BouncePercent;
 
         public StatModifier GetStat(string statName) => statName switch
         {
@@ -71,6 +73,7 @@ namespace SurvivorsGame
             "Burst" => new StatModifier(BurstBase, BurstAdditive, BurstPercent, 0, float.MaxValue),
             "BurstInterval" => new StatModifier(BurstIntervalBase, BurstIntervalAdditive, BurstIntervalPercent, 0, float.MaxValue),
             "Spread" => new StatModifier(SpreadBase, SpreadAdditive, SpreadPercent, CombatStatLimits.MinSpread, float.MaxValue),
+            "Bounce" => new StatModifier(BounceBase, BounceAdditive, BouncePercent, 0, float.MaxValue),
             _ => default
         };
 

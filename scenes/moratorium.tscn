@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_vy6li"]
 
 [node name="Moratorium" type="Node2D" unique_id=1166831236]
+process_mode = 1
 script = ExtResource("1_d5qou")
 
 [node name="Display" type="TextureProgressBar" parent="." unique_id=1568181052]
