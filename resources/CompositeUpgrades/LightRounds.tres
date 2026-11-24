@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://cy8djt3fj5e0h"
 
 [sub_resource type="Resource" id="Resource_nscgy"]
 script = ExtResource("5_iynn3")
-UpgradeSpeed = 5.0
 CalculationMode = 1
 metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 
