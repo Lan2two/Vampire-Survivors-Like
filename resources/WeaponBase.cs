@@ -11,7 +11,7 @@ namespace SurvivorsGame
         public float DamageAdditive;
         public float DamagePercent;
 
-        [Export] public float KnockbackBase = 100f;
+        [Export] public float KnockbackBase = 50;
         public float KnockbackAdditive;
         public float KnockbackPercent;
 

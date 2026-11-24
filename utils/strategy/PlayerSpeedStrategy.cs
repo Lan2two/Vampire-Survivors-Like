@@ -5,7 +5,7 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class PlayerSpeedStrategy : Strategy
     {
-        [Export] float UpgradeSpeed { get; set; } = 10f;
+        [Export] float UpgradeSpeed { get; set; } = 5f;
         [Export] public UpgradeCalculationMode CalculationMode { get; set; } = UpgradeCalculationMode.Additive;
 
 

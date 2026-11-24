@@ -161,15 +161,8 @@ namespace SurvivorsGame
 
         public void Use()
         {
-            if (enemiesInRange == null || enemiesInRange.Count == 0)
-            {
-                return;
-            }
-
-            if (currentConfig is not ProjectileData activeConfig)
-            {
-                return;
-            }
+            if (enemiesInRange == null || enemiesInRange.Count == 0) return;
+            if (currentConfig is not ProjectileData activeConfig) return;
 
             int burstCount = Mathf.Max(1, (int)activeConfig.GetStat("Burst").CalculateFinal());
             float burstInterval = activeConfig.GetStat("BurstInterval").CalculateFinal();
@@ -180,9 +173,9 @@ namespace SurvivorsGame
             {
                 foreach (Marker2D shootpoint in shootPoints)
                 {
+                    float delay = burstInterval * i;
                     int currentSign = sign;
                     sign *= -1;
-                    float delay = burstInterval * i;
 
                     if (delay <= 0f)
                     {

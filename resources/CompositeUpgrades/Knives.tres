@@ -13,12 +13,13 @@
 [ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="11_5o2ms"]
 [ext_resource type="Script" uid="uid://dogcuttfq7cgw" path="res://utils/strategy/ProjectileRangeStrategy.cs" id="12_ku635"]
 [ext_resource type="Script" uid="uid://dhp8m7anvq1lh" path="res://utils/strategy/CompositeStrategy.cs" id="12_thev7"]
-[ext_resource type="Script" uid="uid://cxijbyd0qif3" path="res://utils/strategy/ProjectileSpreadStrategy.cs" id="13_0cbad"]
 
 [sub_resource type="Resource" id="Resource_7tmnl"]
 resource_local_to_scene = true
 script = ExtResource("6_ds6sj")
 _subsceneData = {
+"AlwaysFire": false,
+"LookAtEnemy": true,
 "Scene": ExtResource("4_1u0lj"),
 "startingConfig": ExtResource("5_oeji3"),
 "texture2D": null
@@ -26,6 +27,8 @@ _subsceneData = {
 PackedScene = ExtResource("3_0cbad")
 "Subscene Configuration/startingConfig" = ExtResource("5_oeji3")
 "Subscene Configuration/Scene" = ExtResource("4_1u0lj")
+"Subscene Configuration/LookAtEnemy" = true
+"Subscene Configuration/AlwaysFire" = false
 ResourceFile = "res://resources/CompositeUpgrades/Knives.tres::Resource_7tmnl"
 upgradeType = 4
 ItemName = "Add Node"
@@ -41,6 +44,7 @@ metadata/_custom_type_script = "uid://dvgounn1leqxm"
 
 [sub_resource type="Resource" id="Resource_nvp4l"]
 script = ExtResource("8_4gd0c")
+BurstAmount = 2
 upgradeType = 2
 metadata/_custom_type_script = "uid://bbhbxariivqbp"
 
@@ -57,26 +61,21 @@ metadata/_custom_type_script = "uid://welqlf4pw7cn"
 
 [sub_resource type="Resource" id="Resource_0cbad"]
 script = ExtResource("12_ku635")
-UpgradeRange = 10.0
+UpgradeRange = 7.0
 CalculationMode = 1
 upgradeType = 2
 metadata/_custom_type_script = "uid://dogcuttfq7cgw"
 
 [sub_resource type="Resource" id="Resource_ku635"]
 script = ExtResource("9_b1tjy")
-UpgradeCooldown = -15.0
+UpgradeCooldown = 5.0
 CalculationMode = 1
 upgradeType = 2
 metadata/_custom_type_script = "uid://oqh36h4jc3jy"
 
-[sub_resource type="Resource" id="Resource_1u0lj"]
-script = ExtResource("13_0cbad")
-AddSpread = 0.2
-metadata/_custom_type_script = "uid://cxijbyd0qif3"
-
 [resource]
 script = ExtResource("12_thev7")
-Children = Array[ExtResource("1_d17i0")]([SubResource("Resource_7tmnl"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_d5rnw"), SubResource("Resource_3eva0"), SubResource("Resource_0cbad"), SubResource("Resource_ku635"), SubResource("Resource_1u0lj")])
+Children = Array[ExtResource("1_d17i0")]([SubResource("Resource_7tmnl"), SubResource("Resource_27n0u"), SubResource("Resource_nvp4l"), SubResource("Resource_d5rnw"), SubResource("Resource_3eva0"), SubResource("Resource_0cbad"), SubResource("Resource_ku635")])
 MaxStackSize = 5
 ItemName = "Knives"
 ItemDescription = "Short ranged projectile with a crit damage bonus"

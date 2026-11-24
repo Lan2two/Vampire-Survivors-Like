@@ -32,7 +32,6 @@ scale = Vector2(0.1, 0.053)
 [node name="WeaponPivot" type="Marker2D" parent="." unique_id=588346685]
 
 [node name="ShootPoint" type="Marker2D" parent="WeaponPivot" unique_id=836309297]
-unique_name_in_owner = true
 position = Vector2(8.1436615, 6.381848e-07)
 scale = Vector2(0.1, 0.053)
 

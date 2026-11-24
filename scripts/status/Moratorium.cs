@@ -15,11 +15,13 @@ namespace SurvivorsGame
         private Vector2 _progressbarOffset;
         private double timer;
         private bool triggered;
+
         public override void _Ready()
         {
             _healthComponent = GetNodeOrNull<HealthComponent>("../HealthComponent");
             _progressBar = GetNodeOrNull<TextureProgressBar>("Display");
             _animatedSprite = GetNodeOrNull<AnimatedSprite2D>("../AnimatedSprite2D");
+
             if (_healthComponent == null)
             {
                 GD.PrintErr("Moratorium couldn't find healthComponent");
@@ -31,14 +33,24 @@ namespace SurvivorsGame
                 return;
             }
 
-            Texture2D texture = _animatedSprite.SpriteFrames.GetFrameTexture(_animatedSprite.Animation, _animatedSprite.Frame);
-            Vector2 ParentSize = texture.GetSize() * _animatedSprite.Scale;
+            GlobalScale = Vector2.One;
 
-            _progressBar.Scale = ParentSize / _progressBar.Size;
+            UpdateProgressBarScale();
+
             _progressBar.Step = 0.01;
             _progressBar.MaxValue = duration;
-            _progressbarOffset = _progressBar.Size * _progressBar.Scale / 2;
             _healthComponent.InitalDamageEvent += Effect;
+        }
+
+        private void UpdateProgressBarScale()
+        {
+            if (_animatedSprite == null || _progressBar == null) return;
+
+            Texture2D texture = _animatedSprite.SpriteFrames.GetFrameTexture(_animatedSprite.Animation, _animatedSprite.Frame);
+            Vector2 parentWorldSize = texture.GetSize() * _animatedSprite.GlobalScale;
+
+            _progressBar.Scale = parentWorldSize / _progressBar.Size;
+            _progressbarOffset = _progressBar.Size * _progressBar.Scale / 2f;
         }
 
         public override void _ExitTree()
@@ -56,10 +68,16 @@ namespace SurvivorsGame
             {
                 Trigger();
             }
+
+            if (GlobalScale != Vector2.One)
+            {
+                GlobalScale = Vector2.One;
+                UpdateProgressBarScale();
+            }
+
             _progressBar.GlobalPosition = GlobalPosition - _progressbarOffset;
             _progressBar.Value = timer;
         }
-
 
         private void Effect(Attack attack)
         {
@@ -77,11 +95,8 @@ namespace SurvivorsGame
                 float damage = StoredDamage[i] * moratoriumMultiplier;
                 GetTree().CreateTimer(_explosionOffsets * i).Timeout += () =>
                 {
-                    Attack attack = new()
-                    {
-                        Damage = damage,
-                        Crit = true
-                    };
+                    if (!IsInstanceValid(_healthComponent)) return;
+                    Attack attack = new() { Damage = damage, Crit = true };
                     _healthComponent.TakeDamage(attack);
                 };
             }
