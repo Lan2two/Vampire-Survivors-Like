@@ -26,7 +26,7 @@ namespace SurvivorsGame
             rigidBody.LockRotation = true;
             if (SpeedVariation)
             {
-                maxSpeed += GD.RandRange(-5, 5) / 10 * maxSpeed;
+                maxSpeed += (float)GD.RandRange(-5f, 5f) * maxSpeed;
             }
         }
 

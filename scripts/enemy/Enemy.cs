@@ -14,6 +14,7 @@ namespace SurvivorsGame
         public VelocityComponent velocityComponent;
         public EnemyDeath enemyDeath;
         public StateMachine stateMachine;
+        public KnockbackComponent knockbackComponent;
         public static int Alive = 0;
 
         public bool IsActive { get; private set; }
@@ -36,6 +37,7 @@ namespace SurvivorsGame
             velocityComponent = GetNodeOrNull<VelocityComponent>("VelocityComponent");
             stateMachine = GetNodeOrNull<StateMachine>("StateMachine");
             enemyDeath = GetNodeOrNull<EnemyDeath>("StateMachine/Death");
+            knockbackComponent = GetNodeOrNull<KnockbackComponent>("KnockbackComponent");
 
             if (collisionbox?.Shape is CircleShape2D circle)
             {
@@ -97,6 +99,7 @@ namespace SurvivorsGame
                 if (_defaultMask != 0) CollisionMask = _defaultMask;
                 enemyDeath?.Reset();
                 stateMachine?.Reset();
+                knockbackComponent?.Reset();
             }
             else
             {
