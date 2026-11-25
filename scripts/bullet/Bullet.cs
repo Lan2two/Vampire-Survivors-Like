@@ -5,8 +5,9 @@ namespace SurvivorsGame
 
     public partial class Bullet : Weapon, IPoolable
     {
-        [Export] public ProjectileData config;
+        public ProjectileData config;
         public Line2D trail;
+        private Sprite2D sprite2D;
         private RedirectBullet redirectBullet;
         private float traveledDistance = 0f;
         private int hitCount = 0;
@@ -19,21 +20,30 @@ namespace SurvivorsGame
         {
             base._Ready();
             trail = GetNodeOrNull<Line2D>("Sprite2D/Trail");
+            sprite2D = GetNodeOrNull<Sprite2D>("Sprite2D");
             redirectBullet = GetNodeOrNull<RedirectBullet>("RedirectBullet");
+            if (sprite2D == null)
+            {
+                GD.PrintErr("Sprite2D not found in Bullet");
+            }
             if (redirectBullet == null)
             {
-                GD.PrintErr("RedirectBullet not found in Redirect Bullet");
+                GD.PrintErr("RedirectBullet not found in Bullet");
             }
         }
 
         public void OnSpawn()
         {
-            if (config == null || attackComponent == null)
+            if (config == null || attackComponent == null || sprite2D == null)
             {
                 GD.PrintErr($"Cannot Use Bullet: config or attackComponent is null on {Name}!");
                 return;
             }
             trail?.ClearPoints();
+            if (config.projectileTexture != null)
+            {
+                sprite2D.Texture = config.projectileTexture;
+            }
 
             traveledDistance = 0f;
             hitCount = 0;

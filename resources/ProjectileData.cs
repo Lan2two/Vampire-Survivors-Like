@@ -58,6 +58,9 @@ namespace SurvivorsGame
         [Export] public int BounceBase { get; set; } = 0;
         public int BounceAdditive;
         public float BouncePercent;
+        [ExportGroup("Visuals")]
+        [Export] public AtlasTexture projectileTexture;
+
 
         public StatModifier GetStat(string statName) => statName switch
         {
