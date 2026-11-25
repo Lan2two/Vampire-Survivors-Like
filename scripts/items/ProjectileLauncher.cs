@@ -12,6 +12,7 @@ namespace SurvivorsGame
         [Export] private Texture2D texture2D;
         [Export] private bool LookAtEnemy = true;
         [Export] private bool AlwaysFire = false;
+        [Export] private bool FollowParent = false;
 
         public Timer timer;
         private Sprite2D sprite2D;
@@ -94,7 +95,14 @@ namespace SurvivorsGame
 
         private void Onready()
         {
-            _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, InitialPoolCount);
+            if (FollowParent)
+            {
+                _bulletPool = new ObjectPool<Bullet>(Scene, this, InitialPoolCount);
+            }
+            else
+            {
+                _bulletPool = new ObjectPool<Bullet>(Scene, GetTree().CurrentScene, InitialPoolCount);
+            }
             upgradeManager = this.GetPlayer()?.upgradeManager;
         }
 
