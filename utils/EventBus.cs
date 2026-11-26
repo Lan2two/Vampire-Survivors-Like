@@ -5,7 +5,7 @@ namespace SurvivorsGame
 
     public partial class EventBus
     {
-        public static event Action MoratoriumEvent;
+        public static event Action<StatusEffect> InflictStatusEvent;
         public static event Action WorldSlashEvent;
         public static event Action PlayerUpgrade;
         public static event Action MeleeUpgrade;
@@ -14,10 +14,10 @@ namespace SurvivorsGame
         public static event Action AbsorbableUpgrade;
         public static event Action ShopUpgrade;
 
-        public static void InvokeMoratorium()
+        public static void InvokeInflictStatus(StatusEffect status)
         {
-            MoratoriumEvent?.Invoke();
-            GD.Print("Moratorium event invoked");
+            InflictStatusEvent?.Invoke(status);
+            GD.Print("Global status infliction event invoked");
         }
 
         public static void InvokeSlash()

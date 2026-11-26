@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://b3wfrqgky1ipk"]
 
-[ext_resource type="Script" uid="uid://wx2mmotn2vcr" path="res://scripts/status/Moratorium.cs" id="1_d5qou"]
+[ext_resource type="Script" uid="uid://d0mouhfd85pse" path="res://scripts/status/StatusDisplay.cs" id="1_gmep4"]
 [ext_resource type="Texture2D" uid="uid://b6pyjum1wc0qp" path="res://icon.svg" id="2_vy6li"]
 
-[node name="Moratorium" type="Node2D" unique_id=1166831236]
+[node name="Status Display" type="Node2D" unique_id=1166831236]
 process_mode = 1
-script = ExtResource("1_d5qou")
+script = ExtResource("1_gmep4")
 
 [node name="Display" type="TextureProgressBar" parent="." unique_id=1568181052]
 modulate = Color(1, 1, 1, 0.46666667)

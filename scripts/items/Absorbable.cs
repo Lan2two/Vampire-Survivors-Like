@@ -25,7 +25,7 @@ namespace SurvivorsGame
         protected bool _isActive = false;
         public Action<Absorbable> ReturnToPool { get; set; }
 
-        private static readonly List<Absorbable> _activeAbsorbables = new();
+        public static readonly List<Absorbable> _activeAbsorbables = new();
 
         public override void _Ready()
         {

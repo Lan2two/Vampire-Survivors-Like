@@ -15,6 +15,7 @@ namespace SurvivorsGame
         public EnemyDeath enemyDeath;
         public StateMachine stateMachine;
         public KnockbackComponent knockbackComponent;
+        public StatusManager statusManager;
         public static int Alive = 0;
 
         public bool IsActive { get; private set; }
@@ -38,6 +39,7 @@ namespace SurvivorsGame
             stateMachine = GetNodeOrNull<StateMachine>("StateMachine");
             enemyDeath = GetNodeOrNull<EnemyDeath>("StateMachine/Death");
             knockbackComponent = GetNodeOrNull<KnockbackComponent>("KnockbackComponent");
+            statusManager = GetNodeOrNull<StatusManager>("StatusManager");
 
             if (collisionbox?.Shape is CircleShape2D circle)
             {

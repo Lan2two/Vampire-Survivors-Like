@@ -35,5 +35,18 @@ namespace SurvivorsGame
                 return "";
             }
         }
+
+        public static T GetComponent<T>(this Node root) where T : Node
+        {
+            int count = root.GetChildCount();
+            for (int i = 0; i < count; i++)
+            {
+                if (root.GetChild(i) is T component)
+                {
+                    return component;
+                }
+            }
+            return null;
+        }
     }
 }

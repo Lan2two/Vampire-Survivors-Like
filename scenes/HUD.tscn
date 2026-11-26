@@ -30,7 +30,9 @@
 [ext_resource type="Resource" uid="uid://be0heed8e2y54" path="res://resources/CompositeUpgrades/BouncyRounds.tres" id="24_ahuxd"]
 [ext_resource type="Resource" uid="uid://druojo5qxunbl" path="res://resources/CompositeUpgrades/SniperRounds.tres" id="25_mmorv"]
 [ext_resource type="Resource" uid="uid://b6uud03qfm4ro" path="res://resources/CompositeUpgrades/MachineGun.tres" id="26_7tmnl"]
-[ext_resource type="Script" uid="uid://4rlryks4rd2l" path="res://utils/strategy/MoratoriumStrategy.cs" id="26_qxvih"]
+[ext_resource type="PackedScene" uid="uid://b3wfrqgky1ipk" path="res://scenes/Status_Display.tscn" id="26_ahuxd"]
+[ext_resource type="Script" uid="uid://wx2mmotn2vcr" path="res://resources/Statuses/Moratorium.cs" id="26_h5tib"]
+[ext_resource type="Script" uid="uid://4rlryks4rd2l" path="res://utils/strategy/InflictStatusStrategy.cs" id="26_qxvih"]
 [ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/ShopUpgradesStrategy.cs" id="26_yy1yx"]
 [ext_resource type="Resource" uid="uid://d0r0j8cmvk6rq" path="res://resources/CompositeUpgrades/FMJ.tres" id="27_du5ok"]
 [ext_resource type="Script" uid="uid://dd4asm4opckmw" path="res://utils/strategy/SlashStrategy.cs" id="27_h5tib"]
@@ -78,8 +80,16 @@ metadata/_custom_type_script = "uid://bvmqx1qgbu7qg"
 script = ExtResource("20_n7bdd")
 metadata/_custom_type_script = "uid://c511gf8c34x2u"
 
+[sub_resource type="Resource" id="Resource_7p3oe"]
+script = ExtResource("26_h5tib")
+DisplayScene = ExtResource("26_ahuxd")
+metadata/_custom_type_script = "uid://wx2mmotn2vcr"
+
 [sub_resource type="Resource" id="Resource_du5ok"]
 script = ExtResource("26_qxvih")
+status = SubResource("Resource_7p3oe")
+ItemName = "Moratorium"
+ItemDescription = "Applies Moratorium to all enemies on screen"
 metadata/_custom_type_script = "uid://4rlryks4rd2l"
 
 [sub_resource type="Resource" id="Resource_nvp4l"]

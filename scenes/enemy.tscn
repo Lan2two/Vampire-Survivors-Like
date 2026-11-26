@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://w4av11tswr7n" path="res://scenes/Coin.tscn" id="18_1x4g4"]
 [ext_resource type="PackedScene" uid="uid://b2hdv4s8cdj6u" path="res://scenes/Hp_orb.tscn" id="18_ile5s"]
 [ext_resource type="PhysicsMaterial" path="res://resources/entity_physics_material.tres" id="18_physics"]
+[ext_resource type="Script" uid="uid://drfg2ice1evhj" path="res://scripts/components/StatusManager.cs" id="19_1x4g4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 4.0
@@ -190,3 +191,8 @@ deathState = NodePath("../StateMachine/Death")
 XpOrbScene = ExtResource("17_ile5s")
 HpOrbScene = ExtResource("18_ile5s")
 CoinScene = ExtResource("18_1x4g4")
+
+[node name="StatusManager" type="Node" parent="." unique_id=1692577602 node_paths=PackedStringArray("_root")]
+script = ExtResource("19_1x4g4")
+_root = NodePath("..")
+metadata/_custom_type_script = "uid://drfg2ice1evhj"
