@@ -4,9 +4,9 @@ namespace SurvivorsGame
     [GlobalClass]
     public partial class StatusEffect : Resource
     {
-        [Export] public double Duration { get; set; } = 5f;
-        [Export] public float TickInterval { get; set; } = 0f;
-        [Export] public bool IsStackable { get; set; } = false;
+        [Export] public virtual double Duration { get; set; } = 5f;
+        [Export] public virtual float TickInterval { get; set; } = 0f;
+        [Export] public virtual bool IsStackable { get; set; } = false;
         public virtual string StatusName { get; set; }
         public double timer;
         public double tickTimer;

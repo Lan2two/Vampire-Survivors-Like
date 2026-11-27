@@ -93,7 +93,7 @@ radius = 5.0
 
 [node name="Enemy" type="RigidBody2D" unique_id=1010643694 groups=["enemies"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 physics_material_override = ExtResource("18_physics")
 gravity_scale = 0.0
 lock_rotation = true
@@ -147,7 +147,7 @@ script = ExtResource("11_w8i8w")
 rigidBody = NodePath("..")
 animatedSprite2D = NodePath("../AnimatedSprite2D")
 maxSpeed = 25.0
-acceleration = 10.0
+acceleration = 3.0
 SpeedVariation = true
 
 [node name="PathfindComponent" type="NavigationAgent2D" parent="." unique_id=1314197410 node_paths=PackedStringArray("characterBody", "velocityComponent")]

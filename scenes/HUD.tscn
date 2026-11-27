@@ -37,6 +37,7 @@
 [ext_resource type="Script" uid="uid://dd4asm4opckmw" path="res://utils/strategy/SlashStrategy.cs" id="27_h5tib"]
 [ext_resource type="Script" uid="uid://dt3is5b3yowgv" path="res://resources/Statuses/Freeze.cs" id="28_ahuxd"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
+[ext_resource type="Script" uid="uid://bibkhqvfjrvoq" path="res://resources/Statuses/Shocked.cs" id="29_mmorv"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 [ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="35_mmorv"]
 [ext_resource type="Script" uid="uid://cmfbr08yiy67l" path="res://scripts/GUI/EnemyCounter.cs" id="38_qxvih"]
@@ -103,6 +104,15 @@ metadata/_custom_type_script = "uid://dt3is5b3yowgv"
 script = ExtResource("26_qxvih")
 status = SubResource("Resource_on3ir")
 ItemName = "Freeze"
+metadata/_custom_type_script = "uid://4rlryks4rd2l"
+
+[sub_resource type="Resource" id="Resource_3eva0"]
+script = ExtResource("29_mmorv")
+metadata/_custom_type_script = "uid://bibkhqvfjrvoq"
+
+[sub_resource type="Resource" id="Resource_4q0sy"]
+script = ExtResource("26_qxvih")
+status = SubResource("Resource_3eva0")
 metadata/_custom_type_script = "uid://4rlryks4rd2l"
 
 [sub_resource type="Resource" id="Resource_3ugbd"]
@@ -398,7 +408,7 @@ scale = Vector2(0.5, 0.5)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 script = ExtResource("4_shsct")
 CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
-RareTable = Array[ExtResource("11_pn61u")]([ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok"), SubResource("Resource_nvp4l"), SubResource("Resource_d5rnw")])
+RareTable = Array[ExtResource("11_pn61u")]([ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok"), SubResource("Resource_nvp4l"), SubResource("Resource_d5rnw"), SubResource("Resource_4q0sy")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl"), SubResource("Resource_27n0u")])
 CommonWeight = 75.0

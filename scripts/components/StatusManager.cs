@@ -2,6 +2,7 @@ namespace SurvivorsGame
 {
     using Godot;
     using Godot.Collections;
+
     [GlobalClass]
     public partial class StatusManager : Node
     {
@@ -23,8 +24,9 @@ namespace SurvivorsGame
 
         public override void _Process(double delta)
         {
-            foreach (StatusEffect status in _activeStatuses)
+            for (int i = _activeStatuses.Count - 1; i >= 0; i--)
             {
+                StatusEffect status = _activeStatuses[i];
                 if (status.Update(delta, _root))
                 {
                     RemoveStatus(status);
@@ -35,13 +37,22 @@ namespace SurvivorsGame
         public void ApplyStatus(StatusEffect status)
         {
             if (status == null || _root == null) return;
-            if (!status.IsStackable && _activeStatuses.Contains(status)) return;
+
+            if (!status.IsStackable)
+            {
+                foreach (StatusEffect active in _activeStatuses)
+                {
+                    if (!string.IsNullOrEmpty(status.ResourcePath) && active.ResourcePath == status.ResourcePath)
+                    {
+                        return;
+                    }
+                }
+            }
+
             StatusEffect instance = (StatusEffect)status.Duplicate();
             instance.Initialize();
-
             _activeStatuses.Add(instance);
             SetProcess(true);
-
             instance.OnInflict(_root);
         }
 
