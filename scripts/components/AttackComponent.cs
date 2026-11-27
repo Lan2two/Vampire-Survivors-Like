@@ -10,6 +10,8 @@ namespace SurvivorsGame
     {
         [Export] public float damage = 10f;
         [Export] public float knockback = 10f;
+        [Export] public Color hitFlash = default;
+        [Export] public float flashDuration = 0.1f;
         [Export] public float DamageInterval = .05f;
         [Export] public bool SingleHit = true;
         public bool crit;
@@ -90,7 +92,9 @@ namespace SurvivorsGame
                 Damage = damage,
                 GlobalPosition = GlobalPosition,
                 KnockbackForce = knockback,
-                Crit = crit
+                Crit = crit,
+                HitFlash = hitFlash,
+                FlashDuration = flashDuration
             };
 
             if (SingleHit)

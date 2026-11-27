@@ -47,15 +47,15 @@ namespace SurvivorsGame
             {
                 return;
             }
-            if (attackData.Damage <= 0)
-            {
-                _targetColor = Colors.LightGreen;
-                _targetDuration = healFlashDuartion;
-            }
-            else
+            if (attackData.HitFlash == default)
             {
                 _targetColor = flashColor;
                 _targetDuration = hitFlashDuration;
+            }
+            else
+            {
+                _targetColor = attackData.HitFlash;
+                _targetDuration = attackData.FlashDuration;
             }
             Sprite.Modulate = Colors.White;
             _flashTween = CreateTween();

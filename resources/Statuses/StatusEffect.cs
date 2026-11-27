@@ -1,7 +1,6 @@
 namespace SurvivorsGame
 {
     using Godot;
-    [GlobalClass]
     public partial class StatusEffect : Resource
     {
         [Export] public double Duration { get; set; } = 5f;
