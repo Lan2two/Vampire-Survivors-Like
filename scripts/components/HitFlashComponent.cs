@@ -44,9 +44,10 @@ namespace SurvivorsGame
                 return;
             }
             if (_flashTween != null)
-            {
-                return;
-            }
+                {
+                    _flashTween.Dispose();
+                    _flashTween = null;
+                }
             if (attackData.HitFlash == default)
             {
                 _targetColor = flashColor;

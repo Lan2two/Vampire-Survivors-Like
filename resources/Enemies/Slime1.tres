@@ -8,5 +8,5 @@ Health = 5.0
 Speed = 40.0
 CoinAmount = 1.0
 XpAmount = 1.0
-Modulate = Color(1, 0, 0.015686275, 1)
+Modulate = Color(1, 0, 0.9333334, 1)
 metadata/_custom_type_script = "uid://di7fvafw6ssl6"

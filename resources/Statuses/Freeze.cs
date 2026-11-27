@@ -7,11 +7,13 @@ namespace SurvivorsGame
     {
         [Export] private float damage { get; set; } = 5f;
         public override string StatusName { get; set; } = "Freeze";
+        private Color FreezeColor = Colors.Blue;
 
         private VelocityComponent velocity;
         private HealthComponent health;
         private float StoredSpeed;
         private float StoredAcceleration;
+        private Tween _flashTween;
 
         public void FreezeEnemy(Attack attack)
         {
@@ -46,6 +48,30 @@ namespace SurvivorsGame
                 FlashDuration = (float)Duration
             };
             FreezeEnemy(attack);
+            if (node is Node2D node2D)
+            {
+                if (_flashTween != null)
+                {
+                    _flashTween.Dispose();
+                    _flashTween = null;
+                }
+                _flashTween = node2D.CreateTween();
+                Color InitalModulate = node2D.Modulate;
+                _flashTween.TweenProperty(node, "modulate", FreezeColor, 0.1)
+                 .SetTrans(Tween.TransitionType.Sine)
+                 .SetEase(Tween.EaseType.InOut);
+                _flashTween.TweenProperty(node, "modulate", InitalModulate, (float)Duration)
+                    .SetTrans(Tween.TransitionType.Sine)
+                    .SetEase(Tween.EaseType.InOut);
+                _flashTween.Finished += () =>
+                {
+                    if (_flashTween != null)
+                    {
+                        _flashTween.Dispose();
+                        _flashTween = null;
+                    }
+                };
+            }
         }
 
         public override void OnExpire(Node node)

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dgb5nkbopkd8s" path="res://scripts/GUI/GameScene.cs" id="1_2rd6h"]
 [ext_resource type="Texture2D" uid="uid://cix7uidjx4tpk" path="res://assets/sprites/grass.png" id="1_mcffj"]
 [ext_resource type="PackedScene" uid="uid://ch5qbeiukyfd0" path="res://scenes/player.tscn" id="2_2rd6h"]
-[ext_resource type="PackedScene" uid="uid://b3wfrqgky1ipk" path="res://scenes/Status_Display.tscn" id="2_vjgi4"]
 [ext_resource type="PackedScene" uid="uid://x47ntiqsehf0" path="res://scenes/enemy_spawner.tscn" id="4_r7sob"]
 [ext_resource type="PackedScene" uid="uid://d1t24gaxw444e" path="res://scenes/item.tscn" id="6_vjgi4"]
 [ext_resource type="Script" uid="uid://5t4llywdgy6s" path="res://resources/EnemyRow.cs" id="6_y5y3l"]
@@ -1362,7 +1361,6 @@ _data = {
 [node name="Game" type="Node2D" unique_id=2069482560]
 y_sort_enabled = true
 script = ExtResource("1_2rd6h")
-MoratoriumScene = ExtResource("2_vjgi4")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=2069235483]
 y_sort_enabled = true
