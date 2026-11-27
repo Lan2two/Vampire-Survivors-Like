@@ -57,12 +57,11 @@ namespace SurvivorsGame
                 _targetColor = attackData.HitFlash;
                 _targetDuration = attackData.FlashDuration;
             }
-            Sprite.Modulate = Colors.White;
             _flashTween = CreateTween();
-            _flashTween.TweenProperty(Sprite, "modulate", _targetColor, _targetDuration)
+            _flashTween.TweenProperty(Sprite, "self_modulate", _targetColor, 0.1)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut);
-            _flashTween.TweenProperty(Sprite, "modulate", Colors.White, _targetDuration)
+            _flashTween.TweenProperty(Sprite, "self_modulate", Colors.White, _targetDuration)
                 .SetTrans(Tween.TransitionType.Sine)
                 .SetEase(Tween.EaseType.InOut);
 

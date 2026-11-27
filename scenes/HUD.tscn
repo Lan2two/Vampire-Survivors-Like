@@ -30,12 +30,12 @@
 [ext_resource type="Resource" uid="uid://be0heed8e2y54" path="res://resources/CompositeUpgrades/BouncyRounds.tres" id="24_ahuxd"]
 [ext_resource type="Resource" uid="uid://druojo5qxunbl" path="res://resources/CompositeUpgrades/SniperRounds.tres" id="25_mmorv"]
 [ext_resource type="Resource" uid="uid://b6uud03qfm4ro" path="res://resources/CompositeUpgrades/MachineGun.tres" id="26_7tmnl"]
-[ext_resource type="PackedScene" uid="uid://b3wfrqgky1ipk" path="res://scenes/Status_Display.tscn" id="26_ahuxd"]
 [ext_resource type="Script" uid="uid://wx2mmotn2vcr" path="res://resources/Statuses/Moratorium.cs" id="26_h5tib"]
 [ext_resource type="Script" uid="uid://4rlryks4rd2l" path="res://utils/strategy/InflictStatusStrategy.cs" id="26_qxvih"]
 [ext_resource type="Script" uid="uid://pnm0lgg85gka" path="res://utils/strategy/ShopUpgradesStrategy.cs" id="26_yy1yx"]
 [ext_resource type="Resource" uid="uid://d0r0j8cmvk6rq" path="res://resources/CompositeUpgrades/FMJ.tres" id="27_du5ok"]
 [ext_resource type="Script" uid="uid://dd4asm4opckmw" path="res://utils/strategy/SlashStrategy.cs" id="27_h5tib"]
+[ext_resource type="Script" uid="uid://dt3is5b3yowgv" path="res://resources/Statuses/Freeze.cs" id="28_ahuxd"]
 [ext_resource type="PackedScene" uid="uid://c38y1taacw6s1" path="res://scenes/upgradeButton.tscn" id="29_fuvlu"]
 [ext_resource type="Script" uid="uid://d3r254l4c6x2q" path="res://scripts/GUI/Pause.cs" id="30_7mxsn"]
 [ext_resource type="Script" uid="uid://welqlf4pw7cn" path="res://utils/strategy/ProjectileCritRateStrategy.cs" id="35_mmorv"]
@@ -82,7 +82,6 @@ metadata/_custom_type_script = "uid://c511gf8c34x2u"
 
 [sub_resource type="Resource" id="Resource_7p3oe"]
 script = ExtResource("26_h5tib")
-DisplayScene = ExtResource("26_ahuxd")
 metadata/_custom_type_script = "uid://wx2mmotn2vcr"
 
 [sub_resource type="Resource" id="Resource_du5ok"]
@@ -95,6 +94,16 @@ metadata/_custom_type_script = "uid://4rlryks4rd2l"
 [sub_resource type="Resource" id="Resource_nvp4l"]
 script = ExtResource("26_yy1yx")
 metadata/_custom_type_script = "uid://pnm0lgg85gka"
+
+[sub_resource type="Resource" id="Resource_on3ir"]
+script = ExtResource("28_ahuxd")
+metadata/_custom_type_script = "uid://dt3is5b3yowgv"
+
+[sub_resource type="Resource" id="Resource_d5rnw"]
+script = ExtResource("26_qxvih")
+status = SubResource("Resource_on3ir")
+ItemName = "Freeze"
+metadata/_custom_type_script = "uid://4rlryks4rd2l"
 
 [sub_resource type="Resource" id="Resource_3ugbd"]
 script = ExtResource("35_mmorv")
@@ -389,7 +398,7 @@ scale = Vector2(0.5, 0.5)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 script = ExtResource("4_shsct")
 CommonTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_n7bdd"), SubResource("Resource_yy1yx"), SubResource("Resource_qxvih"), SubResource("Resource_h5tib"), SubResource("Resource_ahuxd"), SubResource("Resource_mmorv"), SubResource("Resource_7tmnl")])
-RareTable = Array[ExtResource("11_pn61u")]([ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok"), SubResource("Resource_nvp4l")])
+RareTable = Array[ExtResource("11_pn61u")]([ExtResource("22_yy1yx"), ExtResource("23_h5tib"), ExtResource("24_ahuxd"), ExtResource("23_fuvlu"), SubResource("Resource_du5ok"), SubResource("Resource_nvp4l"), SubResource("Resource_d5rnw")])
 EpicTable = Array[ExtResource("11_pn61u")]([ExtResource("25_mmorv"), ExtResource("26_7tmnl"), ExtResource("27_du5ok")])
 LegendaryTable = Array[ExtResource("11_pn61u")]([SubResource("Resource_4xlrl"), SubResource("Resource_27n0u")])
 CommonWeight = 75.0

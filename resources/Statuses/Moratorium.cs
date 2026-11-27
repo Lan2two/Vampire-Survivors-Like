@@ -7,7 +7,6 @@ namespace SurvivorsGame
     public partial class Moratorium : StatusEffect
     {
         private PackedScene DisplayScene = GD.Load<PackedScene>("res://scenes/Status_Display.tscn");
-        [Export] private double duration { get; set; } = 10;
         [Export] private float moratoriumMultiplier { get; set; } = 1.5f;
         public override string StatusName { get; set; } = "Moratorium";
 
@@ -27,12 +26,8 @@ namespace SurvivorsGame
 
         public override void OnInflict(Node node)
         {
+            if (!IsInstanceValid(node)) return;
             _healthComponent = node.GetComponent<HealthComponent>();
-            if (_healthComponent == null)
-            {
-                GD.PrintErr("Moratorium couldn't find healthComponent");
-                return;
-            }
             if (DisplayScene == null)
             {
                 GD.PrintErr("Display Scene unset");
@@ -45,11 +40,15 @@ namespace SurvivorsGame
                 statusDisplay.SetUp(this, node);
             }).CallDeferred();
 
-            _healthComponent.InitalDamageEvent += StoreDamage;
+            if (_healthComponent != null)
+            {
+                _healthComponent.InitalDamageEvent += StoreDamage;
+            }
         }
 
         public override void OnExpire(Node node)
         {
+            if (!IsInstanceValid(node)) return;
             triggered = true;
             for (int i = 0; i < StoredDamage.Count; i++)
             {

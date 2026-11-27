@@ -58,6 +58,15 @@ namespace SurvivorsGame
             Velocity = Vector2.Zero;
         }
 
+        public void StopImmediately()
+        {
+            Stop();
+            if (rigidBody != null && IsInstanceValid(rigidBody))
+            {
+                rigidBody.LinearVelocity = Vector2.Zero;
+            }
+        }
+
         public void ApplyVelocityChange(Vector2 velocityChange)
         {
             if (rigidBody == null || !IsInstanceValid(rigidBody))

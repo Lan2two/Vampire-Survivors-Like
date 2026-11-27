@@ -13,6 +13,7 @@ namespace SurvivorsGame
         Shop
     }
 
+    [GlobalClass]
     public partial class Strategy : ItemData
     {
         public Strategy()
