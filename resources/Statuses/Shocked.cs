@@ -12,17 +12,21 @@ namespace SurvivorsGame
 
         private VelocityComponent velocity;
         private HealthComponent health;
-        Attack attack = new Attack()
+        private Attack attack = new Attack()
         {
             HitFlash = Colors.Yellow,
         };
-        private float StoredAcceleration;
 
         public void Shock()
         {
-            if (!IsInstanceValid(velocity) || !IsInstanceValid(health)) return;
-            velocity.StopImmediately();
-            health.TakeDamage(attack);
+            if (IsInstanceValid(velocity))
+            {
+                velocity.StopImmediately();
+            }
+            if (IsInstanceValid(health))
+            {
+                health.TakeDamage(attack);
+            }
         }
 
         public override void OnInflict(Node node)
@@ -30,14 +34,16 @@ namespace SurvivorsGame
             if (!IsInstanceValid(node)) return;
             velocity = node.GetComponent<VelocityComponent>();
             health = node.GetComponent<HealthComponent>();
+
             if (IsInstanceValid(velocity))
             {
-                StoredAcceleration = velocity.acceleration;
+                velocity.SetModifier(StatusName, speedMult: 1f, accelMult: 0.075f);
             }
-            velocity.acceleration = 3f;
+
             attack.Damage = InitialDamage;
             Shock();
         }
+
         public override void OnTick(Node target)
         {
             attack.Damage = TickDamage;
@@ -46,7 +52,10 @@ namespace SurvivorsGame
 
         public override void OnExpire(Node target)
         {
-            velocity.acceleration = StoredAcceleration;
+            if (IsInstanceValid(velocity))
+            {
+                velocity.RemoveModifier(StatusName);
+            }
         }
     }
 }

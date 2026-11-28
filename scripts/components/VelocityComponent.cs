@@ -1,6 +1,7 @@
 namespace SurvivorsGame
 {
     using Godot;
+    using System.Collections.Generic;
 
     [GlobalClass]
     public partial class VelocityComponent : Node
@@ -12,6 +13,11 @@ namespace SurvivorsGame
         [Export] private bool SpeedVariation = false;
 
         public Vector2 Velocity;
+
+        public float CurrentMaxSpeed { get; private set; }
+        public float CurrentAcceleration { get; private set; }
+
+        private readonly Dictionary<string, (float speedMult, float accelMult)> _modifiers = new();
 
         public override void _Ready()
         {
@@ -26,20 +32,51 @@ namespace SurvivorsGame
             rigidBody.LockRotation = true;
             if (SpeedVariation)
             {
-                maxSpeed += (float)GD.RandRange(-5f, 5f) * maxSpeed;
+                maxSpeed += (float)GD.RandRange(-0.05f, 0.05f) * maxSpeed;
             }
+
+            RecalculateStats();
+        }
+
+        public void SetModifier(string source, float speedMult = 1f, float accelMult = 1f)
+        {
+            _modifiers[source] = (speedMult, accelMult);
+            RecalculateStats();
+        }
+
+        public void RemoveModifier(string source)
+        {
+            if (_modifiers.Remove(source))
+            {
+                RecalculateStats();
+            }
+        }
+
+        private void RecalculateStats()
+        {
+            float totalSpeedMult = 1f;
+            float totalAccelMult = 1f;
+
+            foreach (var mod in _modifiers.Values)
+            {
+                totalSpeedMult *= mod.speedMult;
+                totalAccelMult *= mod.accelMult;
+            }
+
+            CurrentMaxSpeed = maxSpeed * totalSpeedMult;
+            CurrentAcceleration = acceleration * totalAccelMult;
         }
 
         public void AccelerateToVelocity(Vector2 velocity)
         {
-            float step = Mathf.Clamp(acceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
-            Velocity = Velocity.MoveToward(velocity, step * maxSpeed);
+            float step = Mathf.Clamp(CurrentAcceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
+            Velocity = Velocity.MoveToward(velocity, step * CurrentMaxSpeed);
         }
 
         public void AccelerateToDirection(Vector2 direction)
         {
-            float step = Mathf.Clamp(acceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
-            Velocity = Velocity.MoveToward(direction * maxSpeed, step * maxSpeed);
+            float step = Mathf.Clamp(CurrentAcceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
+            Velocity = Velocity.MoveToward(direction * CurrentMaxSpeed, step * CurrentMaxSpeed);
         }
 
         public Vector2 GetMaxVelocity()
@@ -49,8 +86,8 @@ namespace SurvivorsGame
 
         public void Decelerate()
         {
-            float step = Mathf.Clamp(acceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
-            Velocity = Velocity.MoveToward(Vector2.Zero, step * acceleration);
+            float step = Mathf.Clamp(CurrentAcceleration * (float)GetPhysicsProcessDeltaTime(), 0f, 1f);
+            Velocity = Velocity.MoveToward(Vector2.Zero, step * CurrentAcceleration);
         }
 
         public void Stop()
@@ -69,11 +106,7 @@ namespace SurvivorsGame
 
         public void ApplyVelocityChange(Vector2 velocityChange)
         {
-            if (rigidBody == null || !IsInstanceValid(rigidBody))
-            {
-                return;
-            }
-
+            if (rigidBody == null || !IsInstanceValid(rigidBody)) return;
             rigidBody.ApplyCentralImpulse(velocityChange * rigidBody.Mass);
         }
 
@@ -93,14 +126,11 @@ namespace SurvivorsGame
 
         public override void _PhysicsProcess(double delta)
         {
-            if (rigidBody == null || !IsInstanceValid(rigidBody))
-            {
-                return;
-            }
+            if (rigidBody == null || !IsInstanceValid(rigidBody)) return;
 
             if (delta > 0.0)
             {
-                float maxAcceleration = Mathf.Max(0.0f, maxSpeed * acceleration);
+                float maxAcceleration = Mathf.Max(0.0f, CurrentMaxSpeed * CurrentAcceleration);
                 Vector2 velocityError = Velocity - rigidBody.LinearVelocity;
                 Vector2 desiredAcceleration = (velocityError / (float)delta).LimitLength(maxAcceleration);
                 rigidBody.ApplyCentralForce(desiredAcceleration * rigidBody.Mass);
@@ -108,6 +138,5 @@ namespace SurvivorsGame
 
             Decelerate();
         }
-
     }
 }

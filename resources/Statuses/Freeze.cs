@@ -11,73 +11,75 @@ namespace SurvivorsGame
 
         private VelocityComponent velocity;
         private HealthComponent health;
-        private float StoredSpeed;
-        private float StoredAcceleration;
+        private Color _initialModulate;
+        private bool _isActive = false;
         private Tween _flashTween;
-
-        public void FreezeEnemy(Attack attack)
-        {
-            if (!IsInstanceValid(velocity) || !IsInstanceValid(health)) return;
-            velocity.maxSpeed = 10f;
-            velocity.acceleration = 2f;
-            velocity.StopImmediately();
-            health.TakeDamage(attack);
-        }
-
-        public void UnFreezeEnemy()
-        {
-            if (!IsInstanceValid(velocity) || !IsInstanceValid(health)) return;
-            velocity.maxSpeed = StoredSpeed;
-            velocity.acceleration = StoredAcceleration;
-        }
 
         public override void OnInflict(Node node)
         {
             if (!IsInstanceValid(node)) return;
             velocity = node.GetComponent<VelocityComponent>();
             health = node.GetComponent<HealthComponent>();
+
             if (IsInstanceValid(velocity))
             {
-                StoredSpeed = velocity.maxSpeed;
-                StoredAcceleration = velocity.acceleration;
+                velocity.SetModifier(StatusName, speedMult: 0.1f, accelMult: 0.05f);
+                velocity.StopImmediately();
             }
-            Attack attack = new Attack()
+
+            if (IsInstanceValid(health))
             {
-                Damage = damage,
-                HitFlash = Colors.Blue,
-                FlashDuration = (float)Duration
-            };
-            FreezeEnemy(attack);
+                Attack attack = new Attack()
+                {
+                    Damage = damage,
+                    HitFlash = Colors.Blue,
+                    FlashDuration = (float)Duration
+                };
+                health.TakeDamage(attack);
+            }
+
             if (node is Node2D node2D)
             {
-                if (_flashTween != null)
+                if (!_isActive)
                 {
-                    _flashTween.Dispose();
-                    _flashTween = null;
+                    _initialModulate = node2D.Modulate;
+                    _isActive = true;
                 }
+
+                if (_flashTween != null && IsInstanceValid(_flashTween))
+                {
+                    _flashTween.Kill();
+                }
+
                 _flashTween = node2D.CreateTween();
-                Color InitalModulate = node2D.Modulate;
-                _flashTween.TweenProperty(node, "modulate", FreezeColor, 0.1)
-                 .SetTrans(Tween.TransitionType.Sine)
-                 .SetEase(Tween.EaseType.InOut);
-                _flashTween.TweenProperty(node, "modulate", InitalModulate, (float)Duration)
+                _flashTween.TweenProperty(node2D, "modulate", FreezeColor, 0.1)
                     .SetTrans(Tween.TransitionType.Sine)
                     .SetEase(Tween.EaseType.InOut);
-                _flashTween.Finished += () =>
-                {
-                    if (_flashTween != null)
-                    {
-                        _flashTween.Dispose();
-                        _flashTween = null;
-                    }
-                };
+                _flashTween.TweenProperty(node2D, "modulate", _initialModulate, (float)Duration)
+                    .SetTrans(Tween.TransitionType.Sine)
+                    .SetEase(Tween.EaseType.InOut);
             }
         }
 
         public override void OnExpire(Node node)
         {
+            _isActive = false;
             if (!IsInstanceValid(node)) return;
-            UnFreezeEnemy();
+
+            if (IsInstanceValid(velocity))
+            {
+                velocity.RemoveModifier(StatusName);
+            }
+
+            if (_flashTween != null && IsInstanceValid(_flashTween))
+            {
+                _flashTween.Kill();
+            }
+
+            if (node is Node2D node2D)
+            {
+                node2D.Modulate = _initialModulate;
+            }
         }
     }
 }
